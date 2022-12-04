@@ -1,4 +1,6 @@
 # 42cursus
+- Cadet at 42seoul 🇰🇷
+- Started at Nov 7, 2022
 
 [![eunwolee's 42 stats](https://badge42.vercel.app/api/v2/clb1l2gnk00160fmlwuxxmvs4/stats?cursusId=9&coalitionId=piscine)](https://github.com/JaeSeoKim/badge42)
 
