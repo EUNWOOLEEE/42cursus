@@ -10,4 +10,4 @@
 |Subject|Circle|Score|
 |-------|:----:|:---:|
 |[Libft](https://github.com/EUNWOOLEEE/42cursus/tree/main/Libft)|0|[![eunwolee's 42 Libft Score](https://badge42.vercel.app/api/v2/clb1l2gnk00160fmlwuxxmvs4/project/2867997)](https://github.com/JaeSeoKim/badge42)|
-|ft_printf|1|[![eunwolee's 42 ft_printf Score](https://badge42.vercel.app/api/v2/clb1l2gnk00160fmlwuxxmvs4/project/2904542)](https://github.com/JaeSeoKim/badge42)|
+|[ft_printf](https://github.com/EUNWOOLEEE/42cursus/tree/main/ft_printf)|1|[![eunwolee's 42 ft_printf Score](https://badge42.vercel.app/api/v2/clb1l2gnk00160fmlwuxxmvs4/project/2904542)](https://github.com/JaeSeoKim/badge42)|
