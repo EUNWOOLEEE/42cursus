@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 14:06:11 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/12/11 15:58:05 by eunwolee         ###   ########.fr       */
+/*   Updated: 2022/12/11 18:31:52 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,10 @@ static ssize_t	get_str(char c, void *arg)
 	ssize_t	size;
 
 	if (!arg && c == 'c')
-		return (size = write(1, "\0", 1));
+		return (ft_putchar_fd('\0', 1));
 	fmt = get_format(c);
+	if (fmt == -1)
+		return (ft_putchar_fd((char)arg, 1));
 	str = get_function(fmt, arg);
 	if (!str)
 		return (-1);
@@ -75,27 +77,24 @@ int	ft_printf(const char *fmt, ...)
 	ssize_t		re;
 	va_list		ap;
 
-	idx = 0;
+	idx = -1;
 	cnt = 0;
 	va_start(ap, fmt);
-	while (fmt[idx])
+	while (fmt[++idx])
 	{
 		if (fmt[idx] != '%')
-			re = write(1, &fmt[idx], 1);
+			re = ft_putchar_fd(fmt[idx], 1);
 		else
 		{
 			idx++;
 			if (fmt[idx] == '%')
 				re = ft_putchar_fd('%', 1);
-			else if (ft_strchr("cspdiuxX", fmt[idx]))
-				re = get_str(fmt[idx], va_arg(ap, void *));
 			else
-				re = write(1, &fmt[idx], 1);
+				re = get_str(fmt[idx], va_arg(ap, void *));
 		}
 		if (re == -1)
 			return (-1);
 		cnt += re;
-		idx++;
 	}
 	return (cnt);
 }
