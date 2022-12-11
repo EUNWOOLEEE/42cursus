@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/17 12:21:51 by eunwolee          #+#    #+#              #
-#    Updated: 2022/12/10 14:29:05 by eunwolee         ###   ########.fr        #
+#    Updated: 2022/12/11 14:50:37 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ SRCS = $(SRC_DIR)/ft_strlen.c \
 	$(SRC_DIR)/ft_strlcpy.c \
 	$(SRC_DIR)/ft_strchr.c \
 	$(SRC_DIR)/ft_itoa_d.c \
-	$(SRC_DIR)/ft_itoa_u.c
+	$(SRC_DIR)/ft_itoa_u.c \
+	$(SRC_DIR)/ft_strdup.c
 
 
 OBJS = $(SRCS:%.c=%.o)

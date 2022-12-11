@@ -6,13 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 23:33:25 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/12/10 13:52:43 by eunwolee         ###   ########.fr       */
+/*   Updated: 2022/12/11 14:46:17 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
+#include <stdio.h>
 
-ssize_t	ft_print_s(void *arg)
+char	*ft_print_s(void *arg)
 {
-	return (ft_putstr_fd((char *)arg, 1));
+	return (ft_strdup((const char *)arg));
 }

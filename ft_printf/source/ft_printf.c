@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 14:06:11 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/12/10 16:42:38 by eunwolee         ###   ########.fr       */
+/*   Updated: 2022/12/11 15:58:05 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,10 @@ static int	get_format(char c)
 	return (-1);
 }
 
-static size_t	get_function(char c, void *arg)
+static char	*get_function(int fmt, void *arg)
 {
-	int	idx;
+	char	*(*func_list[9])(void *);
 
-	ssize_t (*func_list[9])(void *);
 	func_list[0] = ft_print_c;
 	func_list[1] = ft_print_s;
 	func_list[2] = ft_print_p;
@@ -42,12 +41,31 @@ static size_t	get_function(char c, void *arg)
 	func_list[5] = ft_print_u;
 	func_list[6] = ft_print_x_low;
 	func_list[7] = ft_print_x_up;
-	idx = get_format(c);
-	if (idx == 1 && !arg)
-		return (write (1, "(null)", 6));
-	if (idx >= 0 && idx <= 7)
-		return (func_list[idx](arg));
-	return (-1);
+	if (fmt == 1 && !arg)
+		return (ft_strdup("(null)"));
+	if (fmt >= 0 && fmt <= 7)
+		return (func_list[fmt](arg));
+	return (0);
+}
+
+static ssize_t	get_str(char c, void *arg)
+{
+	int		fmt;
+	char	*str;
+	ssize_t	size;
+
+	if (!arg && c == 'c')
+		return (size = write(1, "\0", 1));
+	fmt = get_format(c);
+	str = get_function(fmt, arg);
+	if (!str)
+		return (-1);
+	else
+		size = ft_putstr_fd(str, 1);
+	free (str);
+	if (size == -1)
+		return (-1);
+	return (size);
 }
 
 int	ft_printf(const char *fmt, ...)
@@ -70,7 +88,7 @@ int	ft_printf(const char *fmt, ...)
 			if (fmt[idx] == '%')
 				re = ft_putchar_fd('%', 1);
 			else if (ft_strchr("cspdiuxX", fmt[idx]))
-				re = get_function(fmt[idx], va_arg(ap, void *));
+				re = get_str(fmt[idx], va_arg(ap, void *));
 			else
 				re = write(1, &fmt[idx], 1);
 		}

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 23:33:23 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/12/10 16:41:23 by eunwolee         ###   ########.fr       */
+/*   Updated: 2022/12/11 15:44:45 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static size_t	cnt_digit(size_t num)
 	int	cnt;
 
 	cnt = 0;
+	if (!num)
+		return (1);
 	while (num)
 	{
 		cnt++;
@@ -25,18 +27,19 @@ static size_t	cnt_digit(size_t num)
 	return (cnt);
 }
 
-static char	*to_hex(size_t num)
+static char	*to_hex_p(size_t num)
 {
 	int		idx;
 	char	*str;
 
-	idx = cnt_digit(num);
-	str = (char *)malloc(sizeof(char) * (idx + 1));
+	idx = 3;
+	idx += cnt_digit(num);
+	str = (char *)malloc(sizeof(char) * (idx));
 	if (!str)
 		return (0);
-	str[idx] = '\0';
-	if (!num)
-		str[0] = '0';
+	str[0] = '0';
+	str[1] = 'x';
+	str[--idx] = '\0';
 	while (num)
 	{
 		str[--idx] = "0123456789abcdef"[num % 16];
@@ -45,36 +48,9 @@ static char	*to_hex(size_t num)
 	return (str);
 }
 
-ssize_t	ft_print_p(void *arg)
+char	*ft_print_p(void *arg)
 {
-	int		cnt;
-	char	*str;
-	size_t	num;
-	ssize_t	re;
-
 	if (!arg)
-		return (ft_putstr_fd("0x0", 1));
-	num = (size_t)arg;
-	str = to_hex(num);
-	if (!str)
-		return (-1);
-	cnt = 0;
-	re = ft_putstr_fd("0x", 1);
-	if (re == -1)
-	{
-		free(str);
-		return (-1);
-	}
-	else
-		cnt += re;
-	re = ft_putstr_fd(str, 1);
-	if (re == -1)
-	{
-		free(str);
-		return (-1);
-	}
-	else
-		cnt += re;
-	free(str);
-	return (cnt);
+		return (ft_strdup("0x0"));
+	return (to_hex_p((size_t)arg));
 }

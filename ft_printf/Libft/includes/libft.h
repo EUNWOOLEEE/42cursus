@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 18:08:22 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/12/10 14:29:17 by eunwolee         ###   ########.fr       */
+/*   Updated: 2022/12/11 14:50:05 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char	*ft_strchr(const char *s, int c);
 char	*ft_itoa_d(int n);
 char	*ft_itoa_u(unsigned int n);
+char	*ft_strdup(const char *s1);
 
 #endif
