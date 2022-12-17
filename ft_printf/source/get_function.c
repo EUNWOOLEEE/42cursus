@@ -6,13 +6,13 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 12:34:56 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/12/17 13:25:51 by eunwolee         ###   ########.fr       */
+/*   Updated: 2022/12/17 16:26:53 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-char	*(*get_function(char fmt))(void *)
+char	*(*get_function(char fmt))(va_list *)
 {
 	if(fmt == 'c')
 		return (ft_print_c);

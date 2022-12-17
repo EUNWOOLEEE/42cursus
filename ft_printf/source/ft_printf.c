@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 14:06:11 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/12/17 15:07:23 by eunwolee         ###   ########.fr       */
+/*   Updated: 2022/12/17 17:19:41 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,43 +15,27 @@
 int	ft_printf(const char *fmt, ...)
 {
 	int			idx;
-	int			tmp1;
-	size_t		tmp2;
 	size_t		cnt;
-	ssize_t		re;
+	ssize_t		res;
 	va_list		ap;
 
-	idx = -1;
+	idx = 0;
 	cnt = 0;
 	va_start(ap, fmt);
-	while (fmt[++idx])
+	while (fmt[idx])
 	{
 		if (fmt[idx] != '%')
-			re = ft_putchar_fd(fmt[idx], 1);
+			res = ft_putchar_fd(fmt[idx], 1);
 		else
 		{
 			idx++;
-			if (fmt[idx] == '%')
-				re = ft_putchar_fd('%', 1);
-			else if (fmt[idx] == 's')
-				re = get_string(fmt[idx], va_arg(ap, void *));
-			else if (fmt[idx] == 'p')
-			{
-				tmp2 = va_arg(ap, size_t);
-				re = get_string(fmt[idx], &tmp2);
-			}
-			else
-			{
-				tmp1 = va_arg(ap, int);
-				if (fmt[idx] == 'c' && !tmp1)
-					re = ft_putchar_fd('\0', 1);
-				else
-					re = get_string(fmt[idx], &tmp1);
-			}
+			res = get_string(fmt[idx], &ap);
 		}
-		if (re == -1)
+		if (res == -1)
 			return (-1);
-		cnt += re;
+		cnt += res;
+		idx++;
 	}
+	va_end (ap);
 	return (cnt);
 }
