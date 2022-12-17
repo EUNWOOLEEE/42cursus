@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 23:33:20 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/12/17 15:06:29 by eunwolee         ###   ########.fr       */
+/*   Updated: 2022/12/17 15:56:12 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,5 @@
 
 char	*ft_print_d(void *arg)
 {
-	int		tmp;
-	long	num;
-
-	tmp = *(int *)arg;
-	num = (long)tmp;
-	return (ft_itoa_d(num));
+	return (ft_itoa_d(*(int *)arg));
 }

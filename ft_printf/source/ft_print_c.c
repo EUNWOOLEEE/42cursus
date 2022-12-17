@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:04:54 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/12/17 15:06:19 by eunwolee         ###   ########.fr       */
+/*   Updated: 2022/12/17 15:54:23 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 char	*ft_print_c(void *arg)
 {
-	int		*c;
 	char	*str;
 
 	if (!arg)
@@ -22,8 +21,7 @@ char	*ft_print_c(void *arg)
 	str = (char *)malloc(sizeof(char) * 2);
 	if (!str)
 		return (0);
-	c = (int *)arg;
-	str[0] = *(char *)c;
+	str[0] = *(char *)arg;
 	str[1] = '\0';
 	return (str);
 }

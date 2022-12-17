@@ -6,13 +6,13 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:28:06 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/12/17 15:08:29 by eunwolee         ###   ########.fr       */
+/*   Updated: 2022/12/17 15:55:55 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-static int	cnt_digit(long n)
+static int	cnt_digit(int n)
 {
 	int	cnt;
 
@@ -32,12 +32,14 @@ static int	cnt_digit(long n)
 	return (cnt);
 }
 
-char	*ft_itoa_d(long num)
+char	*ft_itoa_d(int num)
 {
 	int		idx;
 	int		size;
 	char	*dest;
 
+	if (num == -2147483648)
+		return (ft_strdup("-2147483648"));
 	size = cnt_digit(num);
 	dest = (char *)malloc(sizeof(char) * (size + 1));
 	if (!dest)
