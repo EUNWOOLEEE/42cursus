@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_itoa_d.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:28:06 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/12/10 14:24:02 by eunwolee         ###   ########.fr       */
+/*   Updated: 2022/12/17 15:08:29 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,12 @@ static int	cnt_digit(long n)
 	return (cnt);
 }
 
-char	*ft_itoa_d(int n)
+char	*ft_itoa_d(long num)
 {
 	int		idx;
 	int		size;
-	long	num;
 	char	*dest;
 
-	num = (long)n;
 	size = cnt_digit(num);
 	dest = (char *)malloc(sizeof(char) * (size + 1));
 	if (!dest)

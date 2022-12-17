@@ -6,11 +6,12 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 23:33:17 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/12/10 17:04:25 by eunwolee         ###   ########.fr       */
+/*   Updated: 2022/12/17 15:07:05 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
+#include <stdio.h>
 
 static int	cnt_digit(unsigned int num)
 {
@@ -54,5 +55,12 @@ static char	*to_hex(unsigned int num)
 
 char	*ft_print_x_low(void *arg)
 {
-	return (to_hex((unsigned int)arg));
+	int				tmp;
+	unsigned int	num;
+
+
+	tmp = *(int *)arg;
+	num = (unsigned int)tmp;
+
+	return (to_hex(num));
 }

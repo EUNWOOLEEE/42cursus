@@ -6,11 +6,12 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 23:33:23 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/12/11 15:44:45 by eunwolee         ###   ########.fr       */
+/*   Updated: 2022/12/17 15:06:43 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
+#include <stdio.h>
 
 static size_t	cnt_digit(size_t num)
 {
@@ -50,7 +51,10 @@ static char	*to_hex_p(size_t num)
 
 char	*ft_print_p(void *arg)
 {
-	if (!arg)
+	size_t		num;
+
+	num = *(size_t *)arg;
+	if (!num)
 		return (ft_strdup("0x0"));
-	return (to_hex_p((size_t)arg));
+	return (to_hex_p(num));
 }

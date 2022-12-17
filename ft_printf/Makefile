@@ -6,9 +6,11 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/04 13:36:08 by eunwolee          #+#    #+#              #
-#    Updated: 2022/12/08 20:18:41 by eunwolee         ###   ########.fr        #
+#    Updated: 2022/12/17 15:07:49 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+#libft 변경해도 리링크 안되는거 수정하기
 
 NAME = libftprintf.a
 
@@ -30,10 +32,11 @@ SRCS = $(SRC_DIR)/ft_printf.c \
 	$(SRC_DIR)/ft_print_s.c \
 	$(SRC_DIR)/ft_print_p.c \
 	$(SRC_DIR)/ft_print_d.c \
-	$(SRC_DIR)/ft_print_i.c \
 	$(SRC_DIR)/ft_print_u.c \
 	$(SRC_DIR)/ft_print_x_low.c \
 	$(SRC_DIR)/ft_print_x_up.c \
+	$(SRC_DIR)/get_function.c \
+	$(SRC_DIR)/get_string.c
 
 OBJS = $(SRCS:%.c=%.o)
 

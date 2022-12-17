@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:11:23 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/12/10 17:02:30 by eunwolee         ###   ########.fr       */
+/*   Updated: 2022/12/17 15:06:58 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,11 @@
 
 char	*ft_print_u(void *arg)
 {
-	return (ft_itoa_u((unsigned int)arg));
+	int				tmp;
+	unsigned int	num;
+
+	tmp = *(int *)arg;
+	num = (unsigned int)tmp;
+
+	return (ft_itoa_u(num));
 }

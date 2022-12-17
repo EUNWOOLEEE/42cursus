@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:12:45 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/12/11 15:56:21 by eunwolee         ###   ########.fr       */
+/*   Updated: 2022/12/17 15:07:16 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,13 @@ static char	*to_hex(unsigned int num)
 
 char	*ft_print_x_up(void *arg)
 {
+	int	*tmp;
+	unsigned int	num;
 	char	*str;
 
-	str = to_hex((unsigned int)arg);
+	tmp = (int *)arg;
+	num = *(unsigned int *)tmp;
+	str = to_hex(num);
 	if (str)
 		ft_striteri(str, ft_toupper);
 	return (str);

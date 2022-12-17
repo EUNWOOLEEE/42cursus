@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_d.c                                       :+:      :+:    :+:   */
+/*   get_function.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/06 23:33:20 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/12/17 15:06:29 by eunwolee         ###   ########.fr       */
+/*   Created: 2022/12/17 12:34:56 by eunwolee          #+#    #+#             */
+/*   Updated: 2022/12/17 13:25:51 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-char	*ft_print_d(void *arg)
+char	*(*get_function(char fmt))(void *)
 {
-	int		tmp;
-	long	num;
-
-	tmp = *(int *)arg;
-	num = (long)tmp;
-	return (ft_itoa_d(num));
+	if(fmt == 'c')
+		return (ft_print_c);
+	if(fmt == 's')
+		return (ft_print_s);
+	if(fmt == 'p')
+		return (ft_print_p);
+	if(fmt == 'd' || fmt == 'i')
+		return (ft_print_d);
+	if(fmt == 'u')
+		return (ft_print_u);
+	if(fmt == 'x')
+		return (ft_print_x_low);
+	if(fmt == 'X')
+		return (ft_print_x_up);
+	return (0);
 }
