@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 15:02:11 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/12/17 17:19:36 by eunwolee         ###   ########.fr       */
+/*   Updated: 2022/12/18 15:16:00 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ ssize_t	get_string(char fmt, va_list *ap)
 	str = func(ap);
 	if (!str)
 		return (-1);
-	else if (!*str && fmt == 'c') //s는 빈문자열일때 출력안함
+	else if (!*str && fmt == 'c')
 		size = ft_putchar_fd('\0', 1);
 	else
 		size = ft_putstr_fd(str, 1);

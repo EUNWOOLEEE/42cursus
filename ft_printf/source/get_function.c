@@ -6,27 +6,27 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 12:34:56 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/12/17 16:26:53 by eunwolee         ###   ########.fr       */
+/*   Updated: 2022/12/18 15:24:21 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-char	*(*get_function(char fmt))(va_list *)
+char	*(*get_function(char fmt))(va_list *ap)
 {
-	if(fmt == 'c')
+	if (fmt == 'c')
 		return (ft_print_c);
-	if(fmt == 's')
+	if (fmt == 's')
 		return (ft_print_s);
-	if(fmt == 'p')
+	if (fmt == 'p')
 		return (ft_print_p);
-	if(fmt == 'd' || fmt == 'i')
+	if (fmt == 'd' || fmt == 'i')
 		return (ft_print_d);
-	if(fmt == 'u')
+	if (fmt == 'u')
 		return (ft_print_u);
-	if(fmt == 'x')
+	if (fmt == 'x')
 		return (ft_print_x_low);
-	if(fmt == 'X')
+	if (fmt == 'X')
 		return (ft_print_x_up);
 	return (0);
 }
