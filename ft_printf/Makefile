@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/04 13:36:08 by eunwolee          #+#    #+#              #
-#    Updated: 2022/12/19 16:11:05 by eunwolee         ###   ########.fr        #
+#    Updated: 2022/12/19 17:53:33 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,13 +38,11 @@ SRCS = $(SRC_DIR)/ft_printf.c \
 
 OBJS = $(SRCS:%.c=%.o)
 
-all: $(L_NAME) $(NAME)
-
-$(L_NAME):
-	$(MAKE) -C $(L_DIR) all
-	cp ./$(L_DIR)/$(L_NAME) $(NAME)
+all: $(NAME)
 
 $(NAME): $(OBJS)
+	$(MAKE) -C $(L_DIR) all
+	cp ./$(L_DIR)/$(L_NAME) $(NAME)
 	$(AR) $@ $^
 
 %.o: %.c
