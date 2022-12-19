@@ -6,12 +6,11 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 23:33:17 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/12/17 16:58:37 by eunwolee         ###   ########.fr       */
+/*   Updated: 2022/12/19 16:23:24 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
-#include <stdio.h>
 
 static int	cnt_digit(unsigned int num)
 {
