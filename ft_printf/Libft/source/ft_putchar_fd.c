@@ -6,15 +6,15 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 15:41:40 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/12/10 13:50:30 by eunwolee         ###   ########.fr       */
+/*   Updated: 2022/12/19 15:53:31 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-ssize_t	ft_putchar_fd(char c, int fd)
+int	ft_putchar_fd(char c, int fd)
 {
 	if (fd < 0)
 		return (-1);
-	return (write (fd, &c, 1));
+	return ((int)write (fd, &c, 1));
 }

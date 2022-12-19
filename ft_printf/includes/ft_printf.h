@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 14:53:40 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/12/17 16:36:45 by eunwolee         ###   ########.fr       */
+/*   Updated: 2022/12/19 15:50:54 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ char	*ft_print_u(va_list *ap);
 char	*ft_print_x_low(va_list *ap);
 char	*ft_print_x_up(va_list *ap);
 char	*(*get_function(char fmt))(va_list *ap);
-ssize_t	get_string(char fmt, va_list *ap);
+int		get_string(char fmt, va_list *ap);
 
 #endif

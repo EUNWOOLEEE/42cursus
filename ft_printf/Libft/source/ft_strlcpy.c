@@ -6,15 +6,15 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 16:08:41 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/12/11 14:39:13 by eunwolee         ###   ########.fr       */
+/*   Updated: 2022/12/19 15:47:17 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+int	ft_strlcpy(char *dst, const char *src, int dstsize)
 {
-	size_t	len;
+	int	len;
 
 	len = ft_strlen(src);
 	if (!dstsize)

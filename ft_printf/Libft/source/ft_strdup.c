@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:07:32 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/12/10 17:15:53 by eunwolee         ###   ########.fr       */
+/*   Updated: 2022/12/19 15:48:08 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*ft_strdup(const char *s1)
 {
-	size_t		len;
-	char		*dest;
+	int		len;
+	char	*dest;
 
 	len = ft_strlen(s1);
 	dest = (char *)malloc(sizeof(char) * (len + 1));
