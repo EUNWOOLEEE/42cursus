@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 14:06:11 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/12/18 20:35:01 by eunwolee         ###   ########.fr       */
+/*   Updated: 2022/12/21 15:51:33 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_printf(const char *fmt, ...)
 		if (fmt[idx] != '%')
 			res = ft_putchar_fd(fmt[idx], 1);
 		else
-			res = get_string(fmt[++idx], &ap);
+			res = get_string(fmt[++idx], ap);
 		if (res == -1)
 			return (-1);
 		size += res;

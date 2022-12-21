@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 23:33:17 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/12/19 16:23:24 by eunwolee         ###   ########.fr       */
+/*   Updated: 2022/12/21 15:51:24 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static char	*to_hex(unsigned int num)
 	return (str);
 }
 
-char	*ft_print_x_low(va_list *ap)
+char	*ft_print_x_low(va_list ap)
 {
-	return (to_hex(va_arg(*ap, unsigned int)));
+	return (to_hex(va_arg(ap, unsigned int)));
 }

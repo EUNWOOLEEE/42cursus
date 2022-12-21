@@ -6,16 +6,16 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 15:02:11 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/12/19 15:50:10 by eunwolee         ###   ########.fr       */
+/*   Updated: 2022/12/21 15:52:25 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-int	get_string(char fmt, va_list *ap)
+int	get_string(char fmt, va_list ap)
 {
 	char	*str;
-	char	*(*func)(va_list *);
+	char	*(*func)(va_list);
 	int		size;
 
 	if (!ft_strchr("cspdiuxX", fmt))

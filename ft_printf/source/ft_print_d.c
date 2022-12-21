@@ -6,13 +6,13 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 23:33:20 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/12/17 16:54:28 by eunwolee         ###   ########.fr       */
+/*   Updated: 2022/12/21 15:51:03 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-char	*ft_print_d(va_list *ap)
+char	*ft_print_d(va_list ap)
 {
-	return (ft_itoa_d(va_arg(*ap, int)));
+	return (ft_itoa_d(va_arg(ap, int)));
 }
