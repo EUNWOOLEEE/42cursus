@@ -6,27 +6,15 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:01:47 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/12/28 18:52:36 by eunwolee         ###   ########.fr       */
+/*   Updated: 2022/12/30 20:57:39 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void ft_strncat(char *dest, char *src, int size)
+int	ft_strlen(char *str)
 {
-	while (*dest)
-		dest++;
-	while (*src && size)
-	{
-		*dest++ = *src++;
-		size--;
-	}
-	*dest = '\0';
-}
-
-int ft_strlen(char *str)
-{
-	int len;
+	int	len;
 
 	len = 0;
 	while (str[len])
@@ -36,7 +24,7 @@ int ft_strlen(char *str)
 
 void	*ft_memmove(void *dst, void *src, size_t len)
 {
-	unsigned char		*dest;
+	unsigned char	*dest;
 	unsigned char	*source;
 
 	if (!dst && !src)
@@ -100,20 +88,4 @@ char	*ft_strjoin(char *s1, char *s2)
 		str[idx++] = *s2++;
 	str[idx] = '\0';
 	return (str);
-}
-
-size_t	ft_strlcpy(char *dst, char *src, size_t dstsize)
-{
-	size_t	len;
-
-	len = ft_strlen(src);
-	if (!dstsize)
-		return (len);
-	while (*src && dstsize > 1)
-	{
-		*dst++ = *src++;
-		dstsize--;
-	}
-	*dst = '\0';
-	return (len);
 }
