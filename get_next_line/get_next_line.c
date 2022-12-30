@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:01:43 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/12/30 22:27:36 by eunwolee         ###   ########.fr       */
+/*   Updated: 2022/12/30 22:35:19 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,12 @@ static char	*get_read_line(int fd, char *buff, char *backup)
 	return (backup);
 }
 
+static char	*get_free_line(char *backup)
+{
+	free(backup);
+	return (0);
+}
+
 char	*get_next_line(int fd)
 {
 	char		*line;
@@ -79,16 +85,14 @@ char	*get_next_line(int fd)
 	free(buff);
 	if (!line)
 	{
-		free(backup);
-		backup = 0;
+		backup = get_free_line(backup);
 		return (0);
 	}
 	backup = get_done_line(line);
 	if (!*line)
 	{
 		free(line);
-		free(backup);
-		backup = 0;
+		backup = get_free_line(backup);
 		return (0);
 	}
 	return (line);
