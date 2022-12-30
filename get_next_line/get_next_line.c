@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:01:43 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/12/30 20:51:41 by eunwolee         ###   ########.fr       */
+/*   Updated: 2022/12/30 22:10:01 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static char	*get_done_line(char *line)
 {
+	int		idx;
 	int		line_cnt;
 	int		backup_cnt;
 	char	*res;
@@ -27,7 +28,12 @@ static char	*get_done_line(char *line)
 	res = (char *)malloc(sizeof(char) * (backup_cnt + 1));
 	if (!res)
 		return (0);
-	ft_memmove(res, &line[line_cnt], ft_strlen(&line[line_cnt]));
+	idx = 0;
+	while (idx < ft_strlen(&line[line_cnt]))
+	{
+		res[idx] = line[line_cnt + idx];
+		idx++;
+	}
 	res[backup_cnt] = '\0';
 	line[line_cnt] = '\0';
 	return (res);

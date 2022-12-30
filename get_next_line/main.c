@@ -9,8 +9,6 @@ int main()
 	{
 		char *str = get_next_line(fd);
 
-		printf("p: %p\n", str);
-		
 		if(!str)
 			break;
 
