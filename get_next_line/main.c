@@ -8,10 +8,15 @@ int main()
 	while(1)
 	{
 		char *str = get_next_line(fd);
+
+		printf("p: %p\n", str);
 		
-		if(!*str)
+		if(!str)
 			break;
 
 		printf("%s\n", str);
 	}
+	return 0;
 }
+
+//yuza\ndanggo

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:01:43 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/12/28 19:20:13 by eunwolee         ###   ########.fr       */
+/*   Updated: 2022/12/30 19:20:54 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,17 @@ char *get_done_line(char *line) //개행을 기준으로 분리하는 함수
 	line_cnt = 0;
 	while (line[line_cnt] != '\n' && line[line_cnt])
 		line_cnt++;
+	if(line[line_cnt] == '\n')
+		line_cnt++;
 
 	backup_cnt = ft_strlen(&line[line_cnt]);
 
-	res = (char *)malloc(sizeof(char) * (backup_cnt + 2));
+	res = (char *)malloc(sizeof(char) * (backup_cnt + 1));
 	if(!res)
 		return (0);
 
 	ft_memmove(res, &line[line_cnt], ft_strlen(&line[line_cnt]));
-	res[backup_cnt] = '\n';
-	res[backup_cnt + 1] = '\0';
+	res[backup_cnt] = '\0';
 	line[line_cnt] = '\0';
 
 	return res;
@@ -67,7 +68,7 @@ char *get_read_line(int fd, char *buff, char *backup) //문자열 읽어오는 �
 		if(ft_strchr(buff, '\n'))
 			break;
 	}
-
+	
 	return (backup);
 }
 
@@ -87,8 +88,17 @@ char *get_next_line(int fd)
 	line = get_read_line(fd, buff, backup);
 	free(buff);
 	// buff = 0;
+
+	if(!line)
+		return (0);
 	
 	backup = get_done_line(line);
-
+	if(!*line)
+	{
+		free(line);
+		free(backup);
+		return (0);
+	}
+	
 	return line;
 }
