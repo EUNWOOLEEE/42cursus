@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:01:43 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/12/30 22:10:01 by eunwolee         ###   ########.fr       */
+/*   Updated: 2022/12/30 22:27:36 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	*get_done_line(char *line)
 	int		idx;
 	int		line_cnt;
 	int		backup_cnt;
-	char	*res;
+	char	*backup;
 
 	line_cnt = 0;
 	while (line[line_cnt] != '\n' && line[line_cnt])
@@ -25,18 +25,18 @@ static char	*get_done_line(char *line)
 	if (line[line_cnt] == '\n')
 		line_cnt++;
 	backup_cnt = ft_strlen(&line[line_cnt]);
-	res = (char *)malloc(sizeof(char) * (backup_cnt + 1));
-	if (!res)
+	backup = (char *)malloc(sizeof(char) * (backup_cnt + 1));
+	if (!backup)
 		return (0);
 	idx = 0;
 	while (idx < ft_strlen(&line[line_cnt]))
 	{
-		res[idx] = line[line_cnt + idx];
+		backup[idx] = line[line_cnt + idx];
 		idx++;
 	}
-	res[backup_cnt] = '\0';
+	backup[backup_cnt] = '\0';
 	line[line_cnt] = '\0';
-	return (res);
+	return (backup);
 }
 
 static char	*get_read_line(int fd, char *buff, char *backup)
@@ -80,6 +80,7 @@ char	*get_next_line(int fd)
 	if (!line)
 	{
 		free(backup);
+		backup = 0;
 		return (0);
 	}
 	backup = get_done_line(line);
@@ -87,6 +88,7 @@ char	*get_next_line(int fd)
 	{
 		free(line);
 		free(backup);
+		backup = 0;
 		return (0);
 	}
 	return (line);
