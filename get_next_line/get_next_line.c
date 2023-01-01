@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:01:43 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/12/30 22:35:19 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/01/01 14:12:02 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,13 @@ static char	*get_read_line(int fd, char *buff, char *backup)
 		buff[rd] = '\0';
 		if (!backup)
 			backup = ft_strdup("");
+		if (!backup)
+			return (0);
 		tmp = backup;
 		backup = ft_strjoin(tmp, buff);
 		free(tmp);
+		if (!backup)
+			return (0);
 		if (ft_strchr(buff, '\n'))
 			break ;
 	}
