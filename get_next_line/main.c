@@ -1,20 +1,33 @@
 #include <stdio.h>
 #include <fcntl.h>
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int main()
 {
-	int fd = open("./text.txt", O_RDONLY);
-	while(1)
-	{
-		char *str = get_next_line(fd);
+	int fd1 = open("./text1.txt", O_RDONLY);
+	int fd2 = open("./text2.txt", O_RDONLY);
 
-		if(!str)
-			break;
+	char *str;
 
-		printf("%s\n", str);
-	}
-	return 0;
+	str = get_next_line(fd1);
+	printf("%s\n", str);
+	str = get_next_line(fd2);
+	printf("%s\n", str);
+	str = get_next_line(fd1);
+	printf("%s\n", str);
+	str = get_next_line(fd2);
+	printf("%s\n", str);
+
+	// while(1)
+	// {
+	// 	char *str = get_next_line(fd);
+
+	// 	if(!str)
+	// 		break;
+
+	// 	printf("%s\n", str);
+	// }
+	// return 0;
 }
 
 //yuza\ndanggo
