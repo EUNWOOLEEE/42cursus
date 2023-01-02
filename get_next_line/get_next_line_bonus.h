@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:01:39 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/01/01 15:33:07 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/01/02 16:43:56 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,18 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-typedef struct b_list
+typedef struct s_list
 {
 	int				fd;
 	char			*buff;
-	struct b_list	*next;
-} list;
+	struct s_list	*next;
+}	t_list;
 
 char	*get_next_line(int fd);
 char	*ft_strchr(char *s, int c);
-char	*ft_strdup(char *s1);
+char	*ft_strdup(char *str);
 char	*ft_strjoin(char *s1, char *s2);
 int		ft_strlen(char *str);
-size_t	ft_strlcpy(char *dst, char *src, size_t dstsize);
+char	*delete_nod(t_list **head, t_list *nod);
 
 #endif

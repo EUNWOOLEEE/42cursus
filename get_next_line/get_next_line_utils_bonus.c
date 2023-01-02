@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:01:47 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/01/02 15:43:06 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/01/02 16:44:38 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,24 @@ char	*ft_strchr(char *s, int c)
 	return (0);
 }
 
-char	*ft_strdup(char *s1)
+char	*ft_strdup(char *str)
 {
+	size_t		i;
 	size_t		len;
 	char		*dest;
 
-	len = ft_strlen(s1);
+	len = ft_strlen(str);
 	dest = (char *)malloc(sizeof(char) * (len + 1));
 	if (!dest)
 		return (0);
-	ft_strlcpy(dest, s1, len + 1);
+	i = 0;
+	while (i < len)
+	{
+		dest[i] = str[i];
+		i++;
+	}
 	return (dest);
+	dest[i] = '\0';
 }
 
 char	*ft_strjoin(char *s1, char *s2)
@@ -68,18 +75,11 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (str);
 }
 
-size_t	ft_strlcpy(char *dst, char *src, size_t dstsize)
+char	*delete_nod(t_list **head, t_list *nod)
 {
-	size_t	len;
-
-	len = ft_strlen(src);
-	if (!dstsize)
-		return (len);
-	while (*src && dstsize > 1)
-	{
-		*dst++ = *src++;
-		dstsize--;
-	}
-	*dst = '\0';
-	return (len);
+	while ((*head)->next->fd != nod->fd)
+		*head = (*head)->next;
+	(*head)->next = nod->next;
+	free(nod);
+	return (0);
 }

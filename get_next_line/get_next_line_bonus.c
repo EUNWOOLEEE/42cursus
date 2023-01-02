@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:01:43 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/01/02 15:42:12 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/01/02 16:46:11 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 #include "get_next_line_bonus.h"
 
-list	*get_new_nod(char *buff, int fd)
+t_list	*get_new_nod(char *buff, int fd)
 {
-	list	*nod;
+	t_list	*nod;
 
-	nod = (list *)malloc(sizeof(list) * 1);
+	nod = (t_list *)malloc(sizeof(t_list) * 1);
 	if (!nod)
 		return (0);
 	nod->buff = buff;
@@ -27,15 +27,35 @@ list	*get_new_nod(char *buff, int fd)
 	return (nod);
 }
 
-void	delete_nod(list *backup, list *nod)
+t_list	*get_fd_nod(t_list **head, int fd)
 {
-	while (backup->next->fd != nod->fd)
-		backup = backup->next;
-	backup->next = nod->next;
-	free(nod);
+	t_list	*tmp;
+
+	tmp = *head;
+	if (!tmp)
+	{
+		tmp = get_new_nod(ft_strdup(""), fd);
+		if (!tmp)
+			return (0);
+		*head = tmp;
+	}
+	while (tmp->next)
+	{
+		if (tmp->fd == fd)
+			return (tmp);
+		tmp = tmp->next;
+	}
+	if (tmp->fd != fd)
+	{
+		tmp->next = get_new_nod(ft_strdup(""), fd);
+		if (!tmp->next)
+			return (0);
+		tmp = tmp->next;
+	}
+	return (tmp);
 }
 
-static char	*get_done_line(list *nod)
+static char	*get_done_line(t_list *nod)
 {
 	int		idx;
 	int		nod_cnt;
@@ -51,117 +71,64 @@ static char	*get_done_line(list *nod)
 	line = (char *)malloc(sizeof(char) * (line_cnt + 1));
 	if (!line)
 		return (0);
-	idx = 0;
-	while (idx < line_cnt)
-	{
+	idx = -1;
+	while (idx++ < line_cnt)
 		line[idx] = nod->buff[idx];
-		idx++;
-	}
-	idx = 0;
-	while (idx < nod_cnt)
-	{
+	idx = -1;
+	while (idx++ < nod_cnt)
 		nod->buff[idx] = nod->buff[idx + line_cnt];
-		idx++;
-	}
 	line[line_cnt] = '\0';
 	nod->buff[nod_cnt] = '\0';
 	return (line);
 }
 
-static list	*get_read_line(int fd, char *buff, list *backup)
+static int	get_read_line(int fd, char *buff, t_list *nod)
 {
 	int		rd;
 	char	*tmp;
-
-	if(!backup)
-	{
-		backup = get_new_nod(ft_strdup(""), fd);
-		if (!backup)
-			return (0);
-	}
-
-	while (backup->next)
-	{
-		if (backup->fd == fd)
-			break;
-		backup = backup->next;
-	}
-		
-	if (backup->fd != fd)
-	{
-		backup->next = get_new_nod(ft_strdup(""), fd);
-		if (!backup->next)
-			return (0);
-		backup = backup->next;
-	}
 
 	rd = 1;
 	while (rd)
 	{
 		rd = read(fd, buff, BUFFER_SIZE);
 		if (rd == -1)
-			return (0);
+			return (-1);
 		if (!rd)
 			break ;
 		buff[rd] = '\0';
-
-		tmp = backup->buff;
-
-		backup->buff = ft_strjoin(tmp, buff);
+		tmp = nod->buff;
+		nod->buff = ft_strjoin(tmp, buff);
 		free(tmp);
-		if (!backup->buff)
-			return (0);
-
+		if (!nod->buff)
+			return (-1);
 		if (ft_strchr(buff, '\n'))
-				break ;
+			break ;
 	}
-	return (backup);
+	return (0);
 }
 
 char	*get_next_line(int fd)
 {
-	list		*nod;
-	list		*backup;
-	char		*buff;
-	char 		*line;
-	static list	*head;
+	t_list			*nod;
+	char			*buff;
+	char			*line;
+	static t_list	*head;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
 	buff = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (!buff)
 		return (0);
-	nod = get_read_line(fd, buff, head);
-	if(!nod)
+	nod = get_fd_nod(&head, fd);
+	if (!nod)
 		return (0);
-	if (!head)
-		head = nod;
-	else
-	{
-		backup = head;
-		while(backup->next)
-		{
-			if(backup->fd == fd)
-				break;
-			backup = backup->next;
-		}
-		if(backup->fd == fd)
-			backup = nod;
-		else
-			backup->next = nod;
-	}
+	if (get_read_line(fd, buff, nod) == -1)
+		return (0);
 	free(buff);
 	if (!nod->buff)
-	{
-		delete_nod(head, nod);
-		return (0);
-	}
+		return (delete_nod(&head, nod));
 	line = get_done_line(nod);
 	if (!line)
-	{
-		delete_nod(head, nod);
-		return (0);
-	}
-
+		return (delete_nod(&head, nod));
 	return (line);
 }
