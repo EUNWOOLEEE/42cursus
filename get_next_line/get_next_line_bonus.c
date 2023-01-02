@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:01:43 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/01/02 16:46:11 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/01/02 17:44:28 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,14 @@ t_list	*get_new_nod(char *buff, int fd)
 {
 	t_list	*nod;
 
+	if (!buff)
+		return (0);
 	nod = (t_list *)malloc(sizeof(t_list) * 1);
 	if (!nod)
+	{
+		free(buff);
 		return (0);
+	}
 	nod->buff = buff;
 	nod->fd = fd;
 	nod->next = 0;
@@ -72,10 +77,10 @@ static char	*get_done_line(t_list *nod)
 	if (!line)
 		return (0);
 	idx = -1;
-	while (idx++ < line_cnt)
+	while (++idx < line_cnt)
 		line[idx] = nod->buff[idx];
 	idx = -1;
-	while (idx++ < nod_cnt)
+	while (++idx < nod_cnt)
 		nod->buff[idx] = nod->buff[idx + line_cnt];
 	line[line_cnt] = '\0';
 	nod->buff[nod_cnt] = '\0';
@@ -121,14 +126,22 @@ char	*get_next_line(int fd)
 		return (0);
 	nod = get_fd_nod(&head, fd);
 	if (!nod)
+	{
+		free(buff);
 		return (0);
-	if (get_read_line(fd, buff, nod) == -1)
-		return (0);
+	}
+	if (get_read_line(fd, buff, nod) == -1 || !*(nod->buff))
+	{
+		free(buff);
+		return (delete_nod(&head, nod));
+	}
 	free(buff);
 	if (!nod->buff)
 		return (delete_nod(&head, nod));
 	line = get_done_line(nod);
 	if (!line)
 		return (delete_nod(&head, nod));
+	if (!*(nod->buff))
+		delete_nod(&head, nod);
 	return (line);
 }

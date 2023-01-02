@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:01:47 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/01/02 16:44:38 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/01/02 17:09:48 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ char	*ft_strdup(char *str)
 		dest[i] = str[i];
 		i++;
 	}
-	return (dest);
 	dest[i] = '\0';
+	return (dest);
 }
 
 char	*ft_strjoin(char *s1, char *s2)
@@ -77,9 +77,17 @@ char	*ft_strjoin(char *s1, char *s2)
 
 char	*delete_nod(t_list **head, t_list *nod)
 {
+	if (*head == nod)
+	{
+		free(nod->buff);
+		free(nod);
+		*head = 0;
+		return (0);
+	}
 	while ((*head)->next->fd != nod->fd)
 		*head = (*head)->next;
 	(*head)->next = nod->next;
+	free(nod->buff);
 	free(nod);
 	return (0);
 }

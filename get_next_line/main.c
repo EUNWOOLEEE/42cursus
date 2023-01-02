@@ -10,13 +10,28 @@ int main()
 	char *str;
 
 	str = get_next_line(fd1);
-	printf("%s\n", str);
+	printf("%d, %s\n", *str, str);
+
 	str = get_next_line(fd2);
-	printf("%s\n", str);
+	printf("%d, %s\n", *str, str);
+
 	str = get_next_line(fd1);
-	printf("%s\n", str);
+	printf("%d, %s\n", *str, str);
+
 	str = get_next_line(fd2);
-	printf("%s\n", str);
+	printf("%d, %s\n", *str, str);
+
+	str = get_next_line(fd1);
+	printf("%d, %s\n", *str, str);
+
+	str = get_next_line(fd1);
+	printf("%d, %s\n", *str, str);
+
+	str = get_next_line(fd1);
+	printf("%d, %s\n", *str, str);
+
+	str = get_next_line(fd1);
+	printf("%d, %s\n", *str, str);
 
 	// while(1)
 	// {
