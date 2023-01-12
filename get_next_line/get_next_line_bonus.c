@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:01:43 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/01/12 18:47:42 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/01/12 18:56:51 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,18 +87,20 @@ static char	*get_done_line(t_list *nod)
 	return (line);
 }
 
-static int	get_read_line(int fd, char *buff, t_list *nod)
+static int	get_read_line(int fd, t_list *nod)
 {
 	int		rd;
 	char	*tmp;
+	char	*buff;
 
+	buff = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
+	if (!buff)
+		return (0);
 	rd = 1;
 	while (rd)
 	{
 		rd = read(fd, buff, BUFFER_SIZE);
-		if (rd == -1)
-			return (-1);
-		if (!rd)
+		if (rd == -1 || !rd)
 			break ;
 		buff[rd] = '\0';
 		tmp = nod->buff;
@@ -109,33 +111,23 @@ static int	get_read_line(int fd, char *buff, t_list *nod)
 		if (ft_strchr(nod->buff, '\n'))
 			break ;
 	}
-	return (0);
+	free(buff);
+	return (rd);
 }
 
 char	*get_next_line(int fd)
 {
 	t_list			*nod;
-	char			*buff;
 	char			*line;
 	static t_list	*head;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
-	buff = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
-	if (!buff)
-		return (0);
 	nod = get_fd_nod(&head, fd);
 	if (!nod)
-	{
-		free(buff);
 		return (0);
-	}
-	if (get_read_line(fd, buff, nod) == -1 || !*(nod->buff))
-	{
-		free(buff);
+	if (get_read_line(fd, nod) == -1 || !*(nod->buff))
 		return (delete_nod(&head, nod));
-	}
-	free(buff);
 	if (!nod->buff)
 		return (delete_nod(&head, nod));
 	line = get_done_line(nod);
