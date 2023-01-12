@@ -5,44 +5,38 @@
 int main()
 {
 	int fd1 = open("./text1.txt", O_RDONLY);
-	int fd2 = open("./text2.txt", O_RDONLY);
+	// int fd2 = open("./text2.txt", O_RDONLY);
 
 	char *str;
 
 	str = get_next_line(fd1);
-	printf("%d, %s\n", *str, str);
+	printf("%s\n", str);
 
-	str = get_next_line(fd2);
-	printf("%d, %s\n", *str, str);
+	close(fd1);
+	str = get_next_line(fd1);
+	printf("%s\n", str);
+	
+
+
+	fd1 = open("./text1.txt", O_RDONLY);
+	str = get_next_line(fd1);
+	printf("%s\n", str);
 
 	str = get_next_line(fd1);
-	printf("%d, %s\n", *str, str);
+	printf("%s\n", str);
 
-	str = get_next_line(fd2);
-	printf("%d, %s\n", *str, str);
 
-	str = get_next_line(fd1);
-	printf("%d, %s\n", *str, str);
 
-	str = get_next_line(fd1);
-	printf("%d, %s\n", *str, str);
 
-	str = get_next_line(fd1);
-	printf("%d, %s\n", *str, str);
+	// str = get_next_line(fd2);
+	// printf("%s\n", str);
 
-	str = get_next_line(fd1);
-	printf("%d, %s\n", *str, str);
+	// str = get_next_line(fd1);
+	// printf("%s\n", str);
 
-	// while(1)
-	// {
-	// 	char *str = get_next_line(fd);
+	// str = get_next_line(fd1);
+	// printf("%s\n", str);
 
-	// 	if(!str)
-	// 		break;
-
-	// 	printf("%s\n", str);
-	// }
-	// return 0;
+	// str = get_next_line(fd2);
+	// printf("%s\n", str);
 }
-
-//yuza\ndanggo

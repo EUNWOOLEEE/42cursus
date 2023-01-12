@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:01:43 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/01/06 23:07:51 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/01/12 18:47:42 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ static int	get_read_line(int fd, char *buff, t_list *nod)
 		free(tmp);
 		if (!nod->buff)
 			return (-1);
-		if (ft_strchr(buff, '\n'))
+		if (ft_strchr(nod->buff, '\n'))
 			break ;
 	}
 	return (0);
@@ -119,7 +119,7 @@ char	*get_next_line(int fd)
 	char			*line;
 	static t_list	*head;
 
-	if (fd < 0 || BUFFER_SIZE <= 0) //|| read(fd, 0, 0) == -1)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
 	buff = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (!buff)
@@ -145,4 +145,3 @@ char	*get_next_line(int fd)
 		delete_nod(&head, nod);
 	return (line);
 }
-
