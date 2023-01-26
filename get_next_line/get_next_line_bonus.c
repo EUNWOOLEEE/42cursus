@@ -6,15 +6,13 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:01:43 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/01/12 18:56:51 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/01/26 19:11:39 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-
 #include "get_next_line_bonus.h"
 
-t_list	*get_new_nod(char *buff, int fd)
+static t_list	*get_new_nod(char *buff, int fd)
 {
 	t_list	*nod;
 
@@ -32,7 +30,7 @@ t_list	*get_new_nod(char *buff, int fd)
 	return (nod);
 }
 
-t_list	*get_fd_nod(t_list **head, int fd)
+static t_list	*get_fd_nod(t_list **head, int fd)
 {
 	t_list	*tmp;
 
@@ -95,7 +93,7 @@ static int	get_read_line(int fd, t_list *nod)
 
 	buff = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (!buff)
-		return (0);
+		return (-1);
 	rd = 1;
 	while (rd)
 	{
@@ -107,7 +105,10 @@ static int	get_read_line(int fd, t_list *nod)
 		nod->buff = ft_strjoin(tmp, buff);
 		free(tmp);
 		if (!nod->buff)
+		{
+			free(buff);
 			return (-1);
+		}
 		if (ft_strchr(nod->buff, '\n'))
 			break ;
 	}
