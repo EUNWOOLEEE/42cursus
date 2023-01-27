@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:01:47 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/01/27 14:29:40 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/01/27 15:11:15 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ char	*ft_strchr(char *s, char c)
 	while (*s)
 	{
 		if (*s == c)
-			return ((char *)s);
+			return (s);
 		s++;
 	}
 	if (*s == c)
-		return ((char *)s);
+		return (s);
 	return (0);
 }
 
@@ -73,7 +73,7 @@ char	*delete_nod(t_list **head, t_list *nod)
 		free(nod);
 		return (0);
 	}
-	while (tmp->next->fd != nod->fd)
+	while (tmp->next != nod)
 		tmp = tmp->next;
 	tmp->next = nod->next;
 	free(nod->buff);

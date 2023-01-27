@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:01:43 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/01/27 14:30:43 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/01/27 15:11:48 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,8 +128,6 @@ char	*get_next_line(int fd)
 	if (!nod)
 		return (0);
 	if (get_read_line(fd, nod) == -1 || !*(nod->buff))
-		return (delete_nod(&head, nod));
-	if (!nod->buff)
 		return (delete_nod(&head, nod));
 	line = get_done_line(nod);
 	if (!line)
