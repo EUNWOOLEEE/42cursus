@@ -6,18 +6,21 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:01:43 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/01/26 19:11:43 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/01/27 14:30:43 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-static t_list	*get_new_nod(char *buff, int fd)
+static t_list	*get_new_nod(int fd)
 {
+	char	*buff;
 	t_list	*nod;
 
+	buff = (char *)malloc(sizeof(char) * 1);
 	if (!buff)
 		return (0);
+	buff[0] = '\0';
 	nod = (t_list *)malloc(sizeof(t_list) * 1);
 	if (!nod)
 	{
@@ -37,7 +40,7 @@ static t_list	*get_fd_nod(t_list **head, int fd)
 	tmp = *head;
 	if (!tmp)
 	{
-		tmp = get_new_nod(ft_strdup(""), fd);
+		tmp = get_new_nod(fd);
 		if (!tmp)
 			return (0);
 		*head = tmp;
@@ -50,7 +53,7 @@ static t_list	*get_fd_nod(t_list **head, int fd)
 	}
 	if (tmp->fd != fd)
 	{
-		tmp->next = get_new_nod(ft_strdup(""), fd);
+		tmp->next = get_new_nod(fd);
 		if (!tmp->next)
 			return (0);
 		tmp = tmp->next;
@@ -88,7 +91,6 @@ static char	*get_done_line(t_list *nod)
 static int	get_read_line(int fd, t_list *nod)
 {
 	int		rd;
-	char	*tmp;
 	char	*buff;
 
 	buff = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
@@ -101,9 +103,7 @@ static int	get_read_line(int fd, t_list *nod)
 		if (rd == -1 || !rd)
 			break ;
 		buff[rd] = '\0';
-		tmp = nod->buff;
-		nod->buff = ft_strjoin(tmp, buff);
-		free(tmp);
+		nod->buff = ft_strjoin(nod->buff, buff);
 		if (!nod->buff)
 		{
 			free(buff);

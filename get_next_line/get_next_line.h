@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:01:39 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/01/26 19:05:10 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/01/27 14:31:08 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ typedef struct s_list
 }	t_list;
 
 char	*get_next_line(int fd);
-char	*ft_strchr(char *s, int c);
-char	*ft_strdup(char *str);
+char	*ft_strchr(char *s, char c);
 char	*ft_strjoin(char *s1, char *s2);
 int		ft_strlen(char *str);
 char	*delete_nod(t_list **head, t_list *nod);
