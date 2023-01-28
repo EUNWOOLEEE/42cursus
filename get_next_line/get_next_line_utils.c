@@ -6,11 +6,11 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:01:47 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/01/27 15:11:52 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/01/28 12:38:15 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 int	ft_strlen(char *str)
 {
