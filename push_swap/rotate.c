@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 22:12:17 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/02/20 23:51:59 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/02/21 22:11:55 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,36 @@
 
 //스택의 첫번째 원소는 맨 마지막 원소가 됨
 
-void ra(int *a, int *b, int *a_idx, int *b_idx, int size) //a의 원소를 한 칸씩 위로 옮김
+void ra(t_struct *a, t_struct *b, int size) //a의 원소를 한 칸씩 위로 옮김
 {
-	a_idx[0] = (a_idx[0] + 1) % size;
-	a_idx[1] = (a_idx[1] + 1) % size;
+	int tmp;
+
+	tmp = a->arr[a->front];
+	a->arr[a->front] = 0;
+	a->front = (a->front + 1) % size;
+	a->rear = (a->rear + 1) % size;
+	a->arr[a->rear] = tmp;
 }
 
-void rb(int *a, int *b, int *a_idx, int *b_idx, int size) //b의 원소를 한 칸씩 위로 옮김
+void rb(t_struct *a, t_struct *b, int size) //b의 원소를 한 칸씩 위로 옮김
 {
-	b_idx[0] = (b_idx[0] + 1) % size;
-	b_idx[1] = (b_idx[1] + 1) % size;
+	int tmp;
+
+	tmp = b->arr[b->front];
+	b->arr[a->front] = 0;
+	b->front = (b->front + 1) % size;
+	b->rear = (b->rear + 1) % size;
+	b->arr[b->rear] = tmp;
+	
+	// int tmp;
+
+	// tmp = b->front;
+	// b->front = (b->front + 1) % size;
+	// b->rear = tmp;
 }
 
-void rr(int *a, int *b, int *a_idx, int *b_idx, int size) //ra와 rb를 동시에 수행
+void rr(t_struct *a, t_struct *b, int size) //ra와 rb를 동시에 수행
 {
-	ra(a, b, a_idx, b_idx, size);
-	rb(a, b, a_idx, b_idx, size);
+	ra(a, b, size);
+	rb(a, b, size);
 }

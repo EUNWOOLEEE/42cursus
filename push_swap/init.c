@@ -6,24 +6,26 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 21:59:09 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/02/20 22:01:20 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/02/21 19:33:52 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <stdlib.h>
 
-int init_stack(int **a, int **b, char **argv)
+int init_stack(t_struct *a, t_struct *b, char **argv)
 {
 	int size;
-	
+	int *arr;
+
 	size = check_valid(argv);
 	if(size <= 0)
 		return (error_out());
-	*a = (int *)ft_calloc(size, sizeof(int));
-	*b = (int *)ft_calloc(size, sizeof(int));
-	if(!*a || !*b)
+	a->arr = (int *)ft_calloc(size, sizeof(int));
+	b->arr = (int *)ft_calloc(size, sizeof(int));
+	if(!a->arr || !b->arr)
 		return (-1);
-	parsing(*a, argv);
+	parsing(a, argv);
 	return (size);
 }
 
@@ -58,7 +60,7 @@ int check_valid(char **argv)
 	return num;
 }
 
-void parsing(int *a, char **argv)
+void parsing(t_struct *a, char **argv)
 {
 	int idx;
 	int sign;
@@ -80,8 +82,8 @@ void parsing(int *a, char **argv)
 				j++;
 			}
 			while(ft_isdigit(argv[i][j])) //공백도 아니고 널도 아니어야 함
-				a[idx] = a[idx] * 10 + (argv[i][j++] - '0');
-			a[idx++] *= sign;
+				a->arr[idx] = a->arr[idx] * 10 + (argv[i][j++] - '0');
+			a->arr[idx++] *= sign;
 			if(argv[i][j] == ' ')
 				j++;
 		}

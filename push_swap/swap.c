@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 22:12:12 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/02/20 23:57:38 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/02/21 22:30:22 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,32 @@
 
 //비어있거나 원소가 1개만 있을 때는 아무 동작도 하지 않음
 
-void sa(int *a, int *b, int *a_idx, int *b_idx, int size) //a의 top에 위치한 두 개의 원소의 순서를 맞바꿈
+void sa(t_struct *a, t_struct *b, int size) //a의 top에 위치한 두 개의 원소의 순서를 맞바꿈
 {
 	int tmp;
 
-	if(count_num(a_idx[0], a_idx[1]) <= 1)
+	if(count_num(a->front, a->rear) < 1)
 		return ;
 
-	tmp = a[a_idx[0]];
-	a[a_idx[0]] = a[a_idx[0] + 1];
-	a[a_idx[0] + 1] = tmp;
+	tmp = a->arr[a->front];
+	a->arr[a->front] = a->arr[(a->front + 1) % size];
+	a->arr[(a->front + 1) % size] = tmp;
 }
 
-void sb(int *a, int *b, int *a_idx, int *b_idx, int size) //b의 top에 위치한 두 개의 원소의 순서를 맞바꿈
+void sb(t_struct *a, t_struct *b, int size) //b의 top에 위치한 두 개의 원소의 순서를 맞바꿈
 {
 	int tmp;
 
-	if(count_num(b_idx[0], b_idx[1]) <= 1)
+	if(count_num(b->front, b->rear) < 1)
 		return ;
 
-	tmp = b[a_idx[0]];
-	b[b_idx[0]] = b[b_idx[0] + 1];
-	b[b_idx[0] + 1] = tmp;
+	tmp = b->arr[b->front];
+	b->arr[b->front] = b->arr[(b->front + 1) % size];
+	b->arr[(b->front + 1) % size] = tmp;
 }
 
-void ss(int *a, int *b, int *a_idx, int *b_idx, int size) //sa와 sb를 동시에 수행
+void ss(t_struct *a, t_struct *b, int size) //sa와 sb를 동시에 수행
 {
-	sa(a, b, a_idx, b_idx, size);
-	sb(a, b, a_idx, b_idx, size);
+	sa(a, b, size);
+	sb(a, b, size);
 }

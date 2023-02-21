@@ -6,25 +6,25 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:09:29 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/02/21 00:08:52 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/02/21 19:55:48 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+//front가 top
+
 int main(int argc, char **argv)
 {
-	int *a;
-	int *b;
-	int *a_idx;
-	int *b_idx;
+	t_struct *a;
+	t_struct *b;
 
-	a_idx = (int *)ft_calloc(2, sizeof(int)); //[0]=front, [1]=rear
-	b_idx = (int *)ft_calloc(2, sizeof(int));
-	if (!a_idx || !b_idx)
+	a = (t_struct *)malloc(sizeof(t_struct) * 1);
+	b = (t_struct *)malloc(sizeof(t_struct) * 1);
+	if(!a || !b)
 		return (error_out());
-	a_idx[1] = init_stack(&a, &b, argv);
-	if(a_idx[1] == -1)
+	a->rear = init_stack(a, b, argv);
+	if(a->rear == -1)
 		return (error_out());
-	sorting(a, b, a_idx, b_idx);
+	sorting(a, b);
 }

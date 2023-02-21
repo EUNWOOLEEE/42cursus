@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:09:10 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/02/21 00:05:19 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/02/21 19:35:53 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,30 @@
 # include <stdlib.h>
 # include "./Libft/libft.h"
 
+typedef struct s_struct
+{
+	int *arr;
+	int front;
+	int rear;
+} t_struct;
+
 int count_num(int front, int rear);
-int check_sort(int *a, int *a_idx, int size);
+int check_sort(t_struct *a, int size);
 int error_out(); //free 넣어야됨
 int check_valid(char **argv);
-int init_stack(int **a, int **b, char **argv);
-void parsing(int *a, char **argv);
-void sorting(int *a, int *b, int *a_idx, int *b_idx);
-void sa(int *a, int *b, int *a_idx, int *b_idx, int size);
-void sb(int *a, int *b, int *a_idx, int *b_idx, int size);
-void ss(int *a, int *b, int *a_idx, int *b_idx, int size);
-void pa(int *a, int *b, int *a_idx, int *b_idx, int size);
-void pb(int *a, int *b, int *a_idx, int *b_idx, int size);
-void ra(int *a, int *b, int *a_idx, int *b_idx, int size);
-void rb(int *a, int *b, int *a_idx, int *b_idx, int size);
-void rr(int *a, int *b, int *a_idx, int *b_idx, int size);
-void rra(int *a, int *b, int *a_idx, int *b_idx, int size);
-void rrb(int *a, int *b, int *a_idx, int *b_idx, int size);
-void rrr(int *a, int *b, int *a_idx, int *b_idx, int size);
+int init_stack(t_struct *a, t_struct *b, char **argv);
+void parsing(t_struct *a, char **argv);
+void sorting(t_struct *a, t_struct *b);
+void sa(t_struct *a, t_struct *b, int size);
+void sb(t_struct *a, t_struct *b, int size);
+void ss(t_struct *a, t_struct *b, int size);
+void pa(t_struct *a, t_struct *b, int size);
+void pb(t_struct *a, t_struct *b, int size);
+void ra(t_struct *a, t_struct *b, int size);
+void rb(t_struct *a, t_struct *b, int size);
+void rr(t_struct *a, t_struct *b, int size);
+void rra(t_struct *a, t_struct *b, int size);
+void rrb(t_struct *a, t_struct *b, int size);
+void rrr(t_struct *a, t_struct *b, int size);
 
 #endif

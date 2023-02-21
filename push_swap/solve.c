@@ -6,40 +6,52 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 21:59:12 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/02/21 00:27:12 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/02/21 22:28:47 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void test(int *a, int *b, int *a_idx, int *b_idx, int size)
+void test_print(t_struct *a, t_struct *b, int size)
 {
-	// sa(a, b, a_idx, b_idx, size);
-	// sb(a, b, a_idx, b_idx, size);
-	// ss(a, b, a_idx, b_idx, size);
-	// pa(a, b, a_idx, b_idx, size);
-	// pb(a, b, a_idx, b_idx, size);
-	// ra(a, b, a_idx, b_idx, size);
-	// rb(a, b, a_idx, b_idx, size);
-	// rr(a, b, a_idx, b_idx, size);
-	// rra(a, b, a_idx, b_idx, size);
-	// rrb(a, b, a_idx, b_idx, size);
-	// rrr(a, b, a_idx, b_idx, size);
-
-	for(int i = a_idx[0], j = b_idx[0], cnt = size; cnt ; cnt--)
-		printf("%d  %d\n", a[i++ % size], b[j++ % size]);
-	
-	printf("\ncheck_sort: %d\n", check_sort(a, a_idx, size));
+	printf("a %d %d\n", a->front, a->rear);
+	printf("b %d %d\n", b->front, b->rear);
+	for(int cnt = size, i = a->front, j = b->front; cnt; cnt--)
+		printf("%d  %d\n", a->arr[i++ % size], b->arr[j++ % size]);
+	printf("\n");
 }
 
-void sorting(int *a, int *b, int *a_idx, int *b_idx)
+void test(t_struct *a, t_struct *b, int size)
+{
+	test_print(a, b, size);
+	// sa(a, b, size);
+	// sb(a, b, size);
+	// ss(a, b, size);
+	// pa(a, b, size);
+	pb(a, b, size);
+	pb(a, b, size);
+	pb(a, b, size);
+	test_print(a, b, size);
+	// ra(a, b, size);
+	// rb(a, b, size);
+	// rr(a, b, size);
+	// rra(a, b, size);
+	// rrb(a, b, size);
+	// rrr(a, b, size);
+	// test_print(a, b, size);
+	ss(a, b, size);
+	test_print(a, b, size);
+}
+
+void sorting(t_struct *a, t_struct *b)
 {
 	int size;
 
-	size = a_idx[1];
-	a_idx[1] -= 1;
+	size = a->rear;
+	a->rear -= 1;
+	b->rear = -1;
 
-	test(a, b, a_idx, b_idx, size);
+	test(a, b, size);
 
 	// if(check_sort(a, a_idx, size));
 }

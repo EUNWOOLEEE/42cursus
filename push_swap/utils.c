@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 23:13:37 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/02/21 00:07:10 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/02/21 21:46:49 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,29 @@ int count_num(int front, int rear)
 {
 	int n;
 
+	if(rear == -1)
+		return (0);
+
 	n = front - rear;
 	if(n < 0)
 		n *= -1;
 	return (n);
 }
 
-int check_sort(int *a, int *a_idx, int size)
+int check_sort(t_struct *a, int size)
 {
 	int front;
 	int num;
 	int pre;
 
-	front = a_idx[0];
+	front = a->front;
 	num = size;
-	pre = a[front++ % size];
+	pre = a->arr[front++ % size];
 	while (--num)
 	{
-		if(pre > a[front % size])
+		if(pre > a->arr[front % size])
 			return (-1);
-		pre = a[front++ % size];
+		pre = a->arr[front++ % size];
 	}
 	return (0);
 }
