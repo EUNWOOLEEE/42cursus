@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 22:12:12 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/02/21 22:30:22 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/02/23 18:02:52 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void sa(t_struct *a, t_struct *b, int size) //a의 top에 위치한 두 개의 �
 {
 	int tmp;
 
-	if(count_num(a->front, a->rear) < 1)
+	if(a->in - a->out <= 1)
 		return ;
 
 	tmp = a->arr[a->front];
@@ -30,7 +30,7 @@ void sb(t_struct *a, t_struct *b, int size) //b의 top에 위치한 두 개의 �
 {
 	int tmp;
 
-	if(count_num(b->front, b->rear) < 1)
+	if(b->in - b->out <= 1)
 		return ;
 
 	tmp = b->arr[b->front];

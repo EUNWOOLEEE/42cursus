@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 22:12:17 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/02/21 22:11:55 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/02/23 15:13:27 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,10 @@ void rb(t_struct *a, t_struct *b, int size) //b의 원소를 한 칸씩 위로 �
 	int tmp;
 
 	tmp = b->arr[b->front];
-	b->arr[a->front] = 0;
+	b->arr[b->front] = 0;
 	b->front = (b->front + 1) % size;
 	b->rear = (b->rear + 1) % size;
 	b->arr[b->rear] = tmp;
-	
-	// int tmp;
-
-	// tmp = b->front;
-	// b->front = (b->front + 1) % size;
-	// b->rear = tmp;
 }
 
 void rr(t_struct *a, t_struct *b, int size) //ra와 rb를 동시에 수행

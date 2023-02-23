@@ -6,24 +6,11 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 23:13:37 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/02/21 21:46:49 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/02/23 18:00:14 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-int count_num(int front, int rear)
-{
-	int n;
-
-	if(rear == -1)
-		return (0);
-
-	n = front - rear;
-	if(n < 0)
-		n *= -1;
-	return (n);
-}
 
 int check_sort(t_struct *a, int size)
 {

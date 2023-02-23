@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 21:59:09 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/02/21 19:33:52 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/02/23 14:43:25 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int init_stack(t_struct *a, t_struct *b, char **argv)
 
 	size = check_valid(argv);
 	if(size <= 0)
-		return (error_out());
+		return (-1);
 	a->arr = (int *)ft_calloc(size, sizeof(int));
 	b->arr = (int *)ft_calloc(size, sizeof(int));
 	if(!a->arr || !b->arr)
