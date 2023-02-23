@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 21:59:09 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/02/23 14:43:25 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/02/23 18:41:48 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int init_stack(t_struct *a, t_struct *b, char **argv)
 	if(!a->arr || !b->arr)
 		return (-1);
 	parsing(a, argv);
+	a->rear = size - 1;
+	a->in = size;
 	return (size);
 }
 

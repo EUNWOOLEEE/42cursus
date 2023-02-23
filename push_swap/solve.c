@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 21:59:12 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/02/23 18:05:53 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/02/23 18:58:11 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,7 @@ void test(t_struct *a, t_struct *b, int size)
 	// sb(a, b, size);
 	// ss(a, b, size);
 	// pa(a, b, size);
-	pb(a, b, size);
-	pb(a, b, size);
-	pb(a, b, size);
-	pb(a, b, size);
-	pb(a, b, size);
-	test_print(a, b, size);
-
-	pa(a, b, size);
-	pa(a, b, size);
-	pa(a, b, size);
-	test_print(a, b, size);
-
-	rr(a, b, size);
-	rr(a, b, size);
-	test_print(a, b, size);
-
+	// pb(a, b, size);
 	// rb(a, b, size);
 	// rr(a, b, size);
 	// rra(a, b, size);
@@ -52,14 +37,9 @@ void test(t_struct *a, t_struct *b, int size)
 	// test_print(a, b, size);
 }
 
-void sorting(t_struct *a, t_struct *b)
+void sorting(t_struct *a, t_struct *b, int size)
 {
-	int size;
-
-	size = a->rear;
-	a->in = size;
-	a->rear -= 1;
-	b->rear = -1;
+	// b->rear = -1; 필요한가?
 
 	test(a, b, size);
 
