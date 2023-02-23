@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 22:12:17 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/02/23 15:13:27 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/02/23 18:09:50 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void ra(t_struct *a, t_struct *b, int size) //a의 원소를 한 칸씩 위로 �
 	a->front = (a->front + 1) % size;
 	a->rear = (a->rear + 1) % size;
 	a->arr[a->rear] = tmp;
+	write(1, "ra\n", 3);
 }
 
 void rb(t_struct *a, t_struct *b, int size) //b의 원소를 한 칸씩 위로 옮김
@@ -34,6 +35,7 @@ void rb(t_struct *a, t_struct *b, int size) //b의 원소를 한 칸씩 위로 �
 	b->front = (b->front + 1) % size;
 	b->rear = (b->rear + 1) % size;
 	b->arr[b->rear] = tmp;
+	write(1, "rb\n", 3);
 }
 
 void rr(t_struct *a, t_struct *b, int size) //ra와 rb를 동시에 수행

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 22:12:12 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/02/23 18:02:52 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/02/23 18:09:01 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void sa(t_struct *a, t_struct *b, int size) //a의 top에 위치한 두 개의 �
 	tmp = a->arr[a->front];
 	a->arr[a->front] = a->arr[(a->front + 1) % size];
 	a->arr[(a->front + 1) % size] = tmp;
+	write(1, "sa\n", 3);
 }
 
 void sb(t_struct *a, t_struct *b, int size) //b의 top에 위치한 두 개의 원소의 순서를 맞바꿈
@@ -36,6 +37,7 @@ void sb(t_struct *a, t_struct *b, int size) //b의 top에 위치한 두 개의 �
 	tmp = b->arr[b->front];
 	b->arr[b->front] = b->arr[(b->front + 1) % size];
 	b->arr[(b->front + 1) % size] = tmp;
+	write(1, "sb\n", 3);
 }
 
 void ss(t_struct *a, t_struct *b, int size) //sa와 sb를 동시에 수행

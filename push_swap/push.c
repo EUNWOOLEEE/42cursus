@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 22:12:09 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/02/23 18:03:19 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/02/23 18:08:17 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void pa(t_struct *a, t_struct *b, int size) //b의 top에 위치한 원소 한 �
 	b->front = (b->front + 1) % size;
 	b->out++;
 	a->in++;
+	write(1, "pa\n", 3);
 }
 
 void pb(t_struct *a, t_struct *b, int size) //a의 top에 위치한 원소 한 개를 b의 top으로 옮김
@@ -48,4 +49,5 @@ void pb(t_struct *a, t_struct *b, int size) //a의 top에 위치한 원소 한 �
 	a->front = (a->front + 1) % size;
 	a->out++;
 	b->in++;
+	write(1, "pb\n", 3);
 }
