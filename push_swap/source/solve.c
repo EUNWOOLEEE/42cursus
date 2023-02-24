@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 21:59:12 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/02/24 19:48:06 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/02/24 21:08:00 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,22 +92,22 @@ void conquer(t_struct *a, t_struct *b, int size)
 	first = a->arr[a->front];
 	second = a->arr[(a->front + 1) % size];
 	last = a->arr[a->rear];
-	if (second < first && first < last)
-		sa(a, size);
-	if (first > second && first > last)
+	if (first > second && first > last) //3 1 2, 3 2 1
 		ra(a, size);
-	if (last < first)
+	else if (second > first && second > last) //1 3 2, 2 3 1
 		rra(a, size);
+	else if (last > first && last > second && first > second) //2 1 3
+		sa(a, size);
 
 	first = b->arr[b->front];
 	second = b->arr[(b->front + 1) % size];
 	last = b->arr[b->rear];
-	if (second > first && first > last)
-		sb(b, size);
 	if (first < second && first < last)
 		rb(b, size);
-	if (last > first)
+	else if (second < first && second < last)
 		rrb(b, size);
+	else if (last < first && last < second && first < second)
+		sb(b, size);
 } 
 
 void combine_a(t_struct *a, t_struct *b, int size) //a로 합치기
@@ -156,13 +156,20 @@ void sorting(t_struct *a, t_struct *b, int size)
 {
 	// test(a, b, size);
 	// test_print(a, b, size);
+
 	int cnt;
 
-	if(size <= 5)
+	cnt = 2;
+	if(size == 3)
+		while (cnt--)
+			conquer(a, b, size);
+	else if(size <= 5)
 		while (check_sort_a(a, size))
 		{
+			cnt = 2;
 			devide_a(a, b, size);
-			conquer(a, b, size);
+			while (cnt--)
+				conquer(a, b, size);
 			combine_a(a, b, size);
 		}
 	else
@@ -171,13 +178,14 @@ void sorting(t_struct *a, t_struct *b, int size)
 			cnt = 2;
 			devide_a(a, b, size);
 			while (cnt--)
-				conquer(a, b, size); //3개만 비교하는 거니까 다 두번만에 정렬되긴 하는데, 내 코드에서도 되는지 확인해보기
+				conquer(a, b, size);
 			combine_b(a, b, size);
-			
+
 			cnt = 2;
 			devide_b(a, b, size);
 			while (cnt--)
 				conquer(a, b, size);
 			combine_a(a, b, size);
 		}
+	// test_print(a, b, size);
 }
