@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 21:59:12 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/02/24 14:48:42 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/02/24 16:21:56 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void devide(t_struct *a, t_struct *b, int size)
 	}
 }
 
-void conquer(t_struct *a, int size)
+void conquer(t_struct *a, t_struct *b, int size)
 {
 	int first;
 	int second;
@@ -68,8 +68,16 @@ void conquer(t_struct *a, int size)
 	last = a->arr[a->rear];
 	if (second < first && second < last)
 		sa(a, size);
-	else if (last < first && last < second)
+	else if (last < first)
 		rra(a, size);
+
+	first = b->arr[b->front];
+	second = b->arr[(b->front + 1) % size];
+	last = b->arr[b->rear];
+	if (second > first && second > last)
+		sb(b, size);
+	else if (last > first)
+		rrb(b, size);
 } 
 
 void combine(t_struct *a, t_struct *b, int size)
@@ -100,6 +108,11 @@ void combine(t_struct *a, t_struct *b, int size)
 	}
 }
 
+// void optimization(t_struct *a, t_struct *b, int size)
+// {
+	
+// }
+
 void sorting(t_struct *a, t_struct *b, int size)
 {
 	// test(a, b, size);
@@ -108,7 +121,7 @@ void sorting(t_struct *a, t_struct *b, int size)
 	while (check_sort_a(a, size))
 	{
 		devide(a, b, size);
-		conquer(a, size);
+		conquer(a, b, size);
 		combine(a, b, size);
 	}
 	// test_print(a, b, size);

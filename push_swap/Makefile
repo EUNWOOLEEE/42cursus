@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/24 14:21:45 by eunwolee          #+#    #+#              #
-#    Updated: 2023/02/24 15:16:45 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/02/24 15:49:25 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,10 +35,10 @@ SRCS = $(SRC_DIR)/push_swap.c \
 
 all: $(NAME)
 
-$(NAME):
+$(NAME): $(SRCS)
 	$(MAKE) -C $(L_DIR) all
 	cp ./$(L_DIR)/$(L_NAME) $(L_NAME)
-	$(CC) $(CFLAGS) $(SRCS) $(L_NAME) -I $(INCS_DIR) -o $(NAME)
+	$(CC) $(CFLAGS) $^ $(L_NAME) -I $(INCS_DIR) -o $(NAME)
 
 clean:
 	$(MAKE) -C $(L_DIR) fclean
