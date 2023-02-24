@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:09:10 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/02/23 18:38:44 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/02/24 00:01:33 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ typedef struct s_struct
 } t_struct;
 
 int count_num(int in, int out);
-int check_sort(t_struct *a, int size);
+int check_sort_a(t_struct *a, int size);
+int check_sort_b(t_struct *b, int size);
 int error_out(); //free 넣어야됨
 int check_valid(char **argv);
 int init_stack(t_struct *a, t_struct *b, char **argv);

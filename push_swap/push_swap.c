@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:09:29 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/02/23 18:41:37 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/02/24 00:03:15 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ int main(int argc, char **argv)
 	b = (t_struct *)malloc(sizeof(t_struct) * 1);
 	if(!a || !b)
 		return (error_out());
-	init_stack(a, b, argv);
-	if(a->rear == -1)
+	if(init_stack(a, b, argv) == -1)
 		return (error_out());
 	sorting(a, b, a->in);
 }

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 23:13:37 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/02/23 18:27:37 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/02/24 00:12:39 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int count_num(int in, int out)
 	return (in - out);
 }
 
-int check_sort(t_struct *a, int size)
+int check_sort_a(t_struct *a, int size) //a가 오름차순으로 정렬 돼있는지 확인
 {
 	int front;
 	int num;
@@ -31,6 +31,26 @@ int check_sort(t_struct *a, int size)
 		if(pre > a->arr[front % size])
 			return (-1);
 		pre = a->arr[front++ % size];
+	}
+	return (0);
+}
+
+int check_sort_b(t_struct *b, int size) //b가 내림차순으로 정렬 돼있는지 확인
+{
+	int front;
+	int num;
+	int pre;
+
+	front = b->front;
+	num = b->in - b->out;
+	pre = b->arr[front++ % size];
+	if (!num) // b가 비어있을 때
+		return (0);
+	while (--num)
+	{
+		if(pre < b->arr[front % size])
+			return (-1);
+		pre = b->arr[front++ % size];
 	}
 	return (0);
 }
