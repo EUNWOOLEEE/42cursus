@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/23 14:59:21 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/11/26 17:07:14 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/02/18 14:09:29 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/02/24 14:44:38 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
-t_list	*ft_lstlast(t_list *lst)
+//front가 top
+
+int main(int argc, char **argv)
 {
-	if (!lst)
-		return (0);
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
+	t_struct *a;
+	t_struct *b;
+
+	(void)argc;
+	a = (t_struct *)malloc(sizeof(t_struct) * 1);
+	b = (t_struct *)malloc(sizeof(t_struct) * 1);
+	if(!a || !b)
+		return (error_out());
+	if(init_stack(a, b, argv) == -1)
+		return (error_out());
+	sorting(a, b, a->in);
 }

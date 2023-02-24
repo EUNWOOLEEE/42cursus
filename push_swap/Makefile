@@ -5,58 +5,51 @@
 #                                                     +:+ +:+         +:+      #
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/11/17 12:21:51 by eunwolee          #+#    #+#              #
-#    Updated: 2023/02/24 15:12:38 by eunwolee         ###   ########.fr        #
+#    Created: 2023/02/24 14:21:45 by eunwolee          #+#    #+#              #
+#    Updated: 2023/02/24 15:16:45 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft.a
+NAME = push_swap
+
+L_DIR = Libft
+L_NAME = libft.a
+
+INCS_DIR = includes
+SRC_DIR = source
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-AR = ar rcs
+
 RM = rm -f
+MAKE = make
 
-SRCS = ft_isdigit.c \
-	ft_memcmp.c \
-	ft_memset.c \
-	ft_memcpy.c \
-	ft_memmove.c \
-	ft_calloc.c \
-	ft_bzero.c \
-	ft_strlen.c \
-	ft_strlcpy.c \
-	ft_strlcat.c \
-	ft_strchr.c \
-	ft_strrchr.c \
-	ft_strdup.c \
-	ft_strncmp.c \
-	ft_atoi.c \
-	ft_substr.c \
-	ft_strjoin.c \
-	ft_strtrim.c \
-	ft_split.c \
-	ft_itoa.c \
-	ft_putchar_fd.c \
-	ft_putstr_fd.c
-
-
-OBJS = $(SRCS:%.c=%.o)
+SRCS = $(SRC_DIR)/push_swap.c \
+	$(SRC_DIR)/init.c \
+	$(SRC_DIR)/utils.c \
+	$(SRC_DIR)/solve.c \
+	$(SRC_DIR)/push.c \
+	$(SRC_DIR)/swap.c \
+	$(SRC_DIR)/rotate.c \
+	$(SRC_DIR)/r_rotate.c
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(AR) $@ $^
-
-%.o: %.c
-	$(CC) $(CFLAGS) -c $^ -I .
+$(NAME):
+	$(MAKE) -C $(L_DIR) all
+	cp ./$(L_DIR)/$(L_NAME) $(L_NAME)
+	$(CC) $(CFLAGS) $(SRCS) $(L_NAME) -I $(INCS_DIR) -o $(NAME)
 
 clean:
-	$(RM) $(OBJS)
+	$(MAKE) -C $(L_DIR) fclean
+	$(RM) $(L_NAME)
 
-fclean: clean
+fclean:
+	$(MAKE) clean
 	$(RM) $(NAME)
 
-re: fclean all
+re:
+	$(MAKE) fclean
+	$(MAKE) all
 
-.PHONY: all bonus clean fclean re
+.PHONY: all clean fclean re

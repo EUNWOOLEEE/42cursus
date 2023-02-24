@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 22:12:17 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/02/23 18:09:50 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/02/24 14:47:17 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //스택의 첫번째 원소는 맨 마지막 원소가 됨
 
-void ra(t_struct *a, t_struct *b, int size) //a의 원소를 한 칸씩 위로 옮김
+void ra(t_struct *a, int size) //a의 원소를 한 칸씩 위로 옮김
 {
 	int tmp;
 
@@ -26,7 +26,7 @@ void ra(t_struct *a, t_struct *b, int size) //a의 원소를 한 칸씩 위로 �
 	write(1, "ra\n", 3);
 }
 
-void rb(t_struct *a, t_struct *b, int size) //b의 원소를 한 칸씩 위로 옮김
+void rb(t_struct *b, int size) //b의 원소를 한 칸씩 위로 옮김
 {
 	int tmp;
 
@@ -40,6 +40,6 @@ void rb(t_struct *a, t_struct *b, int size) //b의 원소를 한 칸씩 위로 �
 
 void rr(t_struct *a, t_struct *b, int size) //ra와 rb를 동시에 수행
 {
-	ra(a, b, size);
-	rb(a, b, size);
+	ra(a, size);
+	rb(b, size);
 }

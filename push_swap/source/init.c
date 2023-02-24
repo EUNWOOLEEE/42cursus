@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 21:59:09 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/02/23 18:41:48 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/02/24 14:44:52 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 int init_stack(t_struct *a, t_struct *b, char **argv)
 {
 	int size;
-	int *arr;
 
 	size = check_valid(argv);
 	if(size <= 0)
