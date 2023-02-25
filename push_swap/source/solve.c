@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 21:59:12 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/02/24 21:08:00 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/02/25 17:58:36 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void conquer(t_struct *a, t_struct *b, int size)
 	int second;
 	int last;
 
+	//3개 조건을 주지 않아도 되는 이유. 조건을 걸면 안되는게 맞음. 왜 조건 없이도 되는지 테스트해서 정리하기
 	first = a->arr[a->front];
 	second = a->arr[(a->front + 1) % size];
 	last = a->arr[a->rear];
@@ -108,47 +109,29 @@ void conquer(t_struct *a, t_struct *b, int size)
 		rrb(b, size);
 	else if (last < first && last < second && first < second)
 		sb(b, size);
-} 
+}
 
 void combine_a(t_struct *a, t_struct *b, int size) //a로 합치기
 {
 	int cnt;
-	int a_first;
-	int a_last;
-	int b_first;
 
 	cnt = b->in - b->out;
 	while (cnt--)
 	{
-		a_first = a->arr[a->front];
-		a_last = a->arr[a->rear];
-		b_first = b->arr[b->front];
 		pa(a, b, size);
-		if (a_first < b_first && b_first < a_last)
-			sa(a, size);
-		else if(b_first > a_last)
-			ra(a, size);
+		conquer(a, b, size);
 	}
 }
 
 void combine_b(t_struct *a, t_struct *b, int size) //b로 합치기
 {
 	int cnt;
-	int b_first;
-	int b_last;
-	int a_first;
 
 	cnt = a->in - a->out;
 	while (cnt--)
 	{
-		b_first = b->arr[b->front];
-		b_last = b->arr[b->rear];
-		a_first = a->arr[a->front];
 		pb(a, b, size);
-		if (b_first > a_first && a_first > b_last)
-			sb(a, size);
-		else if (a_first < b_last)
-			rb(a, size);
+		conquer(a, b, size);
 	}
 }
 
@@ -187,5 +170,5 @@ void sorting(t_struct *a, t_struct *b, int size)
 				conquer(a, b, size);
 			combine_a(a, b, size);
 		}
-	// test_print(a, b, size);
+	test_print(a, b, size);
 }
