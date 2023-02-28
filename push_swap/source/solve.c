@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 21:59:12 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/02/25 17:58:36 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/02/25 19:04:39 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,7 @@ void test_print(t_struct *a, t_struct *b, int size)
 	printf("\n");
 }
 
-void test(t_struct *a, t_struct *b, int size)
-{
-	test_print(a, b, size);
-	// sa(a, b, size);
-	// sb(a, b, size);
-	// ss(a, b, size);
-	// pa(a, b, size);
-	// pb(a, b, size);
-	// rb(a, b, size);
-	// rr(a, b, size);
-	// rra(a, b, size);
-	// rrb(a, b, size);
-	// rrr(a, b, size);
-	// test_print(a, b, size);
-}
-
-void devide_a(t_struct *a, t_struct *b, int size) //a를 반으로 나누기
+void devide_small(t_struct *a, t_struct *b, int size) //5개 이하
 {
 	int cnt;
 	int num;
@@ -60,30 +44,7 @@ void devide_a(t_struct *a, t_struct *b, int size) //a를 반으로 나누기
 	}
 }
 
-void devide_b(t_struct *a, t_struct *b, int size) //b를 반으로 나누기
-{
-	int cnt;
-	int num;
-
-	num = size / 2;
-	while (!check_sort_a(a, size)) //정렬 돼있으면 b 반 더 나누기
-	{
-		cnt = num;
-		num /= 2;
-		if(!cnt) //다 넘겼는데 a가 정렬 돼있으면
-			break;
-		while (cnt--)
-		{
-			if(b->arr[b->rear] > b->arr[b->front] && b->arr[b->rear] > b->arr[(b->front + 1) % size])
-				rrb(b, size);
-			else if(b->arr[(b->front + 1) % size] > b->arr[b->front])
-				sb(b, size);
-			pa(a, b, size);
-		}
-	}
-}
-
-void conquer(t_struct *a, t_struct *b, int size)
+void conquer_small(t_struct *a, t_struct *b, int size)
 {
 	int first;
 	int second;
@@ -111,7 +72,7 @@ void conquer(t_struct *a, t_struct *b, int size)
 		sb(b, size);
 }
 
-void combine_a(t_struct *a, t_struct *b, int size) //a로 합치기
+void combine_small(t_struct *a, t_struct *b, int size) //5개 이하
 {
 	int cnt;
 
@@ -123,52 +84,28 @@ void combine_a(t_struct *a, t_struct *b, int size) //a로 합치기
 	}
 }
 
-void combine_b(t_struct *a, t_struct *b, int size) //b로 합치기
-{
-	int cnt;
-
-	cnt = a->in - a->out;
-	while (cnt--)
-	{
-		pb(a, b, size);
-		conquer(a, b, size);
-	}
-}
-
 void sorting(t_struct *a, t_struct *b, int size)
 {
-	// test(a, b, size);
 	// test_print(a, b, size);
 
 	int cnt;
 
 	cnt = 2;
-	if(size == 3)
+	if(size <= 3)
 		while (cnt--)
-			conquer(a, b, size);
+			conquer_small(a, b, size);
 	else if(size <= 5)
 		while (check_sort_a(a, size))
 		{
 			cnt = 2;
-			devide_a(a, b, size);
+			devide_small(a, b, size);
 			while (cnt--)
-				conquer(a, b, size);
-			combine_a(a, b, size);
+				conquer_small(a, b, size);
+			combine_small(a, b, size);
 		}
 	else
 		while (check_sort_a(a, size))
 		{
-			cnt = 2;
-			devide_a(a, b, size);
-			while (cnt--)
-				conquer(a, b, size);
-			combine_b(a, b, size);
-
-			cnt = 2;
-			devide_b(a, b, size);
-			while (cnt--)
-				conquer(a, b, size);
-			combine_a(a, b, size);
 		}
-	test_print(a, b, size);
+	// test_print(a, b, size);
 }
