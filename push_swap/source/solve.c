@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 21:59:12 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/02/25 17:58:36 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/02/28 20:16:41 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,5 +170,5 @@ void sorting(t_struct *a, t_struct *b, int size)
 				conquer(a, b, size);
 			combine_a(a, b, size);
 		}
-	test_print(a, b, size);
+	// test_print(a, b, size);
 }
