@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:09:10 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/02/24 14:48:11 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/01 00:26:51 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,9 @@ void rr(t_struct *a, t_struct *b, int size);
 void rra(t_struct *a, int size);
 void rrb(t_struct *b, int size);
 void rrr(t_struct *a, t_struct *b, int size);
+
+void devide_small(t_struct *a, t_struct *b, int size);
+void conquer_small(t_struct *a, t_struct *b, int size);
+void combine_small(t_struct *a, t_struct *b, int size);
 
 #endif

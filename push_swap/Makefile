@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/24 14:21:45 by eunwolee          #+#    #+#              #
-#    Updated: 2023/02/24 15:49:25 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/03/01 00:27:44 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ SRCS = $(SRC_DIR)/push_swap.c \
 	$(SRC_DIR)/push.c \
 	$(SRC_DIR)/swap.c \
 	$(SRC_DIR)/rotate.c \
-	$(SRC_DIR)/r_rotate.c
+	$(SRC_DIR)/r_rotate.c \
+	$(SRC_DIR)/under_five.c
 
 all: $(NAME)
 
