@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 21:59:12 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/01 17:13:21 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/01 20:44:11 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,40 +101,29 @@ int get_optimum_idx(t_struct *a, int size, int num)
 
 void go_to_a(t_struct *a, t_struct *b, int size, int *cmd)
 {
-	while (cmd[0] && cmd[2])
-	{
-		rr(a, b, size);
-		cmd[0]--;
-		cmd[2]--;
-	}
+	// b에서 제일 큰 수를 찾아서 넘기니까 ra,rra 쓸 일이 없음. 활용방법 생각해보기
+	// while (cmd[0] && cmd[2])
+	// {
+	// 	rr(a, b, size);
+	// 	cmd[0]--;
+	// 	cmd[2]--;
+	// }
 
-	while (cmd[1] && cmd[3])
-	{
-		rrr(a, b, size);
-		cmd[1]--;
-		cmd[3]--;
-	}
+	// while (cmd[1] && cmd[3])
+	// {
+	// 	rrr(a, b, size);
+	// 	cmd[1]--;
+	// 	cmd[3]--;
+	// }
 
-	while (cmd[0])
-	{
+	while (cmd[0]--)
 		ra(a, size);
-		cmd[0]--;
-	}
-	while (cmd[1])
-	{
+	while (cmd[1]--)
 		rra(a, size);
-		cmd[1]--;
-	}
-	while (cmd[2])
-	{
+	while (cmd[2]--)
 		rb(b, size);
-		cmd[2]--;
-	}
-	while (cmd[3])
-	{
+	while (cmd[3]--)
 		rrb(b, size);
-		cmd[3]--;
-	}
 	pa(a, b, size);
 }
 
@@ -144,19 +133,16 @@ void get_cmd_cnt(t_struct *a, t_struct *b, int size, int idx_a, int idx_b)
 
 	ft_memset(cmd, 0, sizeof(int) * 4); //0-ra, 1-rra, 2-rb, 3-rrb
 
-	//pa 하기 전에 a는 b가 와야 할 위치로, b는 이동할 숫자를 top으로 옮기기 위해 회전시켜야 함. 가장 적은 횟수 찾기(r 할지 rr할지, ra와 rb가 겹치면 rr로 처리하기 등)
-	if (a->in - a->out > 1)
-	{
-		if (abs(idx_a - a->front) <= abs(idx_a - a->rear))
-			cmd[0] = abs(idx_a - a->front);
-		else
-			cmd[1] = abs(idx_a - a->rear) + 1;
-	}
+	if (abs(idx_a - a->front) <= abs(idx_a - a->rear))
+		cmd[0] = abs(idx_a - a->front);
+	else
+		cmd[1] = abs(idx_a - a->rear) + 1;
 
 	if (abs(idx_b - b->front) <= abs(idx_b - b->rear))
 		cmd[2] = abs(idx_b - b->front);
 	else
 		cmd[3] = abs(idx_b - b->rear) + 1;
+
 	go_to_a(a, b, size, cmd);
 }
 
