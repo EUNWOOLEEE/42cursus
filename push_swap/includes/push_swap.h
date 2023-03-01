@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:09:10 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/01 00:26:51 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/01 15:14:34 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_struct
 } t_struct;
 
 int count_num(int in, int out);
+int abs(int num);
 int check_sort_a(t_struct *a, int size);
 int check_sort_b(t_struct *b, int size);
 int error_out(); //free 넣어야됨

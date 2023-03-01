@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 23:13:37 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/02/24 19:29:32 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/01 15:14:22 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 int count_num(int in, int out)
 {
 	return (in - out);
+}
+
+int abs(int num)
+{
+	if (num < 0)
+		return (-num);
+	return (num);
 }
 
 int check_sort_a(t_struct *a, int size) //a가 오름차순으로 정렬 돼있는지 확인
