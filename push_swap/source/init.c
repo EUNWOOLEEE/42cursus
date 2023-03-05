@@ -6,12 +6,11 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 21:59:09 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/02/24 14:44:52 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/06 02:49:49 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdlib.h>
 
 int init_stack(t_struct *a, t_struct *b, char **argv)
 {
@@ -25,9 +24,31 @@ int init_stack(t_struct *a, t_struct *b, char **argv)
 	if(!a->arr || !b->arr)
 		return (-1);
 	parsing(a, argv);
+	if (check_overlap(a, size) == -1)
+		return (-1);
 	a->rear = size - 1;
 	a->in = size;
 	return (size);
+}
+
+int check_overlap(t_struct *a, int size)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < size)
+	{
+		j = i + 1;
+		while (j < size)
+		{
+			if(a->arr[i] == a->arr[j])
+				return -1;
+			j++;
+		}
+		i++;
+	}
+	return 0;
 }
 
 int check_valid(char **argv)

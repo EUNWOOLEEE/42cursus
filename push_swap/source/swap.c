@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 22:12:12 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/02/24 14:46:17 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/05 14:56:52 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,20 @@ void sb(t_struct *b, int size) //b의 top에 위치한 두 개의 원소의 순�
 
 void ss(t_struct *a, t_struct *b, int size) //sa와 sb를 동시에 수행
 {
-	sa(a, size);
-	sb(b, size);
+	int tmp;
+
+	if(count_num(a->in, a->out) > 1)
+	{
+		tmp = a->arr[a->front];
+		a->arr[a->front] = a->arr[(a->front + 1) % size];
+		a->arr[(a->front + 1) % size] = tmp;
+	}
+
+	if(count_num(b->in, b->out) > 1)
+	{
+		tmp = b->arr[b->front];
+		b->arr[b->front] = b->arr[(b->front + 1) % size];
+		b->arr[(b->front + 1) % size] = tmp;
+	}
+	write(1, "ss\n", 3);
 }
