@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:09:10 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/06 02:53:00 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/06 19:27:54 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <stdlib.h>
 # include "../Libft/libft.h"
 
-//현재 스택의 min값이랑 해당 주소를 계속 구하지 말고 구조체에 넣어서 업데이트하게 할까?
 typedef struct s_struct
 {
 	int *arr;
@@ -28,11 +27,12 @@ typedef struct s_struct
 	int rear;
 	int in;
 	int out;
+	int min;
+	int min_idx;
 } t_struct;
 
 typedef struct s_num
 {
-	int min;
 	int one_third;
 	int two_third;
 } t_num;
@@ -47,16 +47,44 @@ typedef struct s_cmd
 	int idx_b;
 } t_cmd;
 
-int count_num(int in, int out);
+//삭제하기!!!!!!!!!!!!!!!!!!
+void test_print(t_struct *a, t_struct *b, int size);
+
+//다른 파일에서 쓰이지 않는 함수들 static으로 만들기
+//utils
 int abs(int num);
+int free_n_print_out(int flag, void *a, void *b);
 int check_sort_a(t_struct *a, int size);
 int check_sort_b(t_struct *b, int size);
-int error_out(); //free 넣어야됨
-int check_valid(char **argv);
-int check_overlap(t_struct *a, int size);
+
+//init
 int init_stack(t_struct *a, t_struct *b, char **argv);
-void parsing(t_struct *a, char **argv);
-void sorting(t_struct *a, t_struct *b, int size);
+int check_valid(char **argv);
+int check_overlap(int *a, int cnt, int num);
+int parsing(t_struct *a, char **argv);
+
+//solve
+void get_min_num(t_struct *a, int size);
+int greedy(t_struct *a, t_struct *b, t_cmd *cmd, int size);
+int sorting(t_struct *a, t_struct *b, int size);
+
+//under_five
+void under_five(t_struct *a, t_struct *b, int size);
+void devide_small(t_struct *a, t_struct *b, int size);
+void conquer_small(t_struct *a, t_struct *b, int size);
+void combine_small(t_struct *a, t_struct *b, int size);
+
+//a_to_b
+void sort_arr(int *arr, int size);
+t_num *get_min_and_fivot_num(t_struct *a, int size);
+int move_to_b(t_struct *a, t_struct *b, int size);
+
+//b_to_a
+void get_opt_idx_in_a(t_struct *a, t_struct *b, int size, t_cmd *tmp);
+void max_in_less_than_num(t_struct *a, t_struct *b, int size, t_cmd *tmp);
+int get_cmd_cnt(t_struct *a, t_struct *b, t_cmd *cmd);
+int find_opt_num_in_b(t_struct *a, t_struct *b, int size, t_cmd *cmd);
+void go_to_a(t_struct *a, t_struct *b, int size, t_cmd *cmd);
 
 //cmd
 void sa(t_struct *a, int size);
@@ -70,10 +98,5 @@ void rr(t_struct *a, t_struct *b, int size);
 void rra(t_struct *a, int size);
 void rrb(t_struct *b, int size);
 void rrr(t_struct *a, t_struct *b, int size);
-
-//case_under_five
-void devide_small(t_struct *a, t_struct *b, int size);
-void conquer_small(t_struct *a, t_struct *b, int size);
-void combine_small(t_struct *a, t_struct *b, int size);
 
 #endif

@@ -6,11 +6,30 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 00:25:19 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/01 00:26:57 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/06 19:12:27 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
+
+void under_five(t_struct *a, t_struct *b, int size)
+{
+	int cnt;
+
+	cnt = 2;
+	if(size <= 3)
+		while (cnt--)
+			conquer_small(a, b, size);
+	else if(size <= 5)
+		while (check_sort_a(a, size))
+		{
+			cnt = 2;
+			devide_small(a, b, size);
+			while (cnt--)
+				conquer_small(a, b, size);
+			combine_small(a, b, size);
+		}
+}
 
 void devide_small(t_struct *a, t_struct *b, int size)
 {

@@ -6,18 +6,20 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 17:50:40 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/02/18 19:00:54 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/06 16:30:51 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_atoi(const char	*str)
+#include "libft.h"
+
+long long	ft_atoi(const char	*str)
 {
-	int	res;
-	int	sign;
+	long long	res;
+	long long	sign;
 
 	res = 0;
 	sign = 1;
-	while ((*str >= 9 && *str <= 13) || *str == 32)
+	while (*str == ' ')
 		str++;
 	if (*str == '+' || *str == '-')
 	{
@@ -25,7 +27,7 @@ int	ft_atoi(const char	*str)
 			sign *= -1;
 		str++;
 	}
-	while (*str >= '0' && *str <= '9')
+	while (ft_isdigit(*str))
 		res = (res * 10) + (*str++ - '0');
 	return (res * sign);
 }

@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/17 12:21:51 by eunwolee          #+#    #+#              #
-#    Updated: 2023/02/24 15:12:38 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/03/06 16:30:21 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,13 +17,13 @@ CFLAGS = -Wall -Wextra -Werror
 AR = ar rcs
 RM = rm -f
 
-SRCS = ft_isdigit.c \
+SRCS = ft_cnt_digit.c \
+	ft_isdigit.c \
 	ft_memcmp.c \
 	ft_memset.c \
 	ft_memcpy.c \
 	ft_memmove.c \
 	ft_calloc.c \
-	ft_bzero.c \
 	ft_strlen.c \
 	ft_strlcpy.c \
 	ft_strlcat.c \
@@ -34,9 +34,7 @@ SRCS = ft_isdigit.c \
 	ft_atoi.c \
 	ft_substr.c \
 	ft_strjoin.c \
-	ft_strtrim.c \
 	ft_split.c \
-	ft_itoa.c \
 	ft_putchar_fd.c \
 	ft_putstr_fd.c
 

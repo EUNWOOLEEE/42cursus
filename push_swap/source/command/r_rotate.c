@@ -6,11 +6,11 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 22:12:14 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/05 14:56:00 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/06 18:58:54 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../../includes/push_swap.h"
 
 //스택의 마지막 원소는 맨 첫 번째 원소가 됨
 
