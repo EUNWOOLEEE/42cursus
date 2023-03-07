@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 21:59:09 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/07 17:22:39 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/07 17:34:14 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	init_stack(t_stack *a, t_stack *b, char **argv)
 	if (parsing(a, argv) == -1)
 		return (free_n_print_out(3, a->arr, b->arr));
 	a->rear = size - 1;
+	b->rear = size - 1; //pb하면 front를 -1하고 값이 들어가는데, front == rear == 0이면 rear에 값이 없게되니까 마지막 인덱스로 초기화
 	a->in = size;
 	a->min = INT_MAX;
 	return (size);
