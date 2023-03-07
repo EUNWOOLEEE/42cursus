@@ -6,13 +6,13 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 21:59:09 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/06 18:57:49 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/06 22:29:45 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-int init_stack(t_struct *a, t_struct *b, char **argv)
+int init_stack(t_stack *a, t_stack *b, char **argv)
 {
 	int size;
 
@@ -75,7 +75,7 @@ int check_overlap(int *a, int cnt, int num)
 	return 0;
 }
 
-int parsing(t_struct *a, char **argv)
+int parsing(t_stack *a, char **argv)
 {
 	int i;
 	int j;

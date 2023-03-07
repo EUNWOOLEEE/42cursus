@@ -6,14 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 23:13:37 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/06 18:58:11 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/06 22:38:11 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
 //삭제하기!!!!!!!!!!!
-void test_print(t_struct *a, t_struct *b, int size)
+void test_print(t_stack *a, t_stack *b, int size)
 {
 	printf("a f: %d r: %d\n", a->front, a->rear);
 	printf("b f: %d r: %d\n", b->front, b->rear);
@@ -29,24 +29,24 @@ int abs(int num)
 	return (num);
 }
 
-//1-free(both), print / 2-only free(one) / 3- only free(both) / 4-only print
+// 1-both_free, print(0) / 2-first_free(0) / 3-both_free(-1) / 4-both_free(0) / 5-print(-1)
 int free_n_print_out(int flag, void *a, void *b)
 {
-	if (flag == 1 || flag == 3)
+	if (flag == 1 || flag == 3 || flag == 4)
 	{
 		free(a);
 		free(b);
 	}
 	if (flag == 2)
 		free(a);
-	if (flag == 1 || flag == 4)
+	if (flag == 1 || flag == 5)
 		ft_putstr_fd("Error\n", 1);
-	if (flag == 3 || flag == 4)
+	if (flag == 3 || flag == 5)
 		return (-1);
 	return (0);
 }
 
-int check_sort_a(t_struct *a, int size) //a가 오름차순으로 정렬 돼있는지 확인
+int check_sort_a(t_stack *a, int size) //a가 오름차순으로 정렬 돼있는지 확인
 {
 	int front;
 	int num;
@@ -64,7 +64,7 @@ int check_sort_a(t_struct *a, int size) //a가 오름차순으로 정렬 돼있�
 	return (0);
 }
 
-int check_sort_b(t_struct *b, int size) //b가 내림차순으로 정렬 돼있는지 확인
+int check_sort_b(t_stack *b, int size) //b가 내림차순으로 정렬 돼있는지 확인
 {
 	int front;
 	int num;

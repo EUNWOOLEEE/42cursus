@@ -6,13 +6,13 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 21:59:12 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/06 19:10:43 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/06 21:51:58 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-void get_min_num(t_struct *a, int size)
+void get_min_num(t_stack *a, int size)
 {
 	int idx;
 	int cnt;
@@ -31,7 +31,7 @@ void get_min_num(t_struct *a, int size)
 	}
 }
 
-int greedy(t_struct *a, t_struct *b, t_cmd *cmd, int size)
+int greedy(t_stack *a, t_stack *b, t_cmd *cmd, int size)
 {
 	int cnt;
 	
@@ -57,7 +57,7 @@ int greedy(t_struct *a, t_struct *b, t_cmd *cmd, int size)
 	return (free_n_print_out(2, cmd, 0));
 }
 
-int sorting(t_struct *a, t_struct *b, int size)
+int sorting(t_stack *a, t_stack *b, int size)
 {
 	// test_print(a, b, size);
 	t_cmd *cmd;

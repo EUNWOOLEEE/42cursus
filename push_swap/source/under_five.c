@@ -6,13 +6,13 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 00:25:19 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/06 19:12:27 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/06 21:37:49 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-void under_five(t_struct *a, t_struct *b, int size)
+void under_five(t_stack *a, t_stack *b, int size)
 {
 	int cnt;
 
@@ -31,7 +31,7 @@ void under_five(t_struct *a, t_struct *b, int size)
 		}
 }
 
-void devide_small(t_struct *a, t_struct *b, int size)
+void devide_small(t_stack *a, t_stack *b, int size)
 {
 	int cnt;
 	int num;
@@ -54,7 +54,7 @@ void devide_small(t_struct *a, t_struct *b, int size)
 	}
 }
 
-void conquer_small(t_struct *a, t_struct *b, int size)
+void conquer_small(t_stack *a, t_stack *b, int size)
 {
 	int first;
 	int second;
@@ -82,7 +82,7 @@ void conquer_small(t_struct *a, t_struct *b, int size)
 		sb(b, size);
 }
 
-void combine_small(t_struct *a, t_struct *b, int size)
+void combine_small(t_stack *a, t_stack *b, int size)
 {
 	int cnt;
 

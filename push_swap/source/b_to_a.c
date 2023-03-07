@@ -6,14 +6,13 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 18:56:19 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/06 19:27:51 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/06 21:37:11 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-//이 함수 조건이 이상한 것 같음. 다시 생각해보기
-void get_opt_idx_in_a(t_struct *a, t_struct *b, int size, t_cmd *tmp)
+void get_opt_idx_in_a(t_stack *a, t_stack *b, int size, t_cmd *tmp)
 {
 	int num;
 
@@ -38,7 +37,7 @@ void get_opt_idx_in_a(t_struct *a, t_struct *b, int size, t_cmd *tmp)
 
 }
 
-void max_in_less_than_num(t_struct *a, t_struct *b, int size, t_cmd *tmp)
+void max_in_less_than_num(t_stack *a, t_stack *b, int size, t_cmd *tmp)
 {
 	int idx;
 	int cnt;
@@ -62,7 +61,7 @@ void max_in_less_than_num(t_struct *a, t_struct *b, int size, t_cmd *tmp)
 		tmp->idx_a = (opt_idx + 1) % size;
 }
 
-int get_cmd_cnt(t_struct *a, t_struct *b, t_cmd *cmd)
+int get_cmd_cnt(t_stack *a, t_stack *b, t_cmd *cmd)
 {
 	if (abs(cmd->idx_a - a->front) <= abs(cmd->idx_a - a->rear))
 		cmd->ra = abs(cmd->idx_a - a->front);
@@ -76,7 +75,7 @@ int get_cmd_cnt(t_struct *a, t_struct *b, t_cmd *cmd)
 	return (abs(cmd->ra - cmd->rb) + abs(cmd->rra - cmd->rrb));
 }
 
-int find_opt_num_in_b(t_struct *a, t_struct *b, int size, t_cmd *cmd)
+int find_opt_num_in_b(t_stack *a, t_stack *b, int size, t_cmd *cmd)
 {
 	int cnt;
 	int idx;
@@ -106,7 +105,7 @@ int find_opt_num_in_b(t_struct *a, t_struct *b, int size, t_cmd *cmd)
 	return (free_n_print_out(2, tmp, 0));
 }
 
-void go_to_a(t_struct *a, t_struct *b, int size, t_cmd *cmd)
+void go_to_a(t_stack *a, t_stack *b, int size, t_cmd *cmd)
 {
 	while (cmd->ra && cmd->rb)
 	{
