@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:03:27 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/06 22:58:16 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/07 15:03:42 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ t_fivot *get_min_and_fivot_num(t_stack *a, int size)
 		free (arr);
 		return (0);
 	}
-	fivot->one_third = arr[size / 3 - 1];
-	fivot->two_third = arr[size / 3 * 2 - 1];
+	fivot->one_third = arr[size / 3];
+	fivot->two_third = arr[size / 3 * 2];
 	free(arr);
 	return fivot;
 }
@@ -70,10 +70,12 @@ int move_to_b(t_stack *a, t_stack *b, int size)
 	get_min_num(a, size);
 	while (cnt--)
 	{
-		if (a->arr[a->front] <= fivot->two_third)
+		if (a->arr[a->front] < fivot->two_third)
+		{
 			pb(a, b, size);
-		if (b->arr[b->front] <= fivot->one_third)
-			rb(b, size);
+			if (b->arr[b->front] < fivot->one_third)
+				rb(b, size);
+		}
 		else
 			ra(a, size);
 	}
