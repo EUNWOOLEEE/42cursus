@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 18:56:19 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/07 20:19:40 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/07 22:13:35 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,25 +70,27 @@ int	get_cmd_cnt(t_stack *a, t_stack *b, t_cmd *cmd)
 	return (abs(cmd->ra - cmd->rb) + abs(cmd->rra - cmd->rrb));
 }
 
+//큰 수 먼저 정렬되게 조건 다시 주기. fivot으로 해보기.
 int	find_opt_num_in_b(t_stack *a, t_stack *b, int size, t_cmd *cmd)
 {
-	int		cnt;
 	t_mc	mc;
 	t_cmd	*tmp;
 
+	ft_memset(&mc, 0, sizeof(t_mc));
 	mc.min_cnt = INT_MAX;
 	mc.cur_idx = b->front;
-	cnt = b->in - b->out;
+	mc.cnt = b->in - b->out;
 	tmp = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
 	if (!tmp)
 		return (-1);
-	while (cnt--)
+	while (mc.cnt--)
 	{
 		ft_memset(tmp, 0, sizeof(t_cmd));
 		tmp->idx_b = mc.cur_idx;
 		get_opt_idx_in_a(a, b, size, tmp);
 		mc.cur_cnt = get_cmd_cnt(a, b, tmp);
-		if (mc.min_cnt >= mc.cur_cnt && b->arr[mc.min_idx] < b->arr[mc.cur_idx])
+		if ((mc.min_cnt == mc.cur_cnt && b->arr[mc.min_idx] < b->arr[mc.cur_idx])
+			|| (mc.min_cnt > mc.cur_cnt))
 		{
 			mc.min_idx = mc.cur_idx;
 			mc.min_cnt = mc.cur_cnt;

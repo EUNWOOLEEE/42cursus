@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:09:29 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/07 20:32:14 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/07 21:08:54 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int	main(int argc, char **argv)
 	t_stack	*a;
 	t_stack	*b;
 
-	(void)argc;
+	if (argc == 1)
+		return (0);
 	a = (t_stack *)malloc(sizeof(t_stack));
 	b = (t_stack *)malloc(sizeof(t_stack));
 	if (!a || !b)
