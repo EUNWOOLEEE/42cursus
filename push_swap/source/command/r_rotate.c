@@ -6,15 +6,13 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 22:12:14 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/07 16:59:07 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/07 21:02:23 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/push_swap.h"
 
-//스택의 마지막 원소는 맨 첫 번째 원소가 됨
-
-void	rra(t_stack *a, int size) //a의 원소를 한 칸씩 아래로 옮김
+void	rra(t_stack *a, int size)
 {
 	int	tmp;
 
@@ -30,7 +28,7 @@ void	rra(t_stack *a, int size) //a의 원소를 한 칸씩 아래로 옮김
 	write(1, "rra\n", 4);
 }
 
-void	rrb(t_stack *b, int size) //b의 원소를 한 칸씩 아래로 옮김
+void	rrb(t_stack *b, int size)
 {
 	int	tmp;
 
@@ -46,7 +44,7 @@ void	rrb(t_stack *b, int size) //b의 원소를 한 칸씩 아래로 옮김
 	write(1, "rrb\n", 4);
 }
 
-void	rrr(t_stack *a, t_stack *b, int size) //rra와 rrb를 동시에 수행
+void	rrr(t_stack *a, t_stack *b, int size)
 {
 	int	tmp;
 
@@ -59,7 +57,6 @@ void	rrr(t_stack *a, t_stack *b, int size) //rra와 rrb를 동시에 수행
 	if (a->rear == -1)
 		a->rear = size - 1;
 	a->arr[a->front] = tmp;
-
 	tmp = b->arr[b->rear];
 	b->arr[b->rear] = 0;
 	b->front--;

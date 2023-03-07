@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cnt_digit.c                                     :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/06 15:28:15 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/07 15:56:47 by eunwolee         ###   ########.fr       */
+/*   Created: 2022/11/12 17:50:40 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/03/07 20:21:51 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
-int	ft_cnt_digit(int num)
+long long	ft_atoi(const char	*str)
 {
-	int	cnt;
+	long long	res;
+	long long	sign;
 
-	cnt = 0;
-	if (!num)
-		return (1);
-	if (num == INT_MIN)
-		return (11);
-	if (num < 0)
+	res = 0;
+	sign = 1;
+	while (*str == ' ')
+		str++;
+	if (*str == '+' || *str == '-')
 	{
-		cnt++;
-		num *= -1;
+		if (*str == '-')
+			sign *= -1;
+		str++;
 	}
-	while (num)
-	{
-		cnt++;
-		num /= 10;
-	}
-	return (cnt);
+	while (ft_isdigit(*str))
+		res = (res * 10) + (*str++ - '0');
+	return (res * sign);
 }

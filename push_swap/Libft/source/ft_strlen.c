@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/12 17:50:40 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/06 16:30:51 by eunwolee         ###   ########.fr       */
+/*   Created: 2022/11/12 15:48:24 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/03/07 20:23:32 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
-long long	ft_atoi(const char	*str)
+size_t	ft_strlen(const char *s)
 {
-	long long	res;
-	long long	sign;
+	size_t	len;
 
-	res = 0;
-	sign = 1;
-	while (*str == ' ')
-		str++;
-	if (*str == '+' || *str == '-')
-	{
-		if (*str == '-')
-			sign *= -1;
-		str++;
-	}
-	while (ft_isdigit(*str))
-		res = (res * 10) + (*str++ - '0');
-	return (res * sign);
+	len = 0;
+	while (s[len])
+		len++;
+	return (len);
 }

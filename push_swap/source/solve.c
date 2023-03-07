@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 21:59:12 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/07 17:34:25 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/07 20:55:26 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ int	greedy(t_stack *a, t_stack *b, t_cmd *cmd, int size)
 
 	if (move_to_b(a, b, size) == -1)
 		return (-1);
-	// test_print(a, b, size);
-
 	cnt = size;
 	while (cnt--)
 	{
@@ -46,7 +44,6 @@ int	greedy(t_stack *a, t_stack *b, t_cmd *cmd, int size)
 			return (-1);
 		go_to_a(a, b, size, cmd);
 		get_min_num(a, size);
-		// test_print(a, b, size);
 	}
 	if (abs(a->min_idx - a->front) <= abs(a->min_idx - a->rear))
 		while (a->arr[a->front] != a->min)
@@ -59,7 +56,6 @@ int	greedy(t_stack *a, t_stack *b, t_cmd *cmd, int size)
 
 int	sorting(t_stack *a, t_stack *b, int size)
 {
-	// test_print(a, b, size);
 	t_cmd	*cmd;
 
 	if (size <= 5)
@@ -72,6 +68,5 @@ int	sorting(t_stack *a, t_stack *b, int size)
 		get_min_num(a, size);
 		greedy(a, b, cmd, size);
 	}
-	// test_print(a, b, size);
 	return (0);
 }

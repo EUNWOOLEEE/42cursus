@@ -6,21 +6,11 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 23:13:37 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/07 17:24:47 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/07 20:52:07 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
-
-//삭제하기!!!!!!!!!!!
-void	test_print(t_stack *a, t_stack *b, int size)
-{
-	printf("a f: %d r: %d\n", a->front, a->rear);
-	printf("b f: %d r: %d\n", b->front, b->rear);
-	for(int cnt = size, i = a->front, j = b->front; cnt; cnt--, i++, j++)
-		printf("[%d]%d  [%d]%d\n", i % size, a->arr[i % size], j % size, b->arr[j % size]);
-	printf("\n");
-}
 
 int	abs(int num)
 {
@@ -29,7 +19,6 @@ int	abs(int num)
 	return (num);
 }
 
-// 1-both_free, print(0) / 2-first_free(0) / 3-both_free(-1) / 4-both_free(0) / 5-print(-1)
 int	free_n_print_out(int flag, void *a, void *b)
 {
 	if (flag == 1 || flag == 3 || flag == 4)
@@ -46,7 +35,7 @@ int	free_n_print_out(int flag, void *a, void *b)
 	return (0);
 }
 
-int	check_sort_a(t_stack *a, int size) //a가 오름차순으로 정렬 돼있는지 확인
+int	check_sort_a(t_stack *a, int size)
 {
 	int	front;
 	int	num;
@@ -64,7 +53,7 @@ int	check_sort_a(t_stack *a, int size) //a가 오름차순으로 정렬 돼있�
 	return (0);
 }
 
-int	check_sort_b(t_stack *b, int size) //b가 내림차순으로 정렬 돼있는지 확인
+int	check_sort_b(t_stack *b, int size)
 {
 	int	front;
 	int	num;
@@ -73,7 +62,7 @@ int	check_sort_b(t_stack *b, int size) //b가 내림차순으로 정렬 돼있�
 	front = b->front;
 	num = b->in - b->out;
 	pre = b->arr[front++ % size];
-	if (!num) // b가 비어있을 때
+	if (!num)
 		return (0);
 	while (--num)
 	{

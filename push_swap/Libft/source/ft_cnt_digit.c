@@ -1,24 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_cnt_digit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/12 18:35:23 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/02/21 19:28:53 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/03/06 15:28:15 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/03/07 20:22:03 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
-void	*ft_calloc(size_t count, size_t size)
+int	ft_cnt_digit(int num)
 {
-	void	*tmp;
+	int	cnt;
 
-	tmp = malloc(size * count);
-	if (!tmp)
-		return (0);
-	ft_memset(tmp, 0, size * count);
-	return (tmp);
+	cnt = 0;
+	if (!num)
+		return (1);
+	if (num == INT_MIN)
+		return (11);
+	if (num < 0)
+	{
+		cnt++;
+		num *= -1;
+	}
+	while (num)
+	{
+		cnt++;
+		num /= 10;
+	}
+	return (cnt);
 }

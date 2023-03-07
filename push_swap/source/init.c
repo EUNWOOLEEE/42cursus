@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 21:59:09 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/07 17:34:14 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/07 20:35:07 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,12 @@ int	init_stack(t_stack *a, t_stack *b, char **argv)
 	if (parsing(a, argv) == -1)
 		return (free_n_print_out(3, a->arr, b->arr));
 	a->rear = size - 1;
-	b->rear = size - 1; //pb하면 front를 -1하고 값이 들어가는데, front == rear == 0이면 rear에 값이 없게되니까 마지막 인덱스로 초기화
+	b->rear = size - 1;
 	a->in = size;
 	a->min = INT_MAX;
 	return (size);
 }
 
-//문자열에 스페이스 한개로 구분된, 부호 한개를 가진 정수만 처리. 이외 공백문자 x
 int	check_valid(char **argv)
 {
 	int	i;
@@ -46,7 +45,6 @@ int	check_valid(char **argv)
 		j = 0;
 		while (argv[i][j])
 		{
-			//부호 여러개 또는 부호 다음 공백 있는 경우 때문에 다음 자리 체크
 			if ((argv[i][j] == '+' || argv[i][j] == '-')
 				&& ft_isdigit(argv[i][j + 1]))
 				j++;

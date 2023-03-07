@@ -1,20 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/15 16:25:54 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/11/17 14:45:35 by eunwolee         ###   ########.fr       */
+/*   Created: 2022/11/11 17:43:24 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/03/07 20:23:18 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
-void	ft_putstr_fd(char *s, int fd)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	if (fd < 0)
-		return ;
-	write(fd, s, ft_strlen(s));
+	unsigned char		*dest;
+	const unsigned char	*source;
+
+	if (!dst && !src)
+		return (0);
+	dest = (unsigned char *)dst;
+	source = (const unsigned char *)src;
+	if (dest > source)
+		while (len--)
+			*(dest + len) = *(source + len);
+	else
+		while (len--)
+			*dest++ = *source++;
+	return (dst);
 }

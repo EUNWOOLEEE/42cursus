@@ -6,15 +6,13 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 22:12:17 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/07 16:58:55 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/07 21:02:20 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/push_swap.h"
 
-//스택의 첫번째 원소는 맨 마지막 원소가 됨
-
-void	ra(t_stack *a, int size) //a의 원소를 한 칸씩 위로 옮김
+void	ra(t_stack *a, int size)
 {
 	int	tmp;
 
@@ -26,7 +24,7 @@ void	ra(t_stack *a, int size) //a의 원소를 한 칸씩 위로 옮김
 	write(1, "ra\n", 3);
 }
 
-void	rb(t_stack *b, int size) //b의 원소를 한 칸씩 위로 옮김
+void	rb(t_stack *b, int size)
 {
 	int	tmp;
 
@@ -38,7 +36,7 @@ void	rb(t_stack *b, int size) //b의 원소를 한 칸씩 위로 옮김
 	write(1, "rb\n", 3);
 }
 
-void	rr(t_stack *a, t_stack *b, int size) //ra와 rb를 동시에 수행
+void	rr(t_stack *a, t_stack *b, int size)
 {
 	int	tmp;
 
@@ -47,7 +45,6 @@ void	rr(t_stack *a, t_stack *b, int size) //ra와 rb를 동시에 수행
 	a->front = (a->front + 1) % size;
 	a->rear = (a->rear + 1) % size;
 	a->arr[a->rear] = tmp;
-
 	tmp = b->arr[b->front];
 	b->arr[b->front] = 0;
 	b->front = (b->front + 1) % size;

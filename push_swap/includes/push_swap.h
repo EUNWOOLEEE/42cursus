@@ -6,19 +6,16 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:09:10 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/07 16:30:23 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/07 20:54:26 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include <string.h>
-# include <stdio.h> //지우기!!!
-
 # include <unistd.h>
 # include <stdlib.h>
-# include "../Libft/libft.h"
+# include "../Libft/includes/libft.h"
 
 typedef struct s_stack
 {
@@ -46,6 +43,14 @@ typedef struct s_cmd
 	int	idx_a;
 	int	idx_b;
 }t_cmd;
+
+typedef struct s_mc
+{
+	int	min_cnt;
+	int	min_idx;
+	int	cur_cnt;
+	int	cur_idx;
+}t_mc;
 
 //삭제하기!!!!!!!!!!!!!!!!!!
 void	test_print(t_stack *a, t_stack *b, int size);

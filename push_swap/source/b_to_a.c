@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 18:56:19 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/07 17:20:47 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/07 20:19:40 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,29 +73,28 @@ int	get_cmd_cnt(t_stack *a, t_stack *b, t_cmd *cmd)
 int	find_opt_num_in_b(t_stack *a, t_stack *b, int size, t_cmd *cmd)
 {
 	int		cnt;
-	int		min[2]; //0-cnt, 1-idx
-	int		cur[2];
+	t_mc	mc;
 	t_cmd	*tmp;
 
-	min[0] = INT_MAX;
-	cur[1] = b->front;
+	mc.min_cnt = INT_MAX;
+	mc.cur_idx = b->front;
 	cnt = b->in - b->out;
 	tmp = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
 	if (!tmp)
 		return (-1);
 	while (cnt--)
 	{
-		memset(tmp, 0, sizeof(t_cmd));
-		tmp->idx_b = cur[1];
+		ft_memset(tmp, 0, sizeof(t_cmd));
+		tmp->idx_b = mc.cur_idx;
 		get_opt_idx_in_a(a, b, size, tmp);
-		cur[0] = get_cmd_cnt(a, b, tmp);
-		if (min[0] >= cur[0] && b->arr[min[1]] < b->arr[cur[1]])
+		mc.cur_cnt = get_cmd_cnt(a, b, tmp);
+		if (mc.min_cnt >= mc.cur_cnt && b->arr[mc.min_idx] < b->arr[mc.cur_idx])
 		{
-			min[1] = cur[1];
-			min[0] = cur[0];
+			mc.min_idx = mc.cur_idx;
+			mc.min_cnt = mc.cur_cnt;
 			ft_memmove(cmd, tmp, sizeof(t_cmd));
 		}
-		cur[1] = (cur[1] + 1) % size;
+		mc.cur_idx = (mc.cur_idx + 1) % size;
 	}
 	return (free_n_print_out(2, tmp, 0));
 }
