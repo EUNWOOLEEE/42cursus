@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 22:12:17 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/06 21:36:47 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/07 16:58:55 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 //스택의 첫번째 원소는 맨 마지막 원소가 됨
 
-void ra(t_stack *a, int size) //a의 원소를 한 칸씩 위로 옮김
+void	ra(t_stack *a, int size) //a의 원소를 한 칸씩 위로 옮김
 {
-	int tmp;
+	int	tmp;
 
 	tmp = a->arr[a->front];
 	a->arr[a->front] = 0;
@@ -26,9 +26,9 @@ void ra(t_stack *a, int size) //a의 원소를 한 칸씩 위로 옮김
 	write(1, "ra\n", 3);
 }
 
-void rb(t_stack *b, int size) //b의 원소를 한 칸씩 위로 옮김
+void	rb(t_stack *b, int size) //b의 원소를 한 칸씩 위로 옮김
 {
-	int tmp;
+	int	tmp;
 
 	tmp = b->arr[b->front];
 	b->arr[b->front] = 0;
@@ -38,9 +38,9 @@ void rb(t_stack *b, int size) //b의 원소를 한 칸씩 위로 옮김
 	write(1, "rb\n", 3);
 }
 
-void rr(t_stack *a, t_stack *b, int size) //ra와 rb를 동시에 수행
+void	rr(t_stack *a, t_stack *b, int size) //ra와 rb를 동시에 수행
 {
-	int tmp;
+	int	tmp;
 
 	tmp = a->arr[a->front];
 	a->arr[a->front] = 0;

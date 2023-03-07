@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/17 12:21:51 by eunwolee          #+#    #+#              #
-#    Updated: 2023/03/06 16:30:21 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/03/07 16:47:45 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,26 +17,14 @@ CFLAGS = -Wall -Wextra -Werror
 AR = ar rcs
 RM = rm -f
 
-SRCS = ft_cnt_digit.c \
-	ft_isdigit.c \
-	ft_memcmp.c \
-	ft_memset.c \
-	ft_memcpy.c \
-	ft_memmove.c \
-	ft_calloc.c \
+SRCS = ft_atoi.c \
 	ft_strlen.c \
-	ft_strlcpy.c \
-	ft_strlcat.c \
-	ft_strchr.c \
-	ft_strrchr.c \
-	ft_strdup.c \
-	ft_strncmp.c \
-	ft_atoi.c \
-	ft_substr.c \
-	ft_strjoin.c \
-	ft_split.c \
-	ft_putchar_fd.c \
-	ft_putstr_fd.c
+	ft_isdigit.c \
+	ft_cnt_digit.c \
+	ft_putstr_fd.c \
+	ft_calloc.c \
+	ft_memset.c \
+	ft_memmove.c
 
 
 OBJS = $(SRCS:%.c=%.o)

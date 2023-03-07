@@ -6,14 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 23:13:37 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/06 22:38:11 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/07 17:24:47 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
 //삭제하기!!!!!!!!!!!
-void test_print(t_stack *a, t_stack *b, int size)
+void	test_print(t_stack *a, t_stack *b, int size)
 {
 	printf("a f: %d r: %d\n", a->front, a->rear);
 	printf("b f: %d r: %d\n", b->front, b->rear);
@@ -22,7 +22,7 @@ void test_print(t_stack *a, t_stack *b, int size)
 	printf("\n");
 }
 
-int abs(int num)
+int	abs(int num)
 {
 	if (num < 0)
 		return (-num);
@@ -30,7 +30,7 @@ int abs(int num)
 }
 
 // 1-both_free, print(0) / 2-first_free(0) / 3-both_free(-1) / 4-both_free(0) / 5-print(-1)
-int free_n_print_out(int flag, void *a, void *b)
+int	free_n_print_out(int flag, void *a, void *b)
 {
 	if (flag == 1 || flag == 3 || flag == 4)
 	{
@@ -46,29 +46,29 @@ int free_n_print_out(int flag, void *a, void *b)
 	return (0);
 }
 
-int check_sort_a(t_stack *a, int size) //a가 오름차순으로 정렬 돼있는지 확인
+int	check_sort_a(t_stack *a, int size) //a가 오름차순으로 정렬 돼있는지 확인
 {
-	int front;
-	int num;
-	int pre;
+	int	front;
+	int	num;
+	int	pre;
 
 	front = a->front;
 	num = size;
 	pre = a->arr[front++ % size];
 	while (--num)
 	{
-		if(pre > a->arr[front % size])
+		if (pre > a->arr[front % size])
 			return (-1);
 		pre = a->arr[front++ % size];
 	}
 	return (0);
 }
 
-int check_sort_b(t_stack *b, int size) //b가 내림차순으로 정렬 돼있는지 확인
+int	check_sort_b(t_stack *b, int size) //b가 내림차순으로 정렬 돼있는지 확인
 {
-	int front;
-	int num;
-	int pre;
+	int	front;
+	int	num;
+	int	pre;
 
 	front = b->front;
 	num = b->in - b->out;
@@ -77,7 +77,7 @@ int check_sort_b(t_stack *b, int size) //b가 내림차순으로 정렬 돼있�
 		return (0);
 	while (--num)
 	{
-		if(pre < b->arr[front % size])
+		if (pre < b->arr[front % size])
 			return (-1);
 		pre = b->arr[front++ % size];
 	}

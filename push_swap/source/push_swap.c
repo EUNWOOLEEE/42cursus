@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:09:29 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/06 22:37:47 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/07 16:53:22 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,17 @@
 
 //front가 top
 //ARG=$(jot -r 10 1 500 | sort -uR | tr '\n' ' ' | rev | sed 's/ //' | rev); ./push_swap $ARG | ./checker $ARG
-
-int main(int argc, char **argv)
+void	asd (void)
 {
-	t_stack *a;
-	t_stack *b;
+	system ("leaks push_swap");
+}
 
+int	main(int argc, char **argv)
+{
+	t_stack	*a;
+	t_stack	*b;
+
+	atexit (asd);
 	(void)argc;
 	a = (t_stack *)malloc(sizeof(t_stack));
 	b = (t_stack *)malloc(sizeof(t_stack));
