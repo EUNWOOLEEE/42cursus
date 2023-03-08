@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:09:10 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/07 21:59:05 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/09 01:26:11 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ typedef struct s_cmd
 typedef struct s_mc
 {
 	int cnt;
+	int max_in_min_cnt;
 	int	min_cnt;
-	int	min_idx;
 	int	cur_cnt;
 	int	cur_idx;
 }t_mc;
