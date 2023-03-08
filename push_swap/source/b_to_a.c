@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 18:56:19 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/09 01:44:22 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/09 01:58:44 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	find_opt_num_in_b(t_stack *a, t_stack *b, int size, t_cmd *cmd)
 		}
 		mc.cur_idx = (mc.cur_idx + 1) % size;
 	}
-	return (free_n_print_out(2, tmp, 0));
+	return (free_n_print_out(2, 0, tmp, 0));
 }
 
 void	go_to_a(t_stack *a, t_stack *b, int size, t_cmd *cmd)

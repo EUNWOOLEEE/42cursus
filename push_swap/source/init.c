@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 21:59:09 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/07 20:35:07 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/09 01:51:19 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	init_stack(t_stack *a, t_stack *b, char **argv)
 	if (!a->arr || !b->arr)
 		return (-1);
 	if (parsing(a, argv) == -1)
-		return (free_n_print_out(3, a->arr, b->arr));
+		return (free_n_print_out(3, 0, a->arr, b->arr));
 	a->rear = size - 1;
 	b->rear = size - 1;
 	a->in = size;

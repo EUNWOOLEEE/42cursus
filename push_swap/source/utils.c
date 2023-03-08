@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 23:13:37 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/07 20:52:07 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/09 01:49:14 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,19 @@ int	abs(int num)
 	return (num);
 }
 
-int	free_n_print_out(int flag, void *a, void *b)
+//1:both_free(0), 2:one_free(0), 3:both_free(-1), 4:one_free(-1)
+int	free_n_print_out(int flag, int print, void *a, void *b)
 {
-	if (flag == 1 || flag == 3 || flag == 4)
+	if (flag == 1 || flag == 3)
 	{
 		free(a);
 		free(b);
 	}
-	if (flag == 2)
+	if (flag == 2 || flag == 4)
 		free(a);
-	if (flag == 1 || flag == 5)
+	if (print == 1)
 		ft_putstr_fd("Error\n", 1);
-	if (flag == 3 || flag == 5)
+	if (flag == 3 || flag == 4)
 		return (-1);
 	return (0);
 }

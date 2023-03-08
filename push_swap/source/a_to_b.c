@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:03:27 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/07 17:18:45 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/09 01:57:43 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ t_fivot	*get_min_and_fivot_num(t_stack *a, int size)
 	arr = (int *)malloc(sizeof(int) * size);
 	if (!arr)
 		return (0);
-	ft_memmove(arr, a->arr, sizeof(int) * size);
-	sort_arr(arr, size);
 	fivot = (t_fivot *)ft_calloc(1, sizeof(t_fivot));
 	if (!fivot)
 	{
 		free (arr);
 		return (0);
 	}
+	ft_memmove(arr, a->arr, sizeof(int) * size);
+	sort_arr(arr, size);
 	fivot->one_third = arr[size / 3];
 	fivot->two_third = arr[size / 3 * 2];
 	free (arr);
@@ -84,5 +84,5 @@ int	move_to_b(t_stack *a, t_stack *b, int size)
 	cnt = a->in - a->out;
 	while (cnt--)
 		pb(a, b, size);
-	return (free_n_print_out(2, fivot, 0));
+	return (free_n_print_out(2, 0, fivot, 0));
 }

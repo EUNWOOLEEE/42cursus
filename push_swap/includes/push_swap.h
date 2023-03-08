@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:09:10 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/09 01:26:11 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/09 01:46:20 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,10 @@ typedef struct s_mc
 	int	cur_idx;
 }t_mc;
 
-//삭제하기!!!!!!!!!!!!!!!!!!
-void	test_print(t_stack *a, t_stack *b, int size);
-
 //다른 파일에서 쓰이지 않는 함수들 static으로 만들기
 //utils
 int		abs(int num);
-int		free_n_print_out(int flag, void *a, void *b);
+int		free_n_print_out(int flag, int print, void *a, void *b);
 int		check_sort_a(t_stack *a, int size);
 int		check_sort_b(t_stack *b, int size);
 

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 21:59:12 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/09 01:32:35 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/09 01:53:04 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	greedy(t_stack *a, t_stack *b, t_cmd *cmd, int size)
 	else
 		while (a->arr[a->front] != a->min)
 			rra(a, size);
-	return (free_n_print_out(2, cmd, 0));
+	return (0);
 }
 
 int	sorting(t_stack *a, t_stack *b, int size)
@@ -66,7 +66,9 @@ int	sorting(t_stack *a, t_stack *b, int size)
 		if (!cmd)
 			return (-1);
 		get_min_num(a, size);
-		greedy(a, b, cmd, size);
+		if (greedy(a, b, cmd, size) == -1)
+			return (free_n_print_out(4, 0, cmd, 0));
+		return (free_n_print_out(2, 0, cmd, 0));
 	}
 	return (0);
 }
