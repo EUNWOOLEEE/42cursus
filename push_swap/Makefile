@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/24 14:21:45 by eunwolee          #+#    #+#              #
-#    Updated: 2023/03/10 17:12:51 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/03/11 01:18:44 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ M_SRCS = $(SRC_DIR)/push_swap.c \
 	$(SRC_DIR)/solve.c \
 	$(SRC_DIR)/a_to_b.c \
 	$(SRC_DIR)/b_to_a.c \
+	$(SRC_DIR)/find_best.c \
 	$(SRC_DIR)/under_five.c \
 	$(CMD_DIR)/push.c \
 	$(CMD_DIR)/swap.c \
@@ -46,6 +47,7 @@ B_SRCS = $(B_DIR)/checker.c \
 	$(SRC_DIR)/solve.c \
 	$(SRC_DIR)/a_to_b.c \
 	$(SRC_DIR)/b_to_a.c \
+	$(SRC_DIR)/find_best.c \
 	$(SRC_DIR)/under_five.c \
 	$(CMD_DIR)/push.c \
 	$(CMD_DIR)/swap.c \

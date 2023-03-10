@@ -6,11 +6,21 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 23:13:37 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/09 02:01:23 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/11 01:09:06 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
+
+void	print_cmd(t_list *head)
+{
+	while (head)
+	{
+		ft_putstr_fd(head->cmd, 1);
+		write(1, "\n", 1);
+		head = head->next;
+	}
+}
 
 int	abs(int num)
 {

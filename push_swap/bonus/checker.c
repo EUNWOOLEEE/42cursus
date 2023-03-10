@@ -33,9 +33,6 @@ int	act_cmd_r_rr(t_stack *a, t_stack *b, int size, char *cmd_str)
 
 int	act_cmd_p_s(t_stack *a, t_stack *b, int size, char *cmd_str)
 {
-	int	idx;
-
-	idx = 0;
 	if (!ft_strncmp(cmd_str, "pa\n", 3))
 		pa(a, b, size, 0);
 	else if (!ft_strncmp(cmd_str, "pb\n", 3))
@@ -54,10 +51,8 @@ int	act_cmd_p_s(t_stack *a, t_stack *b, int size, char *cmd_str)
 
 int	get_cmd(t_stack *a, t_stack *b, int size)
 {
-	int		cnt;
 	char	*cmd_str;
 
-	cnt = 0;
 	cmd_str = get_next_line(0);
 	while (cmd_str)
 	{
