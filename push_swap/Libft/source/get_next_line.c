@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:01:43 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/09 18:10:12 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:36:42 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ static char	*get_done_line(t_list *nod)
 	nod->buff[nod_cnt] = '\0';
 	return (line);
 }
+
+#include <stdio.h>
 
 static int	get_read_line(int fd, t_list *nod)
 {

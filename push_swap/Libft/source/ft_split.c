@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 21:52:44 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/09 18:21:28 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:04:45 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static char	**clear(char **dest, int idx)
 	return (0);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c, int *cmds_size)
 {
 	int		idx;
 	int		size;
@@ -90,5 +90,6 @@ char	**ft_split(char const *s, char c)
 		}
 	}
 	dest[idx] = 0;
+	*cmds_size = idx;
 	return (dest);
 }

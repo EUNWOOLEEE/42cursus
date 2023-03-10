@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 21:00:01 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/09 18:23:29 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:19:21 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 # define INT_MIN -2147483648
 # define INT_MAX 2147483647
-# define BUFFER_SIZE 20
+# define BUFFER_SIZE 42
 typedef struct s_list
 {
 	int				fd;
@@ -39,6 +39,6 @@ char		*get_next_line(int fd);
 char		*ft_strchr(char *s, char c);
 char		*ft_strjoin(char *s1, char *s2);
 char		*delete_nod(t_list **head, t_list *nod);
-char		**ft_split(char const *s, char c);
+char		**ft_split(char const *s, char c, int *cmds_size);
 
 #endif

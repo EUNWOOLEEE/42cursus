@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/17 12:21:51 by eunwolee          #+#    #+#              #
-#    Updated: 2023/03/09 18:02:53 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/03/10 16:19:26 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,12 +23,14 @@ RM = rm -f
 
 SRCS = $(SRC_DIR)/ft_atoi.c \
 	$(SRC_DIR)/ft_strlen.c \
+	$(SRC_DIR)/ft_strncmp.c \
 	$(SRC_DIR)/ft_isdigit.c \
 	$(SRC_DIR)/ft_cnt_digit.c \
 	$(SRC_DIR)/ft_putstr_fd.c \
 	$(SRC_DIR)/ft_calloc.c \
 	$(SRC_DIR)/ft_memset.c \
 	$(SRC_DIR)/ft_memmove.c \
+	$(SRC_DIR)/ft_split.c \
 	$(SRC_DIR)/get_next_line.c \
 	$(SRC_DIR)/get_next_line_utils.c
 
