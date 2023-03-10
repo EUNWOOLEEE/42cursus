@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 16:21:04 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/09 18:18:46 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/10 12:53:36 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int act_cmd(char *cmds)
 {
 	char cmd[4];
 	int idx;
+
+	idx = 0;
 }
 
 int main(int argc, char **argv)
