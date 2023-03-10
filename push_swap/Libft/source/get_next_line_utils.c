@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:01:47 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/09 18:10:18 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/10 21:40:16 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (str);
 }
 
-char	*delete_nod(t_list **head, t_list *nod)
+char	*delete_nod(t_gnl_list **head, t_gnl_list *nod)
 {
-	t_list	*tmp;
+	t_gnl_list	*tmp;
 
 	tmp = *head;
 	if (tmp == nod)

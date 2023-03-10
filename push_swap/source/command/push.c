@@ -6,16 +6,16 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 22:12:09 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/09 15:39:00 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/10 21:45:09 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/push_swap.h"
 
-void	pa(t_stack *a, t_stack *b, int size)
+char	*pa(t_stack *a, t_stack *b, int size, int print)
 {
 	if (!(b->in - b->out))
-		return ;
+		return (0);
 	if (!a->front)
 		a->front += size - 1;
 	else
@@ -25,13 +25,15 @@ void	pa(t_stack *a, t_stack *b, int size)
 	b->front = (b->front + 1) % size;
 	b->out++;
 	a->in++;
-	write(1, "pa\n", 3);
+	if (print)
+		write(1, "pa\n", 3);
+	return (ft_strdup("pa"));
 }
 
-void	pb(t_stack *a, t_stack *b, int size)
+char	*pb(t_stack *a, t_stack *b, int size, int print)
 {
 	if (!(a->in - a->out))
-		return ;
+		return (0);
 	if (!b->front)
 		b->front = size - 1;
 	else
@@ -41,5 +43,7 @@ void	pb(t_stack *a, t_stack *b, int size)
 	a->front = (a->front + 1) % size;
 	a->out++;
 	b->in++;
-	write(1, "pb\n", 3);
+	if (print)
+		write(1, "pb\n", 3);
+	return (ft_strdup("pb"));
 }

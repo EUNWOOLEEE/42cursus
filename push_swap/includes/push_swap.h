@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:09:10 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/09 02:08:44 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/10 22:29:10 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,12 @@ typedef struct s_mc
 	int	cur_idx;
 }t_mc;
 
+
+//지우기!!!!!!!!!!!!!!!
+# include <stdio.h>
+void	test_print(t_stack *a, t_stack *b, int size);
+
+
 //다른 파일에서 쓰이지 않는 함수들 static으로 만들기
 //utils
 int		abs(int num);
@@ -86,20 +92,21 @@ int		move_to_b(t_stack *a, t_stack *b, int size, t_fivot *fivot);
 void	get_opt_idx_in_a(t_stack *a, t_stack *b, int size, t_cmd *tmp);
 void	max_in_less_than_num(t_stack *a, t_stack *b, int size, t_cmd *tmp);
 int		get_cmd_cnt(t_stack *a, t_stack *b, t_cmd *cmd);
-int		find_opt_num_in_b(t_stack *a, t_stack *b, int size, t_cmd *cmd, t_fivot *fivot);
-void	go_to_a(t_stack *a, t_stack *b, int size, t_cmd *cmd);
+int		find_opt_num_in_b_by_greedy(t_stack *a, t_stack *b, int size, t_cmd *cmd);
+int		find_opt_num_in_b_by_fivot(t_stack *a, t_stack *b, int size, t_cmd *cmd, t_fivot *fivot);
+void	go_to_a(t_stack *a, t_stack *b, int size, t_cmd *cmd, t_list *head);
 
 //cmd
-void	sa(t_stack *a, int size);
-void	sb(t_stack *b, int size);
-void	ss(t_stack *a, t_stack *b, int size);
-void	pa(t_stack *a, t_stack *b, int size);
-void	pb(t_stack *a, t_stack *b, int size);
-void	ra(t_stack *a, int size);
-void	rb(t_stack *b, int size);
-void	rr(t_stack *a, t_stack *b, int size);
-void	rra(t_stack *a, int size);
-void	rrb(t_stack *b, int size);
-void	rrr(t_stack *a, t_stack *b, int size);
+char	*sa(t_stack *a, int size, int print);
+char	*sb(t_stack *b, int size, int print);
+char	*ss(t_stack *a, t_stack *b, int size, int print);
+char	*pa(t_stack *a, t_stack *b, int size, int print);
+char	*pb(t_stack *a, t_stack *b, int size, int print);
+char	*ra(t_stack *a, int size, int print);
+char	*rb(t_stack *b, int size, int print);
+char	*rr(t_stack *a, t_stack *b, int size, int print);
+char	*rra(t_stack *a, int size, int print);
+char	*rrb(t_stack *b, int size, int print);
+char	*rrr(t_stack *a, t_stack *b, int size, int print);
 
 #endif

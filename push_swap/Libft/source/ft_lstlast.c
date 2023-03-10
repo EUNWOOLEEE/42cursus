@@ -1,35 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cnt_digit.c                                     :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/06 15:28:15 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/10 22:01:35 by eunwolee         ###   ########.fr       */
+/*   Created: 2022/11/23 14:59:21 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/03/10 21:44:10 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-int	ft_cnt_digit(int num)
+t_list	*ft_lstlast(t_list *lst)
 {
-	int	cnt;
-
-	cnt = 0;
-	if (!num)
-		return (1);
-	if (num == INT_MIN)
-		return (11);
-	if (num < 0)
-	{
-		cnt++;
-		num *= -1;
-	}
-	while (num)
-	{
-		cnt++;
-		num /= 10;
-	}
-	return (cnt);
+	if (!lst)
+		return (0);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
 }

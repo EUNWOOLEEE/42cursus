@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 00:25:19 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/07 20:57:22 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/10 17:16:37 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ void	devide_small(t_stack *a, t_stack *b, int size)
 		{
 			if (a->arr[a->rear] < a->arr[a->front]
 				&& a->arr[a->rear] < a->arr[(a->front + 1) % size])
-				rra(a, size);
+				rra(a, size, 1);
 			else if (a->arr[(a->front + 1) % size] < a->arr[a->front])
-				sa(a, size);
-			pb(a, b, size);
+				sa(a, size, 1);
+			pb(a, b, size, 1);
 		}
 	}
 }
@@ -67,20 +67,20 @@ void	conquer_small(t_stack *a, t_stack *b, int size)
 	second = a->arr[(a->front + 1) % size];
 	last = a->arr[a->rear];
 	if (first > second && first > last)
-		ra(a, size);
+		ra(a, size, 1);
 	else if (second > first && second > last)
-		rra(a, size);
+		rra(a, size, 1);
 	else if (last > first && last > second && first > second)
-		sa(a, size);
+		sa(a, size, 1);
 	first = b->arr[b->front];
 	second = b->arr[(b->front + 1) % size];
 	last = b->arr[b->rear];
 	if (first < second && first < last)
-		rb(b, size);
+		rb(b, size, 1);
 	else if (second < first && second < last)
-		rrb(b, size);
+		rrb(b, size, 1);
 	else if (last < first && last < second && first < second)
-		sb(b, size);
+		sb(b, size, 1);
 }
 
 void	combine_small(t_stack *a, t_stack *b, int size)
@@ -90,7 +90,7 @@ void	combine_small(t_stack *a, t_stack *b, int size)
 	cnt = b->in - b->out;
 	while (cnt--)
 	{
-		pa(a, b, size);
+		pa(a, b, size, 1);
 		conquer_small(a, b, size);
 	}
 }

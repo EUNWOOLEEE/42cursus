@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cnt_digit.c                                     :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/06 15:28:15 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/10 22:01:35 by eunwolee         ###   ########.fr       */
+/*   Created: 2022/11/23 15:39:26 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/03/10 21:03:43 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-int	ft_cnt_digit(int num)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	int	cnt;
+	t_list	*cur;
+	t_list	*tmp;
 
-	cnt = 0;
-	if (!num)
-		return (1);
-	if (num == INT_MIN)
-		return (11);
-	if (num < 0)
+	if (!lst || !del)
+		return ;
+	cur = *lst;
+	while (cur)
 	{
-		cnt++;
-		num *= -1;
+		tmp = cur->next;
+		ft_lstdelone(cur, del);
+		cur = tmp;
 	}
-	while (num)
-	{
-		cnt++;
-		num /= 10;
-	}
-	return (cnt);
+	*lst = 0;
 }

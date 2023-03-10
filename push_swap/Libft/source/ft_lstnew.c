@@ -1,35 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cnt_digit.c                                     :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/06 15:28:15 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/10 22:01:35 by eunwolee         ###   ########.fr       */
+/*   Created: 2022/11/20 15:43:59 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/03/10 21:03:57 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-int	ft_cnt_digit(int num)
+t_list	*ft_lstnew(char *cmd)
 {
-	int	cnt;
+	t_list	*tmp;
 
-	cnt = 0;
-	if (!num)
-		return (1);
-	if (num == INT_MIN)
-		return (11);
-	if (num < 0)
-	{
-		cnt++;
-		num *= -1;
-	}
-	while (num)
-	{
-		cnt++;
-		num /= 10;
-	}
-	return (cnt);
+	tmp = (t_list *)malloc(sizeof(t_list));
+	if (!tmp)
+		return (0);
+	tmp->cmd = cmd;
+	tmp->next = 0;
+	return (tmp);
 }

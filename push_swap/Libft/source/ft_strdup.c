@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cnt_digit.c                                     :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/06 15:28:15 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/10 22:01:35 by eunwolee         ###   ########.fr       */
+/*   Created: 2022/11/12 18:07:32 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/03/10 22:09:52 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-int	ft_cnt_digit(int num)
+char	*ft_strdup(const char *s1)
 {
-	int	cnt;
+	size_t		len;
+	char		*dest;
 
-	cnt = 0;
-	if (!num)
-		return (1);
-	if (num == INT_MIN)
-		return (11);
-	if (num < 0)
-	{
-		cnt++;
-		num *= -1;
-	}
-	while (num)
-	{
-		cnt++;
-		num /= 10;
-	}
-	return (cnt);
+	len = ft_strlen(s1);
+	dest = (char *)malloc(sizeof(char) * (len + 1));
+	if (!dest)
+		return (0);
+	ft_memmove(dest, s1, len);
+	dest[len] = '\0';
+	return (dest);
 }

@@ -6,22 +6,22 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:01:43 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/10 16:36:42 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/10 21:43:34 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-static t_list	*get_new_nod(int fd)
+static t_gnl_list	*get_new_nod(int fd)
 {
 	char	*buff;
-	t_list	*nod;
+	t_gnl_list	*nod;
 
 	buff = (char *)malloc(sizeof(char) * 1);
 	if (!buff)
 		return (0);
 	buff[0] = '\0';
-	nod = (t_list *)malloc(sizeof(t_list) * 1);
+	nod = (t_gnl_list *)malloc(sizeof(t_gnl_list) * 1);
 	if (!nod)
 	{
 		free(buff);
@@ -33,9 +33,9 @@ static t_list	*get_new_nod(int fd)
 	return (nod);
 }
 
-static t_list	*get_fd_nod(t_list **head, int fd)
+static t_gnl_list	*get_fd_nod(t_gnl_list **head, int fd)
 {
-	t_list	*tmp;
+	t_gnl_list	*tmp;
 
 	tmp = *head;
 	if (!tmp)
@@ -61,7 +61,7 @@ static t_list	*get_fd_nod(t_list **head, int fd)
 	return (tmp);
 }
 
-static char	*get_done_line(t_list *nod)
+static char	*get_done_line(t_gnl_list *nod)
 {
 	int		idx;
 	int		nod_cnt;
@@ -88,9 +88,7 @@ static char	*get_done_line(t_list *nod)
 	return (line);
 }
 
-#include <stdio.h>
-
-static int	get_read_line(int fd, t_list *nod)
+static int	get_read_line(int fd, t_gnl_list *nod)
 {
 	int		rd;
 	char	*buff;
@@ -120,9 +118,9 @@ static int	get_read_line(int fd, t_list *nod)
 
 char	*get_next_line(int fd)
 {
-	t_list			*nod;
-	char			*line;
-	static t_list	*head;
+	t_gnl_list			*nod;
+	char				*line;
+	static t_gnl_list	*head;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
