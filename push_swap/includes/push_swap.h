@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:09:10 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/09 01:46:20 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/09 02:08:44 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,13 @@ void	combine_small(t_stack *a, t_stack *b, int size);
 //a_to_b
 void	sort_arr(int *arr, int size);
 t_fivot	*get_min_and_fivot_num(t_stack *a, int size);
-int		move_to_b(t_stack *a, t_stack *b, int size);
+int		move_to_b(t_stack *a, t_stack *b, int size, t_fivot *fivot);
 
 //b_to_a
 void	get_opt_idx_in_a(t_stack *a, t_stack *b, int size, t_cmd *tmp);
 void	max_in_less_than_num(t_stack *a, t_stack *b, int size, t_cmd *tmp);
 int		get_cmd_cnt(t_stack *a, t_stack *b, t_cmd *cmd);
-int		find_opt_num_in_b(t_stack *a, t_stack *b, int size, t_cmd *cmd);
+int		find_opt_num_in_b(t_stack *a, t_stack *b, int size, t_cmd *cmd, t_fivot *fivot);
 void	go_to_a(t_stack *a, t_stack *b, int size, t_cmd *cmd);
 
 //cmd

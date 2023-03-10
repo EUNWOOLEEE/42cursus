@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/17 12:21:51 by eunwolee          #+#    #+#              #
-#    Updated: 2023/03/07 20:27:19 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/03/09 18:02:53 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,8 +28,9 @@ SRCS = $(SRC_DIR)/ft_atoi.c \
 	$(SRC_DIR)/ft_putstr_fd.c \
 	$(SRC_DIR)/ft_calloc.c \
 	$(SRC_DIR)/ft_memset.c \
-	$(SRC_DIR)/ft_memmove.c
-
+	$(SRC_DIR)/ft_memmove.c \
+	$(SRC_DIR)/get_next_line.c \
+	$(SRC_DIR)/get_next_line_utils.c
 
 OBJS = $(SRCS:%.c=%.o)
 

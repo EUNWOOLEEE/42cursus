@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 21:59:12 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/09 01:53:04 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/09 02:08:25 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,18 @@ void	get_min_num(t_stack *a, int size)
 int	greedy(t_stack *a, t_stack *b, t_cmd *cmd, int size)
 {
 	int	cnt;
+	t_fivot	*fivot;
 
-	if (move_to_b(a, b, size) == -1)
+	fivot = get_min_and_fivot_num(a, size);
+	if (!fivot)
 		return (-1);
+	if (move_to_b(a, b, size, fivot) == -1)
+		return (free_n_print_out(4, 0, fivot, 0));
 	cnt = size;
 	while (cnt--)
 	{
-		if (find_opt_num_in_b(a, b, size, cmd) == -1)
-			return (-1);
+		if (find_opt_num_in_b(a, b, size, cmd, fivot) == -1)
+			return (free_n_print_out(4, 0, fivot, 0));
 		go_to_a(a, b, size, cmd);
 		get_min_num(a, size);
 	}
@@ -51,7 +55,7 @@ int	greedy(t_stack *a, t_stack *b, t_cmd *cmd, int size)
 	else
 		while (a->arr[a->front] != a->min)
 			rra(a, size);
-	return (0);
+	return (free_n_print_out(2, 0, fivot, 0));
 }
 
 int	sorting(t_stack *a, t_stack *b, int size)

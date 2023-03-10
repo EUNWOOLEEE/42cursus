@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:03:27 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/09 01:57:43 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/09 03:11:36 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,12 @@ t_fivot	*get_min_and_fivot_num(t_stack *a, int size)
 	return (fivot);
 }
 
-int	move_to_b(t_stack *a, t_stack *b, int size)
+int	move_to_b(t_stack *a, t_stack *b, int size, t_fivot *fivot)
 {
 	int		cnt;
-	t_fivot	*fivot;
 
 	cnt = size;
-	fivot = get_min_and_fivot_num(a, size);
-	if (!fivot)
-		return (-1);
+
 	while (cnt--)
 	{
 		if (a->arr[a->front] < fivot->two_third)
@@ -84,5 +81,5 @@ int	move_to_b(t_stack *a, t_stack *b, int size)
 	cnt = a->in - a->out;
 	while (cnt--)
 		pb(a, b, size);
-	return (free_n_print_out(2, 0, fivot, 0));
+	return (0);
 }

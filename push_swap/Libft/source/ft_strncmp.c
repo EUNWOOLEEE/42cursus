@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/11 17:43:24 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/09 18:19:40 by eunwolee         ###   ########.fr       */
+/*   Created: 2022/11/12 17:23:49 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/03/09 18:19:58 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-void	*ft_memmove(void *dst, const void *src, size_t len)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	unsigned char		*dest;
-	const unsigned char	*source;
+	const unsigned char	*str1;
+	const unsigned char	*str2;
 
-	if (!dst && !src)
-		return (0);
-	dest = (unsigned char *)dst;
-	source = (const unsigned char *)src;
-	if (dest > source)
-		while (len--)
-			*(dest + len) = *(source + len);
-	else
-		while (len--)
-			*dest++ = *source++;
-	return (dst);
+	str1 = (const unsigned char *)s1;
+	str2 = (const unsigned char *)s2;
+	while (n-- && (*str1 || *str2))
+	{
+		if (*str1 != *str2)
+			return (*str1 - *str2);
+		str1++;
+		str2++;
+	}
+	return (0);
 }

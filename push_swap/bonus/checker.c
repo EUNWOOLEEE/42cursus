@@ -1,31 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/11 17:43:24 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/09 18:19:40 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/03/09 16:21:04 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/03/09 18:18:46 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "../includes/push_swap.h"
 
-void	*ft_memmove(void *dst, const void *src, size_t len)
+#include <stdio.h>
+
+int act_cmd(char *cmds)
 {
-	unsigned char		*dest;
-	const unsigned char	*source;
+	char cmd[4];
+	int idx;
+}
 
-	if (!dst && !src)
-		return (0);
-	dest = (unsigned char *)dst;
-	source = (const unsigned char *)src;
-	if (dest > source)
-		while (len--)
-			*(dest + len) = *(source + len);
-	else
-		while (len--)
-			*dest++ = *source++;
-	return (dst);
+int main(int argc, char **argv)
+{
+	int size;
+	char *cmds;
+
+	size = check_valid(argv);
+	if (argc == 1 || size <= 0)
+		return (free_n_print_out(0, 1, 0, 0));
+	cmds = get_next_line(0);
+	while (cmds)
+	{
+		act_cmd(cmds);
+		cmds = get_next_line(0);
+	}
 }

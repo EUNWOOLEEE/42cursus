@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 18:56:19 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/09 01:58:44 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/09 16:25:33 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,28 @@ int	get_cmd_cnt(t_stack *a, t_stack *b, t_cmd *cmd)
 	return (abs(cmd->ra - cmd->rb) + abs(cmd->rra - cmd->rrb));
 }
 
-int	find_opt_num_in_b(t_stack *a, t_stack *b, int size, t_cmd *cmd)
+int	find_more_than_fivot(t_stack *b, int size, int fivot)
+{
+	int	cnt;
+	int	idx;
+
+	cnt = b->in - b->out;
+	idx = b->front;
+	while (cnt--)
+	{
+		if (b->arr[idx] >= fivot)
+			return (1);
+		idx = (idx + 1) % size;
+	}
+	return (0);
+}
+
+int	find_opt_num_in_b(t_stack *a, t_stack *b, int size, t_cmd *cmd, t_fivot *fivot)
 {
 	t_mc	mc;
 	t_cmd	*tmp;
+	int		fiv;
+	// (void)fivot;
 
 	mc.min_cnt = INT_MAX;
 	mc.cur_idx = b->front;
@@ -82,17 +100,26 @@ int	find_opt_num_in_b(t_stack *a, t_stack *b, int size, t_cmd *cmd)
 	tmp = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
 	if (!tmp)
 		return (-1);
+	if (find_more_than_fivot(b, size, fivot->two_third))
+		fiv = fivot->two_third;
+	else if (find_more_than_fivot(b, size, fivot->one_third))
+		fiv = fivot->one_third;
+	else
+		fiv = INT_MIN;
 	while (mc.cnt--)
 	{
 		ft_memset(tmp, 0, sizeof(t_cmd));
-		tmp->idx_b = mc.cur_idx;
-		get_opt_idx_in_a(a, b, size, tmp);
-		mc.cur_cnt = get_cmd_cnt(a, b, tmp);
-		if (mc.min_cnt >= mc.cur_cnt && mc.max_in_min_cnt < b->arr[mc.cur_idx])
+		if (b->arr[mc.cur_idx] >= fiv)
 		{
-			mc.max_in_min_cnt = b->arr[mc.cur_idx];
-			mc.min_cnt = mc.cur_cnt;
-			ft_memmove(cmd, tmp, sizeof(t_cmd));
+			tmp->idx_b = mc.cur_idx;
+			get_opt_idx_in_a(a, b, size, tmp);
+			mc.cur_cnt = get_cmd_cnt(a, b, tmp);
+			if (mc.min_cnt >= mc.cur_cnt && mc.max_in_min_cnt < b->arr[mc.cur_idx])
+			{
+				mc.max_in_min_cnt = b->arr[mc.cur_idx];
+				mc.min_cnt = mc.cur_cnt;
+				ft_memmove(cmd, tmp, sizeof(t_cmd));
+			}
 		}
 		mc.cur_idx = (mc.cur_idx + 1) % size;
 	}
