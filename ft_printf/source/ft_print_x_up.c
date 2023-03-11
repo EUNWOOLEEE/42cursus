@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:12:45 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/12/21 15:51:29 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/06 15:29:43 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,6 @@ static int	cnt_digit(unsigned int num)
 	cnt = 0;
 	if (!num)
 		return (1);
-	if (num < 0)
-	{
-		cnt++;
-		num *= -1;
-	}
 	while (num)
 	{
 		cnt++;
