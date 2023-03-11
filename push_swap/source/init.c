@@ -6,11 +6,15 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 21:59:09 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/12 01:28:48 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/12 02:32:44 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
+
+static int	check_valid(char **argv);
+static int	check_overlap(int *a, int cnt, int num);
+static int	parsing(t_stack *a, char **argv);
 
 int	init_stack(t_stack *a, t_stack *b, char **argv)
 {
@@ -31,7 +35,7 @@ int	init_stack(t_stack *a, t_stack *b, char **argv)
 	return (a->size);
 }
 
-int	check_valid(char **argv)
+static int	check_valid(char **argv)
 {
 	int	i;
 	int	j;
@@ -60,7 +64,7 @@ int	check_valid(char **argv)
 	return (cnt);
 }
 
-int	check_overlap(int *a, int cnt, int num)
+static int	check_overlap(int *a, int cnt, int num)
 {
 	int	i;
 
@@ -74,7 +78,7 @@ int	check_overlap(int *a, int cnt, int num)
 	return (0);
 }
 
-int	parsing(t_stack *a, char **argv)
+static int	parsing(t_stack *a, char **argv)
 {
 	int			i;
 	int			j;

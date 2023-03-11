@@ -1,16 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   b_to_a.c                                           :+:      :+:    :+:   */
+/*   go_to_a.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 18:56:19 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/12 01:36:10 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/12 03:29:01 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
+
+static void	max_in_less_than_num(t_stack *a, t_stack *b, t_cmd *tmp);
+
+void	go_to_a(t_stack *a, t_stack *b, t_cmd *cmd, t_list **head)
+{
+	while (cmd->ra && cmd->rb)
+	{
+		ft_lstadd_back(head, ft_lstnew(rr(a, b, 0)));
+		cmd->ra--;
+		cmd->rb--;
+	}
+	while (cmd->rra && cmd->rrb)
+	{
+		ft_lstadd_back(head, ft_lstnew(rrr(a, b, 0)));
+		cmd->rra--;
+		cmd->rrb--;
+	}
+	while (cmd->ra--)
+		ft_lstadd_back(head, ft_lstnew(ra(a, 0)));
+	while (cmd->rra--)
+		ft_lstadd_back(head, ft_lstnew(rra(a, 0)));
+	while (cmd->rb--)
+		ft_lstadd_back(head, ft_lstnew(rb(b, 0)));
+	while (cmd->rrb--)
+		ft_lstadd_back(head, ft_lstnew(rrb(b, 0)));
+	ft_lstadd_back(head, ft_lstnew(pa(a, b, 0)));
+}
 
 void	get_opt_idx_in_a(t_stack *a, t_stack *b, t_cmd *tmp)
 {
@@ -32,29 +59,6 @@ void	get_opt_idx_in_a(t_stack *a, t_stack *b, t_cmd *tmp)
 	}
 	else
 		max_in_less_than_num(a, b, tmp);
-}
-
-void	max_in_less_than_num(t_stack *a, t_stack *b, t_cmd *tmp)
-{
-	int	idx;
-	int	cnt;
-	int	num;
-	int	opt_idx;
-
-	idx = a->front;
-	cnt = a->in - a->out;
-	num = b->arr[tmp->idx_b];
-	opt_idx = a->min_idx;
-	while (cnt--)
-	{
-		if (a->arr[opt_idx] < a->arr[idx] && a->arr[idx] < num)
-			opt_idx = idx;
-		idx = (idx + 1) % a->size;
-	}
-	if (opt_idx == a->rear)
-		tmp->idx_a = a->front;
-	else
-		tmp->idx_a = (opt_idx + 1) % a->size;
 }
 
 int	get_cmd_cnt(t_stack *a, t_stack *b, t_cmd *cmd)
@@ -93,27 +97,25 @@ int	find_more_than_fivot(t_stack *b, int fivot)
 	return (0);
 }
 
-void	go_to_a(t_stack *a, t_stack *b, t_cmd *cmd, t_list **head)
+static void	max_in_less_than_num(t_stack *a, t_stack *b, t_cmd *tmp)
 {
-	while (cmd->ra && cmd->rb)
+	int	idx;
+	int	cnt;
+	int	num;
+	int	opt_idx;
+
+	idx = a->front;
+	cnt = a->in - a->out;
+	num = b->arr[tmp->idx_b];
+	opt_idx = a->min_idx;
+	while (cnt--)
 	{
-		ft_lstadd_back(head, ft_lstnew(rr(a, b, 0)));
-		cmd->ra--;
-		cmd->rb--;
+		if (a->arr[opt_idx] < a->arr[idx] && a->arr[idx] < num)
+			opt_idx = idx;
+		idx = (idx + 1) % a->size;
 	}
-	while (cmd->rra && cmd->rrb)
-	{
-		ft_lstadd_back(head, ft_lstnew(rrr(a, b, 0)));
-		cmd->rra--;
-		cmd->rrb--;
-	}
-	while (cmd->ra--)
-		ft_lstadd_back(head, ft_lstnew(ra(a, 0)));
-	while (cmd->rra--)
-		ft_lstadd_back(head, ft_lstnew(rra(a, 0)));
-	while (cmd->rb--)
-		ft_lstadd_back(head, ft_lstnew(rb(b, 0)));
-	while (cmd->rrb--)
-		ft_lstadd_back(head, ft_lstnew(rrb(b, 0)));
-	ft_lstadd_back(head, ft_lstnew(pa(a, b, 0)));
+	if (opt_idx == a->rear)
+		tmp->idx_a = a->front;
+	else
+		tmp->idx_a = (opt_idx + 1) % a->size;
 }

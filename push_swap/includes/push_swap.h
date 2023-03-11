@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:09:10 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/12 02:15:06 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/12 03:30:32 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,48 +54,56 @@ typedef struct s_mc
 	int	cur_idx;
 }t_mc;
 
-//다른 파일에서 쓰이지 않는 함수들 static으로 만들기
-//함수 이름 직관적으로 수정하기
-//utils
-int		abs(int num);
-int		free_n_print_out(int flag, int print, void *a, void *b);
-int		check_sort_a(t_stack *a);
-int		check_sort_b(t_stack *b);
-void	print_cmd(t_list *head);
+/*push_swap*/
+// main
 
-//init
+/*init*/
 int		init_stack(t_stack *a, t_stack *b, char **argv);
-int		check_valid(char **argv);
-int		check_overlap(int *a, int cnt, int num);
-int		parsing(t_stack *a, char **argv);
+// static int		check_valid(char **argv);
+// static int		check_overlap(int *a, int cnt, int num);
+// static int		parsing(t_stack *a, char **argv);
 
-//solve
-void	get_min_num(t_stack *a);
-int		greedy(t_stack *a, t_stack *b, t_cmd *cmd, t_fivot *fivot);
-int		sorting(t_stack *a, t_stack *b);
+/*solve*/
+int		solve(t_stack *a, t_stack *b);
+// static int		sorting(t_stack *a, t_stack *b, t_cmd *cmd, t_fivot *fivot);
+// static t_stack *make_tmp_stack(t_stack *src);
+// static t_list	*solve_greedy(t_stack *a, t_stack *b, t_cmd *cmd);
+// static t_list	*solve_fivot(t_stack *a, t_stack *b, t_cmd *cmd, t_fivot *fivot);
 
-//under_five
+/*under_five 아직 수정, 정리 안 함*/
 void	under_five(t_stack *a, t_stack *b);
 void	devide(t_stack *a, t_stack *b);
 void	conquer(t_stack *a, t_stack *b);
 void	combine(t_stack *a, t_stack *b);
 
-//a_to_b
-void	sort_arr(int *arr, int size);
-t_fivot	*get_fivot_num(t_stack *a);
+/*ready*/
+t_fivot	*get_fivots(t_stack *a);
 int		move_to_b(t_stack *a, t_stack *b, t_fivot *fivot);
+void	get_min_num(t_stack *a);
+// static void	sort_arr(int *arr, int size);
 
-//b_to_a
-void	get_opt_idx_in_a(t_stack *a, t_stack *b, t_cmd *tmp);
-void	max_in_less_than_num(t_stack *a, t_stack *b, t_cmd *tmp);
-int		get_cmd_cnt(t_stack *a, t_stack *b, t_cmd *cmd);
+/*go_to_a*/
 void	go_to_a(t_stack *a, t_stack *b, t_cmd *cmd, t_list **head);
+void	get_opt_idx_in_a(t_stack *a, t_stack *b, t_cmd *tmp);
+int		get_cmd_cnt(t_stack *a, t_stack *b, t_cmd *cmd);
 int		find_more_than_fivot(t_stack *b, int fivot);
+// void	max_in_less_than_num(t_stack *a, t_stack *b, t_cmd *tmp);
 
-int		find_opt_num_in_b_by_greedy(t_stack *a, t_stack *b, t_cmd *cmd);
-int		find_opt_num_in_b_by_fivot(t_stack *a, t_stack *b, t_cmd *cmd, t_fivot *fivot);
+/*find_best*/
+int	find_opt_num_in_b_by_fivot(t_stack *a, t_stack *b, t_cmd *cmd, t_fivot *fivot);
+int	find_opt_num_in_b_by_greedy(t_stack *a, t_stack *b, t_cmd *cmd);
+// static int set_fivot(t_stack *b, t_fivot *fivot);
+// static t_mc *set_min_n_cur(t_stack *b);
+// static void set_mc_n_cmd(t_stack *b, t_cmd *cmd, t_cmd *tmp, t_mc *mc);
 
-//cmd
+/*utils*/
+int		abs(int num);
+void	print_cmd(t_list *head);
+int		free_n_print_out(int flag, int print, void *a, void *b);
+int		check_sort_a(t_stack *a);
+int		check_sort_b(t_stack *b);
+
+/*cmd*/
 char	*sa(t_stack *a, int print);
 char	*sb(t_stack *b, int print);
 char	*ss(t_stack *a, t_stack *b, int print);
@@ -107,5 +115,11 @@ char	*rr(t_stack *a, t_stack *b, int print);
 char	*rra(t_stack *a, int print);
 char	*rrb(t_stack *b, int print);
 char	*rrr(t_stack *a, t_stack *b, int print);
+
+/*checker*/
+// main
+// static int	get_cmd(t_stack *a, t_stack *b);
+// static int	act_cmd_p_s(t_stack *a, t_stack *b, char *cmd_str);
+// static int	act_cmd_r_rr(t_stack *a, t_stack *b, char *cmd_str);
 
 #endif

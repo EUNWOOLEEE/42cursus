@@ -6,11 +6,18 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 23:13:37 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/12 01:34:08 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/12 02:28:30 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
+
+int	abs(int num)
+{
+	if (num < 0)
+		return (-num);
+	return (num);
+}
 
 void	print_cmd(t_list *head)
 {
@@ -20,13 +27,6 @@ void	print_cmd(t_list *head)
 		write(1, "\n", 1);
 		head = head->next;
 	}
-}
-
-int	abs(int num)
-{
-	if (num < 0)
-		return (-num);
-	return (num);
 }
 
 int	free_n_print_out(int flag, int print, void *a, void *b)

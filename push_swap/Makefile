@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/24 14:21:45 by eunwolee          #+#    #+#              #
-#    Updated: 2023/03/11 01:18:44 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/03/12 03:27:17 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,12 +30,12 @@ MAKE = make
 
 M_SRCS = $(SRC_DIR)/push_swap.c \
 	$(SRC_DIR)/init.c \
-	$(SRC_DIR)/utils.c \
 	$(SRC_DIR)/solve.c \
-	$(SRC_DIR)/a_to_b.c \
-	$(SRC_DIR)/b_to_a.c \
-	$(SRC_DIR)/find_best.c \
 	$(SRC_DIR)/under_five.c \
+	$(SRC_DIR)/ready.c \
+	$(SRC_DIR)/go_to_a.c \
+	$(SRC_DIR)/find_best.c \
+	$(SRC_DIR)/utils.c \
 	$(CMD_DIR)/push.c \
 	$(CMD_DIR)/swap.c \
 	$(CMD_DIR)/rotate.c \
@@ -44,11 +44,6 @@ M_SRCS = $(SRC_DIR)/push_swap.c \
 B_SRCS = $(B_DIR)/checker.c \
 	$(SRC_DIR)/init.c \
 	$(SRC_DIR)/utils.c \
-	$(SRC_DIR)/solve.c \
-	$(SRC_DIR)/a_to_b.c \
-	$(SRC_DIR)/b_to_a.c \
-	$(SRC_DIR)/find_best.c \
-	$(SRC_DIR)/under_five.c \
 	$(CMD_DIR)/push.c \
 	$(CMD_DIR)/swap.c \
 	$(CMD_DIR)/rotate.c \

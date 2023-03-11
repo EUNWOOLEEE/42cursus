@@ -1,42 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   a_to_b.c                                           :+:      :+:    :+:   */
+/*   ready.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:03:27 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/12 01:37:21 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/12 03:30:54 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-void	sort_arr(int *arr, int size)
-{
-	int	i;
-	int	j;
-	int	tmp;
+static void	sort_arr(int *arr, int size);
 
-	i = 0;
-	while (i < size)
-	{
-		j = i + 1;
-		while (j < size)
-		{
-			if (arr[i] > arr[j])
-			{
-				tmp = arr[i];
-				arr[i] = arr[j];
-				arr[j] = tmp;
-			}
-			j++;
-		}
-		i++;
-	}
-}
-
-t_fivot	*get_fivot_num(t_stack *a)
+t_fivot	*get_fivots(t_stack *a)
 {
 	int		*arr;
 	t_fivot	*fivot;
@@ -82,4 +60,47 @@ int	move_to_b(t_stack *a, t_stack *b, t_fivot *fivot)
 	while (cnt--)
 		pb(a, b, 1);
 	return (0);
+}
+
+void	get_min_num(t_stack *a)
+{
+	int	idx;
+	int	cnt;
+
+	idx = a->front;
+	cnt = a->in - a->out;
+	a->min = INT_MAX;
+	while (cnt--)
+	{
+		if (a->min > a->arr[idx])
+		{
+			a->min = a->arr[idx];
+			a->min_idx = idx;
+		}
+		idx = (idx + 1) % a->size;
+	}
+}
+
+static void	sort_arr(int *arr, int size)
+{
+	int	i;
+	int	j;
+	int	tmp;
+
+	i = 0;
+	while (i < size)
+	{
+		j = i + 1;
+		while (j < size)
+		{
+			if (arr[i] > arr[j])
+			{
+				tmp = arr[i];
+				arr[i] = arr[j];
+				arr[j] = tmp;
+			}
+			j++;
+		}
+		i++;
+	}
 }

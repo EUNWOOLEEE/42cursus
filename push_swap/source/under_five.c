@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 00:25:19 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/12 01:34:56 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/12 03:28:10 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	under_five(t_stack *a, t_stack *b)
 			conquer(a, b);
 	else if (a->size <= 5)
 	{
-		// while (check_sort_a(a))
+		// while (check_sort_a(a)) 없어도 되나?
 		{
 			cnt = 2;
 			devide(a, b);

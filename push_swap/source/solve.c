@@ -6,96 +6,43 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 21:59:12 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/12 02:26:25 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/12 03:31:34 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-void	get_min_num(t_stack *a)
+static int	sorting(t_stack *a, t_stack *b, t_cmd *cmd, t_fivot *fivot);
+static t_stack *make_tmp_stack(t_stack *src);
+static t_list	*solve_greedy(t_stack *a, t_stack *b, t_cmd *cmd);
+static t_list	*solve_fivot(t_stack *a, t_stack *b, t_cmd *cmd, t_fivot *fivot);
+
+int	solve(t_stack *a, t_stack *b)
 {
-	int	idx;
-	int	cnt;
+	t_cmd	*cmd;
+	t_fivot	*fivot;
 
-	idx = a->front;
-	cnt = a->in - a->out;
-	a->min = INT_MAX;
-	while (cnt--)
-	{
-		if (a->min > a->arr[idx])
-		{
-			a->min = a->arr[idx];
-			a->min_idx = idx;
-		}
-		idx = (idx + 1) % a->size;
-	}
-}
-
-t_list	*solve_greedy(t_stack *a, t_stack *b, t_cmd *cmd)
-{
-	int		cnt;
-	t_list	*head;
-
-	cnt = a->size;
-	head = 0;
-	while (cnt--)
-	{
-		if (find_opt_num_in_b_by_greedy(a, b, cmd) == -1)
-			return (0);
-		go_to_a(a, b, cmd, &head);
-		get_min_num(a);
-	}
-	if (abs(a->min_idx - a->front) <= abs(a->min_idx - a->rear))
-		while (a->arr[a->front] != a->min)
-			ft_lstadd_back(&head, ft_lstnew(ra(a, 0)));
+	if (a->size <= 5)
+		under_five(a, b);
 	else
-		while (a->arr[a->front] != a->min)
-			ft_lstadd_back(&head, ft_lstnew(rra(a, 0)));
-	return (head);
-}
-
-t_list	*solve_fivot(t_stack *a, t_stack *b, t_cmd *cmd, t_fivot *fivot)
-{
-	int		cnt;
-	t_list	*head;
-
-	cnt = a->size;
-	head = 0;
-	while (cnt--)
 	{
-		if (find_opt_num_in_b_by_fivot(a, b, cmd, fivot) == -1)
-			return (0);
-		go_to_a(a, b, cmd, &head);
+		cmd = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
+		if (!cmd)
+			return (-1);
 		get_min_num(a);
+		fivot = get_fivots(a);
+		if (!fivot)
+			return (free_n_print_out(2, 0, cmd, 0));
+		if (move_to_b(a, b, fivot) == -1)
+			return (free_n_print_out(2, 0, cmd, fivot));
+		if (sorting(a, b, cmd, fivot) == -1)
+			return (free_n_print_out(2, 0, cmd, fivot));
+		return (free_n_print_out(1, 0, cmd, fivot));
 	}
-	if (abs(a->min_idx - a->front) <= abs(a->min_idx - a->rear))
-		while (a->arr[a->front] != a->min)
-			ft_lstadd_back(&head, ft_lstnew(ra(a, 0)));
-	else
-		while (a->arr[a->front] != a->min)
-			ft_lstadd_back(&head, ft_lstnew(rra(a, 0)));
-	return (head);
+	return (0);
 }
 
-t_stack *make_tmp_stack(t_stack *src)
-{
-	t_stack *tmp;
-
-	tmp = (t_stack *)malloc(sizeof(t_stack));
-	if (!tmp)
-		return (0);
-	ft_memmove(tmp, src, sizeof(t_stack));
-	tmp->arr = (int *)malloc(sizeof(int) * src->size);
-	if (!tmp->arr)
-	{
-		free(tmp);
-		return (0);
-	}
-	ft_memmove(tmp->arr, src->arr, sizeof(int) * src->size);
-	return (tmp);
-}
-
-int	greedy(t_stack *a, t_stack *b, t_cmd *cmd, t_fivot *fivot)
+static int	sorting(t_stack *a, t_stack *b, t_cmd *cmd, t_fivot *fivot)
 {
 	t_stack *a_tmp;
 	t_stack *b_tmp;
@@ -118,27 +65,66 @@ int	greedy(t_stack *a, t_stack *b, t_cmd *cmd, t_fivot *fivot)
 	return (free_n_print_out(1, 0, a_tmp, b_tmp));
 }
 
-int	sorting(t_stack *a, t_stack *b)
+static t_list	*solve_greedy(t_stack *a, t_stack *b, t_cmd *cmd)
 {
-	t_cmd	*cmd;
-	t_fivot	*fivot;
+	int		cnt;
+	t_list	*head;
 
-	if (a->size <= 5)
-		under_five(a, b);
-	else
+	cnt = a->size;
+	head = 0;
+	while (cnt--)
 	{
-		cmd = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
-		if (!cmd)
-			return (-1);
+		if (find_opt_num_in_b_by_greedy(a, b, cmd) == -1)
+			return (0);
+		go_to_a(a, b, cmd, &head);
 		get_min_num(a);
-		fivot = get_fivot_num(a);
-		if (!fivot)
-			return (free_n_print_out(2, 0, cmd, 0));
-		if (move_to_b(a, b, fivot) == -1)
-			return (free_n_print_out(2, 0, cmd, fivot));
-		if (greedy(a, b, cmd, fivot) == -1)
-			return (free_n_print_out(2, 0, cmd, fivot));
-		return (free_n_print_out(1, 0, cmd, fivot));
 	}
-	return (0);
+	if (abs(a->min_idx - a->front) <= abs(a->min_idx - a->rear))
+		while (a->arr[a->front] != a->min)
+			ft_lstadd_back(&head, ft_lstnew(ra(a, 0)));
+	else
+		while (a->arr[a->front] != a->min)
+			ft_lstadd_back(&head, ft_lstnew(rra(a, 0)));
+	return (head);
+}
+
+static t_list	*solve_fivot(t_stack *a, t_stack *b, t_cmd *cmd, t_fivot *fivot)
+{
+	int		cnt;
+	t_list	*head;
+
+	cnt = a->size;
+	head = 0;
+	while (cnt--)
+	{
+		if (find_opt_num_in_b_by_fivot(a, b, cmd, fivot) == -1)
+			return (0);
+		go_to_a(a, b, cmd, &head);
+		get_min_num(a);
+	}
+	if (abs(a->min_idx - a->front) <= abs(a->min_idx - a->rear))
+		while (a->arr[a->front] != a->min)
+			ft_lstadd_back(&head, ft_lstnew(ra(a, 0)));
+	else
+		while (a->arr[a->front] != a->min)
+			ft_lstadd_back(&head, ft_lstnew(rra(a, 0)));
+	return (head);
+}
+
+static t_stack *make_tmp_stack(t_stack *src)
+{
+	t_stack *tmp;
+
+	tmp = (t_stack *)malloc(sizeof(t_stack));
+	if (!tmp)
+		return (0);
+	ft_memmove(tmp, src, sizeof(t_stack));
+	tmp->arr = (int *)malloc(sizeof(int) * src->size);
+	if (!tmp->arr)
+	{
+		free(tmp);
+		return (0);
+	}
+	ft_memmove(tmp->arr, src->arr, sizeof(int) * src->size);
+	return (tmp);
 }
