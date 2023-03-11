@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:03:27 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/11 00:13:34 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/11 14:51:52 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	sort_arr(int *arr, int size)
 	}
 }
 
-t_fivot	*get_min_and_fivot_num(t_stack *a, int size)
+t_fivot	*get_fivot_num(t_stack *a, int size)
 {
 	int		*arr;
 	t_fivot	*fivot;

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 18:56:19 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/11 01:12:10 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/11 18:39:12 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,19 @@ void	max_in_less_than_num(t_stack *a, t_stack *b, int size, t_cmd *tmp)
 		tmp->idx_a = (opt_idx + 1) % size;
 }
 
-int	get_cmd_cnt(t_stack *a, t_stack *b, t_cmd *cmd)
+int	get_cmd_cnt(t_stack *a, t_stack *b, int size, t_cmd *cmd)
 {
-	if (abs(cmd->idx_a - a->front) <= abs(cmd->idx_a - a->rear))
-		cmd->ra = abs(cmd->idx_a - a->front);
+	int	tmp;
+
+	if (a->front > size / 3 && cmd->idx_a < size / 3)
+		tmp = cmd->idx_a + size;
 	else
-		cmd->rra = abs(cmd->idx_a - a->rear) + 1;
+		tmp = cmd->idx_a;
+	if (abs(tmp - a->front) <= abs(tmp - a->rear))
+		cmd->ra = abs(tmp - a->front);
+	else
+		cmd->rra = abs(tmp - a->rear) + 1;
+
 	if (abs(cmd->idx_b - b->front) <= abs(cmd->idx_b - b->rear))
 		cmd->rb = abs(cmd->idx_b - b->front);
 	else

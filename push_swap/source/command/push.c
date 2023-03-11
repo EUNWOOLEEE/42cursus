@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 22:12:09 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/10 21:45:09 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/11 16:09:43 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ char	*pa(t_stack *a, t_stack *b, int size, int print)
 	b->out++;
 	a->in++;
 	if (print)
+	{
 		write(1, "pa\n", 3);
+		return (0);
+	}
 	return (ft_strdup("pa"));
 }
 
@@ -44,6 +47,9 @@ char	*pb(t_stack *a, t_stack *b, int size, int print)
 	a->out++;
 	b->in++;
 	if (print)
+	{
 		write(1, "pb\n", 3);
+		return (0);
+	}
 	return (ft_strdup("pb"));
 }

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 22:12:14 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/10 21:20:32 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/11 16:10:17 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ char	*rra(t_stack *a, int size, int print)
 		a->rear = size - 1;
 	a->arr[a->front] = tmp;
 	if (print)
+	{
 		write(1, "rra\n", 4);
+		return (0);
+	}
 	return (ft_strdup("rra"));
 }
 
@@ -44,7 +47,10 @@ char	*rrb(t_stack *b, int size, int print)
 		b->rear = size - 1;
 	b->arr[b->front] = tmp;
 	if (print)
+	{
 		write(1, "rrb\n", 4);
+		return (0);
+	}
 	return (ft_strdup("rrb"));
 }
 
@@ -71,6 +77,9 @@ char	*rrr(t_stack *a, t_stack *b, int size, int print)
 		b->rear = size - 1;
 	b->arr[b->front] = tmp;
 	if (print)
+	{
 		write(1, "rrr\n", 4);
+		return (0);
+	}
 	return (ft_strdup("rrr"));
 }

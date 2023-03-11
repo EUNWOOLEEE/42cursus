@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   find.c                                             :+:      :+:    :+:   */
+/*   find_best.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 01:10:22 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/11 01:16:53 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/11 17:10:19 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	find_opt_num_in_b_by_fivot(t_stack *a, t_stack *b, int size, t_cmd *cmd, t_f
 	if (!tmp)
 		return (-1);
 	fiv = set_fivot(b, size, fivot);
+
 	while (mc.cnt--)
 	{
 		ft_memset(tmp, 0, sizeof(t_cmd));
@@ -46,7 +47,7 @@ int	find_opt_num_in_b_by_fivot(t_stack *a, t_stack *b, int size, t_cmd *cmd, t_f
 		{
 			tmp->idx_b = mc.cur_idx;
 			get_opt_idx_in_a(a, b, size, tmp);
-			mc.cur_cnt = get_cmd_cnt(a, b, tmp);
+			mc.cur_cnt = get_cmd_cnt(a, b, size, tmp);
 			if (mc.min_cnt >= mc.cur_cnt && mc.max_in_min_cnt < b->arr[mc.cur_idx])
 			{
 				mc.max_in_min_cnt = b->arr[mc.cur_idx];
@@ -76,7 +77,7 @@ int	find_opt_num_in_b_by_greedy(t_stack *a, t_stack *b, int size, t_cmd *cmd)
 		ft_memset(tmp, 0, sizeof(t_cmd));
 		tmp->idx_b = mc.cur_idx;
 		get_opt_idx_in_a(a, b, size, tmp);
-		mc.cur_cnt = get_cmd_cnt(a, b, tmp);
+		mc.cur_cnt = get_cmd_cnt(a, b, size, tmp);
 		if (mc.min_cnt >= mc.cur_cnt && mc.max_in_min_cnt < b->arr[mc.cur_idx])
 		{
 			mc.max_in_min_cnt = b->arr[mc.cur_idx];
