@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:09:10 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/11 19:00:41 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/12 02:15:06 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_stack
 	int	rear;
 	int	in;
 	int	out;
+	int size;
 	int	min;
 	int	min_idx;
 }t_stack;
@@ -54,11 +55,12 @@ typedef struct s_mc
 }t_mc;
 
 //다른 파일에서 쓰이지 않는 함수들 static으로 만들기
+//함수 이름 직관적으로 수정하기
 //utils
 int		abs(int num);
 int		free_n_print_out(int flag, int print, void *a, void *b);
-int		check_sort_a(t_stack *a, int size);
-int		check_sort_b(t_stack *b, int size);
+int		check_sort_a(t_stack *a);
+int		check_sort_b(t_stack *b);
 void	print_cmd(t_list *head);
 
 //init
@@ -68,42 +70,42 @@ int		check_overlap(int *a, int cnt, int num);
 int		parsing(t_stack *a, char **argv);
 
 //solve
-void	get_min_num(t_stack *a, int size);
-int		greedy(t_stack *a, t_stack *b, t_cmd *cmd, int size);
-int		sorting(t_stack *a, t_stack *b, int size);
+void	get_min_num(t_stack *a);
+int		greedy(t_stack *a, t_stack *b, t_cmd *cmd, t_fivot *fivot);
+int		sorting(t_stack *a, t_stack *b);
 
 //under_five
-void	under_five(t_stack *a, t_stack *b, int size);
-void	devide(t_stack *a, t_stack *b, int size);
-void	conquer(t_stack *a, t_stack *b, int size);
-void	combine(t_stack *a, t_stack *b, int size);
+void	under_five(t_stack *a, t_stack *b);
+void	devide(t_stack *a, t_stack *b);
+void	conquer(t_stack *a, t_stack *b);
+void	combine(t_stack *a, t_stack *b);
 
 //a_to_b
 void	sort_arr(int *arr, int size);
-t_fivot	*get_fivot_num(t_stack *a, int size);
-int		move_to_b(t_stack *a, t_stack *b, int size, t_fivot *fivot);
+t_fivot	*get_fivot_num(t_stack *a);
+int		move_to_b(t_stack *a, t_stack *b, t_fivot *fivot);
 
 //b_to_a
-void	get_opt_idx_in_a(t_stack *a, t_stack *b, int size, t_cmd *tmp);
-void	max_in_less_than_num(t_stack *a, t_stack *b, int size, t_cmd *tmp);
-int		get_cmd_cnt(t_stack *a, t_stack *b, int size, t_cmd *cmd);
-void	go_to_a(t_stack *a, t_stack *b, int size, t_cmd *cmd, t_list **head);
-int		find_more_than_fivot(t_stack *b, int size, int fivot);
+void	get_opt_idx_in_a(t_stack *a, t_stack *b, t_cmd *tmp);
+void	max_in_less_than_num(t_stack *a, t_stack *b, t_cmd *tmp);
+int		get_cmd_cnt(t_stack *a, t_stack *b, t_cmd *cmd);
+void	go_to_a(t_stack *a, t_stack *b, t_cmd *cmd, t_list **head);
+int		find_more_than_fivot(t_stack *b, int fivot);
 
-int		find_opt_num_in_b_by_greedy(t_stack *a, t_stack *b, int size, t_cmd *cmd);
-int		find_opt_num_in_b_by_fivot(t_stack *a, t_stack *b, int size, t_cmd *cmd, t_fivot *fivot);
+int		find_opt_num_in_b_by_greedy(t_stack *a, t_stack *b, t_cmd *cmd);
+int		find_opt_num_in_b_by_fivot(t_stack *a, t_stack *b, t_cmd *cmd, t_fivot *fivot);
 
 //cmd
-char	*sa(t_stack *a, int size, int print);
-char	*sb(t_stack *b, int size, int print);
-char	*ss(t_stack *a, t_stack *b, int size, int print);
-char	*pa(t_stack *a, t_stack *b, int size, int print);
-char	*pb(t_stack *a, t_stack *b, int size, int print);
-char	*ra(t_stack *a, int size, int print);
-char	*rb(t_stack *b, int size, int print);
-char	*rr(t_stack *a, t_stack *b, int size, int print);
-char	*rra(t_stack *a, int size, int print);
-char	*rrb(t_stack *b, int size, int print);
-char	*rrr(t_stack *a, t_stack *b, int size, int print);
+char	*sa(t_stack *a, int print);
+char	*sb(t_stack *b, int print);
+char	*ss(t_stack *a, t_stack *b, int print);
+char	*pa(t_stack *a, t_stack *b, int print);
+char	*pb(t_stack *a, t_stack *b, int print);
+char	*ra(t_stack *a, int print);
+char	*rb(t_stack *b, int print);
+char	*rr(t_stack *a, t_stack *b, int print);
+char	*rra(t_stack *a, int print);
+char	*rrb(t_stack *b, int print);
+char	*rrr(t_stack *a, t_stack *b, int print);
 
 #endif

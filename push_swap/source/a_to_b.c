@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:03:27 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/11 14:51:52 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/12 01:37:21 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ void	sort_arr(int *arr, int size)
 	}
 }
 
-t_fivot	*get_fivot_num(t_stack *a, int size)
+t_fivot	*get_fivot_num(t_stack *a)
 {
 	int		*arr;
 	t_fivot	*fivot;
 
-	arr = (int *)malloc(sizeof(int) * size);
+	arr = (int *)malloc(sizeof(int) * a->size);
 	if (!arr)
 		return (0);
 	fivot = (t_fivot *)ft_calloc(1, sizeof(t_fivot));
@@ -50,36 +50,36 @@ t_fivot	*get_fivot_num(t_stack *a, int size)
 		free (arr);
 		return (0);
 	}
-	ft_memmove(arr, a->arr, sizeof(int) * size);
-	sort_arr(arr, size);
-	fivot->one_third = arr[size / 3];
-	fivot->two_third = arr[size / 3 * 2];
+	ft_memmove(arr, a->arr, sizeof(int) * a->size);
+	sort_arr(arr, a->size);
+	fivot->one_third = arr[a->size / 3];
+	fivot->two_third = arr[a->size / 3 * 2];
 	free (arr);
 	return (fivot);
 }
 
-int	move_to_b(t_stack *a, t_stack *b, int size, t_fivot *fivot)
+int	move_to_b(t_stack *a, t_stack *b, t_fivot *fivot)
 {
 	int		cnt;
 
-	cnt = size;
+	cnt = a->size;
 
 	while (cnt--)
 	{
 		if (a->arr[a->front] < fivot->two_third)
 		{
-			pb(a, b, size, 1);
+			pb(a, b, 1);
 			if (b->arr[b->front] < fivot->one_third
 				&& a->arr[a->front] >= fivot->two_third)
-				rr(a, b, size, 1);
+				rr(a, b, 1);
 			else if (b->arr[b->front] < fivot->one_third)
-				rb(b, size, 1);
+				rb(b, 1);
 		}
 		else if (a->arr[a->front] >= fivot->two_third)
-			ra(a, size, 1);
+			ra(a, 1);
 	}
 	cnt = a->in - a->out;
 	while (cnt--)
-		pb(a, b, size, 1);
+		pb(a, b, 1);
 	return (0);
 }

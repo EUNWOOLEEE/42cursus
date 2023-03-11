@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 00:25:19 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/11 19:16:07 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/12 01:34:56 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,34 @@
 
 //5개일때 조건 다시 생각해보기. 더 줄일 수 있을 것 같음
 
-void	under_five(t_stack *a, t_stack *b, int size)
+void	under_five(t_stack *a, t_stack *b)
 {
 	int	cnt;
 
 	cnt = 2;
-	if (size <= 3)
+	if (a->size <= 3)
 		while (cnt--)
-			conquer(a, b, size);
-	else if (size <= 5)
+			conquer(a, b);
+	else if (a->size <= 5)
 	{
-		// while (check_sort_a(a, size))
+		// while (check_sort_a(a))
 		{
 			cnt = 2;
-			devide(a, b, size);
+			devide(a, b);
 			while (cnt--)
-				conquer(a, b, size);
-			combine(a, b, size);
+				conquer(a, b);
+			combine(a, b);
 		}
 	}
 }
 
-void	devide(t_stack *a, t_stack *b, int size)
+void	devide(t_stack *a, t_stack *b)
 {
 	int	cnt;
 	int	num;
 
-	num = size / 2;
-	while (!check_sort_b(b, size))
+	num = a->size / 2;
+	while (!check_sort_b(b))
 	{
 		cnt = num;
 		num /= 2;
@@ -50,49 +50,49 @@ void	devide(t_stack *a, t_stack *b, int size)
 		while (cnt--)
 		{
 			if (a->arr[a->rear] < a->arr[a->front]
-				&& a->arr[a->rear] < a->arr[(a->front + 1) % size])
-				rra(a, size, 1);
-			else if (a->arr[(a->front + 1) % size] < a->arr[a->front])
-				sa(a, size, 1);
-			pb(a, b, size, 1);
+				&& a->arr[a->rear] < a->arr[(a->front + 1) % a->size])
+				rra(a, 1);
+			else if (a->arr[(a->front + 1) % a->size] < a->arr[a->front])
+				sa(a, 1);
+			pb(a, b, 1);
 		}
 	}
 }
 
-void	conquer(t_stack *a, t_stack *b, int size)
+void	conquer(t_stack *a, t_stack *b)
 {
 	int	first;
 	int	second;
 	int	last;
 
 	first = a->arr[a->front];
-	second = a->arr[(a->front + 1) % size];
+	second = a->arr[(a->front + 1) % a->size];
 	last = a->arr[a->rear];
 	if (first > second && first > last)
-		ra(a, size, 1);
+		ra(a, 1);
 	else if (second > first && second > last)
-		rra(a, size, 1);
+		rra(a, 1);
 	else if (last > first && last > second && first > second)
-		sa(a, size, 1);
+		sa(a, 1);
 	first = b->arr[b->front];
-	second = b->arr[(b->front + 1) % size];
+	second = b->arr[(b->front + 1) % a->size];
 	last = b->arr[b->rear];
 	if (first < second && first < last)
-		rb(b, size, 1);
+		rb(b, 1);
 	else if (second < first && second < last)
-		rrb(b, size, 1);
+		rrb(b, 1);
 	else if (last < first && last < second && first < second)
-		sb(b, size, 1);
+		sb(b, 1);
 }
 
-void	combine(t_stack *a, t_stack *b, int size)
+void	combine(t_stack *a, t_stack *b)
 {
 	int	cnt;
 
 	cnt = b->in - b->out;
 	while (cnt--)
 	{
-		pa(a, b, size, 1);
-		conquer(a, b, size);
+		pa(a, b, 1);
+		conquer(a, b);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 23:13:37 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/12 00:49:18 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/12 01:34:08 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,25 +45,25 @@ int	free_n_print_out(int flag, int print, void *a, void *b)
 	return (0);
 }
 
-int	check_sort_a(t_stack *a, int size)
+int	check_sort_a(t_stack *a)
 {
 	int	front;
 	int	num;
 	int	pre;
 
 	front = a->front;
-	num = size;
-	pre = a->arr[front++ % size];
+	num = a->size;
+	pre = a->arr[front++ % a->size];
 	while (--num)
 	{
-		if (pre > a->arr[front % size])
+		if (pre > a->arr[front % a->size])
 			return (-1);
-		pre = a->arr[front++ % size];
+		pre = a->arr[front++ % a->size];
 	}
 	return (0);
 }
 
-int	check_sort_b(t_stack *b, int size)
+int	check_sort_b(t_stack *b)
 {
 	int	front;
 	int	num;
@@ -71,14 +71,14 @@ int	check_sort_b(t_stack *b, int size)
 
 	front = b->front;
 	num = b->in - b->out;
-	pre = b->arr[front++ % size];
+	pre = b->arr[front++ % b->size];
 	if (!num)
 		return (0);
 	while (--num)
 	{
-		if (pre < b->arr[front % size])
+		if (pre < b->arr[front % b->size])
 			return (-1);
-		pre = b->arr[front++ % size];
+		pre = b->arr[front++ % b->size];
 	}
 	return (0);
 }

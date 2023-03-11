@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 21:59:09 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/12 00:50:20 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/12 01:28:48 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,21 @@
 
 int	init_stack(t_stack *a, t_stack *b, char **argv)
 {
-	int	size;
-
-	size = check_valid(argv);
-	if (size <= 0)
+	a->size = check_valid(argv);
+	if (a->size <= 0)
 		return (-1);
-	a->arr = (int *)ft_calloc(size, sizeof(int));
-	b->arr = (int *)ft_calloc(size, sizeof(int));
+	a->arr = (int *)ft_calloc(a->size, sizeof(int));
+	b->arr = (int *)ft_calloc(a->size, sizeof(int));
 	if (!a->arr || !b->arr)
 		return (-1);
 	if (parsing(a, argv) == -1)
 		return (free_n_print_out(1, 0, a->arr, b->arr));
-	a->rear = size - 1;
-	b->rear = size - 1;
-	a->in = size;
+	a->rear = a->size - 1;
+	b->rear = a->size - 1;
+	b->size = a->size;
+	a->in = a->size;
 	a->min = INT_MAX;
-	return (size);
+	return (a->size);
 }
 
 int	check_valid(char **argv)
