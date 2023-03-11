@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:09:10 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/11 17:10:38 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/11 19:00:41 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ int		sorting(t_stack *a, t_stack *b, int size);
 
 //under_five
 void	under_five(t_stack *a, t_stack *b, int size);
-void	devide_small(t_stack *a, t_stack *b, int size);
-void	conquer_small(t_stack *a, t_stack *b, int size);
-void	combine_small(t_stack *a, t_stack *b, int size);
+void	devide(t_stack *a, t_stack *b, int size);
+void	conquer(t_stack *a, t_stack *b, int size);
+void	combine(t_stack *a, t_stack *b, int size);
 
 //a_to_b
 void	sort_arr(int *arr, int size);

@@ -6,11 +6,13 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 00:25:19 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/10 17:16:37 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/11 19:16:07 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
+
+//5개일때 조건 다시 생각해보기. 더 줄일 수 있을 것 같음
 
 void	under_five(t_stack *a, t_stack *b, int size)
 {
@@ -19,21 +21,21 @@ void	under_five(t_stack *a, t_stack *b, int size)
 	cnt = 2;
 	if (size <= 3)
 		while (cnt--)
-			conquer_small(a, b, size);
+			conquer(a, b, size);
 	else if (size <= 5)
 	{
-		while (check_sort_a(a, size))
+		// while (check_sort_a(a, size))
 		{
 			cnt = 2;
-			devide_small(a, b, size);
+			devide(a, b, size);
 			while (cnt--)
-				conquer_small(a, b, size);
-			combine_small(a, b, size);
+				conquer(a, b, size);
+			combine(a, b, size);
 		}
 	}
 }
 
-void	devide_small(t_stack *a, t_stack *b, int size)
+void	devide(t_stack *a, t_stack *b, int size)
 {
 	int	cnt;
 	int	num;
@@ -57,7 +59,7 @@ void	devide_small(t_stack *a, t_stack *b, int size)
 	}
 }
 
-void	conquer_small(t_stack *a, t_stack *b, int size)
+void	conquer(t_stack *a, t_stack *b, int size)
 {
 	int	first;
 	int	second;
@@ -83,7 +85,7 @@ void	conquer_small(t_stack *a, t_stack *b, int size)
 		sb(b, size, 1);
 }
 
-void	combine_small(t_stack *a, t_stack *b, int size)
+void	combine(t_stack *a, t_stack *b, int size)
 {
 	int	cnt;
 
@@ -91,6 +93,6 @@ void	combine_small(t_stack *a, t_stack *b, int size)
 	while (cnt--)
 	{
 		pa(a, b, size, 1);
-		conquer_small(a, b, size);
+		conquer(a, b, size);
 	}
 }

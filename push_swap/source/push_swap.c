@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:09:29 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/11 16:15:17 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/12 00:49:43 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int argc, char **argv)
 	if (!a)
 		return (free_n_print_out(0, 1, 0, 0));
 	if (!b)
-		return (free_n_print_out(2, 1, a, 0));
+		return (free_n_print_out(1, 1, a, 0));
 	if (init_stack(a, b, argv) <= 0)
 		return (free_n_print_out(1, 1, a, b));
 	if (a->in == 1 || !check_sort_a(a, a->in))

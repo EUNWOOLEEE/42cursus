@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 21:59:12 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/11 17:09:01 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/12 00:52:48 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,6 @@ t_list	*solve_greedy(t_stack *a, t_stack *b, t_cmd *cmd, int size)
 	return (head);
 }
 
-#include <stdio.h>
-void	test_print(t_stack *a, t_stack *b, int size)
-{
-	printf("a f: %d r: %d\n", a->front, a->rear);
-	printf("b f: %d r: %d\n", b->front, b->rear);
-	for(int cnt = size, i = a->front, j = b->front; cnt; cnt--, i++, j++)
-		printf("[%d]%d  [%d]%d\n", i % size, a->arr[i % size], j % size, b->arr[j % size]);
-	printf("\n");
-}
-
 t_list	*solve_fivot(t_stack *a, t_stack *b, t_cmd *cmd, int size, t_fivot *fivot)
 {
 	int		cnt;
@@ -75,9 +65,6 @@ t_list	*solve_fivot(t_stack *a, t_stack *b, t_cmd *cmd, int size, t_fivot *fivot
 	{
 		if (find_opt_num_in_b_by_fivot(a, b, size, cmd, fivot) == -1)
 			return (0);
-		// printf("idx: %d %d\n", cmd->idx_a, cmd->idx_b);
-		// printf("cmd: %d %d %d %d\n", cmd->ra, cmd->rb, cmd->rra, cmd->rrb);
-		// test_print(a, b, size);
 		go_to_a(a, b, size, cmd, &head);
 		get_min_num(a, size);
 	}
@@ -99,33 +86,27 @@ int	greedy(t_stack *a, t_stack *b, t_cmd *cmd, int size)
 	t_list	*cmd_greedy;
 
 	a_tmp = (t_stack *)malloc(sizeof(t_stack));
-	if (!a_tmp)
-		return (-1);
 	b_tmp = (t_stack *)malloc(sizeof(t_stack));
-	if (!b_tmp)
-		return (free_n_print_out(4, 0, a_tmp, 0));
+	if (!a_tmp || !b_tmp)
+		return (free_n_print_out(2, 0, a_tmp, b_tmp));
 	fivot = get_fivot_num(a, size);
 	if (!fivot)
-		return (free_n_print_out(3, 0, a_tmp, b_tmp));
+		return (free_n_print_out(2, 0, a_tmp, b_tmp));
 	if (move_to_b(a, b, size, fivot) == -1)
 	{
-		free_n_print_out(3, 0, a_tmp, b_tmp);
-		return (free_n_print_out(4, 0, fivot, 0));
+		free_n_print_out(2, 0, a_tmp, b_tmp);
+		return (free_n_print_out(2, 0, fivot, 0));
 	}
 	
 	ft_memmove(a_tmp, a, sizeof(t_stack));
 	ft_memmove(b_tmp, b, sizeof(t_stack));
 
 	a_tmp->arr = (int *)malloc(sizeof(size) * size);
-	if (!a_tmp->arr)
+	b_tmp->arr = (int *)malloc(sizeof(size) * size);
+	if (!a_tmp->arr || !b_tmp->arr)
 	{
 		free(fivot);
-		return (free_n_print_out(3, 0, a_tmp, b_tmp));
-	}
-	b_tmp->arr = (int *)malloc(sizeof(size) * size);
-	if (!b_tmp->arr)
-	{
-		free_n_print_out(3, 0, a_tmp->arr, fivot);
+		free_n_print_out(3, 0, a_tmp->arr, b_tmp->arr);
 		return (free_n_print_out(3, 0, a_tmp, b_tmp));
 	}
 	
@@ -159,8 +140,8 @@ int	sorting(t_stack *a, t_stack *b, int size)
 			return (-1);
 		get_min_num(a, size);
 		if (greedy(a, b, cmd, size) == -1)
-			return (free_n_print_out(4, 0, cmd, 0));
-		return (free_n_print_out(2, 0, cmd, 0));
+			return (free_n_print_out(2, 0, cmd, 0));
+		return (free_n_print_out(1, 0, cmd, 0));
 	}
 	return (0);
 }
