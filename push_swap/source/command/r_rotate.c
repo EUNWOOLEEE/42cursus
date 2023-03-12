@@ -6,19 +6,11 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 22:12:14 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/12 16:35:24 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/12 18:28:52 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/push_swap.h"
-
-static int	set_idx(int idx, int size)
-{
-	idx--;
-	if (idx == -1)
-		idx = size - 1;
-	return (idx);
-}
 
 char	*rra(t_stack *a, int print)
 {

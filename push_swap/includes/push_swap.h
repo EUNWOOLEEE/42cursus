@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:09:10 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/12 16:50:49 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/12 18:28:30 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ char	*rr(t_stack *a, t_stack *b, int print);
 char	*rra(t_stack *a, int print);
 char	*rrb(t_stack *b, int print);
 char	*rrr(t_stack *a, t_stack *b, int print);
+int		set_idx(int idx, int size);
 
 /*checker*/
 // main
