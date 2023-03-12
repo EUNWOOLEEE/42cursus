@@ -6,11 +6,10 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/24 14:21:45 by eunwolee          #+#    #+#              #
-#    Updated: 2023/03/12 03:27:17 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/03/12 16:29:24 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-A_NAME = push_swap.a
 M_NAME = push_swap
 B_NAME = checker
 
@@ -60,7 +59,6 @@ with_bonus: $(B_NAME)
 
 $(B_NAME): $(B_SRCS)
 	$(MAKE) -C $(L_DIR) all
-	cp ./$(L_DIR)/$(L_NAME) $(L_NAME)
 	$(CC) $(CFLAGS) $^ $(L_NAME) -I $(INCS_DIR) -o $@
 
 bonus:
