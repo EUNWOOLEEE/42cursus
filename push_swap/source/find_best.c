@@ -6,17 +6,17 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 01:10:22 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/12 16:48:26 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/12 18:50:59 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-static int	set_fivot(t_stack *b, t_fivot *fivot);
+static int	set_pivot(t_stack *b, t_pivot *pivot);
 static t_mc	*set_min_n_cur(t_stack *b);
 static void	set_mc_n_cmd(t_stack *b, t_cmd *cmd, t_cmd *tmp, t_mc *mc);
 
-int	find_opt_num_in_b_by_fivot(t_stack *a, t_stack *b, t_cmd *cmd, t_fivot *fivot)
+int	find_opt_num_in_b_by_pivot(t_stack *a, t_stack *b, t_cmd *cmd, t_pivot *pivot)
 {
 	t_mc	*mc;
 	t_cmd	*tmp;
@@ -26,7 +26,7 @@ int	find_opt_num_in_b_by_fivot(t_stack *a, t_stack *b, t_cmd *cmd, t_fivot *fivo
 	tmp = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
 	if (!tmp || !mc)
 		return (free_n_print_out(2, 0, tmp, mc));
-	fiv = set_fivot(b, fivot);
+	fiv = set_pivot(b, pivot);
 	while (mc->cnt--)
 	{
 		ft_memset(tmp, 0, sizeof(t_cmd));
@@ -65,14 +65,14 @@ int	find_opt_num_in_b_by_greedy(t_stack *a, t_stack *b, t_cmd *cmd)
 	return (free_n_print_out(1, 0, mc, tmp));
 }
 
-static int	set_fivot(t_stack *b, t_fivot *fivot)
+static int	set_pivot(t_stack *b, t_pivot *pivot)
 {
 	int	fiv;
 	
-	if (find_more_than_fivot(b, fivot->two_third))
-		fiv = fivot->two_third;
-	else if (find_more_than_fivot(b, fivot->one_third))
-		fiv = fivot->one_third;
+	if (find_more_than_pivot(b, pivot->two_third))
+		fiv = pivot->two_third;
+	else if (find_more_than_pivot(b, pivot->one_third))
+		fiv = pivot->one_third;
 	else
 		fiv = INT_MIN;
 	return (fiv);

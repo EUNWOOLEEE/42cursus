@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 18:56:19 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/12 16:37:25 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/12 18:51:20 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	get_cmd_cnt(t_stack *a, t_stack *b, t_cmd *cmd)
 	return (abs(cmd->ra - cmd->rb) + abs(cmd->rra - cmd->rrb));
 }
 
-int	find_more_than_fivot(t_stack *b, int fivot)
+int	find_more_than_pivot(t_stack *b, int pivot)
 {
 	int	cnt;
 	int	idx;
@@ -90,7 +90,7 @@ int	find_more_than_fivot(t_stack *b, int fivot)
 	idx = b->front;
 	while (cnt--)
 	{
-		if (b->arr[idx] >= fivot)
+		if (b->arr[idx] >= pivot)
 			return (1);
 		idx = (idx + 1) % b->size;
 	}

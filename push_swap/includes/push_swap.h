@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:09:10 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/12 18:28:30 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/12 18:50:43 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ typedef struct s_stack
 	int	min_idx;
 }t_stack;
 
-typedef struct s_fivot
+typedef struct s_pivot
 {
 	int	one_third;
 	int	two_third;
-}t_fivot;
+}t_pivot;
 
 typedef struct s_cmd
 {
@@ -67,10 +67,10 @@ int		init_stack(t_stack *a, t_stack *b, char **argv);
 
 /*solve*/
 int		solve(t_stack *a, t_stack *b);
-// static int		sorting(t_stack *a, t_stack *b, t_cmd *cmd, t_fivot *fivot);
+// static int		sorting(t_stack *a, t_stack *b, t_cmd *cmd, t_pivot *pivot);
 // static t_stack *make_tmp_stack(t_stack *src);
 // static t_list	*solve_greedy(t_stack *a, t_stack *b, t_cmd *cmd);
-// static t_list	*solve_fivot(t_stack *a, t_stack *b, t_cmd *cmd, t_fivot *fivot);
+// static t_list	*solve_pivot(t_stack *a, t_stack *b, t_cmd *cmd, t_pivot *pivot);
 
 /*under_five*/
 void		under_five(t_stack *a, t_stack *b, t_cmd *cmd);
@@ -80,8 +80,8 @@ void		under_five(t_stack *a, t_stack *b, t_cmd *cmd);
 // static void	act_cmd(t_stack *a, t_stack *b, t_cmd *cmd);
 
 /*ready*/
-t_fivot	*get_fivots(t_stack *a);
-int		move_to_b(t_stack *a, t_stack *b, t_fivot *fivot);
+t_pivot	*get_pivots(t_stack *a);
+int		move_to_b(t_stack *a, t_stack *b, t_pivot *pivot);
 void	get_min_num(t_stack *a);
 // static void	sort_arr(int *arr, int size);
 
@@ -89,13 +89,13 @@ void	get_min_num(t_stack *a);
 void	go_to_a(t_stack *a, t_stack *b, t_cmd *cmd, t_list **head);
 void	get_opt_idx_in_a(t_stack *a, t_stack *b, t_cmd *tmp);
 int		get_cmd_cnt(t_stack *a, t_stack *b, t_cmd *cmd);
-int		find_more_than_fivot(t_stack *b, int fivot);
+int		find_more_than_pivot(t_stack *b, int pivot);
 // void	max_in_less_than_num(t_stack *a, t_stack *b, t_cmd *tmp);
 
 /*find_best*/
-int	find_opt_num_in_b_by_fivot(t_stack *a, t_stack *b, t_cmd *cmd, t_fivot *fivot);
+int	find_opt_num_in_b_by_pivot(t_stack *a, t_stack *b, t_cmd *cmd, t_pivot *pivot);
 int	find_opt_num_in_b_by_greedy(t_stack *a, t_stack *b, t_cmd *cmd);
-// static int set_fivot(t_stack *b, t_fivot *fivot);
+// static int set_pivot(t_stack *b, t_pivot *pivot);
 // static t_mc *set_min_n_cur(t_stack *b);
 // static void set_mc_n_cmd(t_stack *b, t_cmd *cmd, t_cmd *tmp, t_mc *mc);
 
