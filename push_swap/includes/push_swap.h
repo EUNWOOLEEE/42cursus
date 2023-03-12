@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:09:10 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/12 03:30:32 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/12 16:04:29 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ typedef struct s_fivot
 
 typedef struct s_cmd
 {
+	int sa;
+	int sb;
 	int	ra;
 	int	rb;
 	int	rra;
@@ -70,11 +72,12 @@ int		solve(t_stack *a, t_stack *b);
 // static t_list	*solve_greedy(t_stack *a, t_stack *b, t_cmd *cmd);
 // static t_list	*solve_fivot(t_stack *a, t_stack *b, t_cmd *cmd, t_fivot *fivot);
 
-/*under_five 아직 수정, 정리 안 함*/
-void	under_five(t_stack *a, t_stack *b);
-void	devide(t_stack *a, t_stack *b);
-void	conquer(t_stack *a, t_stack *b);
-void	combine(t_stack *a, t_stack *b);
+/*under_five*/
+void		under_five(t_stack *a, t_stack *b, t_cmd *cmd);
+// static int	check_first_second(t_stack *a);
+// static void	devide(t_stack *a, t_stack *b);
+// static void	conquer(t_stack *a, t_stack *b, t_cmd *cmd);
+// static void	act_cmd(t_stack *a, t_stack *b, t_cmd *cmd);
 
 /*ready*/
 t_fivot	*get_fivots(t_stack *a);

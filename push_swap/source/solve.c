@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 21:59:12 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/12 03:31:34 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/12 15:56:37 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ int	solve(t_stack *a, t_stack *b)
 	t_cmd	*cmd;
 	t_fivot	*fivot;
 
+	cmd = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
+	if (!cmd)
+		return (-1);
 	if (a->size <= 5)
-		under_five(a, b);
+		under_five(a, b, cmd);
 	else
 	{
-		cmd = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
-		if (!cmd)
-			return (-1);
 		get_min_num(a);
 		fivot = get_fivots(a);
 		if (!fivot)
@@ -39,7 +39,7 @@ int	solve(t_stack *a, t_stack *b)
 			return (free_n_print_out(2, 0, cmd, fivot));
 		return (free_n_print_out(1, 0, cmd, fivot));
 	}
-	return (0);
+	return (free_n_print_out(1, 0, cmd, 0));
 }
 
 static int	sorting(t_stack *a, t_stack *b, t_cmd *cmd, t_fivot *fivot)
