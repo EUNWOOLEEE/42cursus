@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 19:03:27 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/12 03:30:54 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/12 16:38:21 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,9 @@ t_fivot	*get_fivots(t_stack *a)
 
 int	move_to_b(t_stack *a, t_stack *b, t_fivot *fivot)
 {
-	int		cnt;
+	int	cnt;
 
 	cnt = a->size;
-
 	while (cnt--)
 	{
 		if (a->arr[a->front] < fivot->two_third)

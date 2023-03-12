@@ -6,13 +6,13 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 22:12:09 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/12 01:38:06 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/12 16:44:29 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/push_swap.h"
 
-char	*pa(t_stack *a, t_stack *b,  int print)
+char	*pa(t_stack *a, t_stack *b, int print)
 {
 	if (!(b->in - b->out))
 		return (0);
@@ -33,7 +33,7 @@ char	*pa(t_stack *a, t_stack *b,  int print)
 	return (ft_strdup("pa"));
 }
 
-char	*pb(t_stack *a, t_stack *b,  int print)
+char	*pb(t_stack *a, t_stack *b, int print)
 {
 	if (!(a->in - a->out))
 		return (0);

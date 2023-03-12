@@ -6,15 +6,15 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 01:10:22 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/12 03:05:26 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/12 16:48:26 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-static int set_fivot(t_stack *b, t_fivot *fivot);
-static t_mc *set_min_n_cur(t_stack *b);
-static void set_mc_n_cmd(t_stack *b, t_cmd *cmd, t_cmd *tmp, t_mc *mc);
+static int	set_fivot(t_stack *b, t_fivot *fivot);
+static t_mc	*set_min_n_cur(t_stack *b);
+static void	set_mc_n_cmd(t_stack *b, t_cmd *cmd, t_cmd *tmp, t_mc *mc);
 
 int	find_opt_num_in_b_by_fivot(t_stack *a, t_stack *b, t_cmd *cmd, t_fivot *fivot)
 {
@@ -22,8 +22,8 @@ int	find_opt_num_in_b_by_fivot(t_stack *a, t_stack *b, t_cmd *cmd, t_fivot *fivo
 	t_cmd	*tmp;
 	int		fiv;
 
-	tmp = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
 	mc = set_min_n_cur(b);
+	tmp = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
 	if (!tmp || !mc)
 		return (free_n_print_out(2, 0, tmp, mc));
 	fiv = set_fivot(b, fivot);
@@ -40,7 +40,7 @@ int	find_opt_num_in_b_by_fivot(t_stack *a, t_stack *b, t_cmd *cmd, t_fivot *fivo
 		}
 		mc->cur_idx = (mc->cur_idx + 1) % a->size;
 	}
-	return (free_n_print_out(1, 0, tmp, mc));
+	return (free_n_print_out(1, 0, mc, tmp));
 }
 
 int	find_opt_num_in_b_by_greedy(t_stack *a, t_stack *b, t_cmd *cmd)
@@ -48,8 +48,8 @@ int	find_opt_num_in_b_by_greedy(t_stack *a, t_stack *b, t_cmd *cmd)
 	t_mc	*mc;
 	t_cmd	*tmp;
 
-	tmp = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
 	mc = set_min_n_cur(b);
+	tmp = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
 	if (!tmp || !mc)
 		return (free_n_print_out(2, 0, tmp, mc));
 	while (mc->cnt--)
@@ -62,11 +62,10 @@ int	find_opt_num_in_b_by_greedy(t_stack *a, t_stack *b, t_cmd *cmd)
 			set_mc_n_cmd(b, cmd, tmp, mc);
 		mc->cur_idx = (mc->cur_idx + 1) % a->size;
 	}
-	return (free_n_print_out(1, 0, tmp, 0));
+	return (free_n_print_out(1, 0, mc, tmp));
 }
 
-
-static int set_fivot(t_stack *b, t_fivot *fivot)
+static int	set_fivot(t_stack *b, t_fivot *fivot)
 {
 	int	fiv;
 	
@@ -76,10 +75,10 @@ static int set_fivot(t_stack *b, t_fivot *fivot)
 		fiv = fivot->one_third;
 	else
 		fiv = INT_MIN;
-	return fiv;
+	return (fiv);
 }
 
-static t_mc *set_min_n_cur(t_stack *b)
+static t_mc	*set_min_n_cur(t_stack *b)
 {
 	t_mc	*mc;
 	
@@ -93,7 +92,7 @@ static t_mc *set_min_n_cur(t_stack *b)
 	return (mc);
 }
 
-static void set_mc_n_cmd(t_stack *b, t_cmd *cmd, t_cmd *tmp, t_mc *mc)
+static void	set_mc_n_cmd(t_stack *b, t_cmd *cmd, t_cmd *tmp, t_mc *mc)
 {
 	mc->max_in_min_cnt = b->arr[mc->cur_idx];
 	mc->min_cnt = mc->cur_cnt;

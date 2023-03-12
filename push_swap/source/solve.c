@@ -6,14 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 21:59:12 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/12 15:56:37 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/12 16:46:59 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-static int	sorting(t_stack *a, t_stack *b, t_cmd *cmd, t_fivot *fivot);
-static t_stack *make_tmp_stack(t_stack *src);
+static int		sorting(t_stack *a, t_stack *b, t_cmd *cmd, t_fivot *fivot);
+static t_stack	*make_tmp_stack(t_stack *src);
 static t_list	*solve_greedy(t_stack *a, t_stack *b, t_cmd *cmd);
 static t_list	*solve_fivot(t_stack *a, t_stack *b, t_cmd *cmd, t_fivot *fivot);
 
@@ -44,8 +44,8 @@ int	solve(t_stack *a, t_stack *b)
 
 static int	sorting(t_stack *a, t_stack *b, t_cmd *cmd, t_fivot *fivot)
 {
-	t_stack *a_tmp;
-	t_stack *b_tmp;
+	t_stack	*a_tmp;
+	t_stack	*b_tmp;
 	t_list	*cmd_fivot;
 	t_list	*cmd_greedy;
 
@@ -113,7 +113,7 @@ static t_list	*solve_fivot(t_stack *a, t_stack *b, t_cmd *cmd, t_fivot *fivot)
 
 static t_stack *make_tmp_stack(t_stack *src)
 {
-	t_stack *tmp;
+	t_stack	*tmp;
 
 	tmp = (t_stack *)malloc(sizeof(t_stack));
 	if (!tmp)

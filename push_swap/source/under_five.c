@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 00:25:19 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/12 16:02:34 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/12 16:39:31 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	act_cmd(t_stack *a, t_stack *b, t_cmd *cmd);
 
 void	under_five(t_stack *a, t_stack *b, t_cmd *cmd)
 {
-	int		cnt;
+	int	cnt;
 
 	cnt = 2;
 	if (a->size <= 3)
