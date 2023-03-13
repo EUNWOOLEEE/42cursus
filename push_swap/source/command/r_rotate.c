@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 22:12:14 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/12 18:28:52 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/13 14:21:24 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*rra(t_stack *a, int print)
 char	*rrb(t_stack *b, int print)
 {
 	int	tmp;
-	
+
 	tmp = b->arr[b->rear];
 	b->arr[b->rear] = 0;
 	b->front = set_idx(b->front, b->size);

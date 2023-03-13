@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 21:59:12 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/12 18:51:56 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/13 14:19:30 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static int		sorting(t_stack *a, t_stack *b, t_cmd *cmd, t_pivot *pivot);
 static t_stack	*make_tmp_stack(t_stack *src);
-static t_list	*solve_greedy(t_stack *a, t_stack *b, t_cmd *cmd);
-static t_list	*solve_pivot(t_stack *a, t_stack *b, t_cmd *cmd, t_pivot *pivot);
+static t_list	*solve_g(t_stack *a, t_stack *b, t_cmd *cmd);
+static t_list	*solve_p(t_stack *a, t_stack *b, t_cmd *cmd, t_pivot *pivot);
 
 int	solve(t_stack *a, t_stack *b)
 {
@@ -53,8 +53,8 @@ static int	sorting(t_stack *a, t_stack *b, t_cmd *cmd, t_pivot *pivot)
 	b_tmp = make_tmp_stack(b);
 	if (!a_tmp || !b_tmp)
 		return (free_n_print_out(2, 0, a_tmp, b_tmp));
-	cmd_pivot = solve_pivot(a_tmp, b_tmp, cmd, pivot);
-	cmd_greedy = solve_greedy(a, b, cmd);
+	cmd_pivot = solve_p(a_tmp, b_tmp, cmd, pivot);
+	cmd_greedy = solve_g(a, b, cmd);
 	if (ft_lstsize(cmd_pivot) <= ft_lstsize(cmd_greedy))
 		print_cmd(cmd_pivot);
 	else
@@ -65,7 +65,7 @@ static int	sorting(t_stack *a, t_stack *b, t_cmd *cmd, t_pivot *pivot)
 	return (free_n_print_out(1, 0, a_tmp, b_tmp));
 }
 
-static t_list	*solve_greedy(t_stack *a, t_stack *b, t_cmd *cmd)
+static t_list	*solve_g(t_stack *a, t_stack *b, t_cmd *cmd)
 {
 	int		cnt;
 	t_list	*head;
@@ -74,7 +74,7 @@ static t_list	*solve_greedy(t_stack *a, t_stack *b, t_cmd *cmd)
 	head = 0;
 	while (cnt--)
 	{
-		if (find_opt_num_in_b_by_greedy(a, b, cmd) == -1)
+		if (find_opt_num_in_b_g(a, b, cmd) == -1)
 			return (0);
 		go_to_a(a, b, cmd, &head);
 		get_min_num(a);
@@ -88,7 +88,7 @@ static t_list	*solve_greedy(t_stack *a, t_stack *b, t_cmd *cmd)
 	return (head);
 }
 
-static t_list	*solve_pivot(t_stack *a, t_stack *b, t_cmd *cmd, t_pivot *pivot)
+static t_list	*solve_p(t_stack *a, t_stack *b, t_cmd *cmd, t_pivot *pivot)
 {
 	int		cnt;
 	t_list	*head;
@@ -97,7 +97,7 @@ static t_list	*solve_pivot(t_stack *a, t_stack *b, t_cmd *cmd, t_pivot *pivot)
 	head = 0;
 	while (cnt--)
 	{
-		if (find_opt_num_in_b_by_pivot(a, b, cmd, pivot) == -1)
+		if (find_opt_num_in_b_p(a, b, cmd, pivot) == -1)
 			return (0);
 		go_to_a(a, b, cmd, &head);
 		get_min_num(a);
@@ -111,7 +111,7 @@ static t_list	*solve_pivot(t_stack *a, t_stack *b, t_cmd *cmd, t_pivot *pivot)
 	return (head);
 }
 
-static t_stack *make_tmp_stack(t_stack *src)
+static t_stack	*make_tmp_stack(t_stack *src)
 {
 	t_stack	*tmp;
 

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:01:43 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/10 21:43:34 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/13 14:15:41 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static t_gnl_list	*get_new_nod(int fd)
 {
-	char	*buff;
+	char		*buff;
 	t_gnl_list	*nod;
 
 	buff = (char *)malloc(sizeof(char) * 1);

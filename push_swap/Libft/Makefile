@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/17 12:21:51 by eunwolee          #+#    #+#              #
-#    Updated: 2023/03/10 22:10:12 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/03/13 14:46:43 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRCS = $(SRC_DIR)/ft_atoi.c \
 	$(SRC_DIR)/ft_strncmp.c \
 	$(SRC_DIR)/ft_strdup.c \
 	$(SRC_DIR)/ft_isdigit.c \
+	$(SRC_DIR)/ft_issign.c \
 	$(SRC_DIR)/ft_cnt_digit.c \
 	$(SRC_DIR)/ft_putstr_fd.c \
 	$(SRC_DIR)/ft_calloc.c \

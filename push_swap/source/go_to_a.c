@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 18:56:19 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/12 18:51:20 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/13 14:16:53 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int	get_cmd_cnt(t_stack *a, t_stack *b, t_cmd *cmd)
 		cmd->ra = abs(tmp - a->front);
 	else
 		cmd->rra = abs(tmp - a->rear) + 1;
-
 	if (abs(cmd->idx_b - b->front) <= abs(cmd->idx_b - b->rear))
 		cmd->rb = abs(cmd->idx_b - b->front);
 	else

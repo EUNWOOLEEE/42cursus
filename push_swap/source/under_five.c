@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 00:25:19 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/12 16:39:31 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/13 14:23:12 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ void	under_five(t_stack *a, t_stack *b, t_cmd *cmd)
 	cnt = 2;
 	if (a->size <= 3)
 		while (cnt--)
-		{
 			conquer(a, b, cmd);
-			act_cmd(a, b, cmd);
-		}
 	else if (a->size <= 5)
 	{
 		devide(a, b);

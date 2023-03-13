@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 01:10:22 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/12 18:50:59 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/13 14:16:40 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	set_pivot(t_stack *b, t_pivot *pivot);
 static t_mc	*set_min_n_cur(t_stack *b);
 static void	set_mc_n_cmd(t_stack *b, t_cmd *cmd, t_cmd *tmp, t_mc *mc);
 
-int	find_opt_num_in_b_by_pivot(t_stack *a, t_stack *b, t_cmd *cmd, t_pivot *pivot)
+int	find_opt_num_in_b_p(t_stack *a, t_stack *b, t_cmd *cmd, t_pivot *pivot)
 {
 	t_mc	*mc;
 	t_cmd	*tmp;
@@ -35,7 +35,8 @@ int	find_opt_num_in_b_by_pivot(t_stack *a, t_stack *b, t_cmd *cmd, t_pivot *pivo
 			tmp->idx_b = mc->cur_idx;
 			get_opt_idx_in_a(a, b, tmp);
 			mc->cur_cnt = get_cmd_cnt(a, b, tmp);
-			if (mc->min_cnt >= mc->cur_cnt && mc->max_in_min_cnt < b->arr[mc->cur_idx])
+			if (mc->min_cnt >= mc->cur_cnt
+				&& mc->max_in_min_cnt < b->arr[mc->cur_idx])
 				set_mc_n_cmd(b, cmd, tmp, mc);
 		}
 		mc->cur_idx = (mc->cur_idx + 1) % a->size;
@@ -43,7 +44,7 @@ int	find_opt_num_in_b_by_pivot(t_stack *a, t_stack *b, t_cmd *cmd, t_pivot *pivo
 	return (free_n_print_out(1, 0, mc, tmp));
 }
 
-int	find_opt_num_in_b_by_greedy(t_stack *a, t_stack *b, t_cmd *cmd)
+int	find_opt_num_in_b_g(t_stack *a, t_stack *b, t_cmd *cmd)
 {
 	t_mc	*mc;
 	t_cmd	*tmp;
@@ -58,7 +59,8 @@ int	find_opt_num_in_b_by_greedy(t_stack *a, t_stack *b, t_cmd *cmd)
 		tmp->idx_b = mc->cur_idx;
 		get_opt_idx_in_a(a, b, tmp);
 		mc->cur_cnt = get_cmd_cnt(a, b, tmp);
-		if (mc->min_cnt >= mc->cur_cnt && mc->max_in_min_cnt < b->arr[mc->cur_idx])
+		if (mc->min_cnt >= mc->cur_cnt
+			&& mc->max_in_min_cnt < b->arr[mc->cur_idx])
 			set_mc_n_cmd(b, cmd, tmp, mc);
 		mc->cur_idx = (mc->cur_idx + 1) % a->size;
 	}
@@ -68,7 +70,7 @@ int	find_opt_num_in_b_by_greedy(t_stack *a, t_stack *b, t_cmd *cmd)
 static int	set_pivot(t_stack *b, t_pivot *pivot)
 {
 	int	fiv;
-	
+
 	if (find_more_than_pivot(b, pivot->two_third))
 		fiv = pivot->two_third;
 	else if (find_more_than_pivot(b, pivot->one_third))
@@ -81,7 +83,7 @@ static int	set_pivot(t_stack *b, t_pivot *pivot)
 static t_mc	*set_min_n_cur(t_stack *b)
 {
 	t_mc	*mc;
-	
+
 	mc = (t_mc *)ft_calloc(1, sizeof(t_mc));
 	if (!mc)
 		return (0);
