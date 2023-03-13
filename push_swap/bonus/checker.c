@@ -6,12 +6,13 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:06:07 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/13 14:06:17 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/13 16:40:06 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
+static void	print_res(t_stack *a, t_stack *b);
 static int	get_cmd(t_stack *a, t_stack *b);
 static int	act_cmd_p_s(t_stack *a, t_stack *b, char *cmd_str);
 static int	act_cmd_r_rr(t_stack *a, t_stack *b, char *cmd_str);
@@ -21,24 +22,26 @@ int	main(int argc, char **argv)
 	t_stack	*a;
 	t_stack	*b;
 
-	if (argc == 1)
-		return (free_n_print_out(0, 1, 0, 0));
 	a = (t_stack *)malloc(sizeof(t_stack));
 	b = (t_stack *)malloc(sizeof(t_stack));
-	if (!a)
-		return (free_n_print_out(0, 1, 0, 0));
-	if (!b)
-		return (free_n_print_out(2, 1, a, 0));
+	if (argc == 1 || !a || !b)
+		return (free_n_print_out(2, 1, a, b));
 	if (init_stack(a, b, argv) <= 0)
+	{
+		free_n_print_out(1, 0, a->arr, b->arr);
 		return (free_n_print_out(1, 1, a, b));
+	}
 	if (a->in == 1 || !check_sort_a(a))
-		return (0);
+	{
+		free_n_print_out(1, 0, a->arr, b->arr);
+		return (free_n_print_out(1, 0, a, b));
+	}
 	if (get_cmd(a, b) == -1)
+	{
+		free_n_print_out(1, 0, a->arr, b->arr);
 		return (free_n_print_out(1, 1, a, b));
-	if (!check_sort_a(a) && !(b->in - b->out))
-		ft_putstr_fd("OK\n", 1);
-	else if (check_sort_a(a) || b->in - b->out)
-		ft_putstr_fd("KO\n", 1);
+	}
+	print_res(a, b);
 	free_n_print_out(1, 0, a->arr, b->arr);
 	return (free_n_print_out(1, 0, a, b));
 }
@@ -96,4 +99,12 @@ static int	act_cmd_r_rr(t_stack *a, t_stack *b, char *cmd_str)
 	else
 		return (-1);
 	return (0);
+}
+
+static void	print_res(t_stack *a, t_stack *b)
+{
+	if (!check_sort_a(a) && !(b->in - b->out))
+		ft_putstr_fd("OK\n", 1);
+	else if (check_sort_a(a) || b->in - b->out)
+		ft_putstr_fd("KO\n", 1);
 }
