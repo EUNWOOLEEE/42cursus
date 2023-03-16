@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 23:13:37 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/12 02:28:30 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/16 17:02:57 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	free_n_print_out(int flag, int print, void *a, void *b)
 			free(b);
 	}
 	if (print == 1)
-		ft_putstr_fd("Error\n", 1);
+		ft_putstr_fd("Error\n", 2);
 	if (flag == 2)
 		return (-1);
 	return (0);
