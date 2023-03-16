@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 21:59:09 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/13 16:12:55 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/14 19:54:49 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	parsing(t_stack *a, char **argv);
 int	init_stack(t_stack *a, t_stack *b, char **argv)
 {
 	a->size = check_valid(argv);
-	if (a->size <= 0)
+	if (a->size == -1)
 		return (-1);
 	a->arr = (int *)ft_calloc(a->size, sizeof(int));
 	b->arr = (int *)ft_calloc(a->size, sizeof(int));

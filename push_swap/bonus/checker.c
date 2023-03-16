@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 14:06:07 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/13 16:40:06 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/16 12:45:56 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,14 @@ int	main(int argc, char **argv)
 	t_stack	*a;
 	t_stack	*b;
 
+	if (argc == 1 || !argv[1][0])
+		return (0);
 	a = (t_stack *)malloc(sizeof(t_stack));
 	b = (t_stack *)malloc(sizeof(t_stack));
-	if (argc == 1 || !a || !b)
-		return (free_n_print_out(2, 1, a, b));
-	if (init_stack(a, b, argv) <= 0)
-	{
-		free_n_print_out(1, 0, a->arr, b->arr);
+	if (!a || !b)
 		return (free_n_print_out(1, 1, a, b));
-	}
+	if (init_stack(a, b, argv) == -1)
+		return (free_n_print_out(1, 1, a, b));
 	if (a->in == 1 || !check_sort_a(a))
 	{
 		free_n_print_out(1, 0, a->arr, b->arr);
