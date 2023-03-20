@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 12:47:03 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/20 17:30:00 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/20 17:34:34 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,4 @@ int main()
 	// mlx_key_hook(vars.win, key_hook, &vars);
 	mlx_mouse_hook(vars.win, mouse_hook, &vars);
 	mlx_loop(vars.mlx);
-
-	mlx_loop_hook()
 }
