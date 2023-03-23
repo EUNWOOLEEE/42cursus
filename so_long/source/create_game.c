@@ -6,60 +6,45 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:22:14 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/21 22:31:13 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/23 16:44:16 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-int draw_map(t_map *map, t_vars *vars, t_img *img);
+int start_game(t_map *map, t_vars *vars, t_data *data);
 
 int start_mlx(t_map *map)
 {
 	t_vars *vars;
-	t_img *img;
+	t_data *data;
 
 	vars = (t_vars *)ft_calloc(1, sizeof(t_vars));
-	img = (t_img *)ft_calloc(1, sizeof(t_img));
-	if (!vars || !img)
-		return (free_n_print_out(2, 0, vars, img));
+	data = (t_data *)ft_calloc(1, sizeof(t_data));
+	if (!vars || !data)
+		return (free_n_print_out(2, 0, vars, data));
 	vars->mlx = mlx_init();
 	vars->win = mlx_new_window(vars->mlx, map->width * 32, map->height * 32, "so_long");
-	draw_map(map, vars, img);
+	draw_map(map, vars);
+	data->cur_row = map->start[0];
+	data->cur_col = map->start[1];
+	data->cur_dir = 1;
+	data->map = map;
+	data->vars = vars;
+	start_game(map, vars, data);
+	mlx_loop(vars->mlx);
 	return (0);
 }
 
-int draw_map(t_map *map, t_vars *vars, t_img *img)
+int start_game(t_map *map, t_vars *vars, t_data *data)
 {
-	t_coor coor;
+	data->next_row = data->cur_row;
+	data->next_col = data->cur_col;
+	mlx_hook(vars->win, 2, 0, key_press, data);
+	// mlx_hook(vars->win, 3, 0, key_release, data);
+	mlx_loop_hook(vars->mlx, standing, data);
 
-	coor.row = 0;
-	while (coor.row < map->height)
-	{
-		coor.col = 0;
-		while (coor.col < map->width)
-		{
-			if (map->map[coor.row][coor.col] == '1')
-			{
-				img->img = mlx_png_file_to_image(vars->mlx, "textures/wall.png", &img->img_width, &img->img_height);
-				mlx_put_image_to_window(vars->mlx, vars->win, img->img, coor.col * 32, coor.row * 32);
-			}
-			else if (map->map[coor.row][coor.col] == '2')
-			{
-				// img->img = mlx_png_file_to_image(vars->mlx, "textures/grass2.png", &img->img_width, &img->img_height);
-				// mlx_put_image_to_window(vars->mlx, vars->win, img->img, coor.col * 32, coor.row * 32);
-				img->img = mlx_png_file_to_image(vars->mlx, "textures/water_copy.png", &img->img_width, &img->img_height);
-				mlx_put_image_to_window(vars->mlx, vars->win, img->img, coor.col * 32, coor.row * 32);
-			}
-			else
-			{
-				img->img = mlx_png_file_to_image(vars->mlx, "textures/grass2.png", &img->img_width, &img->img_height);
-				mlx_put_image_to_window(vars->mlx, vars->win, img->img, coor.col * 32, coor.row * 32);
-			}
-			coor.col++;
-		}
-		coor.row++;
-	}
+	(void)map;
 	mlx_loop(vars->mlx);
 	return (0);
 }

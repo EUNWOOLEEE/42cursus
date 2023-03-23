@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:23:20 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/21 22:07:00 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/23 16:08:38 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,18 @@ typedef struct s_img
 	int		img_height;
 } t_img;
 
+typedef struct s_data
+{
+	int cur_row;
+	int next_row;
+	int cur_col;
+	int next_col;
+	int cur_dir;
+	int exit;
+	t_map *map;
+	t_vars *vars;
+} t_data;
+
 int check_wall_row(t_map *map);
 int check_wall_col(t_map *map);
 int check_route(t_map *map);
@@ -60,6 +72,16 @@ int create_map(t_map *map);
 int create_collection(t_map *map, int col_num);
 void init_collection(t_map *map);
 int start_mlx(t_map *map);
+int draw_map(t_map *map, t_vars *vars);
+int put_element(t_vars *vars, char *name, double row, double col);
+int key_press(int keycode, t_data *data);
+int key_release(int keycode, t_data *data);
+int move_right(t_data *data);
+int move_left(t_data *data);
+int move_up(t_data *data);
+int move_down(t_data *data);
+int standing(t_data *data);
+
 int	free_n_print_out(int flag, int print, void *a, void *b);
 
 #endif

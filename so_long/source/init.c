@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:23:08 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/21 22:16:58 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/23 09:34:10 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,12 +138,7 @@ static int check_char(t_map *map, char c, int row, int col)
 	}
 	else if (c == 'C')
 		map->col_num++;
-	else if (c == '1')
-	{
-		if (!(!row || !col || row == map->height - 1 || col == map->width - 1))
-			c = '2';
-	}
-	else if (c != '0')
+	else if (c != '0' && c != '1')
 		return (-1);
 	map->map[row][col] = c;
 	return (0);

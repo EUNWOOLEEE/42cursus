@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/20 20:21:25 by eunwolee          #+#    #+#              #
-#    Updated: 2023/03/21 21:51:10 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/03/23 16:08:10 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,9 @@ SRCS = $(SRC_DIR)/so_long.c \
 	$(SRC_DIR)/check_valid.c \
 	$(SRC_DIR)/bfs.c \
 	$(SRC_DIR)/create_game.c \
+	$(SRC_DIR)/draw_map.c \
+	$(SRC_DIR)/get_hook.c \
+	$(SRC_DIR)/move.c \
 	$(SRC_DIR)/utils.c
 
 OBJS = $(SRCS:%.c=%.o)
