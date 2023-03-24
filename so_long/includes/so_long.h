@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:23:20 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/23 16:08:38 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/24 22:23:18 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,32 +38,52 @@ typedef struct s_coor
 	int col;
 } t_coor;
 
-typedef struct s_vars
+typedef struct s_img
+{
+	void	*img_ptr;
+	int		height;
+	int		width;
+} t_img;
+
+typedef struct s_pos
+{
+	double tree_row;
+	double tree_col;
+	double exit;
+	double fox_row;
+	double fox_col;
+	double fruit_row;
+	double fruit_col;
+} t_pos;
+
+typedef struct s_flag
+{
+	int fruit;
+	int exit;
+} t_flag;
+
+typedef struct s_game
 {
 	void *mlx;
 	void *win;
-} t_vars;
-
-typedef struct s_img
-{
-	void	*img;
-	char	*addr;
-	int		img_width;
-	int		img_height;
-} t_img;
-
-typedef struct s_data
-{
-	int cur_row;
-	int next_row;
-	int cur_col;
-	int next_col;
+	double dis;
 	int cur_dir;
-	int exit;
+	int frame;
+	t_coor cur;
+	t_coor next;
 	t_map *map;
-	t_vars *vars;
-} t_data;
+	t_img map_img[3];
+	t_img fruit[5];
+	t_img walk[2][8];
+	t_img stand[2][5];
+	t_img jump[11];
+	t_pos pos;
+	t_flag flag;
+} t_game;
 
+int move(t_game *game, int direction);
+void draw_sprite(t_game *game, t_img img, double row, double col);
+int img_init(t_game *game);
 int check_wall_row(t_map *map);
 int check_wall_col(t_map *map);
 int check_route(t_map *map);
@@ -72,15 +92,14 @@ int create_map(t_map *map);
 int create_collection(t_map *map, int col_num);
 void init_collection(t_map *map);
 int start_mlx(t_map *map);
-int draw_map(t_map *map, t_vars *vars);
-int put_element(t_vars *vars, char *name, double row, double col);
-int key_press(int keycode, t_data *data);
-int key_release(int keycode, t_data *data);
-int move_right(t_data *data);
-int move_left(t_data *data);
-int move_up(t_data *data);
-int move_down(t_data *data);
-int standing(t_data *data);
+int draw_map(t_game *map);
+int key_press(int keycode, t_game *game);
+int key_release(int keycode, t_game *game);
+int standing(t_game *game);
+int walk_up(t_game *game, int walk, double *row, double *col);
+int walk_left(t_game *game, int walk, double *row, double *col);
+int walk_down(t_game *game, int walk, double *row, double *col);
+int walk_right(t_game *game, int walk, double *row, double *col);
 
 int	free_n_print_out(int flag, int print, void *a, void *b);
 
