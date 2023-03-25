@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 12:30:56 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/24 21:47:24 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/25 18:42:57 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int get_element(t_game *game, char c, t_coor coor, int fruit_num);
 static void set_pos(t_game *game, char c, double *row, double *col);
 
-void draw_sprite(t_game *game, t_img img, double row, double col)
+void draw_img(t_game *game, t_img img, double row, double col)
 {
 	mlx_put_image_to_window(game->mlx, game->win, img.img_ptr, col, row);
 }
@@ -50,19 +50,25 @@ static int get_element(t_game *game, char c, t_coor coor, int fruit_num)
 	
 	row = coor.row * 32;
 	col = coor.col * 32;
-	draw_sprite(game, game->map_img[0], row, col);
+	draw_img(game, game->map_img[0], row, col);
 	set_pos(game, c, &row, &col);
 	if (c == '1')
 		img = game->map_img[1];
 	else if (c == 'E')
 		img = game->map_img[2];
 	else if (c == 'P')
-		img = game->stand[0][0];
+	{
+		if (coor.col < game->map->width / 2)
+			game->cur_dir = 1;
+		else
+			game->cur_dir = 0;
+		img = game->stand[game->cur_dir][0];
+	}
 	else if (c == 'C')
 		img = game->fruit[fruit_num];
 	else
 		return (0);
-	draw_sprite(game, img, row, col);
+	draw_img(game, img, row, col);
 	return (0);
 }
 
@@ -70,18 +76,13 @@ static void set_pos(t_game *game, char c, double *row, double *col)
 {
 	if (c == '1')
 	{
-		*row += game->pos.tree_row;
+		*row = *row + game->pos.tree_row;
 		*col += game->pos.tree_col;
 	}
 	else if (c == 'E')
 	{
 		*row += game->pos.exit;
 		*col += game->pos.exit;
-	}
-	else if (c == 'P')
-	{
-		*row += game->pos.fox_row;
-		*col += game->pos.fox_col;
 	}
 	else if (c == 'C')
 	{
