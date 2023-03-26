@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 12:35:02 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/26 16:10:44 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/26 16:16:47 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,52 +77,33 @@ int key_release(int keycode, t_game *game)
 	return (0);
 }
 
-void set_flag(t_game *game)
-{
-	game->flag.rest = 0;
-	game->flag.stand = 0;
-	game->flag.sleep = 0;
-	if (game->cur.row == game->next.row && game->cur.col == game->next.col)
-	{
-		if (game->flag.motion < 29)
-		{
-			if (game->flag.motion && !(game->flag.motion % 10))
-				game->flag.rest = 1;
-			else
-				game->flag.stand = 1;
-		}
-		else
-			game->flag.sleep = 1;
-	}
-}
-
-int standing(t_game *game)
-{
-	set_flag(game);
-	draw_img(game, game->map_img[0], game->cur.row * 32, game->cur.col * 32);
-	if (game->flag.rest)
-		draw_img(game, game->rest[game->cur_dir][game->frame / 8], game->cur.row * 32, game->cur.col * 32);
-	else if (game->flag.stand)
-		draw_img(game, game->stand[game->cur_dir][game->frame / 8], game->cur.row * 32, game->cur.col * 32);
-	else if (game->flag.sleep)
-		draw_img(game, game->sleep[game->cur_dir][game->frame / 8], game->cur.row * 32, game->cur.col * 32);
-	game->frame++;
-	if (game->flag.rest && game->frame == 112)
-	{
-		game->frame = 0;
-		game->flag.motion++;
-	}
-	else if (game->flag.stand && game->frame == 40)
-	{
-		game->frame = 0;
-		game->flag.motion++;
-	}
-	else if (game->flag.sleep && game->frame == 48)
-	{
-		game->frame = 0;
-		game->flag.motion++;
-	}
-	if (game->flag.goal || game->flag.exit)
-		game_end(game);
-	return (0);
-}
+// int standing(t_game *game)
+// {
+// 	set_flag(game);
+// 	draw_img(game, game->map_img[0], game->cur.row * 32, game->cur.col * 32);
+// 	if (game->flag.rest)
+// 		draw_img(game, game->rest[game->cur_dir][game->frame / 8], game->cur.row * 32, game->cur.col * 32);
+// 	else if (game->flag.stand)
+// 		draw_img(game, game->stand[game->cur_dir][game->frame / 8], game->cur.row * 32, game->cur.col * 32);
+// 	else if (game->flag.sleep)
+// 		draw_img(game, game->sleep[game->cur_dir][game->frame / 8], game->cur.row * 32, game->cur.col * 32);
+// 	game->frame++;
+// 	if (game->flag.rest && game->frame == 112)
+// 	{
+// 		game->frame = 0;
+// 		game->flag.motion++;
+// 	}
+// 	else if (game->flag.stand && game->frame == 40)
+// 	{
+// 		game->frame = 0;
+// 		game->flag.motion++;
+// 	}
+// 	else if (game->flag.sleep && game->frame == 48)
+// 	{
+// 		game->frame = 0;
+// 		game->flag.motion++;
+// 	}
+// 	if (game->flag.goal || game->flag.exit)
+// 		game_end(game);
+// 	return (0);
+// }

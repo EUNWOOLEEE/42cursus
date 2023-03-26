@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:23:20 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/26 16:10:09 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/26 16:37:50 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int create_mlx(int fd);
 int draw_map(t_game *map);
 int key_press(int keycode, t_game *game);
 int key_release(int keycode, t_game *game);
-int standing(t_game *game);
+void standing(t_game *game);
 int walk_up(t_game *game, int walk, double *row, double *col);
 int walk_left(t_game *game, int walk, double *row, double *col);
 int walk_down(t_game *game, int walk, double *row, double *col);
