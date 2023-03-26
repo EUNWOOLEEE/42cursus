@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:23:20 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/26 15:35:21 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/26 16:10:09 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,12 @@ typedef struct s_pos
 typedef struct s_flag
 {
 	int fruit;
-	int exit;
 	int motion;
 	int stand;
 	int rest;
 	int sleep;
+	int goal;
+	int exit;
 } t_flag;
 
 typedef struct s_game

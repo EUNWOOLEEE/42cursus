@@ -6,13 +6,11 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 17:03:32 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/21 22:00:34 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/26 16:04:07 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
-
-//테두리 다 벽인지 확인해야 됨
 
 int check_wall_row(t_map *map)
 {

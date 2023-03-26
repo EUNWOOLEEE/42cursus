@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/20 20:21:25 by eunwolee          #+#    #+#              #
-#    Updated: 2023/03/26 14:22:35 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/03/26 16:05:16 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,7 @@ $(L_NAME):
 clean:
 	$(MAKE) -C $(L_DIR) fclean
 	$(MAKE) -C $(MLX_DIR) clean
-	$(RM) $(OBJS) $(L_NAME) $(MLX_NAME)
+	$(RM) $(OBJS) $(L_NAME)
 
 fclean:
 	$(MAKE) clean

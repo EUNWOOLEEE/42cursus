@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 20:10:04 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/21 22:09:16 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/26 16:06:37 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,16 +109,16 @@ static int apply_direction(t_map *map, int next_row, int next_col)
 
 static int check_res(t_map *map)
 {
-	int id_row;
+	int row;
 
 	if (map->map[map->exit[0]][map->exit[1]] != '-')
 		return (-1);
-	id_row = 0;
-	while (id_row < map->col_num)
+	row = 0;
+	while (row < map->col_num)
 	{
-		if (map->map[map->collection[id_row][0]][map->collection[id_row][1]] != '-')
+		if (map->map[map->collection[row][0]][map->collection[row][1]] != '-')
 			return (-1);
-		id_row++;
+		row++;
 	}
 	return (0);
 }
