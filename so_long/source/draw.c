@@ -6,14 +6,15 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 12:30:56 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/26 15:21:26 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/26 17:40:58 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
 static int get_element(t_game *game, char c, t_coor coor, int fruit_num);
-static void set_pos(t_game *game, char c, double *row, double *col);
+static void set_distance(t_game *game);
+static void set_position(t_game *game, char c, double *row, double *col);
 
 void draw_img(t_game *game, t_img img, double row, double col)
 {
@@ -27,6 +28,7 @@ int draw_map(t_game *game)
 
 	fruit_num = 0;
 	coor.row = 0;
+	set_distance(game);
 	while (coor.row < game->map->height)
 	{
 		coor.col = 0;
@@ -51,19 +53,11 @@ static int get_element(t_game *game, char c, t_coor coor, int fruit_num)
 	row = coor.row * 32;
 	col = coor.col * 32;
 	draw_img(game, game->map_img[0], row, col);
-	set_pos(game, c, &row, &col);
+	set_position(game, c, &row, &col);
 	if (c == '1')
 		img = game->map_img[1];
 	else if (c == 'E')
 		img = game->map_img[2];
-	else if (c == 'P')
-	{
-		if (coor.col < game->map->width / 2)
-			game->cur_dir = 1;
-		else
-			game->cur_dir = 0;
-		img = game->stand[game->cur_dir][0];
-	}
 	else if (c == 'C')
 		img = game->fruit[fruit_num];
 	else
@@ -72,7 +66,17 @@ static int get_element(t_game *game, char c, t_coor coor, int fruit_num)
 	return (0);
 }
 
-static void set_pos(t_game *game, char c, double *row, double *col)
+static void set_distance(t_game *game)
+{
+	game->pos.tree_row = 32 * 0.065;
+	game->pos.tree_col = 32 * 0.06;
+	game->pos.fruit_row = 32 * 0.25;
+	game->pos.fruit_col = 32 * 0.22;
+	game->pos.exit = 32 * 0.15;
+	game->dis = 4;
+}
+
+static void set_position(t_game *game, char c, double *row, double *col)
 {
 	if (c == '1')
 	{

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:23:20 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/26 16:54:00 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/26 17:45:18 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,12 @@ typedef struct s_game
 
 int move(t_game *game, int direction);
 void draw_img(t_game *game, t_img img, double row, double col);
-int img_init(t_game *game);
+int init_img(t_game *game);
+int stand_img(t_game *game);
+int walk_img(t_game *game);
+int jump_img(t_game *game);
+int rest_img(t_game *game);
+int sleep_img(t_game *game);
 int check_wall_row(t_map *map);
 int check_wall_col(t_map *map);
 int check_route(t_map *map);

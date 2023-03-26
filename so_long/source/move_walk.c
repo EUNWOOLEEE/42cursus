@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 22:00:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/25 17:07:39 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/26 17:26:31 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int walk_up(t_game *game, int walk, double *row, double *col)
 	int cnt;
 
 	cnt = 1200;
-	*col = (game->cur.col * 32);
 	draw_img(game, game->map_img[0], game->next.row * 32, game->next.col * 32);
 	draw_img(game, game->map_img[0], (game->next.row + 1) * 32, game->next.col * 32);
 	while (cnt--)
@@ -31,7 +30,6 @@ int walk_left(t_game *game, int walk, double *row, double *col)
 	int cnt;
 
 	cnt = 1200;
-	*row = (game->cur.row * 32);
 	draw_img(game, game->map_img[0], game->next.row * 32, game->next.col * 32);
 	draw_img(game, game->map_img[0], game->next.row * 32, (game->next.col + 1) * 32);
 	while (cnt--)
@@ -45,7 +43,6 @@ int walk_down(t_game *game, int walk, double *row, double *col)
 	int cnt;
 
 	cnt = 1200;
-	*col = (game->cur.col * 32);
 	draw_img(game, game->map_img[0], game->next.row * 32, game->next.col * 32);
 	draw_img(game, game->map_img[0], (game->next.row - 1) * 32, game->next.col * 32);
 	while (cnt--)
@@ -59,7 +56,6 @@ int walk_right(t_game *game, int walk, double *row, double *col)
 	int cnt;
 
 	cnt = 1200;
-	*row = (game->cur.row * 32);
 	draw_img(game, game->map_img[0], game->next.row * 32, game->next.col * 32);
 	draw_img(game, game->map_img[0], game->next.row * 32, (game->next.col - 1) * 32);
 	while (cnt--)

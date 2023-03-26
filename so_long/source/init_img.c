@@ -6,39 +6,35 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 16:10:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/26 15:19:13 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/26 17:50:16 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-static int map_fruit_img(t_game *game);
-static int stand_img(t_game *game);
-static int walk_img(t_game *game);
-static int jump_img(t_game *game);
-static int rest_img(t_game *game);
-static int sleep_img(t_game *game);
+static void map_img(t_game *game);
+static int fruit_img(t_game *game);
 
-int img_init(t_game *game)
+int init_img(t_game *game)
 {
-	map_fruit_img(game);
-	stand_img(game);
-	walk_img(game);
-	jump_img(game);
-	rest_img(game);
-	sleep_img(game);
-
-	game->pos.tree_row = 32 * 0.065;
-	game->pos.tree_col = 32 * 0.06;
-	game->pos.fruit_row = 32 * 0.25;
-	game->pos.fruit_col = 32 * 0.22;
-	game->pos.exit = 32 * 0.15;
-	game->dis = 4;
-
+	map_img(game);
+	if (fruit_img(game) == -1 || stand_img(game) == -1 || walk_img(game) || 
+		jump_img(game) || rest_img(game) || sleep_img(game))
+		return (-1);
 	return (0);
 }
 
-static int map_fruit_img(t_game *game)
+static void map_img(t_game *game)
+{
+	game->map_img[0].img_ptr = mlx_png_file_to_image
+		(game->mlx, "textures/map/grass.png", &game->map_img[0].width, &game->map_img[0].height);
+	game->map_img[1].img_ptr = mlx_png_file_to_image
+		(game->mlx, "textures/map/tree.png", &game->map_img[1].width, &game->map_img[1].height);
+	game->map_img[2].img_ptr = mlx_png_file_to_image
+		(game->mlx, "textures/map/exit.png", &game->map_img[2].width, &game->map_img[2].height);
+}
+
+static int fruit_img(t_game *game)
 {
 	int num;
 	char *fruit;
@@ -47,12 +43,6 @@ static int map_fruit_img(t_game *game)
 	fruit = ft_strdup("textures/fruits/0.png");
 	if (!fruit)
 		return (-1);
-	game->map_img[0].img_ptr = mlx_png_file_to_image
-		(game->mlx, "textures/map/grass.png", &game->map_img[0].width, &game->map_img[0].height);
-	game->map_img[1].img_ptr = mlx_png_file_to_image
-		(game->mlx, "textures/map/tree.png", &game->map_img[1].width, &game->map_img[1].height);
-	game->map_img[2].img_ptr = mlx_png_file_to_image
-		(game->mlx, "textures/map/exit.png", &game->map_img[2].width, &game->map_img[2].height);
 	while (num < 5)
 	{
 		fruit[16] = num + '0';
@@ -61,143 +51,4 @@ static int map_fruit_img(t_game *game)
 		num++;
 	}
 	return (free_n_print_out(1, 0, fruit, 0));
-}
-
-static int stand_img(t_game *game)
-{
-	t_coor coor;
-	char *stand;
-
-	coor.row = 0;
-	stand = ft_strdup("textures/stand/stand0-0.png");
-	if (!stand)
-		return (-1);
-	while (coor.row < 2)
-	{
-		coor.col = 0;
-		stand[20] = coor.row + '0';
-		while (coor.col < 5)
-		{
-			stand[22] = coor.col + '0';
-			game->stand[coor.row][coor.col].img_ptr = mlx_png_file_to_image(game->mlx, stand, 
-				&game->stand[coor.row][coor.col].width, &game->stand[coor.row][coor.col].height);
-			coor.col++;
-		}
-		coor.row++;
-	}
-	return (free_n_print_out(1, 0, stand, 0));
-}
-
-static int walk_img(t_game *game)
-{
-	t_coor coor;
-	char *walk;
-
-	coor.row = 0;
-	walk = ft_strdup("textures/walk/walk0-0.png");
-	if (!walk)
-		return (-1);
-	while (coor.row < 2)
-	{
-		coor.col = 0;
-		walk[18] = coor.row + '0';
-		while (coor.col < 8)
-		{
-			walk[20] = coor.col + '0';
-			game->walk[coor.row][coor.col].img_ptr = mlx_png_file_to_image(game->mlx, walk, 
-				&game->walk[coor.row][coor.col].width, &game->walk[coor.row][coor.col].height);
-			coor.col++;
-		}
-		coor.row++;
-	}
-	return (free_n_print_out(1, 0, walk, 0));
-}
-
-static int jump_img(t_game *game)
-{
-	t_coor coor;
-	char *jump;
-
-	coor.row = 0;
-	jump = ft_strdup("textures/jump/jump0-00.png");
-	if (!jump)
-		return (-1);
-	while (coor.row < 2)
-	{
-		coor.col = 0;
-		jump[18] = coor.row + '0';
-		jump[20] = '0';
-		while (coor.col < 11)
-		{
-			if (coor.col == 10)
-			{
-				jump[20] = '1';
-				jump[21] = '0';
-			}
-			else
-				jump[21] = coor.col + '0';
-			game->jump[coor.row][coor.col].img_ptr = mlx_png_file_to_image(game->mlx, jump, 
-				&game->jump[coor.row][coor.col].width, &game->jump[coor.row][coor.col].height);
-			coor.col++;
-		}
-		coor.row++;
-	}
-	return (free_n_print_out(1, 0, jump, 0));
-}
-
-static int rest_img(t_game *game)
-{
-	t_coor coor;
-	char *rest;
-
-	coor.row = 0;
-	rest = ft_strdup("textures/rest/rest0-00.png");
-	if (!rest)
-		return (-1);
-	while (coor.row < 2)
-	{
-		coor.col = 0;
-		rest[18] = coor.row + '0';
-		rest[20] = '0';
-		while (coor.col < 14)
-		{
-			if (coor.col == 10)
-			{
-				rest[20] = '1';
-				rest[21] = '0';
-			}
-			else
-				rest[21] = (coor.col % 10) + '0';
-			game->rest[coor.row][coor.col].img_ptr = mlx_png_file_to_image(game->mlx, rest, 
-				&game->rest[coor.row][coor.col].width, &game->rest[coor.row][coor.col].height);
-			coor.col++;
-		}
-		coor.row++;
-	}
-	return (free_n_print_out(1, 0, rest, 0));
-}
-
-static int sleep_img(t_game *game)
-{
-	t_coor coor;
-	char *sleep;
-
-	coor.row = 0;
-	sleep = ft_strdup("textures/sleep/sleep0-0.png");
-	if (!sleep)
-		return (-1);
-	while (coor.row < 2)
-	{
-		coor.col = 0;
-		sleep[20] = coor.row + '0';
-		while (coor.col < 6)
-		{
-			sleep[22] = coor.col + '0';
-			game->sleep[coor.row][coor.col].img_ptr = mlx_png_file_to_image(game->mlx, sleep, 
-				&game->sleep[coor.row][coor.col].width, &game->sleep[coor.row][coor.col].height);
-			coor.col++;
-		}
-		coor.row++;
-	}
-	return (free_n_print_out(1, 0, sleep, 0));
 }

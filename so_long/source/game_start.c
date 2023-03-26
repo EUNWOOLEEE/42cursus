@@ -6,13 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:22:14 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/26 17:02:33 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/26 17:38:30 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
 static int game_start(t_game *game);
+static void set_value(t_game *game);
 static int main_loop(t_game *game);
 
 int create_mlx(int fd)
@@ -27,7 +28,7 @@ int create_mlx(int fd)
 		return (free_n_print_out(2, 0, game, 0));
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, game->map->width * 32, game->map->height * 32, "so_long");
-	img_init(game);
+	init_img(game);
 	draw_map(game);
 	game->cur.row = game->map->start[0];
 	game->cur.col = game->map->start[1];
@@ -39,12 +40,7 @@ int create_mlx(int fd)
 
 static int game_start(t_game *game)
 {
-	game->frame = 0;
-	game->flag.fruit = 0;
-	game->flag.exit = 0;
-	game->flag.motion = 0;
-	game->next.row = game->cur.row;
-	game->next.col = game->cur.col;
+	set_value(game);
 	mlx_hook(game->win, 2, 0, key_press, game);
 	// mlx_hook(game->win, 3, 0, key_release, game);
 	mlx_loop_hook(game->mlx, main_loop, game);
@@ -58,4 +54,18 @@ static int main_loop(t_game *game)
 	if (game->flag.goal || game->flag.exit)
 		game_end(game);
 	return (0);
+}
+
+static void set_value(t_game *game)
+{
+	game->frame = 0;
+	game->flag.fruit = 0;
+	game->flag.exit = 0;
+	game->flag.motion = 0;
+	game->next.row = game->cur.row;
+	game->next.col = game->cur.col;
+	if (game->map->start[1] < game->map->width / 2)
+		game->cur_dir = 1;
+	else
+		game->cur_dir = 0;
 }

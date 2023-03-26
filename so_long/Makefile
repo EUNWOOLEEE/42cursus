@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/20 20:21:25 by eunwolee          #+#    #+#              #
-#    Updated: 2023/03/26 16:20:15 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/03/26 17:43:42 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,10 +33,10 @@ MAKE = make
 SRCS = $(SRC_DIR)/so_long.c \
 	$(SRC_DIR)/init_map.c \
 	$(SRC_DIR)/init_img.c \
+	$(SRC_DIR)/init_img_c.c \
 	$(SRC_DIR)/check_valid.c \
 	$(SRC_DIR)/bfs.c \
 	$(SRC_DIR)/game_start.c \
-	$(SRC_DIR)/game_play.c \
 	$(SRC_DIR)/game_end.c \
 	$(SRC_DIR)/draw.c \
 	$(SRC_DIR)/get_hook.c \

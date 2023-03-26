@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 15:25:45 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/21 21:11:52 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/26 17:24:19 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,6 @@
 
 int	free_n_print_out(int flag, int print, void *a, void *b)
 {
-	// if (flag == 1 || flag == 2)
-	// {
-	// 	if (a && *a)
-	// 	{
-	// 		free(a);
-	// 		*a = 0;
-	// 	}
-	// 	if (b && *b)
-	// 	{
-	// 		free(b);
-	// 		*b = 0;
-	// 	}
-	// }
 	if (flag == 1 || flag == 2)
 	{
 		if (a)

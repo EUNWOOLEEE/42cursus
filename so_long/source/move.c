@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 16:04:16 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/26 17:23:32 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/26 17:27:34 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int move(t_game *game, int direction)
 
 	cnt = 0;
 	move = 8;
-	if ((game->flag.fruit || game->flag.exit) && (direction == 1 || direction == 3))
+	if ((game->flag.fruit || game->flag.goal) && (direction == 1 || direction == 3))
 		move = 11;
 	row = game->cur.row * 32;
 	col = game->cur.col * 32;
@@ -81,13 +81,13 @@ static void (**get_func(int (**func)(t_game *, int, double *, double *), t_game 
 {
 	if (direction == 0)
 		*func = walk_up;
-	else if ((game->flag.fruit || game->flag.exit) && direction == 1)
+	else if ((game->flag.fruit || game->flag.goal) && direction == 1)
 		*func = jump_left;
 	else if (!game->flag.fruit && direction == 1)
 		*func = walk_left;
 	else if (direction == 2)
 		*func = walk_down;
-	else if ((game->flag.fruit || game->flag.exit) && direction == 3)
+	else if ((game->flag.fruit || game->flag.goal) && direction == 3)
 		*func = jump_right;
 	else if (!game->flag.fruit && direction == 3)
 		*func = walk_right;
