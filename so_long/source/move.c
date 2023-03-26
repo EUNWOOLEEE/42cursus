@@ -6,13 +6,35 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 16:04:16 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/26 16:12:04 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/26 17:23:32 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
+static int check_next_pos(t_game *game, int row, int col);
 static void (**get_func(int (**func)(t_game *, int, double *, double *), t_game *game, int direction));
+
+int move_ready(t_game *game, int keycode)
+{
+	t_coor coor;
+
+	coor.row = game->next.row;
+	coor.col = game->next.col;
+	if (keycode == 0)
+		coor.row--;
+	else if (keycode == 1)
+		coor.col--;
+	else if (keycode == 2)
+		coor.row++;
+	else if (keycode == 3)
+		coor.col++;
+	if (!check_next_pos(game, coor.row, coor.col))
+		move(game, keycode);
+	game->cur.row = game->next.row;
+	game->cur.col = game->next.col;
+	return (0);
+}
 
 int move(t_game *game, int direction)
 {
@@ -36,6 +58,22 @@ int move(t_game *game, int direction)
 		mlx_sync(2, game->win);
 		cnt++;
 	}
+	return (0);
+}
+
+static int check_next_pos(t_game *game, int row, int col)
+{
+	if (game->map->map[row][col] == '1')
+		return (-1);
+	if (game->map->map[row][col] == 'C')
+	{
+		game->map->map[row][col] = '0';
+		game->flag.fruit = 1;
+	}
+	if (game->map->map[row][col] == 'E')
+		game->flag.goal = 1;
+	game->next.row = row;
+	game->next.col = col;
 	return (0);
 }
 

@@ -6,13 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:22:14 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/26 16:18:47 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/26 17:02:33 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
 static int game_start(t_game *game);
+static int main_loop(t_game *game);
 
 int create_mlx(int fd)
 {
@@ -46,7 +47,15 @@ static int game_start(t_game *game)
 	game->next.col = game->cur.col;
 	mlx_hook(game->win, 2, 0, key_press, game);
 	// mlx_hook(game->win, 3, 0, key_release, game);
-	mlx_loop_hook(game->mlx, standing, game);
+	mlx_loop_hook(game->mlx, main_loop, game);
 	mlx_loop(game->mlx);
+	return (0);
+}
+
+static int main_loop(t_game *game)
+{
+	standing(game);
+	if (game->flag.goal || game->flag.exit)
+		game_end(game);
 	return (0);
 }
