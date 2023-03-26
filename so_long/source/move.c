@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 16:04:16 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/25 18:13:53 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/26 15:16:43 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int move(t_game *game, int direction)
 
 	cnt = 0;
 	move = 8;
-	if (game->flag.fruit || game->flag.exit)
+	if ((game->flag.fruit || game->flag.exit) && (direction == 1 || direction == 3))
 		move = 11;
 	row = game->cur.row * 32;
 	col = game->cur.col * 32;

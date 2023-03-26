@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 16:10:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/25 18:42:35 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/26 15:19:13 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static int map_fruit_img(t_game *game);
 static int stand_img(t_game *game);
 static int walk_img(t_game *game);
 static int jump_img(t_game *game);
+static int rest_img(t_game *game);
 static int sleep_img(t_game *game);
 
 int img_init(t_game *game)
@@ -24,6 +25,7 @@ int img_init(t_game *game)
 	stand_img(game);
 	walk_img(game);
 	jump_img(game);
+	rest_img(game);
 	sleep_img(game);
 
 	game->pos.tree_row = 32 * 0.065;
@@ -141,6 +143,38 @@ static int jump_img(t_game *game)
 		coor.row++;
 	}
 	return (free_n_print_out(1, 0, jump, 0));
+}
+
+static int rest_img(t_game *game)
+{
+	t_coor coor;
+	char *rest;
+
+	coor.row = 0;
+	rest = ft_strdup("textures/rest/rest0-00.png");
+	if (!rest)
+		return (-1);
+	while (coor.row < 2)
+	{
+		coor.col = 0;
+		rest[18] = coor.row + '0';
+		rest[20] = '0';
+		while (coor.col < 14)
+		{
+			if (coor.col == 10)
+			{
+				rest[20] = '1';
+				rest[21] = '0';
+			}
+			else
+				rest[21] = (coor.col % 10) + '0';
+			game->rest[coor.row][coor.col].img_ptr = mlx_png_file_to_image(game->mlx, rest, 
+				&game->rest[coor.row][coor.col].width, &game->rest[coor.row][coor.col].height);
+			coor.col++;
+		}
+		coor.row++;
+	}
+	return (free_n_print_out(1, 0, rest, 0));
 }
 
 static int sleep_img(t_game *game)

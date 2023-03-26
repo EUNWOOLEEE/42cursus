@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:23:20 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/25 18:27:00 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/26 15:35:21 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ typedef struct s_flag
 {
 	int fruit;
 	int exit;
+	int motion;
+	int stand;
+	int rest;
 	int sleep;
 } t_flag;
 
@@ -80,6 +83,7 @@ typedef struct s_game
 	t_img walk[2][8];
 	t_img stand[2][5];
 	t_img jump[2][11];
+	t_img rest[2][14];
 	t_img sleep[2][6];
 	t_img end;
 	t_pos pos;

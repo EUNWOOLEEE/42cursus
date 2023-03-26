@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:22:14 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/25 18:24:59 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/26 15:22:42 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int game_start(t_game *game)
 	game->frame = 0;
 	game->flag.fruit = 0;
 	game->flag.exit = 0;
-	game->flag.sleep = 0;
+	game->flag.motion = 0;
 	game->next.row = game->cur.row;
 	game->next.col = game->cur.col;
 	mlx_hook(game->win, 2, 0, key_press, game);

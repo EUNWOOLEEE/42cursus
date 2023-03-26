@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:23:08 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/25 18:03:32 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/26 14:25:27 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,8 @@ static int fill_map(t_map *map, t_list *list)
 {
 	t_coor coor;
 	int res;
-	int col_num;
 
 	coor.row = 0;
-	col_num = 0;
 	while (coor.row < map->height)
 	{
 		coor.col = 0;

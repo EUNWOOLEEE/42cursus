@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/20 20:21:25 by eunwolee          #+#    #+#              #
-#    Updated: 2023/03/25 15:46:41 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/03/26 14:22:35 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = so_long
 
 #수정하기
 MLX_NAME = libmlx.dylib
-MLX_DIR = mlx_mac
+MLX_DIR = mlx_m1
 
 L_DIR = Libft
 L_NAME = libft.a
