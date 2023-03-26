@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 12:35:02 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/26 17:20:21 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/26 20:12:12 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,3 @@ int key_press(int keycode, t_game *game)
 	return (0);
 }
 
-int key_release(int keycode, t_game *game)
-{
-	(void)keycode;
-	(void)game;
-	printf("key release\n");
-	return (0);
-}

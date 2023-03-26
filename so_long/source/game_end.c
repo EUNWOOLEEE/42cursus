@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 15:48:30 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/26 18:26:38 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/26 20:12:55 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@
 
 int game_end(t_game *game)
 {
-	(void)game;
-	//free하고 종료
+	if (game->flag.exit)
+	{
+		mlx_destroy_window(game->mlx, game->win);
+		exit(0);
+	}
 	return (0);
 }
