@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:23:08 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/26 14:25:27 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/26 18:07:28 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ t_map *get_map(int fd)
 	if (!map->start[0] || !map->exit[0] || !map->collection[0][0]
 		|| check_route(map) == -1)
 		return (0);
-	for (int i = 0; i < map->height; i++)
-	{
-		for(int j = 0; j < map->width; j++)
-			printf("%c", map->map[i][j]);
-		printf("\n");
-	}
+	// for (int i = 0; i < map->height; i++)
+	// {
+	// 	for(int j = 0; j < map->width; j++)
+	// 		printf("%c", map->map[i][j]);
+	// 	printf("\n");
+	// }
 	return (map);
 }
 

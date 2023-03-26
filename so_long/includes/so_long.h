@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:23:20 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/26 17:45:18 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/26 18:33:09 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,6 @@ typedef struct s_img
 	void	*img_ptr;
 	int		height;
 	int		width;
-	char *addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
 } t_img;
 
 typedef struct s_pos
@@ -76,6 +72,7 @@ typedef struct s_game
 	double dis;
 	int cur_dir;
 	int frame;
+	int move_cnt;
 	t_coor cur;
 	t_coor next;
 	t_map *map;
@@ -94,11 +91,11 @@ typedef struct s_game
 int move(t_game *game, int direction);
 void draw_img(t_game *game, t_img img, double row, double col);
 int init_img(t_game *game);
-int stand_img(t_game *game);
-int walk_img(t_game *game);
-int jump_img(t_game *game);
-int rest_img(t_game *game);
-int sleep_img(t_game *game);
+int stand_img(t_game *game, char *str);
+int walk_img(t_game *game, char *str);
+int jump_img(t_game *game, char *str);
+int rest_img(t_game *game, char *str);
+int sleep_img(t_game *game, char *str);
 int check_wall_row(t_map *map);
 int check_wall_col(t_map *map);
 int check_route(t_map *map);
