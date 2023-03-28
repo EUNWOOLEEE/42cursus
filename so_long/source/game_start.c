@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:22:14 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/26 18:38:40 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/27 19:40:02 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ static int game_start(t_game *game)
 static int main_loop(t_game *game)
 {
 	standing(game);
-	if (game->flag.goal || game->flag.exit)
-		game_end(game);
+	game_end(game);
 	return (0);
 }
 
@@ -60,6 +59,8 @@ static void set_value(t_game *game)
 	game->flag.fruit = 0;
 	game->flag.exit = 0;
 	game->flag.motion = 0;
+	game->flag.goal = 0;
+	game->flag.exit = 0;
 	game->cur.row = game->map->start[0];
 	game->cur.col = game->map->start[1];
 	game->next.row = game->cur.row;

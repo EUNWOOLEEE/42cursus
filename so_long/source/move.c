@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 16:04:16 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/26 20:19:33 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/27 20:09:58 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int move(t_game *game, int direction)
 		cnt++;
 	}
 	game->move_cnt++;
-	printf("move : %d\n", game->move_cnt);
+	print_move(game->move_cnt);
 	return (0);
 }
 

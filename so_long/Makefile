@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/20 20:21:25 by eunwolee          #+#    #+#              #
-#    Updated: 2023/03/26 18:41:42 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/03/27 19:28:31 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,7 @@ clean:
 
 fclean:
 	$(MAKE) clean
-	$(RM) $(NAME)
+	$(RM) $(NAME) $(MLX_NAME)
 
 re:
 	$(MAKE) fclean
