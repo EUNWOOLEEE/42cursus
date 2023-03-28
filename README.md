@@ -14,3 +14,4 @@
 |[get_next_line](https://github.com/EUNWOOLEEE/42cursus/tree/main/ft_printf)|1|[![eunwolee's 42 get_next_line Score](https://badge42.vercel.app/api/v2/clb1l2gnk00160fmlwuxxmvs4/project/2917237)](https://github.com/JaeSeoKim/badge42)
 |Born2beroot|1|[![eunwolee's 42 Born2beroot Score](https://badge42.vercel.app/api/v2/clb1l2gnk00160fmlwuxxmvs4/project/2951454)](https://github.com/JaeSeoKim/badge42)
 |Exam Rank 02|2|[![eunwolee's 42 Exam Rank 02 Score](https://badge42.vercel.app/api/v2/clb1l2gnk00160fmlwuxxmvs4/project/2990187)](https://github.com/JaeSeoKim/badge42)
+|push_swap|2|[![eunwolee's 42 push_swap Score](https://badge42.vercel.app/api/v2/clb1l2gnk00160fmlwuxxmvs4/project/2990494)](https://github.com/JaeSeoKim/badge42)
