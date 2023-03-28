@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:23:08 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/27 19:13:04 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/28 19:45:06 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ C : 수집품
 E : 맵의 출구
 P : 캐릭터의 시작 지점*/
 
-static t_list *get_map_line(int fd);
-static int fill_map(t_map *map, t_list *list);
-static int check_char(t_map *map, char c, int h, int w);
+static t_list	*get_map_line(int fd);
+static int		fill_map(t_map *map, t_list *list);
+static int		check_char(t_map *map, char c, int h, int w);
 
-t_map *get_map(int fd)
+t_map	*get_map(int fd)
 {
-	t_list *head;
-	t_map *map;
+	t_list	*head;
+	t_map	*map;
 
 	map = (t_map *)ft_calloc(1, sizeof(t_map));
 	if (!map)
@@ -44,18 +44,12 @@ t_map *get_map(int fd)
 	if (!map->start[0] || !map->exit[0] || !map->collection[0][0]
 		|| check_route(map) == -1)
 		return (0);
-	// for (int i = 0; i < map->height; i++)
-	// {
-	// 	for(int j = 0; j < map->width; j++)
-	// 		printf("%c", map->map[i][j]);
-	// 	printf("\n");
-	// }
 	return (map);
 }
 
-int create_map(t_map *map)
+int	create_map(t_map *map)
 {
-	int idx;
+	int	idx;
 
 	idx = 0;
 	map->map = (char **)ft_calloc(map->height + 1, sizeof(char *));
@@ -75,11 +69,11 @@ int create_map(t_map *map)
 	return (0);
 }
 
-static t_list *get_map_line(int fd)
+static t_list	*get_map_line(int fd)
 {
-	t_list *head;
-	t_list *new;
-	char *str;
+	t_list	*head;
+	t_list	*new;
+	char	*str;
 
 	head = 0;
 	str = get_next_line(fd);
@@ -92,10 +86,10 @@ static t_list *get_map_line(int fd)
 	return (head);
 }
 
-static int fill_map(t_map *map, t_list *list)
+static int	fill_map(t_map *map, t_list *list)
 {
-	t_coor coor;
-	int res;
+	t_coor	coor;
+	int		res;
 
 	coor.row = 0;
 	while (coor.row < map->height)
@@ -118,7 +112,7 @@ static int fill_map(t_map *map, t_list *list)
 	return (0);
 }
 
-static int check_char(t_map *map, char c, int row, int col)
+static int	check_char(t_map *map, char c, int row, int col)
 {
 	if (c == 'P')
 	{

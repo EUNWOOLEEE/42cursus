@@ -6,21 +6,22 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 20:10:04 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/26 16:06:37 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/28 19:37:31 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-static int bfs(t_map *map, t_coor *queue, int front, int rear);
-static int *set_direction(int flag);
-static int apply_direction(t_map *map, int next_row, int next_col);
-static int check_res(t_map *map);
+static int	bfs(t_map *map, t_coor *queue, int front, int rear);
+static int	*set_direction(int flag);
+static int	apply_direction(t_map *map, int next_row, int next_col);
+static int	check_res(t_map *map);
 
-int check_route(t_map *map)
+int	check_route(t_map *map)
 {
-	t_map *tmp;
-	t_coor *queue;
+	int		i;
+	t_map	*tmp;
+	t_coor	*queue;
 
 	tmp = (t_map *)ft_calloc(1, sizeof(t_map));
 	queue = (t_coor *)ft_calloc(map->height * map->width, sizeof(t_coor));
@@ -28,8 +29,12 @@ int check_route(t_map *map)
 		return (free_n_print_out(2, 0, tmp, queue));
 	ft_memmove(tmp, map, sizeof(t_map));
 	create_map(tmp);
-	for(int i = 0; i < map->height; i++)
+	i = 0;
+	while (i < map->height)
+	{
 		ft_memmove(tmp->map[i], map->map[i], sizeof(char) * map->width);
+		i++;
+	}
 	queue[0].row = map->start[0];
 	queue[0].col = map->start[1];
 	tmp->map[map->start[0]][map->start[1]] = '-';
@@ -40,13 +45,13 @@ int check_route(t_map *map)
 	return (free_n_print_out(1, 0, tmp, queue));
 }
 
-static int bfs(t_map *map, t_coor *queue, int front, int rear)
+static int	bfs(t_map *map, t_coor *queue, int front, int rear)
 {
-	int cnt;
-	t_coor cur;
-	t_coor next;
-	int *d_row;
-	int *d_col;
+	int		cnt;
+	t_coor	cur;
+	t_coor	next;
+	int		*d_row;
+	int		*d_col;
 
 	d_row = set_direction(1);
 	d_col = set_direction(2);
@@ -68,9 +73,9 @@ static int bfs(t_map *map, t_coor *queue, int front, int rear)
 	return (free_n_print_out(1, 0, d_row, d_col));
 }
 
-static int *set_direction(int flag)
+static int	*set_direction(int flag)
 {
-	int *tmp;
+	int	*tmp;
 
 	tmp = (int *)ft_calloc(4, sizeof(int));
 	if (!tmp)
@@ -94,12 +99,14 @@ static int *set_direction(int flag)
 	return (tmp);
 }
 
-static int apply_direction(t_map *map, int next_row, int next_col)
+static int	apply_direction(t_map *map, int next_row, int next_col)
 {
-	if (next_row < 0 || next_col < 0 || next_row >= map->height || next_col >= map->width)
+	if (next_row < 0 || next_col < 0
+		|| next_row >= map->height || next_col >= map->width)
 		return (-1);
 	if (map->map[next_row][next_col] == '0'
-		|| map->map[next_row][next_col] == 'C' || map->map[next_row][next_col] == 'E')
+		|| map->map[next_row][next_col] == 'C'
+		|| map->map[next_row][next_col] == 'E')
 	{
 		map->map[next_row][next_col] = '-';
 		return (1);
@@ -107,9 +114,9 @@ static int apply_direction(t_map *map, int next_row, int next_col)
 	return (0);
 }
 
-static int check_res(t_map *map)
+static int	check_res(t_map *map)
 {
-	int row;
+	int	row;
 
 	if (map->map[map->exit[0]][map->exit[1]] != '-')
 		return (-1);

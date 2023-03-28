@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 15:48:30 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/27 19:59:02 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/28 19:39:40 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 // 	*(unsigned int *)tmp = color;
 // }
 
-int game_end(t_game *game)
+int	game_end(t_game *game)
 {
 	if (game->flag.exit)
 	{

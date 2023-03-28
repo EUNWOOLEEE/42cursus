@@ -6,13 +6,33 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 12:35:02 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/27 20:05:11 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/28 19:58:27 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-static int is_move_code(t_game *game, int keycode)
+static int	is_move_code(t_game *game, int keycode);
+
+int	key_press(int keycode, t_game *game)
+{
+	int	move_code;
+
+	game->flag.motion = 0;
+	if (keycode == 53)
+	{
+		game->flag.exit++;
+		return (0);
+	}
+	if (game->flag.goal)
+		return (0);
+	move_code = is_move_code(game, keycode);
+	if (move_code >= 0)
+		move_ready(game, move_code);
+	return (0);
+}
+
+static int	is_move_code(t_game *game, int keycode)
 {
 	if ((keycode == 13 || keycode == 126))
 		return (0);
@@ -30,22 +50,3 @@ static int is_move_code(t_game *game, int keycode)
 	}
 	return (-1);
 }
-
-int key_press(int keycode, t_game *game)
-{
-	int move_code;
-
-	game->flag.motion = 0;
-	if(keycode == 53)
-	{
-		game->flag.exit++;
-		return (0);
-	}
-	if (game->flag.goal)
-		return (0);
-	move_code = is_move_code(game, keycode);
-	if (move_code >= 0)
-		move_ready(game, move_code);
-	return (0);
-}
-
