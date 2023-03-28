@@ -6,11 +6,16 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:22:15 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/25 16:25:24 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/27 20:30:44 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
+
+//x버튼으로 종료되게 하기
+//exit로 종료되게 하기
+//맨대토리에서 움직임 없게 하기
+//mlx 함수들 리턴값 확인하기
 
 int main(int argc, char **argv)
 {

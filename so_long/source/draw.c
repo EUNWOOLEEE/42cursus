@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 12:30:56 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/26 18:39:38 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/27 20:13:26 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int draw_map(t_game *game)
 	fruit_num = 0;
 	coor.row = 0;
 	set_distance(game);
+	// draw_img(game, game->map_img[3], 0, 0);
 	while (coor.row < game->map->height)
 	{
 		coor.col = 0;

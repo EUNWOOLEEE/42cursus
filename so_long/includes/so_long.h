@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:23:20 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/26 18:33:09 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/27 20:09:47 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ typedef struct s_game
 	t_coor cur;
 	t_coor next;
 	t_map *map;
-	t_img map_img[3];
+	t_img map_img[4];
 	t_img fruit[5];
 	t_img walk[2][8];
 	t_img stand[2][5];
@@ -116,7 +116,7 @@ int walk_right(t_game *game, int walk, double *row, double *col);
 int jump_left(t_game *game, int jump, double *row, double *col);
 int jump_right(t_game *game, int jump, double *row, double *col);
 int game_end(t_game *game);
-
+void print_move(int move_cnt);
 int	free_n_print_out(int flag, int print, void *a, void *b);
 
 #endif
