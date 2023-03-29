@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 12:35:02 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/28 19:58:27 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/29 23:00:46 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ int	key_press(int keycode, t_game *game)
 	move_code = is_move_code(game, keycode);
 	if (move_code >= 0)
 		move_ready(game, move_code);
+	return (0);
+}
+
+int red_cross_press(t_game *game)
+{
+	game->flag.exit++;
 	return (0);
 }
 

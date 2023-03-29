@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:22:14 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/28 19:40:14 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/29 23:00:05 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	create_mlx(int fd)
 static int	game_start(t_game *game)
 {
 	mlx_hook(game->win, 2, 0, key_press, game);
+	mlx_hook(game->win, 17, 0, red_cross_press, game);
 	// mlx_hook(game->win, 3, 0, key_release, game);
 	mlx_loop_hook(game->mlx, main_loop, game);
 	mlx_loop(game->mlx);
@@ -48,6 +49,7 @@ static int	game_start(t_game *game)
 
 static int	main_loop(t_game *game)
 {
+	// printf("%d\n", game->flag.motion);
 	standing(game);
 	game_end(game);
 	return (0);
@@ -57,15 +59,12 @@ static void	set_value(t_game *game)
 {
 	game->frame = 0;
 	game->move_cnt = 0;
-	game->flag.fruit = 0;
-	game->flag.exit = 0;
-	game->flag.motion = 0;
-	game->flag.goal = 0;
-	game->flag.exit = 0;
 	game->cur.row = game->map->start[0];
 	game->cur.col = game->map->start[1];
 	game->next.row = game->cur.row;
 	game->next.col = game->cur.col;
+	ft_memset(&game->flag, 0, sizeof(t_flag));
+	// printf("%d %d\n", game->frame, game->flag.motion);
 	if (game->map->start[1] < game->map->width / 2)
 		game->cur_dir = 1;
 	else

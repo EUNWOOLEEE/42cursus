@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 16:20:20 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/28 20:45:53 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/29 22:21:14 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static int	check_reset_point(t_game *game);
 void	standing(t_game *game)
 {
 	set_flag(game);
+	// printf("%d\n", game->flag.motion);
 	draw_motion(game);
 	game->frame++;
 	if (check_reset_point(game))
@@ -30,7 +31,6 @@ void	standing(t_game *game)
 
 static void	set_flag(t_game *game)
 {
-	printf("a\n");
 	game->flag.rest = 0;
 	game->flag.stand = 0;
 	game->flag.sleep = 0;
@@ -44,13 +44,15 @@ static void	set_flag(t_game *game)
 				game->flag.stand = 1;
 		}
 		else
+		{
+			// printf("%d\n", game->flag.motion);
 			game->flag.sleep = 1;
+		}
 	}
 }
 
 static void	draw_motion(t_game *game)
 {
-	printf("b\n");
 	draw_img(game, game->map_img[0], game->cur.row * 32, game->cur.col * 32);
 	if (game->flag.rest)
 		draw_img(game, game->rest[game->cur_dir][game->frame / 8],
@@ -65,7 +67,6 @@ static void	draw_motion(t_game *game)
 
 static int	check_reset_point(t_game *game)
 {
-	printf("c\n");
 	if (game->flag.rest && game->frame == 112)
 		return (1);
 	if (game->flag.stand && game->frame == 40)

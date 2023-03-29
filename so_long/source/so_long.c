@@ -6,18 +6,18 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:22:15 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/28 20:20:10 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/29 23:02:12 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-//x버튼으로 종료되게 하기
-//exit()로 종료되게 하기
-//같은 내용으로 bonus 파일 만들기. mandatory 미허용 함수 없는지 확인
-//mlx 함수들 리턴값 확인하기
+//exit() 이용하기
+//시작 시에 sleep 상태 해결하기
 //검은 십자 선 없애기
-//segfalut, bus error 해결하기
+//mlx 함수들 리턴값 확인하기
+//mandatory 미허용 함수 없는지 확인
+//같은 내용으로 bonus 파일 만들고 makefile rule 추가하기
 
 int	main(int argc, char **argv)
 {

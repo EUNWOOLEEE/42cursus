@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:23:20 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/28 19:56:30 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/29 23:01:04 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,9 @@ int		create_collection(t_map *map, int col_num);
 void	init_collection(t_map *map);
 int		check_route(t_map *map);
 void	draw_img(t_game *game, t_img img, double row, double col);
-int		draw_map(t_game *map);
+int		draw_map(t_game *game);
 int		key_press(int keycode, t_game *game);
+int		red_cross_press(t_game *game);
 void	standing(t_game *game);
 int		move_ready(t_game *game, int keycode);
 int		walk_up(t_game *game, int walk, double *row, double *col);

@@ -6,13 +6,15 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/20 20:21:25 by eunwolee          #+#    #+#              #
-#    Updated: 2023/03/28 19:48:52 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/03/29 22:44:30 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 
-#수정하기
+# #수정하기
+# MLX_NAME = libmlx.a
+# MLX_DIR = mlx_opengl
 MLX_NAME = libmlx.dylib
 MLX_DIR = mlx_m1
 
