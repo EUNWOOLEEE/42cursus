@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 12:30:56 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/29 22:52:51 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/30 12:54:18 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,29 +70,28 @@ static int	get_element(t_game *game, char c, t_coor coor, int fruit_num)
 
 static void	set_distance(t_game *game)
 {
-	game->pos.tree_row = 32 * 0.065;
-	game->pos.tree_col = 32 * 0.06;
-	game->pos.fruit_row = 32 * 0.25;
-	game->pos.fruit_col = 32 * 0.22;
-	game->pos.exit = 32 * 0.15;
-	game->dis = 4;
+	game->dis.tree_row = 32 * 0.065;
+	game->dis.tree_col = 32 * 0.06;
+	game->dis.fruit_row = 32 * 0.25;
+	game->dis.fruit_col = 32 * 0.22;
+	game->dis.exit = 32 * 0.15;
 }
 
 static void	set_position(t_game *game, char c, double *row, double *col)
 {
 	if (c == '1')
 	{
-		*row = *row + game->pos.tree_row;
-		*col += game->pos.tree_col;
+		*row = *row + game->dis.tree_row;
+		*col += game->dis.tree_col;
 	}
 	else if (c == 'E')
 	{
-		*row += game->pos.exit;
-		*col += game->pos.exit;
+		*row += game->dis.exit;
+		*col += game->dis.exit;
 	}
 	else if (c == 'C')
 	{
-		*row += game->pos.fruit_row;
-		*col += game->pos.fruit_col;
+		*row += game->dis.fruit_row;
+		*col += game->dis.fruit_col;
 	}
 }

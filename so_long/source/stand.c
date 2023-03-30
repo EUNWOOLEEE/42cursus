@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 16:20:20 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/29 22:21:14 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/30 11:35:24 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static void	set_flag(t_game *game)
 	game->flag.sleep = 0;
 	if (game->cur.row == game->next.row && game->cur.col == game->next.col)
 	{
+		// printf("%d\n", game->flag.motion);
 		if (game->flag.motion < 29)
 		{
 			if (game->flag.motion && !(game->flag.motion % 10))

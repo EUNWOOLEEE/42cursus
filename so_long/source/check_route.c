@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bfs.c                                              :+:      :+:    :+:   */
+/*   check_route.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 20:10:04 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/28 19:37:31 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/30 13:44:38 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-static int	bfs(t_map *map, t_coor *queue, int front, int rear);
+static void	bfs(t_map *map, t_coor *queue, int front, int rear);
 static int	*set_direction(int flag);
 static int	apply_direction(t_map *map, int next_row, int next_col);
-static int	check_res(t_map *map);
+static void	check_res(t_map *map);
 
-int	check_route(t_map *map)
+void	check_route(t_map *map)
 {
 	int		i;
 	t_map	*tmp;
@@ -26,7 +26,7 @@ int	check_route(t_map *map)
 	tmp = (t_map *)ft_calloc(1, sizeof(t_map));
 	queue = (t_coor *)ft_calloc(map->height * map->width, sizeof(t_coor));
 	if (!tmp || !queue)
-		return (free_n_print_out(2, 0, tmp, queue));
+		error_exit();
 	ft_memmove(tmp, map, sizeof(t_map));
 	create_map(tmp);
 	i = 0;
@@ -38,14 +38,13 @@ int	check_route(t_map *map)
 	queue[0].row = map->start[0];
 	queue[0].col = map->start[1];
 	tmp->map[map->start[0]][map->start[1]] = '-';
-	if (bfs(tmp, queue, 0, 1) == -1)
-		return (free_n_print_out(2, 0, tmp, queue));
-	if (check_res(tmp) == -1)
-		return (free_n_print_out(2, 0, tmp, queue));
-	return (free_n_print_out(1, 0, tmp, queue));
+	bfs(tmp, queue, 0, 1);
+	check_res(tmp);
+	free(tmp);
+	free(queue);
 }
 
-static int	bfs(t_map *map, t_coor *queue, int front, int rear)
+static void	bfs(t_map *map, t_coor *queue, int front, int rear)
 {
 	int		cnt;
 	t_coor	cur;
@@ -55,8 +54,6 @@ static int	bfs(t_map *map, t_coor *queue, int front, int rear)
 
 	d_row = set_direction(1);
 	d_col = set_direction(2);
-	if (!d_row || !d_col)
-		return (free_n_print_out(2, 0, d_row, d_col));
 	while (front < rear)
 	{
 		cur = queue[front++];
@@ -70,7 +67,8 @@ static int	bfs(t_map *map, t_coor *queue, int front, int rear)
 			cnt++;
 		}
 	}
-	return (free_n_print_out(1, 0, d_row, d_col));
+	free(d_row);
+	free(d_col);
 }
 
 static int	*set_direction(int flag)
@@ -79,7 +77,7 @@ static int	*set_direction(int flag)
 
 	tmp = (int *)ft_calloc(4, sizeof(int));
 	if (!tmp)
-		return (0);
+		error_exit(0);
 	if (flag == 1)
 	{
 		tmp[0] = -1;
@@ -94,8 +92,6 @@ static int	*set_direction(int flag)
 		tmp[2] = -1;
 		tmp[3] = 1;
 	}
-	else
-		return (0);
 	return (tmp);
 }
 
@@ -114,18 +110,17 @@ static int	apply_direction(t_map *map, int next_row, int next_col)
 	return (0);
 }
 
-static int	check_res(t_map *map)
+static void	check_res(t_map *map)
 {
 	int	row;
 
 	if (map->map[map->exit[0]][map->exit[1]] != '-')
-		return (-1);
+		error_exit("Unable to access exit point\n");
 	row = 0;
 	while (row < map->col_num)
 	{
 		if (map->map[map->collection[row][0]][map->collection[row][1]] != '-')
-			return (-1);
+			error_exit("Unable to access collectable\n");
 		row++;
 	}
-	return (0);
 }

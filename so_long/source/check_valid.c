@@ -6,13 +6,33 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 17:03:32 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/28 19:38:29 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:24:57 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-int	check_wall_row(t_map *map)
+static void	check_wall_row(t_map *map);
+static void	check_wall_col(t_map *map);
+static void	create_collection(t_map *map);
+static void	init_collection(t_map *map);
+
+void check_valid(t_map *map)
+{
+	if (!map->start[0])
+		error_exit("No start point\n");
+	if (!map->exit[0])
+		error_exit("No Exit point\n");
+	if (!map->col_num)
+		error_exit("No collectable\n");
+	check_wall_row(map);
+	check_wall_col(map);
+	create_collection(map);
+	init_collection(map);
+	check_route(map);
+}
+
+static void	check_wall_row(t_map *map)
 {
 	t_coor	coor;
 
@@ -21,7 +41,7 @@ int	check_wall_row(t_map *map)
 	while (coor.row < map->height)
 	{
 		if (map->map[coor.row][coor.col] != '1')
-			return (free_n_print_out(2, 0, map, 0));
+			error_exit("Wall not valid\n");
 		coor.row++;
 	}
 	coor.row = 0;
@@ -29,13 +49,12 @@ int	check_wall_row(t_map *map)
 	while (coor.row < map->height)
 	{
 		if (map->map[coor.row][coor.col] != '1')
-			return (free_n_print_out(2, 0, map, 0));
+			error_exit("Wall not valid\n");
 		coor.row++;
 	}
-	return (0);
 }
 
-int	check_wall_col(t_map *map)
+static void	check_wall_col(t_map *map)
 {
 	t_coor	coor;
 
@@ -44,7 +63,7 @@ int	check_wall_col(t_map *map)
 	while (coor.col < map->width)
 	{
 		if (map->map[coor.row][coor.col] != '1')
-			return (free_n_print_out(2, 0, map, 0));
+			error_exit("Wall not valid\n");
 		coor.col++;
 	}
 	coor.row = map->height - 1;
@@ -52,35 +71,33 @@ int	check_wall_col(t_map *map)
 	while (coor.col < map->width)
 	{
 		if (map->map[coor.row][coor.col] != '1')
-			return (free_n_print_out(2, 0, map, 0));
+			error_exit("Wall not valid\n");
 		coor.col++;
 	}
-	return (0);
 }
 
-int	create_collection(t_map *map, int col_num)
+static void	create_collection(t_map *map)
 {
 	int	idx;
 
 	idx = 0;
-	map->collection = (int **)ft_calloc(col_num, sizeof(int *));
+	map->collection = (int **)ft_calloc(map->col_num, sizeof(int *));
 	if (!map->collection)
-		return (-1);
-	while (idx < col_num)
+		error_exit(0);
+	while (idx < map->col_num)
 	{
 		map->collection[idx] = (int *)ft_calloc(2, sizeof(int));
 		if (!map->collection[idx])
 		{
 			while (idx--)
 				free(map->collection[idx]);
-			return (free_n_print_out(2, 0, map, 0));
+			error_exit(0);
 		}
 		idx++;
 	}
-	return (0);
 }
 
-void	init_collection(t_map *map)
+static void	init_collection(t_map *map)
 {
 	t_coor	coor;
 	int		idx;

@@ -6,16 +6,18 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 17:43:46 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/28 19:44:31 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/30 13:49:48 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-int	stand_img(t_game *game, char *str)
+void	stand_img(t_game *game, char *str)
 {
 	t_coor	coor;
 
+	if (!str)
+		error_exit();
 	coor.row = 0;
 	while (coor.row < 2)
 	{
@@ -28,18 +30,19 @@ int	stand_img(t_game *game, char *str)
 				(game->mlx, str, &game->stand[coor.row][coor.col].width,
 					&game->stand[coor.row][coor.col].height);
 			if (!game->stand[coor.row][coor.col].img_ptr)
-				return (free_n_print_out(2, 0, str, 0));
+				error_exit();
 			coor.col++;
 		}
 		coor.row++;
 	}
-	return (free_n_print_out(1, 0, str, 0));
 }
 
-int	walk_img(t_game *game, char *str)
+void	walk_img(t_game *game, char *str)
 {
 	t_coor	coor;
 
+	if (!str)
+		error_exit();
 	coor.row = 0;
 	while (coor.row < 2)
 	{
@@ -52,18 +55,19 @@ int	walk_img(t_game *game, char *str)
 				(game->mlx, str, &game->walk[coor.row][coor.col].width,
 					&game->walk[coor.row][coor.col].height);
 			if (!game->walk[coor.row][coor.col].img_ptr)
-				return (free_n_print_out(2, 0, str, 0));
+				error_exit();
 			coor.col++;
 		}
 		coor.row++;
 	}
-	return (free_n_print_out(1, 0, str, 0));
 }
 
-int	jump_img(t_game *game, char *str)
+void	jump_img(t_game *game, char *str)
 {
 	t_coor	coor;
 
+	if (!str)
+		error_exit();
 	coor.row = 0;
 	while (coor.row < 2)
 	{
@@ -79,18 +83,19 @@ int	jump_img(t_game *game, char *str)
 				(game->mlx, str, &game->jump[coor.row][coor.col].width,
 					&game->jump[coor.row][coor.col].height);
 			if (!game->jump[coor.row][coor.col].img_ptr)
-				return (free_n_print_out(2, 0, str, 0));
+				error_exit();
 			coor.col++;
 		}
 		coor.row++;
 	}
-	return (free_n_print_out(1, 0, str, 0));
 }
 
-int	rest_img(t_game *game, char *str)
+void	rest_img(t_game *game, char *str)
 {
 	t_coor	coor;
 
+	if (!str)
+		error_exit();
 	coor.row = 0;
 	while (coor.row < 2)
 	{
@@ -106,15 +111,14 @@ int	rest_img(t_game *game, char *str)
 				(game->mlx, str, &game->rest[coor.row][coor.col].width,
 					&game->rest[coor.row][coor.col].height);
 			if (!game->rest[coor.row][coor.col].img_ptr)
-				return (free_n_print_out(2, 0, str, 0));
+				error_exit(0);
 			coor.col++;
 		}
 		coor.row++;
 	}
-	return (free_n_print_out(1, 0, str, 0));
 }
 
-int	sleep_img(t_game *game, char *str)
+void	sleep_img(t_game *game, char *str)
 {
 	t_coor	coor;
 
@@ -130,10 +134,9 @@ int	sleep_img(t_game *game, char *str)
 				(game->mlx, str, &game->sleep[coor.row][coor.col].width,
 					&game->sleep[coor.row][coor.col].height);
 			if (!game->sleep[coor.row][coor.col].img_ptr)
-				return (free_n_print_out(2, 0, str, 0));
+				error_exit(0);
 			coor.col++;
 		}
 		coor.row++;
 	}
-	return (free_n_print_out(1, 0, str, 0));
 }

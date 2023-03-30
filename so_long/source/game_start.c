@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:22:14 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/29 23:00:05 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/30 13:39:57 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,25 @@ static int	game_start(t_game *game);
 static void	set_value(t_game *game);
 static int	main_loop(t_game *game);
 
-int	create_mlx(int fd)
+void	create_mlx(int fd)
 {
 	t_game	*game;
 
 	game = (t_game *)ft_calloc(1, sizeof(t_game));
 	if (!game)
-		return (-1);
+		error_exit(0);
 	game->map = get_map(fd);
-	if (!game->map)
-		return (free_n_print_out(2, 0, game, 0));
 	game->mlx = mlx_init();
+	if (!game->mlx)
+		error_exit(0);
 	game->win = mlx_new_window
 		(game->mlx, game->map->width * 32, game->map->height * 32, "so_long");
-	if (init_img(game) == -1)
-		return (free_n_print_out(2, 0, game, game->map));
+	if (!game->win)
+		error_exit(0);
+	init_img(game);
 	draw_map(game);
 	set_value(game);
 	game_start(game);
-	return (0);
 }
 
 static int	game_start(t_game *game)

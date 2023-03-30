@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/20 20:21:25 by eunwolee          #+#    #+#              #
-#    Updated: 2023/03/29 22:44:30 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/03/30 12:48:25 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ SRCS = $(SRC_DIR)/so_long.c \
 	$(SRC_DIR)/init_img.c \
 	$(SRC_DIR)/init_img_c.c \
 	$(SRC_DIR)/check_valid.c \
-	$(SRC_DIR)/bfs.c \
+	$(SRC_DIR)/check_route.c \
 	$(SRC_DIR)/draw.c \
 	$(SRC_DIR)/get_hook.c \
 	$(SRC_DIR)/stand.c \
