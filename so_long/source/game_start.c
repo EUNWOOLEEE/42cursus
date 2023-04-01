@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:22:14 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/30 13:39:57 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/01 12:11:16 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static int	game_start(t_game *game)
 {
 	mlx_hook(game->win, 2, 0, key_press, game);
 	mlx_hook(game->win, 17, 0, red_cross_press, game);
-	// mlx_hook(game->win, 3, 0, key_release, game);
 	mlx_loop_hook(game->mlx, main_loop, game);
 	mlx_loop(game->mlx);
 	return (0);
@@ -49,7 +48,7 @@ static int	game_start(t_game *game)
 
 static int	main_loop(t_game *game)
 {
-	// printf("%d\n", game->flag.motion);
+	// printf("main loop %d\n", game->flag.motion);
 	standing(game);
 	game_end(game);
 	return (0);
@@ -64,7 +63,7 @@ static void	set_value(t_game *game)
 	game->next.row = game->cur.row;
 	game->next.col = game->cur.col;
 	ft_memset(&game->flag, 0, sizeof(t_flag));
-	// printf("%d %d\n", game->frame, game->flag.motion);
+	// printf("set value %d %d\n", game->frame, game->flag.motion);
 	if (game->map->start[1] < game->map->width / 2)
 		game->cur_dir = 1;
 	else

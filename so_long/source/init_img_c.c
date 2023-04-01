@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 17:43:46 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/30 13:49:48 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/31 23:01:07 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	stand_img(t_game *game, char *str)
 		}
 		coor.row++;
 	}
+	free(str);
 }
 
 void	walk_img(t_game *game, char *str)
@@ -60,6 +61,7 @@ void	walk_img(t_game *game, char *str)
 		}
 		coor.row++;
 	}
+	free(str);
 }
 
 void	jump_img(t_game *game, char *str)
@@ -88,6 +90,7 @@ void	jump_img(t_game *game, char *str)
 		}
 		coor.row++;
 	}
+	free(str);
 }
 
 void	rest_img(t_game *game, char *str)
@@ -116,6 +119,7 @@ void	rest_img(t_game *game, char *str)
 		}
 		coor.row++;
 	}
+	free(str);
 }
 
 void	sleep_img(t_game *game, char *str)
@@ -139,4 +143,5 @@ void	sleep_img(t_game *game, char *str)
 		}
 		coor.row++;
 	}
+	free(str);
 }

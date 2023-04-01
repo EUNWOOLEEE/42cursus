@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 20:10:04 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/30 13:44:38 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/01 12:34:16 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,18 @@ void	check_route(t_map *map)
 		error_exit();
 	ft_memmove(tmp, map, sizeof(t_map));
 	create_map(tmp);
-	i = 0;
-	while (i < map->height)
-	{
+	i = -1;
+	while (++i < map->height)
 		ft_memmove(tmp->map[i], map->map[i], sizeof(char) * map->width);
-		i++;
-	}
 	queue[0].row = map->start[0];
 	queue[0].col = map->start[1];
 	tmp->map[map->start[0]][map->start[1]] = '-';
 	bfs(tmp, queue, 0, 1);
 	check_res(tmp);
+	i = -1;
+	while (++i < tmp->height)
+		free(tmp->map[i]);
+	free(tmp->map);
 	free(tmp);
 	free(queue);
 }

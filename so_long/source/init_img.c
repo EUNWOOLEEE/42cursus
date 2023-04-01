@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 16:10:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/30 13:49:58 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/01 12:39:06 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,8 @@ static void	map_img(t_game *game)
 	game->map_img[2].img_ptr = mlx_png_file_to_image
 		(game->mlx, "textures/map/exit.png",
 			&game->map_img[2].width, &game->map_img[2].height);
-	game->map_img[3].img_ptr = mlx_png_file_to_image
-		(game->mlx, "textures/map/background.png",
-			&game->map_img[3].width, &game->map_img[3].height);
 	if (!game->map_img[0].img_ptr || !game->map_img[1].img_ptr
-		|| !game->map_img[2].img_ptr || !game->map_img[3].img_ptr)
+		|| !game->map_img[2].img_ptr)
 		error_exit(0);
 }
 
@@ -61,4 +58,5 @@ static void	fruit_img(t_game *game, char *str)
 			error_exit(0);
 		num++;
 	}
+	free(str);
 }

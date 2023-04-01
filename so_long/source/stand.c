@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 16:20:20 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/30 11:35:24 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/01 12:11:12 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	check_reset_point(t_game *game);
 void	standing(t_game *game)
 {
 	set_flag(game);
-	// printf("%d\n", game->flag.motion);
+	// printf("standing %d\n", game->flag.motion);
 	draw_motion(game);
 	game->frame++;
 	if (check_reset_point(game))
@@ -36,7 +36,7 @@ static void	set_flag(t_game *game)
 	game->flag.sleep = 0;
 	if (game->cur.row == game->next.row && game->cur.col == game->next.col)
 	{
-		// printf("%d\n", game->flag.motion);
+		// printf("set flag %d\n", game->flag.motion);
 		if (game->flag.motion < 29)
 		{
 			if (game->flag.motion && !(game->flag.motion % 10))
@@ -45,15 +45,13 @@ static void	set_flag(t_game *game)
 				game->flag.stand = 1;
 		}
 		else
-		{
-			// printf("%d\n", game->flag.motion);
 			game->flag.sleep = 1;
-		}
 	}
 }
 
 static void	draw_motion(t_game *game)
 {
+	// printf("draw motion rest: %d stand :%d sleep: %d\n", game->flag.rest, game->flag.stand, game->flag.sleep);
 	draw_img(game, game->map_img[0], game->cur.row * 32, game->cur.col * 32);
 	if (game->flag.rest)
 		draw_img(game, game->rest[game->cur_dir][game->frame / 8],

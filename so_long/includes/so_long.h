@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:23:20 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/30 13:00:17 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/03/31 22:38:39 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ typedef struct s_game
 	t_coor	cur;
 	t_coor	next;
 	t_map	*map;
-	t_img	map_img[4];
+	t_img	map_img[3];
 	t_img	fruit[5];
 	t_img	walk[2][8];
 	t_img	stand[2][5];

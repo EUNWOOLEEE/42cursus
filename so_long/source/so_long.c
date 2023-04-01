@@ -6,16 +6,13 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:22:15 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/30 13:59:39 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/01 13:15:30 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-//시작 시에 sleep 상태 해결하기 ?
-//perror strerror 사용? 에러 종류 표시
-//검은 십자 선 없애기
-//mandatory 미허용 함수 없는지 확인
+//시작 시에 sleep 상태, seg fault 해결하기
 //같은 내용으로 bonus 파일 만들고 makefile rule 추가하기
 
 int	main(int argc, char **argv)
