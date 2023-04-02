@@ -6,11 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 22:01:08 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/28 19:21:32 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/02 15:34:59 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
+
+int	jump_left(t_game *game, int jump, double *row, double *col);
+int	jump_right(t_game *game, int jump, double *row, double *col);
 
 int	jump_left(t_game *game, int jump, double *row, double *col)
 {

@@ -6,46 +6,47 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:23:08 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/02 14:10:04 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/02 15:34:49 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
+void			get_map(t_game *game, int fd);
+static void		create_map(t_game *game);
 static t_list	*get_map_line(int fd);
-static void		fill_map(t_map *map, t_list *list);
-static void		check_char(t_map *map, char c, int h, int w);
+static void		fill_map(t_game *game, t_list *list);
+static void		check_char(t_game *game, char c, int h, int w);
 
-t_map	*get_map(int fd)
+void	get_map(t_game *game, int fd)
 {
 	t_list	*head;
-	t_map	*map;
 
-	map = (t_map *)ft_calloc(1, sizeof(t_map));
-	if (!map)
-		error_exit(0);
 	head = get_map_line(fd);
-	map->width = ft_strlen(head->content) - 1;
-	map->height = ft_lstsize(head);
-	create_map(map);
-	fill_map(map, head);
+	game->map.width = ft_strlen(head->content) - 1;
+	game->map.height = ft_lstsize(head);
+	create_map(game);
+	fill_map(game, head);
 	ft_lstclear(&head, free);
-	check_valid(map);
-	return (map);
+	check_valid(game);
 }
 
-void	create_map(t_map *map)
+static void	create_map(t_game *game)
 {
 	int	idx;
 
 	idx = 0;
-	map->map = (char **)ft_calloc(map->height + 1, sizeof(char *));
-	if (!map->map)
+	game->map.map = (char **)ft_calloc(game->map.height + 1, sizeof(char *));
+	game->map.tmp = (char **)ft_calloc(game->map.height + 1, sizeof(char *));
+	if (!game->map.map || !game->map.tmp)
 		error_exit(0);
-	while (idx < map->height)
+	while (idx < game->map.height)
 	{
-		map->map[idx] = (char *)ft_calloc(map->width + 1, sizeof(char));
-		if (!map->map[idx])
+		game->map.map[idx]
+			= (char *)ft_calloc(game->map.width + 1, sizeof(char));
+		game->map.tmp[idx]
+			= (char *)ft_calloc(game->map.width + 1, sizeof(char));
+		if (!game->map.map[idx] || !game->map.tmp[idx])
 			error_exit(0);
 		idx++;
 	}
@@ -72,27 +73,27 @@ static t_list	*get_map_line(int fd)
 	return (head);
 }
 
-static void	fill_map(t_map *map, t_list *list)
+static void	fill_map(t_game *game, t_list *list)
 {
 	t_coor	coor;
 
 	coor.row = 0;
-	while (coor.row < map->height)
+	while (coor.row < game->map.height)
 	{
 		coor.col = 0;
-		if (coor.row == map->height - 1)
+		if (coor.row == game->map.height - 1)
 		{
-			if ((int)ft_strlen(list->content) != map->width)
+			if ((int)ft_strlen(list->content) != game->map.width)
 				error_exit("Map is not rectangular\n");
 		}
 		else
 		{
-			if ((int)ft_strlen(list->content) - 1 != map->width)
+			if ((int)ft_strlen(list->content) - 1 != game->map.width)
 				error_exit("Map is not rectangular\n");
 		}
-		while (coor.col < map->width)
+		while (coor.col < game->map.width)
 		{
-			check_char(map, list->content[coor.col], coor.row, coor.col);
+			check_char(game, list->content[coor.col], coor.row, coor.col);
 			coor.col++;
 		}
 		list = list->next;
@@ -100,25 +101,25 @@ static void	fill_map(t_map *map, t_list *list)
 	}
 }
 
-static void	check_char(t_map *map, char c, int row, int col)
+static void	check_char(t_game *game, char c, int row, int col)
 {
 	if (c == 'P')
 	{
-		if (map->start[0])
+		if (game->map.start[0])
 			error_exit("Not one start point\n");
-		map->start[0] = row;
-		map->start[1] = col;
+		game->map.start[0] = row;
+		game->map.start[1] = col;
 	}
 	else if (c == 'E')
 	{
-		if (map->exit[0])
+		if (game->map.exit[0])
 			error_exit("Not one exit point\n");
-		map->exit[0] = row;
-		map->exit[1] = col;
+		game->map.exit[0] = row;
+		game->map.exit[1] = col;
 	}
 	else if (c == 'C')
-		map->col_num++;
+		game->map.col_num++;
 	else if (c != '0' && c != '1')
 		error_exit("Invaild character found\n");
-	map->map[row][col] = c;
+	game->map.map[row][col] = c;
 }

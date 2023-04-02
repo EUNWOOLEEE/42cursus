@@ -6,12 +6,13 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 16:04:16 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/31 22:37:56 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/02 15:35:29 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
+int			move_ready(t_game *game, int keycode);
 static int	move(t_game *game, int direction);
 static int	check_next_pos(t_game *game, int row, int col);
 static int	(*get_func(t_game *game, int direction))(t_game *game,
@@ -86,14 +87,14 @@ static int	(*get_func(t_game *game, int direction))
 
 static int	check_next_pos(t_game *game, int row, int col)
 {
-	if (game->map->map[row][col] == '1')
+	if (game->map.map[row][col] == '1')
 		return (-1);
-	if (game->map->map[row][col] == 'C')
+	if (game->map.map[row][col] == 'C')
 	{
-		game->map->map[row][col] = '0';
+		game->map.map[row][col] = '0';
 		game->flag.fruit = 1;
 	}
-	if (game->map->map[row][col] == 'E')
+	if (game->map.map[row][col] == 'E')
 		game->flag.goal = 1;
 	game->next.row = row;
 	game->next.col = col;

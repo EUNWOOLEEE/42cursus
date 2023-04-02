@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:23:20 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/02 14:06:54 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/02 15:12:15 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 typedef struct s_map
 {
 	char	**map;
+	char	**tmp;
 	int		height;
 	int		width;
 	int		start[2];
@@ -74,7 +75,7 @@ typedef struct s_game
 	int		move_cnt;
 	t_coor	cur;
 	t_coor	next;
-	t_map	*map;
+	t_map	map;
 	t_img	map_img[3];
 	t_img	fruit[5];
 	t_img	walk[2][8];
@@ -88,16 +89,15 @@ typedef struct s_game
 
 void	create_mlx(int fd);
 void	game_end(t_game *game);
-t_map	*get_map(int fd);
-void	create_map(t_map *map);
+void	get_map(t_game *game, int fd);
 void	init_img(t_game *game);
 void	stand_img(t_game *game, char *str);
 void	walk_img(t_game *game, char *str);
 void	jump_img(t_game *game, char *str);
 void	rest_img(t_game *game, char *str);
 void	sleep_img(t_game *game, char *str);
-void	check_valid(t_map *map);
-void	check_route(t_map *map);
+void	check_valid(t_game *game);
+void	check_route(t_game *game);
 void	draw_img(t_game *game, t_img img, double row, double col);
 int		draw_map(t_game *game);
 int		key_press(int keycode, t_game *game);
@@ -112,6 +112,5 @@ int		jump_left(t_game *game, int jump, double *row, double *col);
 int		jump_right(t_game *game, int jump, double *row, double *col);
 void	error_exit(char *str);
 void	print_move(int move_cnt);
-void	free_tmp(t_map **tmp, t_coor **queue);
 
 #endif

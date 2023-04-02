@@ -6,12 +6,13 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 16:10:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/02 14:08:29 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/02 15:34:37 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
+void		init_img(t_game *game);
 static void	map_img(t_game *game);
 static void	fruit_img(t_game *game, char *str);
 

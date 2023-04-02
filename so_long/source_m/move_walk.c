@@ -6,11 +6,16 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 22:00:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/31 22:35:02 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/02 15:35:20 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
+
+int	walk_up(t_game *game, int walk, double *row, double *col);
+int	walk_left(t_game *game, int walk, double *row, double *col);
+int	walk_down(t_game *game, int walk, double *row, double *col);
+int	walk_right(t_game *game, int walk, double *row, double *col);
 
 int	walk_up(t_game *game, int walk, double *row, double *col)
 {

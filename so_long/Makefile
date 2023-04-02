@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/20 20:21:25 by eunwolee          #+#    #+#              #
-#    Updated: 2023/04/02 13:52:04 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/04/02 15:23:09 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ L_DIR = Libft
 L_NAME = libft.a
 
 INCS_DIR = includes
-SRC_DIR = source
+SRC_DIR = source_m
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror

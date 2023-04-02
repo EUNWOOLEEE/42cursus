@@ -6,12 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 12:35:02 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/02 14:11:52 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/02 15:33:56 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
+int			key_press(int keycode, t_game *game);
+int			red_cross_press(t_game *game);
 static int	is_move_code(t_game *game, int keycode);
 
 int	key_press(int keycode, t_game *game)

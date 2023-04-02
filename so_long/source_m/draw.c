@@ -6,12 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 12:30:56 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/31 23:03:06 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/02 15:33:11 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
+void		draw_img(t_game *game, t_img img, double row, double col);
+int			draw_map(t_game *game);
 static int	get_element(t_game *game, char c, t_coor coor, int fruit_num);
 static void	set_distance(t_game *game);
 static void	set_position(t_game *game, char c, double *row, double *col);
@@ -29,14 +31,14 @@ int	draw_map(t_game *game)
 	fruit_num = 0;
 	coor.row = 0;
 	set_distance(game);
-	while (coor.row < game->map->height)
+	while (coor.row < game->map.height)
 	{
 		coor.col = 0;
-		while (coor.col < game->map->width)
+		while (coor.col < game->map.width)
 		{
 			get_element
-				(game, game->map->map[coor.row][coor.col], coor, fruit_num);
-			if (game->map->map[coor.row][coor.col] == 'C')
+				(game, game->map.map[coor.row][coor.col], coor, fruit_num);
+			if (game->map.map[coor.row][coor.col] == 'C')
 				fruit_num = (fruit_num + 1) % 5;
 			coor.col++;
 		}
@@ -73,7 +75,7 @@ static void	set_distance(t_game *game)
 	game->dis.tree_col = 32 * 0.06;
 	game->dis.fruit_row = 32 * 0.25;
 	game->dis.fruit_col = 32 * 0.22;
-	game->dis.exit = 32 * 0.15;
+	game->dis.exit = 32 * 0.17;
 }
 
 static void	set_position(t_game *game, char c, double *row, double *col)
