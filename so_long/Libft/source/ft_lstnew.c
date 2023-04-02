@@ -6,11 +6,11 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 15:43:59 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/11/28 11:19:41 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/02 17:02:53 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
 t_list	*ft_lstnew(void *content)
 {

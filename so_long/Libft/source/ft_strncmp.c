@@ -6,11 +6,11 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 17:23:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/11/17 16:34:45 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/02 17:03:37 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {

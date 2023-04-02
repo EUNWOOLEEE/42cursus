@@ -6,11 +6,11 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 16:25:54 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/11/17 14:45:35 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/02 17:03:11 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
 void	ft_putstr_fd(char *s, int fd)
 {

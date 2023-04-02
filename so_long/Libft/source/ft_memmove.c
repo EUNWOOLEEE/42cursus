@@ -1,22 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/23 14:59:21 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/11/26 17:07:14 by eunwolee         ###   ########.fr       */
+/*   Created: 2022/11/11 17:43:24 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/04/02 17:02:59 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
-t_list	*ft_lstlast(t_list *lst)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	if (!lst)
+	unsigned char		*dest;
+	const unsigned char	*source;
+
+	if (!dst && !src)
 		return (0);
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
+	dest = (unsigned char *)dst;
+	source = (const unsigned char *)src;
+	if (dest > source)
+		while (len--)
+			*(dest + len) = *(source + len);
+	else
+		while (len--)
+			*dest++ = *source++;
+	return (dst);
 }

@@ -1,36 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/26 16:01:47 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/21 15:36:44 by eunwolee         ###   ########.fr       */
+/*   Created: 2022/11/12 18:35:23 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/04/02 17:02:32 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
-char	*delete_nod(t_gnl_list **head, t_gnl_list *nod)
+void	*ft_calloc(size_t count, size_t size)
 {
-	t_gnl_list	*tmp;
+	void	*tmp;
 
-	tmp = *head;
-	if (tmp == nod)
-	{
-		if (!(tmp->next))
-			*head = 0;
-		else
-			*head = tmp->next;
-		free(nod->buff);
-		free(nod);
+	tmp = malloc(size * count);
+	if (!tmp)
 		return (0);
-	}
-	while (tmp->next != nod)
-		tmp = tmp->next;
-	tmp->next = nod->next;
-	free(nod->buff);
-	free(nod);
-	return (0);
+	ft_memset(tmp, 0, size * count);
+	return (tmp);
 }

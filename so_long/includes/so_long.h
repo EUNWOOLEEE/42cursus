@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:23:20 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/02 16:56:11 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/02 17:05:35 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define SO_LONG_H
 
 # include "../mlx/mlx.h"
-# include "../Libft/libft.h"
+# include "../Libft/includes/libft.h"
 # include <fcntl.h>
 
 typedef struct s_map

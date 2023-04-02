@@ -1,40 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/16 21:49:13 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/11/17 14:47:44 by eunwolee         ###   ########.fr       */
+/*   Created: 2022/11/23 14:59:21 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/04/02 17:02:50 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
-void	ft_putnbr_fd(int n, int fd)
+t_list	*ft_lstlast(t_list *lst)
 {
-	char	num;
-
-	if (fd < 0)
-		return ;
-	if (n == -2147483648)
-	{
-		write(fd, "-2147483648", 11);
-		return ;
-	}
-	if (n < 0)
-	{
-		write (fd, "-", 1);
-		n *= -1;
-	}
-	if (n < 10)
-	{
-		num = n + '0';
-		write (fd, &num, 1);
-		return ;
-	}
-	ft_putnbr_fd(n / 10, fd);
-	num = n % 10 + '0';
-	write(fd, &num, 1);
+	if (!lst)
+		return (0);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
 }
