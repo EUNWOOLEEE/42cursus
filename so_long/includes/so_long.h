@@ -6,14 +6,12 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:23:20 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/02 15:12:15 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/02 15:38:51 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
-
-# include <stdio.h>
 
 # include "../mlx/mlx.h"
 # include "../Libft/libft.h"
