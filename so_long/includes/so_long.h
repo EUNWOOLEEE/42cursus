@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:23:20 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/02 15:38:51 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/02 16:44:44 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include "../Libft/libft.h"
 # include <unistd.h>
 # include <fcntl.h>
-# include <math.h>
 
 typedef struct s_map
 {
