@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:23:20 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/31 22:38:39 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/02 14:06:54 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdio.h>
 
-# include "../mlx_mac/mlx.h"
+# include "../mlx/mlx.h"
 # include "../Libft/libft.h"
 # include <unistd.h>
 # include <fcntl.h>
@@ -110,7 +110,8 @@ int		walk_down(t_game *game, int walk, double *row, double *col);
 int		walk_right(t_game *game, int walk, double *row, double *col);
 int		jump_left(t_game *game, int jump, double *row, double *col);
 int		jump_right(t_game *game, int jump, double *row, double *col);
+void	error_exit(char *str);
 void	print_move(int move_cnt);
-void	error_exit();
+void	free_tmp(t_map **tmp, t_coor **queue);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 17:03:32 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/30 14:24:57 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/02 14:11:44 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	check_wall_col(t_map *map);
 static void	create_collection(t_map *map);
 static void	init_collection(t_map *map);
 
-void check_valid(t_map *map)
+void	check_valid(t_map *map)
 {
 	if (!map->start[0])
 		error_exit("No start point\n");

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 17:43:46 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/31 23:01:07 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/02 14:07:59 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	stand_img(t_game *game, char *str)
 	t_coor	coor;
 
 	if (!str)
-		error_exit();
+		error_exit(0);
 	coor.row = 0;
 	while (coor.row < 2)
 	{
@@ -30,7 +30,7 @@ void	stand_img(t_game *game, char *str)
 				(game->mlx, str, &game->stand[coor.row][coor.col].width,
 					&game->stand[coor.row][coor.col].height);
 			if (!game->stand[coor.row][coor.col].img_ptr)
-				error_exit();
+				error_exit(0);
 			coor.col++;
 		}
 		coor.row++;
@@ -43,7 +43,7 @@ void	walk_img(t_game *game, char *str)
 	t_coor	coor;
 
 	if (!str)
-		error_exit();
+		error_exit(0);
 	coor.row = 0;
 	while (coor.row < 2)
 	{
@@ -56,7 +56,7 @@ void	walk_img(t_game *game, char *str)
 				(game->mlx, str, &game->walk[coor.row][coor.col].width,
 					&game->walk[coor.row][coor.col].height);
 			if (!game->walk[coor.row][coor.col].img_ptr)
-				error_exit();
+				error_exit(0);
 			coor.col++;
 		}
 		coor.row++;
@@ -69,7 +69,7 @@ void	jump_img(t_game *game, char *str)
 	t_coor	coor;
 
 	if (!str)
-		error_exit();
+		error_exit(0);
 	coor.row = 0;
 	while (coor.row < 2)
 	{
@@ -85,7 +85,7 @@ void	jump_img(t_game *game, char *str)
 				(game->mlx, str, &game->jump[coor.row][coor.col].width,
 					&game->jump[coor.row][coor.col].height);
 			if (!game->jump[coor.row][coor.col].img_ptr)
-				error_exit();
+				error_exit(0);
 			coor.col++;
 		}
 		coor.row++;
@@ -98,7 +98,7 @@ void	rest_img(t_game *game, char *str)
 	t_coor	coor;
 
 	if (!str)
-		error_exit();
+		error_exit(0);
 	coor.row = 0;
 	while (coor.row < 2)
 	{

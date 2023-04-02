@@ -6,17 +6,11 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:23:08 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/01 12:17:28 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/02 14:10:04 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
-
-/*0 : 빈 공간
-1 : 벽
-C : 수집품
-E : 맵의 출구
-P : 캐릭터의 시작 지점*/
 
 static t_list	*get_map_line(int fd);
 static void		fill_map(t_map *map, t_list *list);
@@ -29,9 +23,9 @@ t_map	*get_map(int fd)
 
 	map = (t_map *)ft_calloc(1, sizeof(t_map));
 	if (!map)
-		error_exit();
+		error_exit(0);
 	head = get_map_line(fd);
-	map->width = ft_strlen(head->content) - 1; //개행
+	map->width = ft_strlen(head->content) - 1;
 	map->height = ft_lstsize(head);
 	create_map(map);
 	fill_map(map, head);

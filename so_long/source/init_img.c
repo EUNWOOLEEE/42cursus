@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 16:10:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/01 12:39:06 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/02 14:08:29 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	fruit_img(t_game *game, char *str)
 
 	num = 0;
 	if (!str)
-		error_exit();
+		error_exit(0);
 	while (num < 5)
 	{
 		str[16] = num + '0';
