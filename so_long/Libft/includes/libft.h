@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 21:00:01 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/04 20:31:15 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/04 21:32:25 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,6 @@ t_list	*ft_lstnew(void *content);
 t_list	*ft_lstlast(t_list *lst);
 char	*get_next_line(int fd);
 char	*delete_nod(t_gnl_list **head, t_gnl_list *nod);
+void	free_buff(char *tmp, char *buff);
 
 #endif

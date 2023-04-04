@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:01:43 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/02 17:03:46 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/04 21:33:21 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static char	*get_done_line(t_gnl_list *nod)
 	return (line);
 }
 
-static int	get_read_line(int fd, t_gnl_list *nod)
+static int	get_read_line(int fd, t_gnl_list *nod, char *tmp)
 {
 	int		rd;
 	char	*buff;
@@ -103,16 +103,17 @@ static int	get_read_line(int fd, t_gnl_list *nod)
 		if (rd == -1 || !rd)
 			break ;
 		buff[rd] = '\0';
-		nod->buff = ft_strjoin(nod->buff, buff);
+		tmp = nod->buff;
+		nod->buff = ft_strjoin(tmp, buff);
 		if (!nod->buff)
 		{
-			free(buff);
+			free_buff(tmp, buff);
 			return (-1);
 		}
 		if (ft_strchr(nod->buff, '\n'))
 			break ;
 	}
-	free(buff);
+	free_buff(tmp, buff);
 	return (rd);
 }
 
@@ -127,7 +128,7 @@ char	*get_next_line(int fd)
 	nod = get_fd_nod(&head, fd);
 	if (!nod)
 		return (0);
-	if (get_read_line(fd, nod) == -1 || !*(nod->buff))
+	if (get_read_line(fd, nod, 0) == -1 || !*(nod->buff))
 		return (delete_nod(&head, nod));
 	line = get_done_line(nod);
 	if (!line)
