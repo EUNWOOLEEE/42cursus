@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 16:04:16 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/04 18:46:59 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/04 21:02:21 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,19 @@ static int	check_next_pos(t_game *game, int row, int col)
 {
 	if (game->map.map[row][col] == '1')
 		return (-1);
+
+	if (game->map.map[row][col] == 'E')
+	{
+		if (game->map.col_num)
+			return (-1);
+		game->flag.goal = 1;
+	}
 	if (game->map.map[row][col] == 'C')
 	{
 		game->map.map[row][col] = '0';
 		game->flag.fruit = 1;
+		game->map.col_num--;
 	}
-	if (game->map.map[row][col] == 'E')
-		game->flag.goal = 1;
 	game->next.row = row;
 	game->next.col = col;
 	return (0);
