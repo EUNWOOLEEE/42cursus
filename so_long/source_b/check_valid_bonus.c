@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_valid.c                                      :+:      :+:    :+:   */
+/*   check_valid_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 17:03:32 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/02 15:32:57 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/04 19:39:03 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "../includes/so_long_bonus.h"
 
 void		check_valid(t_game *game);
 static void	check_wall_row(t_game *game);
@@ -30,7 +30,8 @@ void	check_valid(t_game *game)
 	check_wall_col(game);
 	create_collection(game);
 	init_collection(game);
-	check_route(game);
+	copy_map(game);
+	check_route(game, 1);
 }
 
 static void	check_wall_row(t_game *game)

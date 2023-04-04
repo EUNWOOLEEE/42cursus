@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_img.c                                         :+:      :+:    :+:   */
+/*   init_img_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 16:10:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/02 15:34:37 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/04 18:37:54 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "../includes/so_long_bonus.h"
 
 void		init_img(t_game *game);
 static void	map_img(t_game *game);
@@ -38,8 +38,11 @@ static void	map_img(t_game *game)
 	game->map_img[2].img_ptr = mlx_png_file_to_image
 		(game->mlx, "textures/map/exit.png",
 			&game->map_img[2].width, &game->map_img[2].height);
+	game->map_img[3].img_ptr = mlx_png_file_to_image
+		(game->mlx, "textures/map/hole.png",
+			&game->map_img[3].width, &game->map_img[3].height);
 	if (!game->map_img[0].img_ptr || !game->map_img[1].img_ptr
-		|| !game->map_img[2].img_ptr)
+		|| !game->map_img[2].img_ptr || !game->map_img[3].img_ptr)
 		error_exit(0);
 }
 

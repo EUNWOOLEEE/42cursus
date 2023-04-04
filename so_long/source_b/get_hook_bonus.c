@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_hook.c                                         :+:      :+:    :+:   */
+/*   get_hook_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 12:35:02 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/02 15:33:56 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/04 19:55:55 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "../includes/so_long_bonus.h"
 
 int			key_press(int keycode, t_game *game);
 int			red_cross_press(t_game *game);
@@ -27,7 +27,7 @@ int	key_press(int keycode, t_game *game)
 		game->flag.exit++;
 		return (0);
 	}
-	if (game->flag.goal)
+	if (game->flag.goal || game->flag.hole)
 		return (0);
 	move_code = is_move_code(game, keycode);
 	if (move_code >= 0)

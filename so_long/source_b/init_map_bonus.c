@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_map.c                                         :+:      :+:    :+:   */
+/*   init_map_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:23:08 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/02 15:34:49 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/04 19:38:54 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "../includes/so_long_bonus.h"
 
 void			get_map(t_game *game, int fd);
 static void		create_map(t_game *game);
@@ -29,6 +29,7 @@ void	get_map(t_game *game, int fd)
 	fill_map(game, head);
 	ft_lstclear(&head, free);
 	check_valid(game);
+	put_hole(game);
 }
 
 static void	create_map(t_game *game)
@@ -119,7 +120,9 @@ static void	check_char(t_game *game, char c, int row, int col)
 	}
 	else if (c == 'C')
 		game->map.col_num++;
-	else if (c != '0' && c != '1')
+	else if (c == '1')
+		game->map.tree_num++;
+	else if (c != '0')
 		error_exit("Invaild character found\n");
 	game->map.map[row][col] = c;
 }

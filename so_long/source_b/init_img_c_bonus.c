@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_img_c.c                                       :+:      :+:    :+:   */
+/*   init_img_c_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 17:43:46 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/02 15:34:28 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/04 18:37:11 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "../includes/so_long_bonus.h"
 
 void	stand_img(t_game *game, char *str);
 void	walk_img(t_game *game, char *str);

@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/20 20:21:25 by eunwolee          #+#    #+#              #
-#    Updated: 2023/04/02 16:33:41 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/04/04 19:07:21 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ L_DIR = Libft
 L_NAME = libft.a
 
 INCS_DIR = includes
+
 SRC_DIR_M = source_m
 SRC_DIR_B = source_b
 
@@ -50,6 +51,7 @@ SRCS_B = $(SRC_DIR_B)/so_long_bonus.c \
 	$(SRC_DIR_B)/game_start_bonus.c \
 	$(SRC_DIR_B)/game_end_bonus.c \
 	$(SRC_DIR_B)/init_map_bonus.c \
+	$(SRC_DIR_B)/init_hole_bonus.c \
 	$(SRC_DIR_B)/init_img_bonus.c \
 	$(SRC_DIR_B)/init_img_c_bonus.c \
 	$(SRC_DIR_B)/check_valid_bonus.c \
@@ -71,12 +73,9 @@ endif
 %.o: %.c
 	$(CC) $(CFLAGS) -c $^ -o $@ -I $(MLX_DIR)
 
-all:
-	$(RM) $(SRC_DIR_B)/*.o
-	$(MAKE) $(NAME)
+all: $(NAME)
 
 bonus:
-	$(RM) $(SRC_DIR_M)/*.o
 	$(MAKE) WITH_BONUS=1 $(NAME)
 
 $(NAME): $(L_NAME) $(OBJS)
@@ -95,7 +94,7 @@ clean:
 
 fclean:
 	$(MAKE) clean
-	$(RM) $(NAME) $(MLX_NAME)
+	$(RM) $(NAME) ./$(INCS_DIR_M)/$(MLX_NAME) ./$(INCS_DIR_B)/$(MLX_NAME)
 
 re:
 	$(MAKE) fclean

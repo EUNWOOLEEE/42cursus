@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 15:25:45 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/02 15:35:50 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/04 19:05:00 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "../includes/so_long_bonus.h"
 
 void	error_exit(char *str);
 void	print_move(int move_cnt);
@@ -28,4 +28,17 @@ void	print_move(int move_cnt)
 	ft_putstr_fd("move : ", 1);
 	ft_putnbr_fd(move_cnt, 1);
 	ft_putchar_fd('\n', 1);
+}
+
+void	copy_map(t_game *game)
+{
+	int		i;
+
+	i = 0;
+	while (i < game->map.height)
+	{
+		ft_memmove(game->map.tmp[i], game->map.map[i],
+			sizeof(char) * game->map.width);
+		i++;
+	}
 }

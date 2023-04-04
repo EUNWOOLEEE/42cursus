@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   so_long_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:23:20 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/04 19:37:58 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/04 19:48:24 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "../mlx/mlx.h"
 # include "../Libft/includes/libft.h"
 # include <fcntl.h>
+# include <time.h>
 
 typedef struct s_map
 {
@@ -25,8 +26,12 @@ typedef struct s_map
 	int		width;
 	int		start[2];
 	int		exit[2];
+	int		tree_num;
 	int		col_num;
+	int		hole_num;
 	int		**collection;
+	int		**hole;
+	int		flag_exit;
 }t_map;
 
 typedef struct s_coor
@@ -48,6 +53,8 @@ typedef struct s_dis
 	double	tree_col;
 	double	fruit_row;
 	double	fruit_col;
+	double	hole_row;
+	double	hole_col;
 	double	exit;
 }t_dis;
 
@@ -60,6 +67,7 @@ typedef struct s_flag
 	int	sleep;
 	int	goal;
 	int	exit;
+	int	hole;
 }t_flag;
 
 typedef struct s_game
@@ -72,7 +80,7 @@ typedef struct s_game
 	t_coor	cur;
 	t_coor	next;
 	t_map	map;
-	t_img	map_img[3];
+	t_img	map_img[4];
 	t_img	fruit[5];
 	t_img	walk[2][8];
 	t_img	stand[2][5];
@@ -93,7 +101,7 @@ void	jump_img(t_game *game, char *str);
 void	rest_img(t_game *game, char *str);
 void	sleep_img(t_game *game, char *str);
 void	check_valid(t_game *game);
-void	check_route(t_game *game);
+int		check_route(t_game *game, int flag);
 void	draw_img(t_game *game, t_img img, double row, double col);
 int		draw_map(t_game *game);
 int		key_press(int keycode, t_game *game);
@@ -108,5 +116,7 @@ int		jump_left(t_game *game, int jump, double *row, double *col);
 int		jump_right(t_game *game, int jump, double *row, double *col);
 void	error_exit(char *str);
 void	print_move(int move_cnt);
+void	copy_map(t_game *game);
+void	put_hole(t_game *game);
 
 #endif

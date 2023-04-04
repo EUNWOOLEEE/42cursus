@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   move_walk.c                                        :+:      :+:    :+:   */
+/*   move_walk_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 22:00:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/02 15:35:20 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/04 18:37:25 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "../includes/so_long_bonus.h"
 
 int	walk_up(t_game *game, int walk, double *row, double *col);
 int	walk_left(t_game *game, int walk, double *row, double *col);
