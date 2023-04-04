@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/20 20:21:25 by eunwolee          #+#    #+#              #
-#    Updated: 2023/04/04 19:07:21 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/04/04 20:10:33 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,9 +73,12 @@ endif
 %.o: %.c
 	$(CC) $(CFLAGS) -c $^ -o $@ -I $(MLX_DIR)
 
-all: $(NAME)
+all:
+	$(RM) ./$(SRC_DIR_B)/*.o
+	$(MAKE) $(NAME)
 
 bonus:
+	$(RM) ./$(SRC_DIR_M)/*.o
 	$(MAKE) WITH_BONUS=1 $(NAME)
 
 $(NAME): $(L_NAME) $(OBJS)
