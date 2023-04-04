@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 16:04:16 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/04 19:45:59 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/04 20:42:22 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	move(t_game *game, int direction)
 		cnt++;
 	}
 	game->move_cnt++;
-	print_move(game->move_cnt);
+	print_move(game);
 	return (0);
 }
 

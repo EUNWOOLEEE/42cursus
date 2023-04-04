@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 20:57:36 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/02 17:03:28 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/04 20:41:27 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	str = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!str)
 	{
-		free(s1);
 		return (0);
 	}
 	idx = 0;
@@ -31,6 +30,5 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (*s2)
 		str[idx++] = *s2++;
 	str[idx] = '\0';
-	free(tmp);
 	return (str);
 }

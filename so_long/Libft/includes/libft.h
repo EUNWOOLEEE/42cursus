@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 21:00:01 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/02 14:18:04 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/04 20:31:15 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_gnl_list
 	struct s_gnl_list	*next;
 }	t_gnl_list;
 
+char	*ft_itoa(int n);
 void	*ft_memset(void *b, int c, size_t len);
 void	*ft_memmove(void *dst, const void *src, size_t len);
 void	*ft_calloc(size_t count, size_t size);

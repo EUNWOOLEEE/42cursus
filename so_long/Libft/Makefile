@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/17 12:21:51 by eunwolee          #+#    #+#              #
-#    Updated: 2023/04/02 17:05:09 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/04/04 20:31:59 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ CFLAGS = -Wall -Wextra -Werror
 AR = ar rcs
 RM = rm -f
 
-SRCS = $(SRC_DIR)/ft_memset.c \
+SRCS = $(SRC_DIR)/ft_itoa.c \
+	$(SRC_DIR)/ft_memset.c \
 	$(SRC_DIR)/ft_memmove.c \
 	$(SRC_DIR)/ft_calloc.c \
 	$(SRC_DIR)/ft_strlen.c \

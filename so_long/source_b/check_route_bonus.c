@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 20:10:04 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/04 20:23:45 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/04 20:56:26 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,6 @@ int	check_route(t_game *game, int flag)
 	free(queue);
 	return (check_res(game, flag));
 }
-
-
-#include <stdio.h>
 
 static void	bfs(t_game *game, t_coor *queue, int front, int rear)
 {
@@ -72,10 +69,6 @@ static void	set_direction(int **d_row, int **d_col)
 		error_exit(0);
 	(*d_row)[0] = -1;
 	(*d_row)[1] = 1;
-	(*d_row)[2] = 0;
-	(*d_row)[3] = 0;
-	(*d_col)[0] = 0;
-	(*d_col)[1] = 0;
 	(*d_col)[2] = -1;
 	(*d_col)[3] = 1;
 }
@@ -114,11 +107,11 @@ static int	check_res(t_game *game, int flag)
 	{
 		if (game->map.tmp[game->map.collection[row][0]]
 			[game->map.collection[row][1]] != '-')
-			{
-				if (flag == -1)
-					error_exit("Unable to access collectable\n");
-				return (-1);
-			}
+		{
+			if (flag == -1)
+				error_exit("Unable to access collectable\n");
+			return (-1);
+		}
 		row++;
 	}
 	return (0);

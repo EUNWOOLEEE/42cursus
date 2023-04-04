@@ -6,12 +6,12 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:23:20 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/04 19:48:24 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/04 20:53:37 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef SO_LONG_BONUS_H
+# define SO_LONG_BONUS_H
 
 # include "../mlx/mlx.h"
 # include "../Libft/includes/libft.h"
@@ -115,7 +115,7 @@ int		walk_right(t_game *game, int walk, double *row, double *col);
 int		jump_left(t_game *game, int jump, double *row, double *col);
 int		jump_right(t_game *game, int jump, double *row, double *col);
 void	error_exit(char *str);
-void	print_move(int move_cnt);
+void	print_move(t_game *game);
 void	copy_map(t_game *game);
 void	put_hole(t_game *game);
 

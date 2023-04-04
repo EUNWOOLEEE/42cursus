@@ -6,12 +6,13 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 18:48:52 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/04 19:43:14 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/04 20:58:43 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long_bonus.h"
 
+void		put_hole(t_game *game);
 static void	count_hole_num(t_game *game);
 static void	create_hole(t_game *game);
 static void	init_hole(t_game *game);
@@ -28,8 +29,7 @@ void	put_hole(t_game *game)
 	{
 		copy_map(game);
 		init_hole(game);
-
-		res = check_route(game, 2); //리턴값 -1 아닐때까지 반복하기
+		res = check_route(game, 2);
 	}
 	copy_hole(game);
 }
@@ -66,6 +66,7 @@ static void	init_hole(t_game *game)
 {
 	int		num;
 	t_coor	coor;
+	t_coor	hole;
 
 	srand((unsigned int)time(0));
 	coor.row = 0;
@@ -83,7 +84,9 @@ static void	init_hole(t_game *game)
 			game->map.hole[coor.row][coor.col] = num;
 			coor.col++;
 		}
-		game->map.tmp[game->map.hole[coor.row][0]][game->map.hole[coor.row][1]] = 'H';
+		hole.row = game->map.hole[coor.row][0];
+		hole.col = game->map.hole[coor.row][1];
+		game->map.tmp[hole.row][hole.col] = 'H';
 		coor.row++;
 	}
 }
