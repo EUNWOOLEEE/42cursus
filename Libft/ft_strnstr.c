@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 17:16:09 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/12/02 22:30:35 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/06 19:28:36 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 		return (0);
 	h_len = ft_strlen(haystack);
 	n_len = ft_strlen(needle);
-	if (len < n_len)
+	if (len < n_len || h_len < n_len)
 		return (0);
 	while (idx <= len - n_len && *haystack)
 	{
