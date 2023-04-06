@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/20 20:21:25 by eunwolee          #+#    #+#              #
-#    Updated: 2023/04/04 20:10:33 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/04/06 19:38:07 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,7 +71,7 @@ else
 endif
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $^ -o $@ -I $(MLX_DIR)
+	$(CC) $(CFLAGS) -c $^ -o $@ -I .
 
 all:
 	$(RM) ./$(SRC_DIR_B)/*.o
