@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/03 12:23:15 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/03 12:24:35 by eunwolee         ###   ########.fr       */
+/*   Created: 2022/11/10 12:33:34 by eunwolee          #+#    #+#             */
+/*   Updated: 2022/11/14 20:27:03 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "libft.h"
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <fcntl.h>
+void	*ft_memset(void *b, int c, size_t len)
+{
+	unsigned char	*str;
+	unsigned char	tmp;
 
-#endif
+	str = (unsigned char *)b;
+	tmp = (unsigned char)c;
+	while (len--)
+		*str++ = tmp;
+	return (b);
+}
