@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 12:23:00 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/10 11:34:41 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/10 21:10:17 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,11 @@ void get_element(t_elements *elements, char **argv, int errno)
 {
 	(void)errno;
 	elements->fd1 = open(argv[1], O_RDONLY);
-	elements->fd2 = open(argv[4], O_RDWR | O_CREAT, S_IRUGO | S_IWUSR);
+	elements->fd2 = open(argv[4], O_RDWR | O_CREAT | O_TRUNC , S_IRUGO | S_IWUSR);
 	// if (elements->fd1 == -1 || elements->fd2 == -1) error
 	elements->cmd1 = ft_split(argv[2], ' ');
+	for(int i = 0; elements->cmd1[i]; i++)
+		printf("%s\n", elements->cmd1[i]);
 	elements->cmd2 = ft_split(argv[3], ' ');
 	if (!elements->cmd1 || !elements->cmd2)
 		return; // error
@@ -64,9 +66,9 @@ t_bool execute_cmd(char **path_lst, char **cmd, char **envp, int errno)
 	char *path;
 	char *err;
 
-	i = 5;
+	i = 0;
 	res = -1;
-	while (path_lst[i])
+	while (path_lst[i]) //절대경로 추가
 	{
 		if (access(path_lst[i], F_OK) == -1) //클러스터 맥에서도 필요한 부분인가?
 		{
@@ -75,10 +77,10 @@ t_bool execute_cmd(char **path_lst, char **cmd, char **envp, int errno)
 		}
 		tmp = ft_strjoin(path_lst[i], "/");
 		path = ft_strjoin(tmp, cmd[0]);
-		printf("%s\n", path); //왜 errno가 2가 아니라 22지??
-		printf("%d %s\n", errno, strerror(errno));
+		printf("path: %s\n", path); //왜 errno가 2가 아니라 22지??
+		printf("errno: %d, errstr: %s\n", errno, strerror(errno));
 		acs = access(path, X_OK);
-		printf("%d\n", acs);
+		printf("acs: %d\n", acs);
 		if (!acs)
 		{
 			res = execve(path, cmd, envp);
@@ -96,7 +98,7 @@ t_bool execute_cmd(char **path_lst, char **cmd, char **envp, int errno)
 		free(tmp);
 		free(path);
 	}
-	if (acs == -1)
+	if (acs == -1) //exit
 		printf("%s\n", err);
 		// return (print_error(cmd, errno));
 	return (TRUE);
@@ -120,10 +122,8 @@ int main(int argc, char **argv, char **envp)
 
 	if (argc != 5)
 		return (0); // error
-	errno = 0;
 	elements = (t_elements *)ft_calloc(1, sizeof(t_elements));
 	get_path(elements, envp);
-	printf("%d\n", errno);
 	get_element(elements, argv, errno);
 	if (pipe(elements->fd) == -1)
 		return (0); // error
@@ -132,9 +132,12 @@ int main(int argc, char **argv, char **envp)
 	{
 		close(elements->fd[P_READ]);
 		dup2(elements->fd1, STDIN_FILENO);
-		// dup2(elements->fd[P_WRITE], STDOUT_FILENO);
+		dup2(elements->fd[P_WRITE], STDOUT_FILENO);
 		execute_cmd(elements->path, elements->cmd1, envp, errno);
 	}
 	wait_child_n_execute(elements, envp, errno);
 	return (0);
 }
+
+//옵션으로 줄때 awk 같은 경우 싱글쿼트 없애기??
+//쿼트 들어오는 함수 

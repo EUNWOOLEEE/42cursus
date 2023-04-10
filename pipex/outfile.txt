@@ -1,31 +1,20 @@
-/bin/wc
-0 Undefined error: 0
--1
-/usr/sbin/wc
-0 Undefined error: 0
--1
-/sbin/wc
-0 Undefined error: 0
--1
-/opt/homebrew/bin/wc
-0 Undefined error: 0
--1
-/opt/homebrew/sbin/wc
-0 Undefined error: 0
--1
-Undefined error: 0
-or directory
--1
-No such file or directory
-
-
- file or directory
-/usr/sbin/wc
-2 No such file or directory
-/sbin/wc
-2 No such file or directory
-/opt/homebrew/bin/wc
-2 No such file or directory
-/opt/homebrew/sbin/wc
-2 No such file or directory
-No such file or directory
+path: /usr/local/bin/cat
+errno: 0, errstr: Undefined error: 0
+acs: -1
+path: /usr/bin/cat
+errno: 0, errstr: Undefined error: 0
+acs: -1
+path: /bin/cat
+errno: 0, errstr: Undefined error: 0
+acs: 0
+path: /usr/local/bin/tr
+errno: 22, errstr: Invalid argument
+acs: -1
+path: /usr/bin/tr
+errno: 22, errstr: Invalid argument
+acs: 0
+ 
+b
+c
+d
+e
