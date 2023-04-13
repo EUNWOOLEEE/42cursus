@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 12:23:00 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/10 21:10:17 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/13 18:36:21 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,129 +15,99 @@
 // ./pipex infile ``ls -l'' ``wc -l'' outfile
 // < file1 cmd1 | cmd2 > file2
 
-t_bool print_error(char **cmd, int errno)
-{
-	char *err;
-	(void)cmd;
+// t_bool execute_cmd(char **path_lst, char **cmd, char **envp)
+// {
+// 	int i;
+// 	int res;
+// 	int acs;
+// 	char *tmp;
+// 	char *path;
+// 	char *err;
 
-	err = strerror(errno);
-	printf("%s\n", err);
-	return (FALSE);
-}
+// 	i = 0;
+// 	res = -1;
+// 	while (path_lst[i]) //절대경로 추가 ./
+// 	{
+// 		if (access(path_lst[i], F_OK) == -1) //클러스터 맥에서도 필요한 부분인가?
+// 		{
+// 			i++;
+// 			continue;
+// 		}
+// 		tmp = ft_strjoin(path_lst[i], "/");
+// 		path = ft_strjoin(tmp, cmd[0]);
+// 		// printf("path: %s\n", path); //왜 errno가 2가 아니라 22지??
+// 		// printf: %d, errstr: %s\n", strerror(errno)));
+// 		acs = access(path, X_OK);
+// 		// printf("acs: %d\n", acs);
+// 		if (!acs)
+// 		{
+// 			res = execve(path, cmd, envp);
+// 			if (res == -1)
+// 			{
+// 				// err = ft_strjoin(cmd[0], cmd[1]);
+// 				printf("%s\n", strerror(errno));
+// 				return (FALSE);
+// 			}
+// 			break;
+// 		}
+// 		i++;
+// 		if (!path_lst[i])
+// 			err = strerror(errno);
+// 		free(tmp);
+// 		free(path);
+// 	}
+// 	if (acs == -1) //exit
+// 		printf("%s\n", err);
+// 		// return (print_error(cmd));
+// 	return (TRUE);
+// }
 
-void get_path(t_elements *elements, char **envp)
-{
-	int i;
+// void wait_child_n_execute(t_data *data, char **envp)
+// {
+// 	int status;
 
-	i = 0;
-	while (envp[i])
-	{
-		if (!ft_strncmp(envp[i], "PATH", 4))
-		{
-			elements->path = ft_split(&envp[i][5], ':');
-			break;
-		}
-		i++;
-	}
-	if (!elements->path)
-		return;
-}
-
-void get_element(t_elements *elements, char **argv, int errno)
-{
-	(void)errno;
-	elements->fd1 = open(argv[1], O_RDONLY);
-	elements->fd2 = open(argv[4], O_RDWR | O_CREAT | O_TRUNC , S_IRUGO | S_IWUSR);
-	// if (elements->fd1 == -1 || elements->fd2 == -1) error
-	elements->cmd1 = ft_split(argv[2], ' ');
-	for(int i = 0; elements->cmd1[i]; i++)
-		printf("%s\n", elements->cmd1[i]);
-	elements->cmd2 = ft_split(argv[3], ' ');
-	if (!elements->cmd1 || !elements->cmd2)
-		return; // error
-}
-
-t_bool execute_cmd(char **path_lst, char **cmd, char **envp, int errno)
-{
-	int i;
-	int res;
-	int acs;
-	char *tmp;
-	char *path;
-	char *err;
-
-	i = 0;
-	res = -1;
-	while (path_lst[i]) //절대경로 추가
-	{
-		if (access(path_lst[i], F_OK) == -1) //클러스터 맥에서도 필요한 부분인가?
-		{
-			i++;
-			continue;
-		}
-		tmp = ft_strjoin(path_lst[i], "/");
-		path = ft_strjoin(tmp, cmd[0]);
-		printf("path: %s\n", path); //왜 errno가 2가 아니라 22지??
-		printf("errno: %d, errstr: %s\n", errno, strerror(errno));
-		acs = access(path, X_OK);
-		printf("acs: %d\n", acs);
-		if (!acs)
-		{
-			res = execve(path, cmd, envp);
-			if (res == -1)
-			{
-				// err = ft_strjoin(cmd[0], cmd[1]);
-				printf("%s\n", strerror(errno));
-				return (FALSE);
-			}
-			break;
-		}
-		i++;
-		if (!path_lst[i])
-			err = strerror(errno);
-		free(tmp);
-		free(path);
-	}
-	if (acs == -1) //exit
-		printf("%s\n", err);
-		// return (print_error(cmd, errno));
-	return (TRUE);
-}
-
-void wait_child_n_execute(t_elements *elements, char **envp, int errno)
-{
-	int status;
-
-	waitpid(elements->pid, &status, WNOHANG);
-	close(elements->fd[P_WRITE]);
-	dup2(elements->fd[P_READ], STDIN_FILENO);
-	dup2(elements->fd2, STDOUT_FILENO);
-	execute_cmd(elements->path, elements->cmd2, envp, errno);
-}
+// 	waitpid(data->pid, &status, WNOHANG);
+// 	close(data->fd[P_WRITE]);
+// 	dup2(data->fd[P_READ], STDIN_FILENO);
+// 	dup2(data->outfile, STDOUT_FILENO);
+// 	execute_cmd(data->path, data->cmd2, envp);
+// }
 
 int main(int argc, char **argv, char **envp)
 {
-	extern int errno;
-	t_elements *elements;
+	int	turn;
+	int status;
+	t_data *data;
 
-	if (argc != 5)
-		return (0); // error
-	elements = (t_elements *)ft_calloc(1, sizeof(t_elements));
-	get_path(elements, envp);
-	get_element(elements, argv, errno);
-	if (pipe(elements->fd) == -1)
-		return (0); // error
-	elements->pid = fork();
-	if (!elements->pid) // 자식에서 cmd1 실행
+	// if (argc != 5) //보너스는 5 미만으로 바꾸기
+	// 	return (0); // error
+	init_data(&data, argc, argv, envp);
+	// if (!data->pid) // 자식에서 cmd1 실행
+	// {
+	// 	close(data->fd[P_READ]);
+	// 	dup2(data->infile, STDIN_FILENO);
+	// 	dup2(data->fd[P_WRITE], STDOUT_FILENO);
+	// 	execute_cmd(data->path, data->cmd1, envp);
+	// }
+	
+	turn = 0;
+	while (turn < data->cmd_num)
 	{
-		close(elements->fd[P_READ]);
-		dup2(elements->fd1, STDIN_FILENO);
-		dup2(elements->fd[P_WRITE], STDOUT_FILENO);
-		execute_cmd(elements->path, elements->cmd1, envp, errno);
+		data->cur_pid = fork();
+		if (data->cur_pid == -1)
+			print_error("Fork failure");
+		if (!data->cur_pid) //child
+		{
+			close(data->cmd[turn].fd[P_READ]);
+			return (0);
+		}
+		data->cmd[turn].pid = data->cur_pid;
+		waitpid(data->cmd[turn].pid, &status, WNOHANG);
+		turn++;
 	}
-	wait_child_n_execute(elements, envp, errno);
+	// wait_child_n_execute(data, envp);
 	return (0);
 }
 
 //옵션으로 줄때 awk 같은 경우 싱글쿼트 없애기??
-//쿼트 들어오는 함수 
+//쿼트 들어오는 함수?
