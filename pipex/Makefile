@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/03 12:26:07 by eunwolee          #+#    #+#              #
-#    Updated: 2023/04/17 18:05:53 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/04/17 18:51:00 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ L_DIR = Libft
 L_NAME = libft.a
 
 INCS_DIR = includes
-SRC_DIR = source
+SRCS_DIR_M = srcs_m
+SRCS_DIR_B = srcs_b
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
@@ -26,22 +27,34 @@ MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit -lz
 RM = rm -f
 MAKE = make
 
-SRCS = $(SRC_DIR)/pipex.c \
-	$(SRC_DIR)/init.c \
-	$(SRC_DIR)/execute.c \
-	$(SRC_DIR)/pipe.c \
-	$(SRC_DIR)/utils.c \
+SRCS_M = $(SRCS_DIR_M)/pipex.c \
+	$(SRCS_DIR_M)/init.c \
+	$(SRCS_DIR_M)/execute.c \
+	$(SRCS_DIR_M)/pipe.c \
+	$(SRCS_DIR_M)/utils.c \
 
-OBJS = $(SRCS:%.c=%.o)
+SRCS_B = $(SRCS_DIR_B)/pipex_bonus.c \
+	$(SRCS_DIR_B)/init_bonus.c \
+	$(SRCS_DIR_B)/execute_bonus.c \
+	$(SRCS_DIR_B)/pipe_bonus.c \
+	$(SRCS_DIR_B)/utils_bonus.c \
+
+ifdef WITH_BONUS
+	OBJS = $(SRCS_B:%.c=%.o)
+else
+	OBJS = $(SRCS_M:%.c=%.o)
+endif
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $^ -o $@ -I .
 
-all: $(NAME)
+all:
+	$(RM) ./$(SRCS_DIR_B)/*.o
+	$(MAKE) $(NAME)
 
-# bonus:
-# 	$(RM) ./$(SRC_DIR)/*.o
-# 	$(MAKE) WITH_BONUS=1 $(NAME)
+bonus:
+	$(RM) ./$(SRCS_DIR_M)/*.o
+	$(MAKE) WITH_BONUS=1 $(NAME)
 
 $(NAME): $(L_NAME) $(OBJS)
 	$(CC) -L . -I $(INCS_DIR) $^ -o $@
@@ -52,7 +65,7 @@ $(L_NAME):
 
 clean:
 	$(MAKE) -C $(L_DIR) fclean
-	$(RM) $(SRC_DIR)/*.o $(L_NAME)
+	$(RM) $(SRCS_DIR_M)/*.o $(SRCS_DIR_B)/*.o $(L_NAME)
 
 fclean:
 	$(MAKE) clean
