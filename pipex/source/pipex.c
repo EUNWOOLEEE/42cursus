@@ -6,108 +6,122 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 12:23:00 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/13 18:36:21 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/16 16:36:31 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-// ./pipex infile ``ls -l'' ``wc -l'' outfile
-// < file1 cmd1 | cmd2 > file2
+void execute_cmd(char **path_lst, t_cmd cmd, char **envp);
+char *get_valid_path(char **path_lst, t_cmd cmd, int *res, int i);
 
-// t_bool execute_cmd(char **path_lst, char **cmd, char **envp)
-// {
-// 	int i;
-// 	int res;
-// 	int acs;
-// 	char *tmp;
-// 	char *path;
-// 	char *err;
+void	link_pipe(t_data *data, int i)
+{
+	if (i == 0)
+	{
+		close(data->cmd[i].fd[P_READ]);
+		dup2(data->infile, STDIN_FILENO);
+		dup2(data->cmd[i].fd[P_WRITE], STDOUT_FILENO);
+	}
+	else if (i == data->cmd_num - 1)
+	{
+		close(data->cmd[i - 1].fd[P_WRITE]);
+		dup2(data->cmd[i - 1].fd[P_READ], STDIN_FILENO);
+		dup2(data->outfile, STDOUT_FILENO);
+	}
+	else
+	{
+		close(data->cmd[i - 1].fd[P_WRITE]);
+		close(data->cmd[i].fd[P_READ]);
+		dup2(data->cmd[i - 1].fd[P_READ], STDIN_FILENO);
+		dup2(data->cmd[i].fd[P_WRITE], STDOUT_FILENO);
+	}
+}
 
-// 	i = 0;
-// 	res = -1;
-// 	while (path_lst[i]) //절대경로 추가 ./
-// 	{
-// 		if (access(path_lst[i], F_OK) == -1) //클러스터 맥에서도 필요한 부분인가?
-// 		{
-// 			i++;
-// 			continue;
-// 		}
-// 		tmp = ft_strjoin(path_lst[i], "/");
-// 		path = ft_strjoin(tmp, cmd[0]);
-// 		// printf("path: %s\n", path); //왜 errno가 2가 아니라 22지??
-// 		// printf: %d, errstr: %s\n", strerror(errno)));
-// 		acs = access(path, X_OK);
-// 		// printf("acs: %d\n", acs);
-// 		if (!acs)
-// 		{
-// 			res = execve(path, cmd, envp);
-// 			if (res == -1)
-// 			{
-// 				// err = ft_strjoin(cmd[0], cmd[1]);
-// 				printf("%s\n", strerror(errno));
-// 				return (FALSE);
-// 			}
-// 			break;
-// 		}
-// 		i++;
-// 		if (!path_lst[i])
-// 			err = strerror(errno);
-// 		free(tmp);
-// 		free(path);
-// 	}
-// 	if (acs == -1) //exit
-// 		printf("%s\n", err);
-// 		// return (print_error(cmd));
-// 	return (TRUE);
-// }
+void	close_pipe(t_data *data, int i)
+{
+	if (i == 0)
+		close(data->cmd[i].fd[P_WRITE]);
+	else if (i == data->cmd_num - 1)
+		close(data->cmd[i - 1].fd[P_READ]);
+	else
+	{
+		close(data->cmd[i - 1].fd[P_READ]);
+		close(data->cmd[i].fd[P_WRITE]);
+	}
+}
 
-// void wait_child_n_execute(t_data *data, char **envp)
-// {
-// 	int status;
+void execute_cmd(char **path_lst, t_cmd cmd, char **envp)
+{
+	int res;
+	char *path;
+	
+	path = get_valid_path(path_lst, cmd, &res, 0);
+	if (res == -1)
+	{
+		free(path);
+		print_error("Find command failure");
+	}
+	if (execve(path, cmd.cmd_arg, envp) == -1)
+	{
+		free(path);
+		print_error("Execute command failure");
+	}
+}
 
-// 	waitpid(data->pid, &status, WNOHANG);
-// 	close(data->fd[P_WRITE]);
-// 	dup2(data->fd[P_READ], STDIN_FILENO);
-// 	dup2(data->outfile, STDOUT_FILENO);
-// 	execute_cmd(data->path, data->cmd2, envp);
-// }
+char *get_valid_path(char **path_lst, t_cmd cmd, int *res, int i)
+{
+	char *tmp;
+	char *path;
+
+	if (cmd.slash == TRUE)
+	{
+		path = ft_strdup(cmd.cmd_arg[0]);
+		*res = access(path, X_OK);
+	}
+	else
+	{
+		while (path_lst[i])
+		{
+			tmp = ft_strjoin(path_lst[i], "/");
+			path = ft_strjoin(tmp, cmd.cmd_arg[0]);
+			free(tmp);
+			*res = access(path, X_OK);
+			if (!*res)
+				break;
+			i++;
+			free(path);
+		}
+	}
+	return (path);
+}
 
 int main(int argc, char **argv, char **envp)
 {
-	int	turn;
+	int	idx;
 	int status;
 	t_data *data;
 
 	// if (argc != 5) //보너스는 5 미만으로 바꾸기
 	// 	return (0); // error
 	init_data(&data, argc, argv, envp);
-	// if (!data->pid) // 자식에서 cmd1 실행
-	// {
-	// 	close(data->fd[P_READ]);
-	// 	dup2(data->infile, STDIN_FILENO);
-	// 	dup2(data->fd[P_WRITE], STDOUT_FILENO);
-	// 	execute_cmd(data->path, data->cmd1, envp);
-	// }
-	
-	turn = 0;
-	while (turn < data->cmd_num)
+	idx = 0;
+	while (idx < data->cmd_num)
 	{
-		data->cur_pid = fork();
-		if (data->cur_pid == -1)
+		data->cmd[idx].pid = fork();
+		if (data->cmd[idx].pid == -1)
 			print_error("Fork failure");
-		if (!data->cur_pid) //child
+		if (!data->cmd[idx].pid) //child
 		{
-			close(data->cmd[turn].fd[P_READ]);
-			return (0);
+			link_pipe(data, idx);
+			execute_cmd(data->path, data->cmd[idx], envp);
 		}
-		data->cmd[turn].pid = data->cur_pid;
-		waitpid(data->cmd[turn].pid, &status, WNOHANG);
-		turn++;
+		close_pipe(data, idx); //????????
+		idx++;
 	}
-	// wait_child_n_execute(data, envp);
+	idx = 0;
+	while (idx < data->cmd_num)
+		waitpid(data->cmd[idx++].pid, &status, 0);
+	close_all_pipe(data);
 	return (0);
 }
-
-//옵션으로 줄때 awk 같은 경우 싱글쿼트 없애기??
-//쿼트 들어오는 함수?
