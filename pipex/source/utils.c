@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:42:48 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/16 15:33:38 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/17 18:42:50 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,23 @@ void	print_error(char *error)
 	exit(EXIT_FAILURE);
 }
 
-void	close_all_pipe(t_data *data)
+void	free_data(t_data *data)
 {
 	int	i;
+	int	j;
 
 	i = 0;
 	while (i < data->cmd_num)
 	{
-		close(data->cmd[i].fd[P_READ]);
-		close(data->cmd[i].fd[P_WRITE]);
-		i++;
+		j = 0;
+		while (data->cmd[i].cmd_arg[j])
+			free(data->cmd[i].cmd_arg[j++]);
+		free(data->cmd[i++].cmd_arg);
 	}
+	free(data->cmd);
+	i = 0;
+	while (data->path[i])
+		free(data->path[i++]);
+	free(data->path);
+	free(data);
 }

@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/03 12:26:07 by eunwolee          #+#    #+#              #
-#    Updated: 2023/04/13 16:43:04 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/04/17 18:05:53 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,8 @@ MAKE = make
 
 SRCS = $(SRC_DIR)/pipex.c \
 	$(SRC_DIR)/init.c \
+	$(SRC_DIR)/execute.c \
+	$(SRC_DIR)/pipe.c \
 	$(SRC_DIR)/utils.c \
 
 OBJS = $(SRCS:%.c=%.o)
