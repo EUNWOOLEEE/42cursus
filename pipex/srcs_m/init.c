@@ -6,16 +6,16 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:17:18 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/17 18:14:17 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/18 17:40:24 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
 void			init_data(t_data **data, int argc, char **argv, char **envp);
+t_bool			check_slash(char *cmd);
 static void		get_path(t_data *data, char **envp);
 static void		get_data(t_data *data, int argc, char **argv);
-static t_bool	check_slash(char *cmd);
 
 void	init_data(t_data **data, int argc, char **argv, char **envp)
 {
@@ -28,6 +28,14 @@ void	init_data(t_data **data, int argc, char **argv, char **envp)
 		print_error("Cannot allocate memory");
 	get_path(*data, envp);
 	get_data(*data, argc, argv);
+}
+
+t_bool	check_slash(char *cmd)
+{
+	if (!ft_strncmp("/", cmd, 1) || !ft_strncmp("./", cmd, 2)
+		|| !ft_strncmp("../", cmd, 3))
+		return (TRUE);
+	return (FALSE);
 }
 
 static void	get_path(t_data *data, char **envp)
@@ -56,7 +64,9 @@ static void	get_data(t_data *data, int argc, char **argv)
 	data->infile = open(argv[1], O_RDONLY);
 	if (data->infile == -1)
 		perror("File open failure");
-	data->outfile = open(argv[argc - 1], O_RDWR | O_CREAT | O_TRUNC, S_IWUSR);
+	data->outfile = open(argv[argc - 1], O_RDWR | O_CREAT | O_TRUNC, S_IRWXU);
+	if (data->outfile == -1)
+		print_error("File open failure");
 	while (i < data->cmd_num)
 	{
 		data->cmd[i].cmd_arg = ft_split(argv[i + 2], ' ');
@@ -65,12 +75,4 @@ static void	get_data(t_data *data, int argc, char **argv)
 		data->cmd[i].slash = check_slash(data->cmd[i].cmd_arg[0]);
 		i++;
 	}
-}
-
-static t_bool	check_slash(char *cmd)
-{
-	if (!ft_strncmp("/", cmd, 1) || !ft_strncmp("./", cmd, 2)
-		|| !ft_strncmp("../", cmd, 3))
-		return (TRUE);
-	return (FALSE);
 }

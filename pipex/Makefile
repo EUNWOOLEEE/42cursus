@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/03 12:26:07 by eunwolee          #+#    #+#              #
-#    Updated: 2023/04/17 18:51:00 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/04/18 17:37:57 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRCS_M = $(SRCS_DIR_M)/pipex.c \
 
 SRCS_B = $(SRCS_DIR_B)/pipex_bonus.c \
 	$(SRCS_DIR_B)/init_bonus.c \
+	$(SRCS_DIR_B)/heredoc_bonus.c \
 	$(SRCS_DIR_B)/execute_bonus.c \
 	$(SRCS_DIR_B)/pipe_bonus.c \
 	$(SRCS_DIR_B)/utils_bonus.c \

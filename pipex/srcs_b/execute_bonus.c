@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute.c                                          :+:      :+:    :+:   */
+/*   execute_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:14:58 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/17 18:24:22 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/18 21:57:25 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	execute_pipex(t_data *data, char **envp)
 			execute_cmd(data->path, data->cmd[idx], envp);
 		}
 		close_pipe(data, idx);
+		if (!idx && data->heredoc == TRUE)
+			unlink("./heredoc");
 		idx++;
 	}
 }

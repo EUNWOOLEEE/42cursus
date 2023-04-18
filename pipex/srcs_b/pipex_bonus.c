@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 12:23:00 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/17 18:43:04 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/18 21:49:13 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
 
-	if (argc != 5)
+	if (argc < 5)
 	{
 		ft_putstr_fd("Invalid arguments\n", 2);
 		return (0);
