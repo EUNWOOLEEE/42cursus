@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:42:48 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/18 21:40:01 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/19 17:13:11 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,9 @@ void	free_data(t_data *data)
 	}
 	free(data->cmd);
 	i = 0;
-	if (data->heredoc == FALSE)
-	{
-		while (data->path[i])
-			free(data->path[i++]);
-		free(data->path);
-	}
+	while (data->path[i])
+		free(data->path[i++]);
+	free(data->path);
 	free(data);
+
 }

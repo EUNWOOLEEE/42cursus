@@ -6,16 +6,23 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 12:23:00 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/18 21:49:13 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/19 17:07:18 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
+void asd(void)
+{
+	system("leaks pipex");
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
 
+	atexit(asd);
+	
 	if (argc < 5)
 	{
 		ft_putstr_fd("Invalid arguments\n", 2);
