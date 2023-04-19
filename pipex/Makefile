@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/03 12:26:07 by eunwolee          #+#    #+#              #
-#    Updated: 2023/04/18 17:37:57 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/04/19 21:47:38 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,12 +29,14 @@ MAKE = make
 
 SRCS_M = $(SRCS_DIR_M)/pipex.c \
 	$(SRCS_DIR_M)/init.c \
+	$(SRCS_DIR_M)/quote.c \
 	$(SRCS_DIR_M)/execute.c \
 	$(SRCS_DIR_M)/pipe.c \
 	$(SRCS_DIR_M)/utils.c \
 
 SRCS_B = $(SRCS_DIR_B)/pipex_bonus.c \
 	$(SRCS_DIR_B)/init_bonus.c \
+	$(SRCS_DIR_B)/quote_bonus.c \
 	$(SRCS_DIR_B)/heredoc_bonus.c \
 	$(SRCS_DIR_B)/execute_bonus.c \
 	$(SRCS_DIR_B)/pipe_bonus.c \

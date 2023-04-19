@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 16:27:41 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/19 17:12:55 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/19 21:08:39 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static void	get_data(t_data *data, int argc, char **argv)
 	int	i;
 
 	i = 0;
-	
 	data->infile = open("/tmp/heredoc", O_RDWR | O_CREAT | O_TRUNC, S_IRWXU);
 	if (data->infile == -1)
 		perror("File open failure");

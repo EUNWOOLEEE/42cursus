@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 21:52:44 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/16 12:50:56 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/19 21:12:41 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static char	*str_dup(char const *s, int size)
 	return (dest);
 }
 
-static char	**clear(char **dest, int idx)
+char	**clear(char **dest, int idx)
 {
 	while (idx--)
 		free (dest[idx]);

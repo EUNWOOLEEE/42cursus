@@ -1,10 +1,3 @@
-total 152$$
-drwxr-xr-x  29 eunwolee  2022_seoul    986 Apr 19 17:05 Libft$$
--rw-r--r--   1 eunwolee  2022_seoul   2012 Apr 18 17:37 Makefile$$
-drwxr-xr-x   3 eunwolee  2022_seoul    102 Apr 17 15:36 includes$$
--rw-r--r--   1 eunwolee  2022_seoul      7 Apr 19 17:06 infile.txt$$
--rw-r--r--   1 eunwolee  2022_seoul  14264 Apr 19 17:05 libft.a$$
--rw-r--r--   1 eunwolee  2022_seoul      0 Apr 19 17:07 outfile.txt$$
--rwxr-xr-x   1 eunwolee  2022_seoul  51704 Apr 19 17:06 pipex$$
-drwxr-xr-x  14 eunwolee  2022_seoul    476 Apr 19 17:06 srcs_b$$
-drwxr-xr-x   7 eunwolee  2022_seoul    238 Apr 19 17:06 srcs_m$$
+hello world
+hello yuza
+hello 

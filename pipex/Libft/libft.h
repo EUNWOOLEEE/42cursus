@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 21:00:01 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/18 22:18:59 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/19 21:12:33 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
+
 typedef struct s_list
 {
 	char			*content;
@@ -41,7 +42,9 @@ char	*ft_strdup(const char *s1);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	**ft_split(char const *s, char c);
-void	ft_putstr_fd(char *s, int fd); //
+char	**clear(char **dest, int idx);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+void	ft_putstr_fd(char *s, int fd);
 char	*get_next_line(int fd);
 char	*delete_nod(t_gnl_list **head, t_gnl_list *nod);
 void	free_buff(char *tmp, char *buff);

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:17:18 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/18 21:54:20 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/19 21:44:39 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,10 @@ static void	get_data(t_data *data, int argc, char **argv)
 	data->outfile = open(argv[argc - 1], O_RDWR | O_CREAT | O_TRUNC, S_IRWXU);
 	while (i < data->cmd_num)
 	{
-		data->cmd[i].cmd_arg = ft_split(argv[i + 2], ' ');
+		if (check_quote(argv[i + 2]) == TRUE)
+			data->cmd[i].cmd_arg = split_quote(argv[i + 2], ' ', FALSE, 0);
+		else
+			data->cmd[i].cmd_arg = ft_split(argv[i + 2], ' ');
 		if (!data->cmd[i].cmd_arg)
 			print_error("Cannot allocate memory");
 		data->cmd[i].slash = check_slash(data->cmd[i].cmd_arg[0]);
