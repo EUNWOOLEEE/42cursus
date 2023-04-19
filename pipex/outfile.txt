@@ -1,3 +1,46 @@
-hello world
-hello yuza
-hello 
+3
+4
+5
+total 160
+drwxr-xr-x  31 eunwolee  2022_seoul   1054 Apr 19 21:49 Libft
+-rw-r--r--   1 eunwolee  2022_seoul   2068 Apr 19 21:47 Makefile
+drwxr-xr-x   3 eunwolee  2022_seoul    102 Apr 17 15:36 includes
+-rw-r--r--   1 eunwolee  2022_seoul     38 Apr 19 21:58 infile.txt
+-rw-r--r--   1 eunwolee  2022_seoul  15432 Apr 19 21:49 libft.a
+-rw-r--r--   1 eunwolee  2022_seoul      6 Apr 19 22:29 outfile.txt
+-rwxr-xr-x   1 eunwolee  2022_seoul  51888 Apr 19 22:30 pipex
+drwxr-xr-x  16 eunwolee  2022_seoul    544 Apr 19 22:30 srcs_b
+drwxr-xr-x   8 eunwolee  2022_seoul    272 Apr 19 21:52 srcs_m
+total 160
+drwxr-xr-x  31 eunwolee  2022_seoul   1054 Apr 19 21:49 Libft
+-rw-r--r--   1 eunwolee  2022_seoul   2068 Apr 19 21:47 Makefile
+drwxr-xr-x   3 eunwolee  2022_seoul    102 Apr 17 15:36 includes
+-rw-r--r--   1 eunwolee  2022_seoul     38 Apr 19 21:58 infile.txt
+-rw-r--r--   1 eunwolee  2022_seoul  15432 Apr 19 21:49 libft.a
+-rw-r--r--   1 eunwolee  2022_seoul    595 Apr 19 22:30 outfile.txt
+-rwxr-xr-x   1 eunwolee  2022_seoul  51888 Apr 19 22:30 pipex
+drwxr-xr-x  16 eunwolee  2022_seoul    544 Apr 19 22:30 srcs_b
+drwxr-xr-x   8 eunwolee  2022_seoul    272 Apr 19 21:52 srcs_m
+total 160$
+drwxr-xr-x  31 eunwolee  2022_seoul   1054 Apr 19 21:49 Libft$
+-rw-r--r--   1 eunwolee  2022_seoul   2068 Apr 19 21:47 Makefile$
+drwxr-xr-x   3 eunwolee  2022_seoul    102 Apr 17 15:36 includes$
+-rw-r--r--   1 eunwolee  2022_seoul     38 Apr 19 21:58 infile.txt$
+-rw-r--r--   1 eunwolee  2022_seoul  15432 Apr 19 21:49 libft.a$
+-rw-r--r--   1 eunwolee  2022_seoul   1184 Apr 19 22:34 outfile.txt$
+-rwxr-xr-x   1 eunwolee  2022_seoul  51888 Apr 19 22:30 pipex$
+drwxr-xr-x  16 eunwolee  2022_seoul    544 Apr 19 22:30 srcs_b$
+drwxr-xr-x   8 eunwolee  2022_seoul    272 Apr 19 21:52 srcs_m$
+       0$
+       0$
+total 160$
+drwxr-xr-x  31 eunwolee  2022_seoul   1054 Apr 19 21:49 Libft$
+-rw-r--r--   1 eunwolee  2022_seoul   2068 Apr 19 21:47 Makefile$
+drwxr-xr-x   3 eunwolee  2022_seoul    102 Apr 17 15:36 includes$
+-rw-r--r--   1 eunwolee  2022_seoul     38 Apr 19 21:58 infile.txt$
+-rw-r--r--   1 eunwolee  2022_seoul  15432 Apr 19 21:49 libft.a$
+-rw-r--r--   1 eunwolee  2022_seoul   1803 Apr 19 22:36 outfile.txt$
+-rwxr-xr-x   1 eunwolee  2022_seoul  51888 Apr 19 22:36 pipex$
+drwxr-xr-x  16 eunwolee  2022_seoul    544 Apr 19 22:36 srcs_b$
+drwxr-xr-x   8 eunwolee  2022_seoul    272 Apr 19 21:52 srcs_m$
+       0$

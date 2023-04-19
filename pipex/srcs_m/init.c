@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:17:18 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/19 21:46:45 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/19 22:36:28 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ static void	get_data(t_data *data, int argc, char **argv)
 	if (data->infile == -1)
 		perror("File open failure");
 	data->outfile = open(argv[argc - 1], O_RDWR | O_CREAT | O_TRUNC, S_IRWXU);
+	if (data->outfile == -1)
+		print_error("File open failure");
 	while (i < data->cmd_num)
 	{
 		if (check_quote(argv[i + 2]) == TRUE)

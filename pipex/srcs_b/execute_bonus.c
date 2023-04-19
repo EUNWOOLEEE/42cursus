@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:14:58 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/19 17:38:15 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/19 22:34:27 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ static char	*get_valid_path(char **path_lst, t_cmd cmd, int *res, int i)
 		{
 			tmp = ft_strjoin(path_lst[i], "/");
 			path = ft_strjoin(tmp, cmd.cmd_arg[0]);
-			printf("%s\n", path);
 			free(tmp);
 			*res = access(path, X_OK);
 			if (!*res)

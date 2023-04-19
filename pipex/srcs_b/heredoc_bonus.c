@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 16:27:41 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/19 21:08:39 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/19 22:37:14 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ static void	get_data(t_data *data, int argc, char **argv)
 	data->limiter = argv[2];
 	while (i < data->cmd_num)
 	{
-		data->cmd[i].cmd_arg = ft_split(argv[i + 3], ' ');
+		if (check_quote(argv[i + 3]) == TRUE)
+			data->cmd[i].cmd_arg = split_quote(argv[i + 3], ' ', FALSE, 0);
+		else
+			data->cmd[i].cmd_arg = ft_split(argv[i + 3], ' ');
 		if (!data->cmd[i].cmd_arg)
 			print_error("Cannot allocate memory");
 		data->cmd[i].slash = check_slash(data->cmd[i].cmd_arg[0]);
@@ -48,14 +51,14 @@ static void	get_input(t_data *data)
 {
 	char	*line;
 
-	line = get_next_line(1);
+	line = get_next_line(0);
 	if (!line || !ft_strncmp(line, data->limiter, ft_strlen(data->limiter)))
 		return ;
 	while (line)
 	{
 		write(data->infile, line, ft_strlen(line));
 		free(line);
-		line = get_next_line(1);
+		line = get_next_line(0);
 		if (!ft_strncmp(line, data->limiter, ft_strlen(data->limiter)))
 		{
 			free(line);
