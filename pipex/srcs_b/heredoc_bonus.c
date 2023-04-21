@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 16:27:41 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/19 22:37:14 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/21 14:12:33 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 void		heredoc(t_data *data, int argc, char **argv);
 static void	get_data(t_data *data, int argc, char **argv);
 static void	get_input(t_data *data);
+static void	re_open(t_data *data);
 
 void	heredoc(t_data *data, int argc, char **argv)
 {
 	get_data(data, argc, argv);
 	get_input(data);
+	re_open(data);
 }
 
 static void	get_data(t_data *data, int argc, char **argv)
@@ -27,7 +29,7 @@ static void	get_data(t_data *data, int argc, char **argv)
 	int	i;
 
 	i = 0;
-	data->infile = open("/tmp/heredoc", O_RDWR | O_CREAT | O_TRUNC, S_IRWXU);
+	data->infile = open("/tmp/heredoc", O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
 	if (data->infile == -1)
 		perror("File open failure");
 	data->outfile = open(argv[argc - 1], O_RDWR | O_CREAT | O_APPEND, S_IRWXU);
@@ -65,4 +67,12 @@ static void	get_input(t_data *data)
 			return ;
 		}
 	}
+}
+
+static void	re_open(t_data *data)
+{
+	close(data->infile);
+	data->infile = open("/tmp/heredoc", O_RDONLY);
+	if (data->infile == -1)
+		perror("File open failure");	
 }
