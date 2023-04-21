@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 17:48:41 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/19 21:43:34 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/21 14:20:28 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static int	cnt_str(char const *s, int c)
 	t_bool	quote;
 
 	cnt = 0;
-	quote = 0;
+	quote = FALSE;
 	while (*s)
 	{
 		if (quote == FALSE && (*s == '\'' || *s == '\"'))

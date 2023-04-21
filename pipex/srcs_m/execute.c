@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:14:58 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/17 18:24:22 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/21 14:28:06 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ void	execute_pipex(t_data *data, char **envp)
 		data->cmd[idx].pid = fork();
 		if (data->cmd[idx].pid == -1)
 			print_error("Fork failure");
-		if (!data->cmd[idx].pid)
+		if (data->cmd[idx].pid == CHILD)
 		{
-			link_pipe(data, idx);
+			link_pipe(data, idx, idx - 1);
 			execute_cmd(data->path, data->cmd[idx], envp);
 		}
-		close_pipe(data, idx);
+		close_pipe(data, idx, idx - 1);
 		idx++;
 	}
 }

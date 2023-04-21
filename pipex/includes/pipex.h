@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 12:23:15 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/19 21:43:43 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/21 14:27:38 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 # define P_READ 0
 # define P_WRITE 1
+# define CHILD 0
 
 typedef enum e_bool
 {
@@ -54,8 +55,8 @@ void	execute_pipex(t_data *data, char **envp);
 void	execute_cmd(char **path_lst, t_cmd cmd, char **envp);
 void	wait_child(t_data *data);
 void	get_pipe(t_data *data, int idx);
-void	link_pipe(t_data *data, int i);
-void	close_pipe(t_data *data, int i);
+void	link_pipe(t_data *data, int cur, int pre);
+void	close_pipe(t_data *data, int cur, int pre);
 void	print_error(char *error);
 void	free_data(t_data *data);
 
