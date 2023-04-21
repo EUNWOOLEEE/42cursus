@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:17:18 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/21 18:13:59 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/21 18:33:12 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,11 @@ void	init_data(t_data **data, int argc, char **argv, char **envp)
 	if (check_heredoc(*data, argv) == FALSE)
 		(*data)->cmd_num = argc - 3;
 	else
+	{
+		if (argc < 6)
+			print_error("Invalid arguments");
 		(*data)->cmd_num = argc - 4;
+	}
 	(*data)->cmd = (t_cmd *)ft_calloc((*data)->cmd_num, sizeof(t_cmd));
 	if (!(*data)->cmd)
 		print_error("Cannot allocate memory");
