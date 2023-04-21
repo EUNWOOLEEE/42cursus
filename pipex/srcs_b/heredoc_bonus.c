@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 16:27:41 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/21 14:52:10 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/21 18:12:19 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	get_data(t_data *data, int argc, char **argv)
 	data->infile = open("/tmp/heredoc", O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
 	if (data->infile == -1)
 		perror("File open failure");
-	data->outfile = open(argv[argc - 1], O_RDWR | O_CREAT | O_APPEND, S_IWUSR | S_IRUGO);
+	data->outfile = open(argv[argc - 1], O_RDWR | O_CREAT | O_APPEND, 0644);
 	if (data->outfile == -1)
 		print_error("File open failure");
 	data->limiter = argv[2];
@@ -74,5 +74,5 @@ static void	re_open(t_data *data)
 	close(data->infile);
 	data->infile = open("/tmp/heredoc", O_RDONLY);
 	if (data->infile == -1)
-		perror("File open failure");	
+		perror("File open failure");
 }

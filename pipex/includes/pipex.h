@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 12:23:15 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/21 14:50:04 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/21 18:00:56 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # define P_READ 0
 # define P_WRITE 1
 # define CHILD 0
-# define S_IRUGO S_IRUSR | S_IRGRP | S_IROTH
 
 typedef enum e_bool
 {
