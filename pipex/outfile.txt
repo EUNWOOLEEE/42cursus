@@ -1,24 +1,3 @@
-total 120$
-drwxr-xr-x  31 eunwoolee  staff    992 Apr 21 14:05 Libft$
--rw-r--r--   1 eunwoolee  staff   2068 Apr 20 13:31 Makefile$
-drwxr-xr-x   3 eunwoolee  staff     96 Apr 20 13:31 includes$
--rw-r--r--   1 eunwoolee  staff     38 Apr 20 13:31 infile.txt$
--rw-r--r--   1 eunwoolee  staff  14224 Apr 21 14:05 libft.a$
--rwx------   1 eunwoolee  staff      0 Apr 21 14:06 outfile.txt$
--rwxr-xr-x   1 eunwoolee  staff  35890 Apr 21 14:05 pipex$
-drwxr-xr-x  16 eunwoolee  staff    512 Apr 21 14:05 srcs_b$
-drwxr-xr-x   8 eunwoolee  staff    256 Apr 21 14:05 srcs_m$
-1$$
-22$$
-333$$
-1$$
-2$$
-3$$
-4$$
-5$$
-0$$
-00$$
-aaa$$
-bbb$$
-       2
-       2$
+hello world$$$
+hello yuza$$$
+hello $$$
