@@ -6,20 +6,36 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 21:52:44 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/11/24 14:34:56 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/22 14:51:10 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	cnt_len(char const *s, char c)
-{
-	int	len;
+static int	cnt_str(char const *s, int c);
+static int	exe_split(char **dest, const char *s, char c, int *idx);
+static int	cnt_len(char const *s, char c);
+static char	**clear(char **dest, int idx);
 
-	len = 0;
-	while (s[len] != c && s[len])
-		len++;
-	return (len);
+char	**ft_split(char const *s, char c)
+{
+	int		idx;
+	int		cnt;
+	char	**dest;
+
+	cnt = cnt_str(s, c);
+	dest = (char **)ft_calloc(cnt + 1, sizeof(char *));
+	if (!dest)
+		return (0);
+	if (!cnt)
+		dest[0] = ft_strdup("");
+	else
+	{
+		idx = 0;
+		if (exe_split(dest, s, c, &idx) == -1)
+			return (clear(dest, idx));
+	}
+	return (dest);
 }
 
 static int	cnt_str(char const *s, int c)
@@ -42,19 +58,36 @@ static int	cnt_str(char const *s, int c)
 	return (cnt);
 }
 
-static char	*str_dup(char const *s, int size)
+static int	exe_split(char **dest, const char *s, char c, int *idx)
 {
-	int		idx;
-	char	*dest;
+	int	size;
 
-	idx = 0;
-	dest = (char *)malloc(sizeof(char) * (size + 1));
-	if (!dest)
-		return (0);
-	while (size--)
-		dest[idx++] = *s++;
-	dest[idx] = '\0';
-	return (dest);
+	*idx = 0;
+	while (*s)
+	{
+		if (*s == c)
+			s++;
+		else
+		{
+			size = cnt_len(s, c);
+			dest[*idx] = ft_substr(s, 0, size);
+			if (!dest[*idx])
+				return (-1);
+			s += size;
+			*idx += 1;
+		}
+	}
+	return (0);
+}
+
+static int	cnt_len(char const *s, char c)
+{
+	int	len;
+
+	len = 0;
+	while (s[len] != c && s[len])
+		len++;
+	return (len);
 }
 
 static char	**clear(char **dest, int idx)
@@ -63,32 +96,4 @@ static char	**clear(char **dest, int idx)
 		free (dest[idx]);
 	free (dest);
 	return (0);
-}
-
-char	**ft_split(char const *s, char c)
-{
-	int		idx;
-	int		size;
-	char	**dest;
-
-	dest = (char **)malloc(sizeof(char *) * (cnt_str(s, c) + 1));
-	if (!dest)
-		return (0);
-	idx = 0;
-	while (*s)
-	{
-		if (*s == c)
-			s++;
-		else
-		{
-			size = cnt_len(s, c);
-			dest[idx] = str_dup(s, size);
-			if (!dest[idx])
-				return (clear(dest, idx));
-			s += size;
-			idx++;
-		}
-	}
-	dest[idx] = 0;
-	return (dest);
 }
