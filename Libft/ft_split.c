@@ -6,12 +6,13 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 21:52:44 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/22 14:51:10 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/22 14:58:31 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+char		**ft_split(char const *s, char c);
 static int	cnt_str(char const *s, int c);
 static int	exe_split(char **dest, const char *s, char c, int *idx);
 static int	cnt_len(char const *s, char c);
