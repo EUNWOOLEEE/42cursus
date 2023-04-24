@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 21:00:01 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/19 21:12:33 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/22 14:53:48 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+#include <stdio.h> //지우기
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42

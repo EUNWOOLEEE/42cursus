@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:17:18 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/21 18:13:49 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/22 18:42:21 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,9 @@ static void	get_data(t_data *data, int argc, char **argv)
 		print_error("File open failure");
 	while (i < data->cmd_num)
 	{
-		if (check_quote(argv[i + 2]) == TRUE)
-			data->cmd[i].cmd_arg = split_quote(argv[i + 2], ' ', FALSE, 0);
+
+		if (ft_strchr(argv[i + 2], '\'') || ft_strchr(argv[i + 2], '\"'))
+			data->cmd[i].cmd_arg = split_quote(argv[i + 2], ' ');
 		else
 			data->cmd[i].cmd_arg = ft_split(argv[i + 2], ' ');
 		if (!data->cmd[i].cmd_arg)

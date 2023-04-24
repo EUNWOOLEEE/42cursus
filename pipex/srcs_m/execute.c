@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:14:58 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/21 14:28:06 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/22 15:27:37 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,14 @@ static char	*get_valid_path(char **path_lst, t_cmd cmd, int *res, int i)
 	char	*tmp;
 	char	*path;
 
+	path = 0;
 	if (cmd.slash == TRUE)
 	{
 		path = ft_strdup(cmd.cmd_arg[0]);
 		*res = access(path, X_OK);
 	}
+	else if (!cmd.cmd_arg[0][0])
+		*res = -1;
 	else
 	{
 		while (path_lst[i])

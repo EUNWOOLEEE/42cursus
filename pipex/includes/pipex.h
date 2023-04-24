@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 12:23:15 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/21 18:00:56 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/22 18:26:53 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ typedef struct s_data
 
 void	init_data(t_data **data, int argc, char **argv, char **envp);
 t_bool	check_slash(char *cmd);
-t_bool	check_quote(char *str);
-char	**split_quote(char *s, char c, t_bool quote, int idx);
+char	**split_quote(char *s, char c);
 void	heredoc(t_data *data, int argc, char **argv);
 void	execute_pipex(t_data *data, char **envp);
 void	execute_cmd(char **path_lst, t_cmd cmd, char **envp);
