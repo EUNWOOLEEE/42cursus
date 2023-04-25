@@ -6,31 +6,40 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 17:48:41 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/24 21:59:19 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/25 16:08:55 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-int			check_quote(char *str);
-char		**split_quote(char *s, char c);
+t_bool		check_quote(char *str, int **num);
+char		**split_quote(char *s, char c, int num);
 static void	set_quote(const char **s, t_bool *quote, t_bool set);
 static int	cnt_len(char const *s, char c, t_bool *quote);
 static int	cnt_str(char const *s, int c);
 static int	exe_split(char **dest, const char *s, char c, int *idx);
 
-int	check_quote(char *str)
+t_bool	check_quote(char *str, int **num)
 {
-	int	i;
+	int	idx;
 
-	i = 0;
-	while ()
-	if (ft_strchr(str, '\'') || ft_strchr(str, '\"'))
+	num[0] = 0;
+	num[1] = 0;
+	idx = 0;
+	while (str[idx])
+	{
+		if (ft_strchr(&str[idx], '\''))
+			num[0]++;
+		else if (ft_strchr(str, '\"'))
+			num[1]++;
+		idx++;
+	}
+	if (num[0] || num[1])
 		return (TRUE);
 	return (FALSE);
 }
 
-char	**split_quote(char *s, char c)
+char	* *split_quote(char *s, char c, int num)
 {
 	int		idx;
 	int		cnt;
