@@ -6,16 +6,16 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 21:52:44 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/22 14:58:35 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/27 16:14:48 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 char		**ft_split(char const *s, char c);
+int			cnt_len(char const *s, char c);
 static int	cnt_str(char const *s, int c);
 static int	exe_split(char **dest, const char *s, char c, int *idx);
-static int	cnt_len(char const *s, char c);
 
 char	**ft_split(char const *s, char c)
 {
@@ -36,6 +36,16 @@ char	**ft_split(char const *s, char c)
 			return (clear(dest, idx));
 	}
 	return (dest);
+}
+
+int	cnt_len(char const *s, char c)
+{
+	int	len;
+
+	len = 0;
+	while (s[len] != c && s[len])
+		len++;
+	return (len);
 }
 
 char	**clear(char **dest, int idx)
@@ -86,14 +96,4 @@ static int	exe_split(char **dest, const char *s, char c, int *idx)
 		}
 	}
 	return (0);
-}
-
-static int	cnt_len(char const *s, char c)
-{
-	int	len;
-
-	len = 0;
-	while (s[len] != c && s[len])
-		len++;
-	return (len);
 }

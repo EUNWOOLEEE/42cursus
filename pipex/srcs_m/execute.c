@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:14:58 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/22 15:27:37 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/27 17:40:11 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	execute_cmd(char **path_lst, t_cmd cmd, char **envp)
 	int		res;
 	char	*path;
 
-	path = get_valid_path(path_lst, cmd, &res, 0);
+	path = get_valid_path(path_lst, cmd, &res, -1);
 	if (res == -1)
 		print_error("Find command failure");
 	if (execve(path, cmd.cmd_arg, envp) == -1)
@@ -77,7 +77,7 @@ static char	*get_valid_path(char **path_lst, t_cmd cmd, int *res, int i)
 		*res = -1;
 	else
 	{
-		while (path_lst[i])
+		while (path_lst[++i])
 		{
 			tmp = ft_strjoin(path_lst[i], "/");
 			path = ft_strjoin(tmp, cmd.cmd_arg[0]);
@@ -85,7 +85,6 @@ static char	*get_valid_path(char **path_lst, t_cmd cmd, int *res, int i)
 			*res = access(path, X_OK);
 			if (!*res)
 				break ;
-			i++;
 			free(path);
 		}
 	}

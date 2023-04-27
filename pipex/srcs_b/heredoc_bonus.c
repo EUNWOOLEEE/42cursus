@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 16:27:41 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/21 18:12:19 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/27 17:45:45 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	heredoc(t_data *data, int argc, char **argv)
 static void	get_data(t_data *data, int argc, char **argv)
 {
 	int	i;
+	int	cnt;
 
 	i = 0;
 	data->infile = open("/tmp/heredoc", O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
@@ -38,8 +39,9 @@ static void	get_data(t_data *data, int argc, char **argv)
 	data->limiter = argv[2];
 	while (i < data->cmd_num)
 	{
-		if (check_quote(argv[i + 3]) == TRUE)
-			data->cmd[i].cmd_arg = split_quote(argv[i + 3], ' ', FALSE, 0);
+		cnt = check_quote(argv[i + 3]);
+		if (cnt > 0)
+			data->cmd[i].cmd_arg = split_quote(argv[i + 3], ' ', cnt);
 		else
 			data->cmd[i].cmd_arg = ft_split(argv[i + 3], ' ');
 		if (!data->cmd[i].cmd_arg)

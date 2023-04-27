@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:17:18 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/21 18:33:12 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/27 17:41:50 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ static void	get_path(t_data *data, char **envp)
 static void	get_data(t_data *data, int argc, char **argv)
 {
 	int	i;
+	int	cnt;
 
 	i = 0;
 	data->infile = open(argv[1], O_RDONLY);
@@ -89,8 +90,9 @@ static void	get_data(t_data *data, int argc, char **argv)
 		print_error("File open failure");
 	while (i < data->cmd_num)
 	{
-		if (check_quote(argv[i + 2]) == TRUE)
-			data->cmd[i].cmd_arg = split_quote(argv[i + 2], ' ', FALSE, 0);
+		cnt = check_quote(argv[i + 2]);
+		if (cnt > 0)
+			data->cmd[i].cmd_arg = split_quote(argv[i + 2], ' ', cnt);
 		else
 			data->cmd[i].cmd_arg = ft_split(argv[i + 2], ' ');
 		if (!data->cmd[i].cmd_arg)

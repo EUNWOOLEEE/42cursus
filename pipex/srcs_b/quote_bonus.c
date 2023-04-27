@@ -6,99 +6,132 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 17:48:41 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/21 14:20:28 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/27 17:44:31 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-t_bool		check_quote(char *str);
-char		**split_quote(char *s, char c, t_bool quote, int idx);
-static void	set_quote(char **s, t_bool *quote, t_bool set);
-static int	cnt_len(char const *s, char c, t_bool *quote);
+int			check_quote(char *str);
+char		**split_quote(char *s, char c, int cnt);
 static int	cnt_str(char const *s, int c);
+static int	exe_split(char **dest, const char *s, int *idx, int size);
+static int	cnt_len_q(char const *s);
 
-t_bool	check_quote(char *str)
+int	check_quote(char *str)
 {
-	if (ft_strchr(str, '\'') || ft_strchr(str, '\"'))
-		return (TRUE);
-	return (FALSE);
+	int		idx;
+	int		cnt;
+	t_bool	quote;
+
+	idx = 0;
+	cnt = 0;
+	quote = FALSE;
+	while (str[idx])
+	{
+		if (str[idx] == '\'' || str[idx] == '\"')
+		{
+			if (quote == FALSE)
+			{
+				quote = TRUE;
+				cnt++;
+			}
+			else
+				quote = FALSE;
+		}
+		idx++;
+	}
+	if (quote == TRUE)
+		print_error("Invalid quote");
+	return (cnt);
 }
 
-char	**split_quote(char *s, char c, t_bool quote, int idx)
+char	**split_quote(char *s, char c, int cnt)
 {
-	int		size;
+	int		idx;
 	char	**dest;
 
-	dest = (char **)ft_calloc(1, sizeof(char *) * (cnt_str(s, c)));
+	cnt += cnt_str(s, c);
+	dest = (char **)ft_calloc(cnt + 1, sizeof(char *));
 	if (!dest)
 		return (0);
-	while (*s)
+	if (!cnt)
+		dest[0] = ft_strdup("");
+	else
 	{
-		if (quote == FALSE && (*s == '\'' || *s == '\"'))
-			set_quote(&s, &quote, TRUE);
-		if (*s == c)
-			s++;
-		else
-		{
-			size = cnt_len(s, c, &quote);
-			dest[idx] = ft_substr(s, 0, size);
-			if (quote == TRUE)
-				set_quote(&s, &quote, FALSE);
-			if (!dest[idx])
-				return (clear(dest, idx));
-			s += size;
-			idx++;
-		}
+		idx = 0;
+		if (exe_split(dest, s, &idx, 0) == -1)
+			return (clear(dest, idx));
 	}
 	return (dest);
 }
 
-static void	set_quote(char **s, t_bool *quote, t_bool set)
+static int	exe_split(char **dest, const char *s, int *idx, int size)
 {
-	*s += 1;
-	*quote = set;
-}
-
-static int	cnt_len(char const *s, char c, t_bool *quote)
-{
-	int	len;
-
-	len = 0;
-	if (*quote == TRUE)
+	while (*s)
 	{
-		len++;
-		while ((s[len] != '\'' && s[len] != '\"') && s[len])
-			len++;
+		if (*s == ' ')
+		{
+			s++;
+			continue ;
+		}
+		if (*s == '\'' || *s == '\"')
+		{
+			s++;
+			size = cnt_len_q(s);
+			dest[*idx] = ft_substr(s, 0, size);
+			s++;
+		}
+		else
+		{
+			size = cnt_len(s, ' ');
+			dest[*idx] = ft_substr(s, 0, size);
+		}
+		if (!dest[*idx])
+			return (-1);
+		s += size;
+		*idx += 1;
 	}
-	else
-		while (s[len] != c && s[len])
-			len++;
-	return (len);
+	return (0);
 }
 
 static int	cnt_str(char const *s, int c)
 {
 	int		cnt;
 	int		len;
-	t_bool	quote;
 
 	cnt = 0;
-	quote = FALSE;
 	while (*s)
 	{
-		if (quote == FALSE && (*s == '\'' || *s == '\"'))
-			quote = TRUE;
-		else if (quote == TRUE && (*s == '\'' || *s == '\"'))
-			quote = FALSE;
-		if (*s == c)
+		if (*s == '\'' || *s == '\"')
+		{
+			s++;
+			while (*s && (*s != '\'' || *s != '\"'))
+				s++;
+			s++;
+		}
+		else if (*s == c)
 			s++;
 		else
 		{
-			len = cnt_len(s, c, &quote);
+			len = cnt_len(s, c);
 			cnt++;
 			s += len;
 		}
 	}
 	return (cnt);
+}
+
+static int	cnt_len_q(char const *s)
+{
+	int	len;
+
+	len = 0;
+	while (s[len] != '\'' && s[len] != '\"')
+	{
+		len++;
+		if (s[len] == '\0')
+			print_error("Invalid quote");
+	}
+	return (len);
 }
