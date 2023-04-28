@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 16:27:41 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/27 17:45:45 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/04/28 13:36:02 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ static void	get_input(t_data *data)
 		write(data->infile, line, ft_strlen(line));
 		free(line);
 		line = get_next_line(0);
+		if (!line)
+			return ;
 		if (!ft_strncmp(line, data->limiter, ft_strlen(data->limiter)))
 		{
 			free(line);
