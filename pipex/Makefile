@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/03 12:26:07 by eunwolee          #+#    #+#              #
-#    Updated: 2023/04/19 21:47:38 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/04/28 13:12:50 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,6 @@ SRCS_DIR_B = srcs_b
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-
-MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit -lz
 
 RM = rm -f
 MAKE = make
