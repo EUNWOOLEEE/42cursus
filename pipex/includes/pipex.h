@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 12:23:15 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/27 16:26:28 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/05/02 16:59:26 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void	execute_pipex(t_data *data, char **envp);
 void	execute_cmd(char **path_lst, t_cmd cmd, char **envp);
 void	wait_child(t_data *data);
 void	get_pipe(t_data *data, int idx);
-void	link_pipe(t_data *data, int cur, int pre);
-void	close_pipe(t_data *data, int cur, int pre);
+t_bool	link_pipe(t_data *data, int cur, int pre);
+t_bool	close_pipe(t_data *data, int cur, int pre);
 void	print_error(char *error);
 void	free_data(t_data *data);
 

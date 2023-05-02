@@ -1,5 +1,8 @@
-hello world$
-hello yuza$
-1
-2
-END
+hello world$$
+hello yuza$$
+hello" o$$
+1$$
+2$$
+3$$
+11$$
+hello "yuza "world""

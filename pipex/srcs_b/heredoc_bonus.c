@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 16:27:41 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/05/01 20:30:05 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/05/02 16:51:37 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,10 @@ static void	get_input(t_data *data)
 
 static t_bool	check_limiter(char *limiter, char *line)
 {
-	if (ft_strlen(limiter) != ft_strlen(line))
+	if (ft_strlen(limiter) != ft_strlen(line) - 1)
 		return (FALSE);
-	if (ft_strncmp(limiter, line, ft_strlen(line)))
-		return (TRUE);
+	if (ft_strncmp(limiter, line, ft_strlen(line) - 1))
+		return (FALSE);
 	return (TRUE);
 }
 
