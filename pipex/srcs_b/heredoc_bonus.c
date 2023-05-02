@@ -6,16 +6,17 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 16:27:41 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/28 18:29:04 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/05/01 20:30:05 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-void		heredoc(t_data *data, int argc, char **argv);
-static void	get_data(t_data *data, int argc, char **argv);
-static void	get_input(t_data *data);
-static void	re_open(t_data *data);
+void			heredoc(t_data *data, int argc, char **argv);
+static void		get_data(t_data *data, int argc, char **argv);
+static void		get_input(t_data *data);
+static t_bool	check_limiter(char *limiter, char *line);
+static void		re_open(t_data *data);
 
 void	heredoc(t_data *data, int argc, char **argv)
 {
@@ -58,7 +59,7 @@ static void	get_input(t_data *data)
 	line = get_next_line(0);
 	if (!line)
 		return ;
-	if (!ft_strncmp(line, data->limiter, ft_strlen(data->limiter)))
+	if (check_limiter(data->limiter, line) == TRUE)
 	{
 		free(line);
 		return ;
@@ -70,12 +71,21 @@ static void	get_input(t_data *data)
 		line = get_next_line(0);
 		if (!line)
 			return ;
-		if (!ft_strncmp(line, data->limiter, ft_strlen(data->limiter)))
+		if (check_limiter(data->limiter, line) == TRUE)
 		{
 			free(line);
 			return ;
 		}
 	}
+}
+
+static t_bool	check_limiter(char *limiter, char *line)
+{
+	if (ft_strlen(limiter) != ft_strlen(line))
+		return (FALSE);
+	if (ft_strncmp(limiter, line, ft_strlen(line)))
+		return (TRUE);
+	return (TRUE);
 }
 
 static void	re_open(t_data *data)

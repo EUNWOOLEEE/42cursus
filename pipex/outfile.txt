@@ -1,2 +1,5 @@
-zello world$
-zello yuza$
+hello world$
+hello yuza$
+1
+2
+END

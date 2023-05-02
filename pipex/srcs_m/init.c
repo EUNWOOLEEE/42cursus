@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:17:18 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/27 17:42:37 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/05/01 20:19:47 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	get_path(t_data *data, char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		if (!ft_strncmp(envp[i], "PATH", 4))
+		if (!ft_strncmp(envp[i], "PATH=/", 6))
 		{
 			data->path = ft_split(&envp[i][5], ':');
 			if (!data->path)
