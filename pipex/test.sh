@@ -7,7 +7,7 @@ infile="infile.txt"
 outfile="outfile.txt"
 
 
-echo "\n\n----- test1 : grep "h" | tr 'h' 'z'"
+echo -e "\n----- test1 : grep "h" | tr 'h' 'z'"
 ./pipex "${infile}" "grep \"h\"" "tr 'h' 'z'" "${outfile}"
 cat "${outfile}"
 
@@ -15,9 +15,8 @@ echo -e "\n\n----- test2 : ls -l | head -3"
 ./pipex "${infile}" "ls -l" "head -3" "${outfile}"
 cat "${outfile}"
 
-
 # bonus
-echo "bonus"
+echo -e "\n\nbonus"
 
 echo -e "\n\n----- test3 : grep " " | wc -l | cat -e"
 ./pipex "${infile}" "grep \" \"" "wc -l" "cat -e" "${outfile}"
@@ -29,9 +28,9 @@ cat "${outfile}"
 
 
 # here_doc
-echo "here_doc"
+echo -e "\n\nhere_doc"
 
-echo -e "\n\n----- test5 : wc -l | cat -e | cat -e"
+echo -e "----- test5 : wc -l | cat -e | cat -e"
 echo -e "----- Limiter : END"
 ./pipex here_doc END "wc -l" "cat -e" "cat -e" "${outfile}"
 cat "${outfile}"
