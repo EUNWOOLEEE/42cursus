@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:14:58 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/05/02 17:29:19 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/05/04 11:23:13 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,12 @@ void	execute_pipex(t_data *data, char **envp)
 			print_error("Fork failure");
 		if (data->cmd[idx].pid == CHILD)
 		{
-			if (!idx || idx == data->cmd_num - 1) //여기서 걸려서 정상 종료되는게 맞는지 확인해보기
+			if (!idx || idx == data->cmd_num - 1)
 				check_file(data, idx);
-			if (link_pipe(data, idx, idx - 1) == FALSE)
-				print_error("Link pipe failure");
+			link_pipe(data, idx, idx - 1);
 			execute_cmd(data->path, data->cmd[idx], envp);
 		}
-		if (close_pipe(data, idx, idx - 1) == FALSE)
-			print_error("Close pipe failure");
+		close_pipe(data, idx, idx - 1);
 		if (!idx && data->heredoc == TRUE)
 			unlink("/tmp/heredoc");
 		idx++;
@@ -48,9 +46,9 @@ void	execute_pipex(t_data *data, char **envp)
 static void	check_file(t_data *data, int idx)
 {
 	if (!idx && data->infile == -1)
-		print_error("File open failuer");
+		exit(EXIT_FAILURE);
 	if (idx == data->cmd_num - 1 && data->outfile == -1)
-		print_error("File open failuer");
+		exit(EXIT_FAILURE);
 }
 
 void	execute_cmd(char **path_lst, t_cmd cmd, char **envp)
