@@ -24,7 +24,7 @@ then
 fi
 
 echo -e "\n\n* ੈ✩‧₊˚* ੈ✩‧₊ test3 : catt | ls -l (Invalid first command)"
-./pipex "${infile}" "ls -l" "head -3" "${outfile}"
+./pipex "${infile}" "catt" "ls -l" "${outfile}"
 if [ -f "${outfile}" ]
 then
 	cat "${outfile}"
@@ -40,7 +40,7 @@ then
 fi
 
 echo -e "\n\n* ੈ✩‧₊˚* ੈ✩‧₊ test5 : \"\" | ls -l (Empty command)"
-./pipex "${infile}" "" "ls -l" "${outfile}"
+./pipex "${infile}" "" "ls -l""${outfile}"
 if [ -f "${outfile}" ]
 then
 	cat "${outfile}"

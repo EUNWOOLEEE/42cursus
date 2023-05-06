@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 18:47:42 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/30 19:30:10 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/05/04 18:14:34 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 #include <string.h>
 #include <pthread.h>
 
+typedef unsigned long long ULL;
+
 typedef enum	e_bool
 {
 	FALSE,
@@ -27,21 +29,23 @@ typedef enum	e_bool
 
 typedef struct s_philo
 {
-	pthread_t	number;
-	int			state;
+	pthread_t	num;
+	ULL			time_die;
+	ULL			time_eat;
+	ULL			time_sleep;
 }	t_philo;
 
 typedef struct s_info
 {
 	int		num_philo;
-	size_t	time_die;
-	size_t	time_eat;
-	size_t	time_sleep;
+	ULL		time_die;
+	ULL		time_eat;
+	ULL		time_sleep;
 	int		num_eat;
 	t_philo	*philos;
 }	t_info;
 
 t_info *init(int argc, char **argv);
-size_t	ft_atos(char *str);
+ULL		ft_atoull(char *str);
 
 #endif

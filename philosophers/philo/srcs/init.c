@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 19:04:38 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/30 19:36:29 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/05/04 18:13:17 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,17 @@ static void	get_info(t_info *info, int argc, char **argv)
 
 static t_bool	get_philos(t_info *info)
 {
+	int	i;
+
 	info->philos = (t_philo *)malloc(sizeof (t_philo) * info->num_philo);
 	if (!info->philos)
 		return (FALSE);
 	memset(info->philos, 0, sizeof(t_philo) * info->num_philo);
+	i = 0;
+	while (i < info->num_philo)
+	{
+		
+		i++;
+	}
 	return (TRUE);
 }
