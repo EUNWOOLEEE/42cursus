@@ -1,6 +1,6 @@
-NAME = pipex
+NAME = philo
 
-INCS_DIR = includes
+INCS_DIR = incs
 SRCS_DIR = srcs
 
 CC = cc
@@ -10,6 +10,12 @@ RM = rm -f
 MAKE = make
 
 SRCS = $(SRCS_DIR)/philo.c \
+	$(SRCS_DIR)/init.c \
+	$(SRCS_DIR)/start.c \
+	$(SRCS_DIR)/act.c \
+	$(SRCS_DIR)/utils.c
+
+OBJS = $(SRCS:%.c=%.o)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $^ -o $@ -I .
@@ -17,7 +23,7 @@ SRCS = $(SRCS_DIR)/philo.c \
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) -L . -I $(INCS_DIR) $^ -o $@
+	$(CC) -I $(INCS_DIR) $^ -o $@
 
 clean:
 	$(RM) $(SRCS_DIR)/$(OBJS)
