@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 18:39:30 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/05/11 15:50:06 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/05/15 08:54:46 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,5 @@ int main(int argc, char **argv)
 	if (!philo)
 		return (0); //error
 	start(philo, philo[0].info);
+	return (0);
 }
