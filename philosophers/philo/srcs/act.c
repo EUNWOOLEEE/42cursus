@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 15:55:40 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/05/12 15:08:08 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/05/15 21:01:23 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,14 @@ t_bool eating(t_philo *philo, t_info *info)
 	print_time(philo, info, "has taken a left fork");
 	if (pthread_mutex_lock(&info->forks[philo->right]))
 	{
-		pthread_mutex_unlock(&info->forks[philo->left]); //이게 또 실패하면?
+		pthread_mutex_unlock(&info->forks[philo->left]); //이게 또 실패하면? 힘힘수를 따로 만들까?
 		return (FALSE);
 	}
 	print_time(philo, info, "has taken a right fork");
 	print_time(philo, info, "is eating");
 	get_cur_time(&philo->last_eat_time);
 	philo->eat_cnt++;
+	pass_time(info->time_eat);
 	pthread_mutex_unlock(&info->forks[philo->left]);
 	pthread_mutex_unlock(&info->forks[philo->right]); //에러처리를 얼마나 해야하는건가..
 	return (TRUE);
@@ -33,8 +34,8 @@ t_bool eating(t_philo *philo, t_info *info)
 
 void sleeping(t_philo *philo, t_info *info)
 {
-	print_time(philo, info, "is thinking");
-	usleep(info->time_sleep);
+	print_time(philo, info, "is sleeping");
+	pass_time(info->time_sleep);
 }
 
 void thinking(t_philo *philo, t_info *info)

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 19:27:39 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/05/15 08:40:10 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/05/15 20:10:40 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,22 @@ t_bool	print_time(t_philo *philo, t_info *info, char *state)
 	 	return (FALSE);
 	if (pthread_mutex_lock(&info->print))
 		return (FALSE);
-	printf("%lld %lld\n", cur_time, info->time_start);
-	printf("%lldms %d %s\n", cur_time - info->time_start, philo->id + 1, state);
+	printf("%lld %d %s\n", cur_time - info->time_start, philo->id + 1, state);
 	if (pthread_mutex_unlock(&info->print))
 		return (FALSE);
 	return (TRUE);
+}
+
+void	pass_time(uint64_t time)
+{
+	uint64_t	start;
+	uint64_t	cur;
+
+	get_cur_time(&start);
+	get_cur_time(&cur);
+	while (cur - start < time)
+	{
+		usleep(100);
+		get_cur_time(&cur);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 18:47:42 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/05/15 08:40:31 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/05/15 20:06:51 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ uint64_t	ft_atoi(char *str);
 void		*ft_calloc(size_t count, size_t size);
 t_bool		get_cur_time(uint64_t *time);
 t_bool		print_time(t_philo *philo, t_info *info, char *state);
+void		pass_time(uint64_t time);
 t_bool		start(t_philo *philo, t_info *info);
 t_bool		eating(t_philo *philo, t_info *info);
 void		sleeping(t_philo *philo, t_info *info);
