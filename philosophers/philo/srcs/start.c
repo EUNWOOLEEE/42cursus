@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 19:40:14 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/05/15 19:47:26 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/05/16 06:57:58 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	*start_philo(void *philo_tmp)
 
 	if (philo->id % 2)
 		usleep(1000);
-	while (info->end == FALSE)
+	while (info->end == FALSE) //중간중간 end flag를 확인해야하나?
 	{
 		eating(philo, info);
 		sleeping(philo, info);
@@ -61,20 +61,21 @@ static t_bool	check_dead(t_philo *philo, t_info *info)
 	int			idx;
 	uint64_t	cur_time;
 
-	idx = 0;
-	if (get_cur_time(&cur_time) == FALSE)
-		return (FALSE);
 	while (info->end == FALSE)
 	{
+		idx = 0;
+		if (get_cur_time(&cur_time) == FALSE)
+			return (FALSE);
 		while (idx < info->num_philo)
 		{
-			if (info->num_eat && info->num_eat >= philo[idx].eat_cnt)
+			if (info->num_eat && info->num_eat == philo[idx].eat_cnt)
 			{
 				info->end = TRUE;
 				return (TRUE);
 			}
 			if (cur_time - philo[idx].last_eat_time >= info->time_die)
 			{
+				printf("%d %llu %llu %llu\n", philo[idx].id, cur_time, philo[idx].last_eat_time, info->time_die);
 				print_time(&philo[idx], info, "died");
 				info->end = TRUE;
 				return (TRUE);
