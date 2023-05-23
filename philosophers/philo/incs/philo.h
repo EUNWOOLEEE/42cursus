@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 18:47:42 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/05/15 20:06:51 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/05/16 18:06:36 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 
 # define LEFT 
 # define RIGHT
-typedef enum	e_bool
+
+typedef enum e_bool
 {
 	FALSE,
 	TRUE

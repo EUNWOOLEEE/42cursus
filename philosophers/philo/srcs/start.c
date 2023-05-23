@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 19:40:14 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/05/16 06:57:58 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/05/16 18:04:46 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,14 @@ void	*start_philo(void *philo_tmp)
 
 	if (philo->id % 2)
 		usleep(1000);
-	while (info->end == FALSE) //중간중간 end flag를 확인해야하나?
+	while (info->end == FALSE)
 	{
 		eating(philo, info);
+		if (info->end == TRUE)
+			return (0);
 		sleeping(philo, info);
+		if (info->end == TRUE)
+			return (0);
 		thinking(philo, info);
 	}
 	return (0);
@@ -75,7 +79,6 @@ static t_bool	check_dead(t_philo *philo, t_info *info)
 			}
 			if (cur_time - philo[idx].last_eat_time >= info->time_die)
 			{
-				printf("%d %llu %llu %llu\n", philo[idx].id, cur_time, philo[idx].last_eat_time, info->time_die);
 				print_time(&philo[idx], info, "died");
 				info->end = TRUE;
 				return (TRUE);
