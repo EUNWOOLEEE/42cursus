@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 19:04:38 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/05/15 19:45:13 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/05/25 12:08:56 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ t_philo	*init(int argc, char **argv)
 static t_bool	init_info(t_info *info, int argc, char **argv)
 {
 	info->num_philo = (int)ft_atoi(argv[1]);
+	if (!info->num_philo)
+	{
+		//usage
+		return (FALSE);
+	}
 	info->time_die = ft_atoi(argv[2]);
 	info->time_eat = ft_atoi(argv[3]);
 	info->time_sleep = ft_atoi(argv[4]);
