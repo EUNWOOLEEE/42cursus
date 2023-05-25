@@ -1,29 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/25 13:13:41 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/05/25 13:47:39 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/05/25 17:13:24 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/05/25 18:56:17 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// ./philo number_of_philosophers time_to_die time_to_eat
-// time_to_sleep [number_of_times_each_philosopher_must_eat]
-
 #include "../incs/philo.h"
 
-int main(int argc, char **argv)
+bool	get_time(uint64_t *time)
 {
-	t_info	*info;
-	t_philo	*philo;
+	struct timeval tv;
 
-	if (argc != 5 && argc != 6)
+	if (gettimeofday(&tv, NULL) == -1)
+		return (false);
+	*time = tv.tv_sec * 1000 + tv.tv_usec / 1000;
+	return (true);
+}
+
+bool	pass_time(uint64_t *time)
+{
+	uint64_t	start;
+	uint64_t	cur;
+
+	if (get_time(&start) == false)
+		return (false);
+	while (cur - start >= time)
 	{
-		print_usage();
-		return (1);
+		usleep(10);
+		if (get_time(&cur) == false)
+			return (false);
 	}
-	return (0);
+	return (true);
 }

@@ -1,29 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   start.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/25 13:13:41 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/05/25 13:47:39 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/05/25 17:23:54 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/05/25 18:58:27 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// ./philo number_of_philosophers time_to_die time_to_eat
-// time_to_sleep [number_of_times_each_philosopher_must_eat]
-
 #include "../incs/philo.h"
 
-int main(int argc, char **argv)
+bool	start(t_philo *philo, t_info *info)
 {
-	t_info	*info;
-	t_philo	*philo;
+	int	i;
 
-	if (argc != 5 && argc != 6)
+	i = 0;
+	while (i < info->num_philo)
 	{
-		print_usage();
-		return (1);
+		pthread_create(philo[i].thread_id, NULL, loop, &philo[i]);
+		i++;
 	}
-	return (0);
+}
+
+void	loop(void *arg)
+{
+	t_philo	*philo;
+	t_info	*info;
+
+	philo = (t_philo *)arg;
+	info = philo->info;
+	if (philo->philo_id % 2)
+		usleep(1000);
+	while (info->end == false)
+	{
+		eating(philo, info);
+		sleeping(philo, info);
+		thinking(philo, info);
+	}
 }
