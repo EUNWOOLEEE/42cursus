@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:46:34 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/05/26 08:54:32 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/05/26 18:19:29 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ bool	init_info(int argc, char **argv, t_info *info)
 			return (false);
 		}
 	}
+	info->end = false;
 	return (true);
 }
 

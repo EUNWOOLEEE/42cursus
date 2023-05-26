@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:23:54 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/05/26 08:57:27 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/05/26 19:05:06 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ bool	start(t_philo *philo, t_info *info)
 		pthread_create(&philo[i].thread_id, NULL, routine, &philo[i]);
 		i++;
 	}
+	i = 0;
+	while (i < info->num_philo)
+	{
+		pthread_join(philo[i].thread_id, NULL);
+		i++;
+	}
 	return (true);
 }
 
@@ -38,13 +44,15 @@ void	*routine(void *arg)
 
 	philo = (t_philo *)arg;
 	info = philo->info;
+
 	if (philo->philo_id % 2)
-		usleep(1000);
+		pass_time(1000);
 	while (info->end == false)
 	{
 		eating(philo, info);
 		sleeping(philo, info);
 		thinking(philo, info);
+
 	}
 	return (0);
 }

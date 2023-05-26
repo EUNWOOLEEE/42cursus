@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:13:24 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/05/26 09:00:44 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/05/26 19:04:52 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ bool	pass_time(uint64_t time);
 
 bool	get_time(uint64_t *time)
 {
-	struct timeval tv;
+	struct timeval	tv;
 
 	if (gettimeofday(&tv, NULL) == -1)
 		return (false);
@@ -32,11 +32,13 @@ bool	pass_time(uint64_t time)
 
 	if (get_time(&start) == false || get_time(&cur) == false)
 		return (false);
-	while (cur - start >= time)
+	int	i=0;
+	while (cur - start <= time)
 	{
 		usleep(10);
 		if (get_time(&cur) == false)
 			return (false);
+		i++;
 	}
 	return (true);
 }

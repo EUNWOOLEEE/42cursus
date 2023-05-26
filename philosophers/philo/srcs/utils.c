@@ -6,37 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:15:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/05/26 09:00:55 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/05/26 18:28:09 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/philo.h"
 
-void		print_usage();
-bool		print_state(t_philo *philo, t_info *info, char *str);
 void		*ft_calloc(size_t count, size_t size);
 uint64_t	ft_atoi(char *str, bool *state);
-
-void	print_usage()
-{
-	printf("usage: ./philo number_of_philosophers\n");
-	printf("        time_to_die time_to_eat time_to_sleep\n");
-	printf("        [number_of_times_each_philosopher_must_eat]\n");
-}
-
-bool	print_state(t_philo *philo, t_info *info, char *str)
-{
-	uint64_t	cur;
-	
-	if (pthread_mutex_lock(&info->print))
-		return (false);
-	if(get_time(&cur) == false)
-		return (false);
-	printf("%llu %d %s\n", cur, philo->philo_id + 1, str);
-	if (pthread_mutex_unlock(&info->print))
-		return (false);
-	return (true);
-}
 
 void	*ft_calloc(size_t count, size_t size)
 {
