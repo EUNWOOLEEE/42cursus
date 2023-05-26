@@ -6,11 +6,16 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:15:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/05/25 19:15:34 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/05/26 09:00:55 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/philo.h"
+
+void		print_usage();
+bool		print_state(t_philo *philo, t_info *info, char *str);
+void		*ft_calloc(size_t count, size_t size);
+uint64_t	ft_atoi(char *str, bool *state);
 
 void	print_usage()
 {
@@ -40,18 +45,24 @@ void	*ft_calloc(size_t count, size_t size)
 	tmp = malloc(size * count);
 	if (!tmp)
 		return (0);
-	ft_memset(tmp, 0, size * count);
+	memset(tmp, 0, size * count);
 	return (tmp);
 }
 
-bool	ft_atoi(char *str, uint64_t *res)
+uint64_t	ft_atoi(char *str, bool *state)
 {
-	*res = 0;
+	uint64_t res;
+	
+	res = 0;
 	while ((*str >= 9 && *str <= 13) || *str == 32)
 		str++;
 	if (*str == '-')
-		return (false);
-	while (*str >= '0' && *str <= '9')
-		*res = (*res * 10) + (*str++ - '0');
-	return (true);
+		*state = false;
+	else
+	{
+		*state = true;
+		while (*str >= '0' && *str <= '9')
+			res = (res * 10) + (*str++ - '0');
+	}
+	return (res);
 }

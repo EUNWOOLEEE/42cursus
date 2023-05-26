@@ -6,25 +6,32 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:23:54 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/05/25 18:58:27 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/05/26 08:57:27 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/philo.h"
+
+bool	start(t_philo *philo, t_info *info);
+void	*routine(void *arg);
 
 bool	start(t_philo *philo, t_info *info)
 {
 	int	i;
 
 	i = 0;
+	if (get_time(&info->time_to_start) == false)
+		return (false);
 	while (i < info->num_philo)
 	{
-		pthread_create(philo[i].thread_id, NULL, loop, &philo[i]);
+		philo[i].time_last_eat = info->time_to_start;
+		pthread_create(&philo[i].thread_id, NULL, routine, &philo[i]);
 		i++;
 	}
+	return (true);
 }
 
-void	loop(void *arg)
+void	*routine(void *arg)
 {
 	t_philo	*philo;
 	t_info	*info;
@@ -39,4 +46,5 @@ void	loop(void *arg)
 		sleeping(philo, info);
 		thinking(philo, info);
 	}
+	return (0);
 }

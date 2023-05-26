@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:13:41 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/05/25 13:47:39 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/05/26 08:35:45 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,16 @@
 
 int main(int argc, char **argv)
 {
-	t_info	*info;
 	t_philo	*philo;
-
+	
 	if (argc != 5 && argc != 6)
 	{
 		print_usage();
 		return (1);
 	}
+	philo = init(argc, argv);
+	if (!philo)
+		return (1);
+	start(philo, philo->info);
 	return (0);
 }

@@ -6,11 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:13:24 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/05/25 18:56:17 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/05/26 09:00:44 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/philo.h"
+
+bool	get_time(uint64_t *time);
+bool	pass_time(uint64_t time);
 
 bool	get_time(uint64_t *time)
 {
@@ -22,12 +25,12 @@ bool	get_time(uint64_t *time)
 	return (true);
 }
 
-bool	pass_time(uint64_t *time)
+bool	pass_time(uint64_t time)
 {
 	uint64_t	start;
 	uint64_t	cur;
 
-	if (get_time(&start) == false)
+	if (get_time(&start) == false || get_time(&cur) == false)
 		return (false);
 	while (cur - start >= time)
 	{

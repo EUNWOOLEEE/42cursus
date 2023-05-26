@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:29:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/05/25 19:15:29 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/05/26 08:58:45 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@
 
 typedef struct s_info
 {
-	int			num_philo;
-	uint64_t	time_to_die;
-	uint64_t	time_to_eat;
-	uint64_t	time_to_sleep;
-	int			num_must_eat;
-	int			*fork;
-	bool		print;
-	bool		end;
-	uint64_t	time_to_start;
+	int				num_philo;
+	uint64_t		time_to_die;
+	uint64_t		time_to_eat;
+	uint64_t		time_to_sleep;
+	int				num_must_eat;
+	pthread_mutex_t	*fork;
+	pthread_mutex_t	print;
+	bool			end;
+	uint64_t		time_to_start;
 }t_info;
 
 typedef struct s_philo
@@ -46,12 +46,21 @@ typedef struct s_philo
 	t_info		*info;
 }t_philo;
 
-void	print_usage();
-bool	print_state(t_philo *philo, t_info *info, char *str);
-void	*ft_calloc(size_t count, size_t size);
-bool	ft_atoi(char *str, uint64_t *res);
-bool	get_time(uint64_t *time);
-bool	pass_time(uint64_t *time);
+t_philo		*init(int argc, char **argv);
+bool		init_info(int argc, char **argv, t_info *info);
+bool		init_mutex(t_info *info);
+bool		init_philo(t_philo *philo, t_info *info);
+bool		start(t_philo *philo, t_info *info);
+void		*routine(void *arg);
+bool		eating(t_philo *philo, t_info *info);
+bool		sleeping(t_philo *philo, t_info *info);
+bool		thinking(t_philo *philo, t_info *info);
+bool		get_time(uint64_t *time);
+bool		pass_time(uint64_t time);
+void		print_usage();
+bool		print_state(t_philo *philo, t_info *info, char *str);
+void		*ft_calloc(size_t count, size_t size);
+uint64_t	ft_atoi(char *str, bool *state);
 
 
 #endif
