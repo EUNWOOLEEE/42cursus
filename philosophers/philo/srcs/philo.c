@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:13:41 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/05/26 18:10:11 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/05/27 12:29:39 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,14 @@ int main(int argc, char **argv)
 	if (!philo)
 		return (1);
 	start(philo, philo->info);
+	if (philo->info->error == true)
+		return (1);
 	return (0);
 }
+
+// 5 800 200 200 (계속)
+// 1 410 200 200 (죽음)
+// 5 410 200 200 (죽음)
+// 200 410 200 200
+// 199 610 200 200
+// 4 310 200 100 (죽음)

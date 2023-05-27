@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:46:34 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/05/26 18:19:29 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/05/27 12:17:15 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,19 @@ bool	init_info(int argc, char **argv, t_info *info)
 	info->time_to_die = ft_atoi(argv[2], &state);
 	if (state == false)
 	{
-		printf("time must be at leat 0\n");
+		printf("time must be at least 0\n");
 		return (false);
 	}
 	info->time_to_eat = ft_atoi(argv[3], &state);
 	if (state == false)
 	{
-		printf("time must be at leat 0\n");
+		printf("time must be at least 0\n");
 		return (false);
 	}
 	info->time_to_sleep = ft_atoi(argv[4], &state);
 	if (state == false)
 	{
-		printf("time must be at leat 0\n");
+		printf("time must be at least 0\n");
 		return (false);
 	}
 	if (argc == 6)
@@ -88,6 +88,8 @@ bool	init_mutex(t_info *info)
 	int	i;
 
 	if (pthread_mutex_init(&info->print, NULL))
+		return (false);
+	if (pthread_mutex_init(&info->end_lock, NULL))
 		return (false);
 	info->fork = (pthread_mutex_t *)ft_calloc(info->num_philo, sizeof(pthread_mutex_t));
 	if (!info->fork)

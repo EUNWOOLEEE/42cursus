@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:23:54 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/05/26 19:05:06 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/05/27 12:52:10 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 bool	start(t_philo *philo, t_info *info);
 void	*routine(void *arg);
+bool	check_end(t_philo *philo, t_info *info);
 
 bool	start(t_philo *philo, t_info *info)
 {
@@ -46,13 +47,45 @@ void	*routine(void *arg)
 	info = philo->info;
 
 	if (philo->philo_id % 2)
-		pass_time(1000);
+		pass_time(1);
 	while (info->end == false)
 	{
-		eating(philo, info);
-		sleeping(philo, info);
-		thinking(philo, info);
-
+		if (eating(philo, info) == false
+			|| sleeping(philo, info) == false
+			|| thinking(philo, info) == false)
+		{
+			info->error = true;
+			break;
+		}
 	}
 	return (0);
+}
+
+//죽음 체크하는 타이밍이랑 방법 다시 확인하기
+//1. 각 철학자를 체크하는 스레드 만들기
+//2. 메인 스레드에서 감시하기
+//3. 지금처럼 각 스레드가 죽음 체크하기
+bool	check_end(t_philo *philo, t_info *info)
+{
+	uint64_t	cur;
+
+	if (get_time(&cur) == false)
+		return (false);
+	if (pthread_mutex_lock(&info->end_lock))
+		return (false);
+	if (info->end == false
+		&& cur - philo->time_last_eat >= info->time_to_die)
+	{
+		print_state(philo, info, "died");
+		info->end = true;
+	}
+	if (info->end == false && info->num_must_eat
+		&& philo->eat_cnt == info->num_must_eat)
+	{
+		print_state(philo, info, "is full"); //출력 안 해야 함
+		info->end = true;
+	}
+	if (pthread_mutex_unlock(&info->end_lock))
+		return (false);
+	return (true);
 }

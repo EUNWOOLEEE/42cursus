@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:15:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/05/26 18:28:09 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/05/27 12:16:57 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,26 @@ void	*ft_calloc(size_t count, size_t size)
 
 uint64_t	ft_atoi(char *str, bool *state)
 {
-	uint64_t res;
+	int64_t res;
+	int64_t	sign;
 	
 	res = 0;
+	sign = 1;
+	*state = false;
+	if (*str == '\0')
+		return (0);
 	while ((*str >= 9 && *str <= 13) || *str == 32)
 		str++;
-	if (*str == '-')
-		*state = false;
-	else
+	if (*str == '+' || *str == '-')
 	{
-		*state = true;
-		while (*str >= '0' && *str <= '9')
-			res = (res * 10) + (*str++ - '0');
+		if (*str == '-')
+			sign *= -1;
+		str++;
 	}
-	return (res);
+	while (*str >= '0' && *str <= '9')
+		res = (res * 10) + (*str++ - '0');
+	res *= sign;
+	if (res >= 0)
+		*state = true;
+	return ((uint64_t)res);
 }

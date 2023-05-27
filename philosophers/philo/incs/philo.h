@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:29:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/05/26 18:37:53 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/05/27 10:29:20 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ typedef struct s_info
 	int				num_must_eat;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	print;
+	pthread_mutex_t	end_lock;
 	bool			end;
+	bool			error;
 	uint64_t		time_to_start;
 }t_info;
 
@@ -52,6 +54,7 @@ bool		init_mutex(t_info *info);
 bool		init_philo(t_philo *philo, t_info *info);
 bool		start(t_philo *philo, t_info *info);
 void		*routine(void *arg);
+bool		check_end(t_philo *philo, t_info *info);
 bool		eating(t_philo *philo, t_info *info);
 bool		sleeping(t_philo *philo, t_info *info);
 bool		thinking(t_philo *philo, t_info *info);

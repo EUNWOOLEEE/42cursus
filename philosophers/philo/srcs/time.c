@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:13:24 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/05/26 19:04:52 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/05/27 12:34:23 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,11 @@ bool	pass_time(uint64_t time)
 
 	if (get_time(&start) == false || get_time(&cur) == false)
 		return (false);
-	int	i=0;
-	while (cur - start <= time)
+	while (cur - start < time)
 	{
 		usleep(10);
 		if (get_time(&cur) == false)
 			return (false);
-		i++;
 	}
 	return (true);
 }
