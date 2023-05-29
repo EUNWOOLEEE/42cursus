@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:15:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/05/27 12:16:57 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/05/29 21:42:37 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,43 @@ uint64_t	ft_atoi(char *str, bool *state)
 	if (res >= 0)
 		*state = true;
 	return ((uint64_t)res);
+}
+
+size_t	ft_strlen(const char *s) //len, lcpy, dup -> 2번 방법에 필요
+{
+	size_t	len;
+
+	len = 0;
+	while (s[len])
+		len++;
+	return (len);
+}
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	size_t	len;
+
+	len = ft_strlen(src);
+	if (!dstsize)
+		return (len);
+	while (*src && dstsize > 1)
+	{
+		*dst++ = *src++;
+		dstsize--;
+	}
+	*dst = '\0';
+	return (len);
+}
+
+char	*ft_strdup(const char *s1)
+{
+	size_t		len;
+	char		*dest;
+
+	len = ft_strlen(s1);
+	dest = (char *)malloc(sizeof(char) * (len + 1));
+	if (!dest)
+		return (0);
+	ft_strlcpy(dest, s1, len + 1);
+	return (dest);
 }

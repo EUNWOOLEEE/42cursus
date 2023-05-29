@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:23:54 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/05/27 12:52:10 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/05/29 21:54:10 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	info = philo->info;
 
-	if (philo->philo_id % 2)
-		pass_time(1);
+	// if (philo->philo_id % 2)
+	// 	pass_time(1);
 	while (info->end == false)
 	{
 		if (eating(philo, info) == false
