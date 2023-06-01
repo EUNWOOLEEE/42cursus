@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:23:54 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/01 08:51:17 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/05/31 17:54:58 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,28 +21,20 @@ bool	start(t_philo *philo, t_info *info)
 	int	i;
 
 	i = 0;
+	if (get_time(&info->time_to_start) == false)
+		return (false);
 	while (i < info->num_philo)
 	{
-		if (get_time(&philo[i].time_start) == false)
-			return (false); //이미 시작된 스레드들은?
-		philo[i].time_last_eat = philo[i].time_start;
-		pthread_create(&philo[i].id_thread, NULL, routine, &philo[i]);
+		philo[i].time_last_eat = info->time_to_start;
+		pthread_create(&philo[i].thread_id, NULL, routine, &philo[i]);
 		i++;
 	}
 	i = 0;
-	// while (i < info->num_philo) //3-a
-	// {
-	// 	pthread_join(philo[i].id_thread, NULL);
-	// 	i++;
-	// }
-
-	while (info->end == false) //3-b
 	while (i < info->num_philo)
 	{
-		pthread_detach(philo[i].id_thread);
+		pthread_join(philo[i].thread_id, NULL);
 		i++;
 	}
-
 	return (true);
 }
 
@@ -67,7 +59,14 @@ void	*routine(void *arg)
 	return (0);
 }
 
-bool	check_end(t_philo *philo, t_info *info) //3번
+//죽음 체크하는 타이밍이랑 방법 다시 확인하기
+//1. 각 철학자를 체크하는 스레드 만들기
+//2. 메인 스레드에서 감시하기
+//3. 지금처럼 각 스레드가 죽음 체크하기
+
+//a. 각 스레드가 알아서 종료하기
+//b. 메인 스레드가 종료시키기
+bool	check_end(t_philo *philo, t_info *info)
 {
 	uint64_t	cur;
 

@@ -15,7 +15,6 @@ SRCS = $(SRCS_DIR)/philo.c \
 	$(SRCS_DIR)/act.c \
 	$(SRCS_DIR)/time.c \
 	$(SRCS_DIR)/print.c \
-	$(SRCS_DIR)/free.c \
 	$(SRCS_DIR)/utils.c
 
 OBJS = $(SRCS:%.c=%.o)

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:29:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/01 06:45:59 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/05/29 21:37:54 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,6 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-# define NOT_USING 0
-# define USING 1
-
 typedef struct s_info
 {
 	int				num_philo;
@@ -32,22 +29,21 @@ typedef struct s_info
 	uint64_t		time_to_eat;
 	uint64_t		time_to_sleep;
 	int				num_must_eat;
-	int				*fork;
-	pthread_mutex_t	*fork_mutex;
+	pthread_mutex_t	*fork;
 	pthread_mutex_t	print;
 	pthread_mutex_t	end_lock;
 	bool			end;
 	bool			error;
+	uint64_t		time_to_start;
 }t_info;
 
 typedef struct s_philo
 {
-	pthread_t	id_thread;
-	int			id_philo;
+	pthread_t	thread_id;
+	int			philo_id;
 	int			left;
 	int			right;
 	int			eat_cnt;
-	uint64_t	time_start;
 	uint64_t	time_last_eat;
 	t_info		*info;
 }t_philo;
@@ -55,7 +51,7 @@ typedef struct s_philo
 t_philo		*init(int argc, char **argv);
 bool		init_info(int argc, char **argv, t_info *info);
 bool		init_mutex(t_info *info);
-void		init_philo(t_philo *philo, t_info *info);
+bool		init_philo(t_philo *philo, t_info *info);
 bool		start(t_philo *philo, t_info *info);
 void		*routine(void *arg);
 bool		check_end(t_philo *philo, t_info *info);
@@ -69,7 +65,6 @@ bool		print_state(t_philo *philo, t_info *info, char *str);
 void		*ft_calloc(size_t count, size_t size);
 uint64_t	ft_atoi(char *str, bool *state);
 char		*ft_strdup(const char *s1);
-void 		all_free(t_philo **philo, t_info **info);
 
 
 #endif

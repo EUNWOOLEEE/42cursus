@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 18:27:55 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/05/31 19:12:15 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/05/27 10:38:05 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,7 @@ bool	print_state(t_philo *philo, t_info *info, char *str)
 		return (false);
 	if (pthread_mutex_lock(&info->print))
 		return (false);
-	// if (info->end == true) //3-b
-	// 	return (true);
-	printf("%llu %d %s\n", cur - philo->time_start, philo->id_philo + 1, str);
+	printf("%llu %d %s\n", cur - info->time_to_start, philo->philo_id + 1, str);
 	if (pthread_mutex_unlock(&info->print))
 		return (false);
 	return (true);

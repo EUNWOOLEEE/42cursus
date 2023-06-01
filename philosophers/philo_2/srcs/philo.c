@@ -5,28 +5,38 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/30 18:39:30 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/05/25 12:14:01 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/05/25 13:13:41 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/05/29 13:01:17 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/philo.h"
+// ./philo number_of_philosophers time_to_die time_to_eat
+// time_to_sleep [number_of_times_each_philosopher_must_eat]
 
-// ./philo [number_of_philosophers] [time_to_die] [time_to_eat]
-//  [time_to_sleep] [number_of_times_each_philosopher_must_eat]
+#include "../incs/philo.h"
 
 int main(int argc, char **argv)
 {
 	t_philo	*philo;
 	
 	if (argc != 5 && argc != 6)
-		return (1); //usage
+	{
+		print_usage();
+		return (1);
+	}
 	philo = init(argc, argv);
 	if (!philo)
 		return (1);
-	start(philo, philo[0].info);
+	start(philo, philo->info);
+	if (philo->info->error == true)
+		return (1);
 	return (0);
 }
 
-//먹는 시간을 0초로 두면 2밀리초 텀이 생김
-//자는 시간이 0이면?
+// 5 800 200 200 (계속) -> 오래는 가는데 종료 포인트가 이상함
+// 1 410 200 200 (죽음) o
+// 5 410 200 200 (죽음)
+// 200 410 200 200 x
+// 199 610 200 200 x
+// 4 300 200 100 (죽음) o
+// 시간이 0일 때

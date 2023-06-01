@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/30 18:47:42 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/05/16 18:06:36 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/05/25 12:29:57 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/05/29 21:37:54 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,55 +14,57 @@
 # define PHILO_H
 
 # include <stdio.h>
-# include <stdlib.h>
 # include <unistd.h>
+# include <stdlib.h>
 # include <string.h>
 # include <stdint.h>
+# include <stdbool.h>
 # include <pthread.h>
 # include <sys/time.h>
-
-# define LEFT 
-# define RIGHT
-
-typedef enum e_bool
-{
-	FALSE,
-	TRUE
-}	t_bool;
 
 typedef struct s_info
 {
 	int				num_philo;
-	uint64_t		time_die;
-	uint64_t		time_eat;
-	uint64_t		time_sleep;
-	int				num_eat;
-	uint64_t		time_start;
-	pthread_mutex_t	*forks;
+	uint64_t		time_to_die;
+	uint64_t		time_to_eat;
+	uint64_t		time_to_sleep;
+	int				num_must_eat;
+	pthread_mutex_t	*fork;
 	pthread_mutex_t	print;
-	t_bool			end;
-}	t_info;
+	pthread_mutex_t	end_lock;
+	bool			end;
+	bool			error;
+	uint64_t		time_to_start;
+}t_info;
 
 typedef struct s_philo
 {
-	int			id;
-	pthread_t	num;
-	int			eat_cnt;
+	pthread_t	thread_id;
+	int			philo_id;
 	int			left;
 	int			right;
-	uint64_t	last_eat_time;
+	int			eat_cnt;
+	uint64_t	time_last_eat;
 	t_info		*info;
-}	t_philo;
+}t_philo;
 
 t_philo		*init(int argc, char **argv);
-uint64_t	ft_atoi(char *str);
+bool		init_info(int argc, char **argv, t_info *info);
+bool		init_mutex(t_info *info);
+bool		init_philo(t_philo *philo, t_info *info);
+bool		start(t_philo *philo, t_info *info);
+void		*routine(void *arg);
+bool		check_end(t_philo *philo, t_info *info);
+bool		eating(t_philo *philo, t_info *info);
+bool		sleeping(t_philo *philo, t_info *info);
+bool		thinking(t_philo *philo, t_info *info);
+bool		get_time(uint64_t *time);
+bool		pass_time(uint64_t time);
+void		print_usage();
+bool		print_state(t_philo *philo, t_info *info, char *str);
 void		*ft_calloc(size_t count, size_t size);
-t_bool		get_cur_time(uint64_t *time);
-t_bool		print_time(t_philo *philo, t_info *info, char *state);
-void		pass_time(uint64_t time);
-t_bool		start(t_philo *philo, t_info *info);
-t_bool		eating(t_philo *philo, t_info *info);
-void		sleeping(t_philo *philo, t_info *info);
-void		thinking(t_philo *philo, t_info *info);
+uint64_t	ft_atoi(char *str, bool *state);
+char		*ft_strdup(const char *s1);
+
 
 #endif

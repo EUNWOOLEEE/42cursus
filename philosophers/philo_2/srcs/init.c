@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:46:34 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/01 08:10:49 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/05/27 12:17:15 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_philo	*init(int argc, char **argv);
 bool	init_info(int argc, char **argv, t_info *info);
 bool	init_mutex(t_info *info);
-void	init_philo(t_philo *philo, t_info *info);
+bool	init_philo(t_philo *philo, t_info *info);
 
 t_philo	*init(int argc, char **argv)
 {
@@ -35,8 +35,6 @@ t_philo	*init(int argc, char **argv)
 	memset(philo, 0, sizeof(t_philo) * info->num_philo);
 	if (!philo)
 	{
-		free(info->fork);
-		free(info->fork_mutex);
 		free(info);
 		return (false);
 	}
@@ -81,6 +79,7 @@ bool	init_info(int argc, char **argv, t_info *info)
 			return (false);
 		}
 	}
+	info->end = false;
 	return (true);
 }
 
@@ -92,22 +91,15 @@ bool	init_mutex(t_info *info)
 		return (false);
 	if (pthread_mutex_init(&info->end_lock, NULL))
 		return (false);
-	info->fork = (int *)ft_calloc(info->num_philo, sizeof(int));
+	info->fork = (pthread_mutex_t *)ft_calloc(info->num_philo, sizeof(pthread_mutex_t));
 	if (!info->fork)
 		return (false);
-	info->fork_mutex = (pthread_mutex_t *)ft_calloc(info->num_philo, sizeof(pthread_mutex_t));
-	if (!info->fork_mutex)
-	{
-		free(info->fork);
-		return (false);
-	}
 	i = 0;
 	while(i < info->num_philo)
 	{
-		if (pthread_mutex_init(&info->fork_mutex[i], NULL))
+		if (pthread_mutex_init(&info->fork[i], NULL))
 		{
 			free(info->fork);
-			free(info->fork_mutex);
 			return (false);
 		}
 		i++;
@@ -115,17 +107,18 @@ bool	init_mutex(t_info *info)
 	return (true);
 }
 
-void	init_philo(t_philo *philo, t_info *info)
+bool	init_philo(t_philo *philo, t_info *info)
 {
 	int	i;
 
 	i = 0;
 	while (i < info->num_philo)
 	{
-		philo[i].id_philo = i;
+		philo[i].philo_id = i;
 		philo[i].left = i;
 		philo[i].right = (i + 1) % info->num_philo;
 		philo[i].info = info;
 		i++;
 	}
+	return (true);
 }
