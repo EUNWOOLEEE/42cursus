@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:29:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/01 08:30:24 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/01 17:21:15 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool	eating(t_philo *philo, t_info *info) //4번 방법
 	
 	if (check_end(philo, info) == false)
 		return (false);
-	if (info->end == true)
+	if (info->end == true || info->error == true)
 		return (true);
 	if (!(philo->id_philo % 2))
 	{
@@ -50,39 +50,54 @@ bool	eating(t_philo *philo, t_info *info) //4번 방법
 		pthread_mutex_unlock(&info->fork_mutex[first]);
 		return (false);
 	}
-	if (pthread_mutex_lock(&info->fork_mutex[second]))
+		
+	if (check_end(philo, info) == false)
+		return (false);
+	if (info->end == true || info->error == true)
+		return (true);
+		
+	if (info->num_philo == 1)
 	{
+		if (pass_time(info->time_to_die) == false)
+			return (false);
 		pthread_mutex_unlock(&info->fork_mutex[first]);
-		return (false);
 	}
-	info->fork[second] = USING;
-	if (print_state(philo, info, second_str) == false)
-	// if (print_state(philo, info, "has taken a fork") == false)
+	else
 	{
-		pthread_mutex_unlock(&info->fork_mutex[first]);
-		pthread_mutex_unlock(&info->fork_mutex[second]);
-		return (false);
+		if (pthread_mutex_lock(&info->fork_mutex[second]))
+		{
+			pthread_mutex_unlock(&info->fork_mutex[first]);
+			return (false);
+		}
+		info->fork[second] = USING;
+		if (print_state(philo, info, second_str) == false)
+		// if (print_state(philo, info, "has taken a fork") == false)
+		{
+			pthread_mutex_unlock(&info->fork_mutex[first]);
+			pthread_mutex_unlock(&info->fork_mutex[second]);
+			return (false);
+		}
+		if (print_state(philo, info, "is eating") == false)
+		{
+			pthread_mutex_unlock(&info->fork_mutex[first]);
+			pthread_mutex_unlock(&info->fork_mutex[second]);
+			return (false);
+		}
+		if (get_time(&philo->time_last_eat) == false)
+			return (false);
+		philo->eat_cnt++;
+		if (pass_time(info->time_to_eat) == false)
+		{
+			pthread_mutex_unlock(&info->fork_mutex[first]);
+			pthread_mutex_unlock(&info->fork_mutex[second]);
+			return (false);
+		}
+		info->fork[first] = NOT_USING;
+		info->fork[second] = NOT_USING;
+		if (pthread_mutex_unlock(&info->fork_mutex[first])
+			|| pthread_mutex_unlock(&info->fork_mutex[second]))
+			return (false);
 	}
-	if (print_state(philo, info, "is eating") == false)
-	{
-		pthread_mutex_unlock(&info->fork_mutex[first]);
-		pthread_mutex_unlock(&info->fork_mutex[second]);
-		return (false);
-	}
-	if (get_time(&philo->time_last_eat) == false)
-		return (false);
-	philo->eat_cnt++;
-	if (pass_time(info->time_to_eat) == false)
-	{
-		pthread_mutex_unlock(&info->fork_mutex[first]);
-		pthread_mutex_unlock(&info->fork_mutex[second]);
-		return (false);
-	}
-	info->fork[first] = NOT_USING;
-	info->fork[second] = NOT_USING;
-	if (pthread_mutex_unlock(&info->fork_mutex[first])
-		|| pthread_mutex_unlock(&info->fork_mutex[second]))
-		return (false);
 	return (true);
 }
 
@@ -95,7 +110,7 @@ bool	eating(t_philo *philo, t_info *info) //4번 방법
 	
 // 	if (check_end(philo, info) == false)
 // 		return (false);
-// 	if (info->end == true)
+// 	if (info->end == true || info->error == true)
 // 		return (true);
 // 	if (philo->left < philo->right)
 // 	{
@@ -160,7 +175,7 @@ bool	sleeping(t_philo *philo, t_info *info)
 {
 	if (check_end(philo, info) == false)
 		return (false);
-	if (info->end == true)
+	if (info->end == true || info->error == true)
 		return (true);
 	if (print_state(philo, info, "is sleeping") == false
 		|| pass_time(info->time_to_sleep) == false)
@@ -172,7 +187,7 @@ bool	thinking(t_philo *philo, t_info *info)
 {
 	if (check_end(philo, info) == false)
 		return (false);
-	if (info->end == true)
+	if (info->end == true || info->error == true)
 		return (true);
 	if (print_state(philo, info, "is thinking") == false)
 		return (false);
