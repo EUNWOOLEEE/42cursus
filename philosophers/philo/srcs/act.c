@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:29:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/02 15:13:01 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/02 15:15:43 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ bool	eating(t_philo *philo, t_info *info)
 {
 	if (pthread_mutex_lock(&info->fork[philo->left].mutex))
 		return (false);
-	// print_state(philo, info, "has taken a fork\n");
 
-	if (print_state(philo, info, "has taken a left fork") == false)
+	// if (print_state(philo, info, "has taken a left fork") == false)
+	if (print_state(philo, info, "has taken a fork") == false)
 	{
 		pthread_mutex_unlock(&info->fork[philo->left].mutex);
 		return (false);
@@ -37,8 +37,8 @@ bool	eating(t_philo *philo, t_info *info)
 			pthread_mutex_unlock(&info->fork[philo->left].mutex);
 			return (false);
 		}
-		if (print_state(philo, info, "has taken a right fork") == false)
-
+		// if (print_state(philo, info, "has taken a right fork") == false)
+		if (print_state(philo, info, "has taken a fork") == false)
 		{
 			pthread_mutex_unlock(&info->fork[philo->left].mutex);
 			pthread_mutex_unlock(&info->fork[philo->right].mutex);
