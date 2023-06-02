@@ -6,11 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:29:49 by eunwolee          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/06/02 14:33:03 by eunwolee         ###   ########.fr       */
-=======
-/*   Updated: 2023/06/02 07:53:05 by eunwolee         ###   ########.fr       */
->>>>>>> 0531fc0d07ee4e128d95b167d97f202c6c341ee0
+/*   Updated: 2023/06/02 15:13:01 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,34 +20,13 @@ bool	eating(t_philo *philo, t_info *info)
 {
 	if (pthread_mutex_lock(&info->fork[philo->left].mutex))
 		return (false);
-<<<<<<< HEAD
 	// print_state(philo, info, "has taken a fork\n");
 
 	if (print_state(philo, info, "has taken a left fork") == false)
 	{
 		pthread_mutex_unlock(&info->fork[philo->left].mutex);
 		return (false);
-=======
-	
-	if (check_end(philo, info) == false)
-		return (false);
-	if (info->end == true || info->error == true)
-		return (true);
-		
-	info->fork[first] = USING;
-	// if (print_state(philo, info, first_str) == false)
-	if (print_state(philo, info, "has taken a fork") == false)
-	{
-		pthread_mutex_unlock(&info->fork_mutex[first]);
-		return (false);
-	}
-		
-	if (info->num_philo == 1)
-	{
-		if (pass_time(info->time_to_die) == false)
-			return (false);
-		pthread_mutex_unlock(&info->fork_mutex[first]);
->>>>>>> 0531fc0d07ee4e128d95b167d97f202c6c341ee0
+
 	}
 	info->fork[philo->left].state = USING;
 	
@@ -62,19 +37,8 @@ bool	eating(t_philo *philo, t_info *info)
 			pthread_mutex_unlock(&info->fork[philo->left].mutex);
 			return (false);
 		}
-<<<<<<< HEAD
 		if (print_state(philo, info, "has taken a right fork") == false)
-=======
-			
-		if (check_end(philo, info) == false)
-			return (false);
-		if (info->end == true || info->error == true)
-			return (true);
-		
-		info->fork[second] = USING;
-		// if (print_state(philo, info, second_str) == false)
-		if (print_state(philo, info, "has taken a fork") == false)
->>>>>>> 0531fc0d07ee4e128d95b167d97f202c6c341ee0
+
 		{
 			pthread_mutex_unlock(&info->fork[philo->left].mutex);
 			pthread_mutex_unlock(&info->fork[philo->right].mutex);
@@ -108,8 +72,6 @@ bool	eating(t_philo *philo, t_info *info)
 			return (false);
 		info->fork[philo->left].state = NOT_USING;
 	}
-	(void)first_str;
-	(void)second_str;
 	return (true);
 }
 
