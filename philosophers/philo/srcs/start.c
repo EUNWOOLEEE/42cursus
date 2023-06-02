@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:23:54 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/01 18:13:06 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/02 14:30:43 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ bool	start(t_philo *philo, t_info *info)
 	i = 0;
 	while (i < info->num_philo)
 	{
+		if (i % 2)
+			pass_time(1);
 		if (get_time(&philo[i].time_start) == false)
 		{
 			info->error = true;

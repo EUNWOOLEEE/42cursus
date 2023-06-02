@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:46:34 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/01 08:10:49 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/02 14:21:03 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ t_philo	*init(int argc, char **argv)
 	if (!philo)
 	{
 		free(info->fork);
-		free(info->fork_mutex);
 		free(info);
 		return (false);
 	}
@@ -92,22 +91,15 @@ bool	init_mutex(t_info *info)
 		return (false);
 	if (pthread_mutex_init(&info->end_lock, NULL))
 		return (false);
-	info->fork = (int *)ft_calloc(info->num_philo, sizeof(int));
+	info->fork = (t_fork *)ft_calloc(info->num_philo, sizeof(t_fork));
 	if (!info->fork)
 		return (false);
-	info->fork_mutex = (pthread_mutex_t *)ft_calloc(info->num_philo, sizeof(pthread_mutex_t));
-	if (!info->fork_mutex)
-	{
-		free(info->fork);
-		return (false);
-	}
 	i = 0;
 	while(i < info->num_philo)
 	{
-		if (pthread_mutex_init(&info->fork_mutex[i], NULL))
+		if (pthread_mutex_init(&info->fork[i].mutex, NULL))
 		{
 			free(info->fork);
-			free(info->fork_mutex);
 			return (false);
 		}
 		i++;

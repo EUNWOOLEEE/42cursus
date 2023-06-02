@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:29:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/01 06:45:59 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/02 14:23:44 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@
 # define NOT_USING 0
 # define USING 1
 
+typedef struct s_fork
+{
+	int				state;
+	pthread_mutex_t	mutex;
+}t_fork;
+
 typedef struct s_info
 {
 	int				num_philo;
@@ -32,8 +38,7 @@ typedef struct s_info
 	uint64_t		time_to_eat;
 	uint64_t		time_to_sleep;
 	int				num_must_eat;
-	int				*fork;
-	pthread_mutex_t	*fork_mutex;
+	t_fork			*fork;
 	pthread_mutex_t	print;
 	pthread_mutex_t	end_lock;
 	bool			end;
