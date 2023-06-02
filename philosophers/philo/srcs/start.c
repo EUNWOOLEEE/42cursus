@@ -6,7 +6,11 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:23:54 by eunwolee          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/06/02 14:30:43 by eunwolee         ###   ########.fr       */
+=======
+/*   Updated: 2023/06/02 06:55:39 by eunwolee         ###   ########.fr       */
+>>>>>>> 0531fc0d07ee4e128d95b167d97f202c6c341ee0
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +70,29 @@ void	*routine(void *arg)
 
 	while (info->end == false)
 	{
-		if (eating(philo, info) == false
-			|| sleeping(philo, info) == false
-			|| thinking(philo, info) == false)
+		if (check_end(philo, info) == false)
+			info->error = true;
+		if (info->end == true || info->error == true)
+			break;
+		if (eating(philo, info) == false)
+		{
+			info->error = true;
+			break;
+		}
+		if (check_end(philo, info) == false)
+			info->error = true;
+		if (info->end == true || info->error == true)
+			break;
+		if (sleeping(philo, info) == false)
+		{
+			info->error = true;
+			break;
+		}
+		if (check_end(philo, info) == false)
+			info->error = true;
+		if (info->end == true || info->error == true)
+			break;
+		if (thinking(philo, info) == false)
 		{
 			info->error = true;
 			break;
@@ -97,7 +121,7 @@ bool	check_end(t_philo *philo, t_info *info)
 		&& philo->eat_cnt == info->num_must_eat)
 	{
 		print_state(philo, info, "is full"); //출력 안 해야 함
-		printf("eat_cnt: %d\n", philo->eat_cnt);
+		// printf("eat_cnt: %d\n", philo->eat_cnt);
 		info->end = true;
 	}
 	if (pthread_mutex_unlock(&info->end_lock))

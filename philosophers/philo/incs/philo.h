@@ -6,7 +6,11 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:29:57 by eunwolee          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/06/02 14:23:44 by eunwolee         ###   ########.fr       */
+=======
+/*   Updated: 2023/06/02 08:15:59 by eunwolee         ###   ########.fr       */
+>>>>>>> 0531fc0d07ee4e128d95b167d97f202c6c341ee0
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +79,7 @@ void		*ft_calloc(size_t count, size_t size);
 uint64_t	ft_atoi(char *str, bool *state);
 char		*ft_strdup(const char *s1);
 void 		all_free(t_philo **philo, t_info **info);
+void	ft_putstr_fd(char *s, int fd);
 
 
 #endif
