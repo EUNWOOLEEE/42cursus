@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:29:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/01 17:21:15 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/02 07:53:05 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,19 @@ bool	eating(t_philo *philo, t_info *info) //4번 방법
 	}
 	if (pthread_mutex_lock(&info->fork_mutex[first]))
 		return (false);
-	info->fork[first] = USING;
-	if (print_state(philo, info, first_str) == false)
-	// if (print_state(philo, info, "has taken a fork") == false)
-	{
-		pthread_mutex_unlock(&info->fork_mutex[first]);
-		return (false);
-	}
-		
+	
 	if (check_end(philo, info) == false)
 		return (false);
 	if (info->end == true || info->error == true)
 		return (true);
+		
+	info->fork[first] = USING;
+	// if (print_state(philo, info, first_str) == false)
+	if (print_state(philo, info, "has taken a fork") == false)
+	{
+		pthread_mutex_unlock(&info->fork_mutex[first]);
+		return (false);
+	}
 		
 	if (info->num_philo == 1)
 	{
@@ -69,9 +70,15 @@ bool	eating(t_philo *philo, t_info *info) //4번 방법
 			pthread_mutex_unlock(&info->fork_mutex[first]);
 			return (false);
 		}
+			
+		if (check_end(philo, info) == false)
+			return (false);
+		if (info->end == true || info->error == true)
+			return (true);
+		
 		info->fork[second] = USING;
-		if (print_state(philo, info, second_str) == false)
-		// if (print_state(philo, info, "has taken a fork") == false)
+		// if (print_state(philo, info, second_str) == false)
+		if (print_state(philo, info, "has taken a fork") == false)
 		{
 			pthread_mutex_unlock(&info->fork_mutex[first]);
 			pthread_mutex_unlock(&info->fork_mutex[second]);
@@ -98,6 +105,8 @@ bool	eating(t_philo *philo, t_info *info) //4번 방법
 			|| pthread_mutex_unlock(&info->fork_mutex[second]))
 			return (false);
 	}
+	(void)first_str;
+	(void)second_str;
 	return (true);
 }
 
@@ -128,6 +137,12 @@ bool	eating(t_philo *philo, t_info *info) //4번 방법
 // 	}
 // 	if (pthread_mutex_lock(&info->fork_mutex[first]))
 // 		return (false);
+
+// 	if (check_end(philo, info) == false)
+// 		return (false);
+// 	if (info->end == true || info->error == true)
+// 		return (true);
+
 // 	info->fork[first] = USING;
 // 	if (print_state(philo, info, first_str) == false)
 // 	// if (print_state(philo, info, "has taken a fork") == false)
@@ -140,7 +155,13 @@ bool	eating(t_philo *philo, t_info *info) //4번 방법
 // 		pthread_mutex_unlock(&info->fork_mutex[first]);
 // 		return (false);
 // 	}
-// 	info->fork[second] = NOT_USING;
+
+// 	if (check_end(philo, info) == false)
+// 		return (false);
+// 	if (info->end == true || info->error == true)
+// 		return (true);
+
+// 	info->fork[second] = USING;
 // 	if (print_state(philo, info, second_str) == false)
 // 	// if (print_state(philo, info, "has taken a fork") == false)
 // 	{
@@ -163,8 +184,8 @@ bool	eating(t_philo *philo, t_info *info) //4번 방법
 // 		pthread_mutex_unlock(&info->fork_mutex[second]);
 // 		return (false);
 // 	}
-	// info->fork[first] = NOT_USING;
-	// info->fork[second] = NOT_USING;
+// 	info->fork[first] = NOT_USING;
+// 	info->fork[second] = NOT_USING;
 // 	if (pthread_mutex_unlock(&info->fork_mutex[first])
 // 		|| pthread_mutex_unlock(&info->fork_mutex[second]))
 // 		return (false);
