@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:29:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/02 15:15:43 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/03 09:20:39 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,64 +16,75 @@ bool	eating(t_philo *philo, t_info *info);
 bool	sleeping(t_philo *philo, t_info *info);
 bool	thinking(t_philo *philo, t_info *info);
 
-bool	eating(t_philo *philo, t_info *info)
-{
-	if (pthread_mutex_lock(&info->fork[philo->left].mutex))
-		return (false);
+// bool	eating(t_philo *philo, t_info *info) //3번 방법
+// {
+// 	if (info->end == true || info->error == true)
+// 		return (true);
 
-	// if (print_state(philo, info, "has taken a left fork") == false)
-	if (print_state(philo, info, "has taken a fork") == false)
-	{
-		pthread_mutex_unlock(&info->fork[philo->left].mutex);
-		return (false);
+// 	if (pthread_mutex_lock(&info->fork[philo->left].mutex))
+// 		return (false);
+// 	if (info->end == true || info->error == true)
+// 		return (true);
 
-	}
-	info->fork[philo->left].state = USING;
+// 	// if (print_state(philo, info, "has taken a left fork") == false)
+// 	if (print_state(philo, info, "has taken a fork") == false)
+// 	{
+// 		pthread_mutex_unlock(&info->fork[philo->left].mutex);
+// 		return (false);
+
+// 	}
+
+// 	info->fork[philo->left].state = USING;
 	
-	if (philo->left != philo->right)
-	{
-		if (pthread_mutex_lock(&info->fork[philo->right].mutex))
-		{
-			pthread_mutex_unlock(&info->fork[philo->left].mutex);
-			return (false);
-		}
-		// if (print_state(philo, info, "has taken a right fork") == false)
-		if (print_state(philo, info, "has taken a fork") == false)
-		{
-			pthread_mutex_unlock(&info->fork[philo->left].mutex);
-			pthread_mutex_unlock(&info->fork[philo->right].mutex);
-			return (false);
-		}
-		info->fork[philo->right].state = USING;
-		
-		if (print_state(philo, info, "is eating") == false)
-		{
-			pthread_mutex_unlock(&info->fork[philo->left].mutex);
-			pthread_mutex_unlock(&info->fork[philo->right].mutex);
-			return (false);
-		}
-		philo->eat_cnt++;
-		if (pass_time(info->time_to_eat) == false)
-		{
-			pthread_mutex_unlock(&info->fork[philo->left].mutex);
-			pthread_mutex_unlock(&info->fork[philo->right].mutex);
-			return (false);
-		}
+// 	if (philo->left != philo->right)
+// 	{
+// 		if (pthread_mutex_lock(&info->fork[philo->right].mutex))
+// 		{
+// 			pthread_mutex_unlock(&info->fork[philo->left].mutex);
+// 			return (false);
+// 		}
+// 		if (info->end == true || info->error == true)
+// 			return (true);
 
-		if (pthread_mutex_unlock(&info->fork[philo->left].mutex)
-			|| pthread_mutex_unlock(&info->fork[philo->right].mutex))
-			return (false);
-		info->fork[philo->left].state = NOT_USING;
-		info->fork[philo->right].state = NOT_USING;
-	}
-	else
-	{
-		if (pthread_mutex_unlock(&info->fork[philo->left].mutex))
-			return (false);
-		info->fork[philo->left].state = NOT_USING;
-	}
-	return (true);
-}
+// 		// if (print_state(philo, info, "has taken a right fork") == false)
+// 		if (print_state(philo, info, "has taken a fork") == false)
+// 		{
+// 			pthread_mutex_unlock(&info->fork[philo->left].mutex);
+// 			pthread_mutex_unlock(&info->fork[philo->right].mutex);
+// 			return (false);
+// 		}
+// 		info->fork[philo->right].state = USING;
+		
+// 		if (print_state(philo, info, "is eating") == false)
+// 		{
+// 			pthread_mutex_unlock(&info->fork[philo->left].mutex);
+// 			pthread_mutex_unlock(&info->fork[philo->right].mutex);
+// 			return (false);
+// 		}
+// 		if (get_time(&philo->time_last_eat) == false)
+// 			return (false);
+// 		philo->eat_cnt++;
+// 		if (pass_time(info->time_to_eat) == false)
+// 		{
+// 			pthread_mutex_unlock(&info->fork[philo->left].mutex);
+// 			pthread_mutex_unlock(&info->fork[philo->right].mutex);
+// 			return (false);
+// 		}
+
+// 		if (pthread_mutex_unlock(&info->fork[philo->left].mutex)
+// 			|| pthread_mutex_unlock(&info->fork[philo->right].mutex))
+// 			return (false);
+// 		info->fork[philo->left].state = NOT_USING;
+// 		info->fork[philo->right].state = NOT_USING;
+// 	}
+// 	else
+// 	{
+// 		if (pthread_mutex_unlock(&info->fork[philo->left].mutex))
+// 			return (false);
+// 		info->fork[philo->left].state = NOT_USING;
+// 	}
+// 	return (true);
+// }
 
 // bool	eating(t_philo *philo, t_info *info) //4번 방법
 // {
@@ -82,8 +93,6 @@ bool	eating(t_philo *philo, t_info *info)
 // 	char	*first_str;
 // 	char	*second_str;
 	
-// 	if (check_end(philo, info) == false)
-// 		return (false);
 // 	if (info->end == true || info->error == true)
 // 		return (true);
 // 	if (!(philo->id_philo % 2))
@@ -100,18 +109,16 @@ bool	eating(t_philo *philo, t_info *info)
 // 		first_str = ft_strdup("has taken a right fork");
 // 		second_str = ft_strdup("has taken a left fork");
 // 	}
-// 	if (pthread_mutex_lock(&info->fork_mutex[first]))
+// 	if (pthread_mutex_lock(&info->fork[first].mutex))
 // 		return (false);
-// 	info->fork[first] = USING;
+// 	info->fork[first].state = USING;
 // 	if (print_state(philo, info, first_str) == false)
 // 	// if (print_state(philo, info, "has taken a fork") == false)
 // 	{
-// 		pthread_mutex_unlock(&info->fork_mutex[first]);
+// 		pthread_mutex_unlock(&info->fork[first].mutex);
 // 		return (false);
 // 	}
 		
-// 	if (check_end(philo, info) == false)
-// 		return (false);
 // 	if (info->end == true || info->error == true)
 // 		return (true);
 		
@@ -119,27 +126,27 @@ bool	eating(t_philo *philo, t_info *info)
 // 	{
 // 		if (pass_time(info->time_to_die) == false)
 // 			return (false);
-// 		pthread_mutex_unlock(&info->fork_mutex[first]);
+// 		pthread_mutex_unlock(&info->fork[first].mutex);
 // 	}
 // 	else
 // 	{
-// 		if (pthread_mutex_lock(&info->fork_mutex[second]))
+// 		if (pthread_mutex_lock(&info->fork[second].mutex))
 // 		{
-// 			pthread_mutex_unlock(&info->fork_mutex[first]);
+// 			pthread_mutex_unlock(&info->fork[first].mutex);
 // 			return (false);
 // 		}
-// 		info->fork[second] = USING;
+// 		info->fork[second].state = USING;
 // 		if (print_state(philo, info, second_str) == false)
 // 		// if (print_state(philo, info, "has taken a fork") == false)
 // 		{
-// 			pthread_mutex_unlock(&info->fork_mutex[first]);
-// 			pthread_mutex_unlock(&info->fork_mutex[second]);
+// 			pthread_mutex_unlock(&info->fork[first].mutex);
+// 			pthread_mutex_unlock(&info->fork[second].mutex);
 // 			return (false);
 // 		}
 // 		if (print_state(philo, info, "is eating") == false)
 // 		{
-// 			pthread_mutex_unlock(&info->fork_mutex[first]);
-// 			pthread_mutex_unlock(&info->fork_mutex[second]);
+// 			pthread_mutex_unlock(&info->fork[first].mutex);
+// 			pthread_mutex_unlock(&info->fork[second].mutex);
 // 			return (false);
 // 		}
 // 		if (get_time(&philo->time_last_eat) == false)
@@ -147,105 +154,97 @@ bool	eating(t_philo *philo, t_info *info)
 // 		philo->eat_cnt++;
 // 		if (pass_time(info->time_to_eat) == false)
 // 		{
-// 			pthread_mutex_unlock(&info->fork_mutex[first]);
-// 			pthread_mutex_unlock(&info->fork_mutex[second]);
+// 			pthread_mutex_unlock(&info->fork[first].mutex);
+// 			pthread_mutex_unlock(&info->fork[second].mutex);
 // 			return (false);
 // 		}
-// 		info->fork[first] = NOT_USING;
-// 		info->fork[second] = NOT_USING;
-// 		if (pthread_mutex_unlock(&info->fork_mutex[first])
-// 			|| pthread_mutex_unlock(&info->fork_mutex[second]))
+// 		info->fork[first].state = NOT_USING;
+// 		info->fork[second].state = NOT_USING;
+// 		if (pthread_mutex_unlock(&info->fork[first].mutex)
+// 			|| pthread_mutex_unlock(&info->fork[second].mutex))
 // 			return (false);
 // 	}
 // 	return (true);
 // }
 
-// bool	eating(t_philo *philo, t_info *info) //2번 방법
-// {
-// 	int		first;
-// 	int		second;
-// 	char	*first_str;
-// 	char	*second_str;
+bool	eating(t_philo *philo, t_info *info) //2번 방법
+{
+	int		first;
+	int		second;
+	char	*first_str;
+	char	*second_str;
 	
-// 	if (check_end(philo, info) == false)
-// 		return (false);
-// 	if (info->end == true || info->error == true)
-// 		return (true);
-// 	if (philo->left < philo->right)
-// 	{
-// 		first = philo->left;
-// 		second = philo->right;
-// 		first_str = ft_strdup("has taken a left fork");
-// 		second_str = ft_strdup("has taken a right fork");
-// 	}
-// 	else
-// 	{
-// 		first = philo->right;
-// 		second = philo->left;
-// 		first_str = ft_strdup("has taken a right fork");
-// 		second_str = ft_strdup("has taken a left fork");
-// 	}
-// 	if (pthread_mutex_lock(&info->fork_mutex[first]))
-// 		return (false);
+	if (info->end == true || info->error == true)
+		return (true);
+	if (philo->left < philo->right)
+	{
+		first = philo->left;
+		second = philo->right;
+		first_str = ft_strdup("has taken a left fork");
+		second_str = ft_strdup("has taken a right fork");
+	}
+	else
+	{
+		first = philo->right;
+		second = philo->left;
+		first_str = ft_strdup("has taken a right fork");
+		second_str = ft_strdup("has taken a left fork");
+	}
+	if (pthread_mutex_lock(&info->fork[first].mutex))
+		return (false);
 
-// 	if (check_end(philo, info) == false)
-// 		return (false);
-// 	if (info->end == true || info->error == true)
-// 		return (true);
+	if (info->end == true || info->error == true)
+		return (true);
 
-// 	info->fork[first] = USING;
-// 	if (print_state(philo, info, first_str) == false)
-// 	// if (print_state(philo, info, "has taken a fork") == false)
-// 	{
-// 		pthread_mutex_unlock(&info->fork_mutex[first]);
-// 		return (false);
-// 	}
-// 	if (pthread_mutex_lock(&info->fork_mutex[second]))
-// 	{
-// 		pthread_mutex_unlock(&info->fork_mutex[first]);
-// 		return (false);
-// 	}
+	info->fork[first].state = USING;
+	if (print_state(philo, info, first_str) == false)
+	// if (print_state(philo, info, "has taken a fork") == false)
+	{
+		pthread_mutex_unlock(&info->fork[first].mutex);
+		return (false);
+	}
+	if (pthread_mutex_lock(&info->fork[second].mutex))
+	{
+		pthread_mutex_unlock(&info->fork[first].mutex);
+		return (false);
+	}
 
-// 	if (check_end(philo, info) == false)
-// 		return (false);
-// 	if (info->end == true || info->error == true)
-// 		return (true);
+	if (info->end == true || info->error == true)
+		return (true);
 
-// 	info->fork[second] = USING;
-// 	if (print_state(philo, info, second_str) == false)
-// 	// if (print_state(philo, info, "has taken a fork") == false)
-// 	{
-// 		pthread_mutex_unlock(&info->fork_mutex[first]);
-// 		pthread_mutex_unlock(&info->fork_mutex[second]);
-// 		return (false);
-// 	}
-// 	if (print_state(philo, info, "is eating") == false)
-// 	{
-// 		pthread_mutex_unlock(&info->fork_mutex[first]);
-// 		pthread_mutex_unlock(&info->fork_mutex[second]);
-// 		return (false);
-// 	}
-// 	if (get_time(&philo->time_last_eat) == false)
-// 		return (false);
-// 	philo->eat_cnt++;
-// 	if (pass_time(info->time_to_eat) == false)
-// 	{
-// 		pthread_mutex_unlock(&info->fork_mutex[first]);
-// 		pthread_mutex_unlock(&info->fork_mutex[second]);
-// 		return (false);
-// 	}
-// 	info->fork[first] = NOT_USING;
-// 	info->fork[second] = NOT_USING;
-// 	if (pthread_mutex_unlock(&info->fork_mutex[first])
-// 		|| pthread_mutex_unlock(&info->fork_mutex[second]))
-// 		return (false);
-// 	return (true);
-// }
+	info->fork[second].state = USING;
+	if (print_state(philo, info, second_str) == false)
+	// if (print_state(philo, info, "has taken a fork") == false)
+	{
+		pthread_mutex_unlock(&info->fork[first].mutex);
+		pthread_mutex_unlock(&info->fork[second].mutex);
+		return (false);
+	}
+	if (print_state(philo, info, "is eating") == false)
+	{
+		pthread_mutex_unlock(&info->fork[first].mutex);
+		pthread_mutex_unlock(&info->fork[second].mutex);
+		return (false);
+	}
+	if (get_time(&philo->time_last_eat) == false)
+		return (false);
+	philo->eat_cnt++;
+	if (pass_time(info->time_to_eat) == false)
+	{
+		pthread_mutex_unlock(&info->fork[first].mutex);
+		pthread_mutex_unlock(&info->fork[second].mutex);
+		return (false);
+	}
+	info->fork[first].state = NOT_USING;
+	info->fork[second].state = NOT_USING;
+	if (pthread_mutex_unlock(&info->fork[first].mutex)
+		|| pthread_mutex_unlock(&info->fork[second].mutex))
+		return (false);
+	return (true);
+}
 
 bool	sleeping(t_philo *philo, t_info *info)
 {
-	if (check_end(philo, info) == false)
-		return (false);
 	if (info->end == true || info->error == true)
 		return (true);
 	if (print_state(philo, info, "is sleeping") == false
@@ -256,8 +255,6 @@ bool	sleeping(t_philo *philo, t_info *info)
 
 bool	thinking(t_philo *philo, t_info *info)
 {
-	if (check_end(philo, info) == false)
-		return (false);
 	if (info->end == true || info->error == true)
 		return (true);
 	if (print_state(philo, info, "is thinking") == false)
