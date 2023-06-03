@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:23:54 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/03 09:25:44 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/03 10:48:10 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,8 @@ bool	start(t_philo *philo, t_info *info)
 	i = 0;
 	while (i < info->num_philo)
 	{
-		// if (i % 2) //3번 방법
-		// 	pass_time(1);
-		if (get_time(&philo[i].time_start) == false)
+		if (pthread_create(&philo[i].id_thread, NULL, routine, &philo[i]))
 			break;
-		philo[i].time_last_eat = philo[i].time_start;
-		pthread_create(&philo[i].id_thread, NULL, routine, &philo[i]);
 		i++;
 	}
 	if (i != info->num_philo)
@@ -63,8 +59,12 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	info = philo->info;
 
-	while (info->end == false)
+	while (info->end == false || info->error == false)
 	{
+		// if (philo->id_philo % 2) //3번 방법
+		// 	pass_time(info->time_to_eat);
+		while (!info->time_start)
+			continue;
 		if (info->end == true || info->error == true)
 			break;
 		if (eating(philo, info) == false)
@@ -124,6 +124,8 @@ bool	check_end(t_philo *philo, t_info *info) //메인 스레드가 죽음 체크
 	int			i;
 	uint64_t	cur;
 
+	if (get_time(&info->time_start) == false)
+		return (false);
 	while (info->end == false && info->error == false)
 	{
 		i = 0;
@@ -131,7 +133,8 @@ bool	check_end(t_philo *philo, t_info *info) //메인 스레드가 죽음 체크
 		{
 			if (get_time(&cur) == false)
 				return (false);
-			if (cur - philo[i].time_last_eat >= info->time_to_die)
+			if (philo[i].time_last_eat
+				&& cur - philo[i].time_last_eat >= info->time_to_die)
 			{
 				// printf("cur: %llu, last_eat: %llu\n", cur, philo[i].time_last_eat);
 				// printf("diff: %llu\n", cur - philo[i].time_last_eat);

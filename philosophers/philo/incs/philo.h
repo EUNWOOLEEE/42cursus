@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:29:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/02 15:14:53 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/03 10:18:06 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ typedef struct s_info
 	uint64_t		time_to_eat;
 	uint64_t		time_to_sleep;
 	int				num_must_eat;
+	uint64_t		time_start;
 	t_fork			*fork;
 	pthread_mutex_t	print;
-	pthread_mutex_t	end_lock;
 	bool			end;
 	bool			error;
 }t_info;
@@ -52,7 +52,6 @@ typedef struct s_philo
 	int			left;
 	int			right;
 	int			eat_cnt;
-	uint64_t	time_start;
 	uint64_t	time_last_eat;
 	t_info		*info;
 }t_philo;

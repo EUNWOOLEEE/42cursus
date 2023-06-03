@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:29:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/03 09:20:39 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/03 10:46:36 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ bool	thinking(t_philo *philo, t_info *info);
 
 // bool	eating(t_philo *philo, t_info *info) //3번 방법
 // {
+
+// 	while (!info->time_start)
+// 		continue;
 // 	if (info->end == true || info->error == true)
 // 		return (true);
 
@@ -31,7 +34,6 @@ bool	thinking(t_philo *philo, t_info *info);
 // 	{
 // 		pthread_mutex_unlock(&info->fork[philo->left].mutex);
 // 		return (false);
-
 // 	}
 
 // 	info->fork[philo->left].state = USING;
@@ -93,6 +95,8 @@ bool	thinking(t_philo *philo, t_info *info);
 // 	char	*first_str;
 // 	char	*second_str;
 	
+	// while (!info->time_start)
+	// 	continue;
 // 	if (info->end == true || info->error == true)
 // 		return (true);
 // 	if (!(philo->id_philo % 2))
@@ -180,15 +184,19 @@ bool	eating(t_philo *philo, t_info *info) //2번 방법
 	{
 		first = philo->left;
 		second = philo->right;
-		first_str = ft_strdup("has taken a left fork");
-		second_str = ft_strdup("has taken a right fork");
+		// first_str = ft_strdup("has taken a left fork");
+		// second_str = ft_strdup("has taken a right fork");
+		first_str = ft_strdup("has taken a fork");
+		second_str = ft_strdup("has taken a fork");
 	}
 	else
 	{
 		first = philo->right;
 		second = philo->left;
-		first_str = ft_strdup("has taken a right fork");
-		second_str = ft_strdup("has taken a left fork");
+		// first_str = ft_strdup("has taken a right fork");
+		// second_str = ft_strdup("has taken a left fork");
+		first_str = ft_strdup("has taken a fork");
+		second_str = ft_strdup("has taken a fork");
 	}
 	if (pthread_mutex_lock(&info->fork[first].mutex))
 		return (false);
@@ -220,14 +228,14 @@ bool	eating(t_philo *philo, t_info *info) //2번 방법
 		pthread_mutex_unlock(&info->fork[second].mutex);
 		return (false);
 	}
+	if (get_time(&philo->time_last_eat) == false)
+		return (false);
 	if (print_state(philo, info, "is eating") == false)
 	{
 		pthread_mutex_unlock(&info->fork[first].mutex);
 		pthread_mutex_unlock(&info->fork[second].mutex);
 		return (false);
 	}
-	if (get_time(&philo->time_last_eat) == false)
-		return (false);
 	philo->eat_cnt++;
 	if (pass_time(info->time_to_eat) == false)
 	{
