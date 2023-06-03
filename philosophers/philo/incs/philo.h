@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:29:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/03 18:59:27 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/03 19:50:22 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,16 @@
 # define NOT_USING 0
 # define USING 1
 
-# define usage_msg "usage: ./philo <number_of_philosophers>\n \
+# define MSG_USAGE "usage: ./philo <number_of_philosophers>\n \
 	<time_to_die> <time_to_eat> <time_to_sleep>\n \
-	[number_of_times_each_philosopher_must_eat]\n"
-# define time_msg "time must be at least 0\n"
-# define num_msg "number must be at least 1\n"
+	[number_of_times_each_philosopher_must_eat]"
+# define MSG_TIME "time must be at least 0"
+# define MSG_NUM "number must be at least 1"
+# define MSG_FORK "has taken a fork"
+# define MSG_EAT "is eating"
+# define MSG_SLEEP "is sleeping"
+# define MSG_THINK "is thinking"
+# define MSG_DIE "died"
 
 typedef struct s_fork
 {
@@ -79,8 +84,6 @@ bool		print_error(char *str);
 bool		print_state(t_philo *philo, t_info *info, char *str);
 void		*ft_calloc(size_t count, size_t size);
 uint64_t	ft_atoi(char *str, bool *state);
-char		*ft_strdup(const char *s1);
-bool 		all_free(t_philo **philo, t_info **info);
-void		ft_putstr_fd(char *s, int fd);
+bool		all_free(t_philo **philo, t_info **info);
 
 #endif

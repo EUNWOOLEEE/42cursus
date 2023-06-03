@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:46:34 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/03 18:01:44 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/03 19:48:33 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +49,21 @@ bool	init_info(int argc, char **argv, t_info *info)
 
 	info->num_philo = (int)ft_atoi(argv[1], &state);
 	if (!info->num_philo || state == false)
-		return (print_error(num_msg));
+		return (print_error(MSG_NUM));
 	info->time_to_die = ft_atoi(argv[2], &state);
 	if (state == false)
-		return (print_error(time_msg));
+		return (print_error(MSG_TIME));
 	info->time_to_eat = ft_atoi(argv[3], &state);
 	if (state == false)
-		return (print_error(time_msg));
+		return (print_error(MSG_TIME));
 	info->time_to_sleep = ft_atoi(argv[4], &state);
 	if (state == false)
-		return (print_error(time_msg));
+		return (print_error(MSG_TIME));
 	if (argc == 6)
 	{
 		info->num_must_eat = ft_atoi(argv[5], &state);
 		if (!info->num_must_eat || state == false)
-			return (print_error(num_msg));
+			return (print_error(MSG_NUM));
 	}
 	return (true);
 }

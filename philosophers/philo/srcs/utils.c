@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:15:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/02 08:19:47 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/03 19:53:28 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void		*ft_calloc(size_t count, size_t size);
 uint64_t	ft_atoi(char *str, bool *state);
+bool		all_free(t_philo **philo, t_info **info);
 
 void	*ft_calloc(size_t count, size_t size)
 {
@@ -28,9 +29,9 @@ void	*ft_calloc(size_t count, size_t size)
 
 uint64_t	ft_atoi(char *str, bool *state)
 {
-	int64_t res;
+	int64_t	res;
 	int64_t	sign;
-	
+
 	res = 0;
 	sign = 1;
 	*state = false;
@@ -52,41 +53,23 @@ uint64_t	ft_atoi(char *str, bool *state)
 	return ((uint64_t)res);
 }
 
-size_t	ft_strlen(const char *s) //len, lcpy, dup -> 2번 방법에 필요
+bool	all_free(t_philo **philo, t_info **info)
 {
-	size_t	len;
+	int	error;
+	int	i;
 
-	len = 0;
-	while (s[len])
-		len++;
-	return (len);
-}
-
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
-{
-	size_t	len;
-
-	len = ft_strlen(src);
-	if (!dstsize)
-		return (len);
-	while (*src && dstsize > 1)
+	error = (*info)->error;
+	i = 0;
+	while (i < (*info)->num_philo)
 	{
-		*dst++ = *src++;
-		dstsize--;
+		pthread_mutex_destroy(&(*info)->fork[i].mutex);
+		i++;
 	}
-	*dst = '\0';
-	return (len);
-}
-
-char	*ft_strdup(const char *s1)
-{
-	size_t		len;
-	char		*dest;
-
-	len = ft_strlen(s1);
-	dest = (char *)malloc(sizeof(char) * (len + 1));
-	if (!dest)
-		return (0);
-	ft_strlcpy(dest, s1, len + 1);
-	return (dest);
+	pthread_mutex_destroy(&(*info)->print);
+	free((*info)->fork);
+	free(*info);
+	free(*philo);
+	*info = 0;
+	*philo = 0;
+	return (error);
 }
