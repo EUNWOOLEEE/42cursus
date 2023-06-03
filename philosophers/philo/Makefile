@@ -13,6 +13,7 @@ SRCS = $(SRCS_DIR)/philo.c \
 	$(SRCS_DIR)/init.c \
 	$(SRCS_DIR)/start.c \
 	$(SRCS_DIR)/act.c \
+	$(SRCS_DIR)/check.c \
 	$(SRCS_DIR)/time.c \
 	$(SRCS_DIR)/print.c \
 	$(SRCS_DIR)/free.c \

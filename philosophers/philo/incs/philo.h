@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:29:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/03 10:18:06 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/03 14:09:46 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 
 typedef struct s_fork
 {
-	int				state;
+	bool			state;
 	pthread_mutex_t	mutex;
 }t_fork;
 
@@ -63,6 +63,7 @@ void		init_philo(t_philo *philo, t_info *info);
 bool		start(t_philo *philo, t_info *info);
 void		*routine(void *arg);
 bool		check_end(t_philo *philo, t_info *info);
+// bool		check_flag(t_info *info);
 bool		eating(t_philo *philo, t_info *info);
 bool		sleeping(t_philo *philo, t_info *info);
 bool		thinking(t_philo *philo, t_info *info);
@@ -74,7 +75,6 @@ void		*ft_calloc(size_t count, size_t size);
 uint64_t	ft_atoi(char *str, bool *state);
 char		*ft_strdup(const char *s1);
 void 		all_free(t_philo **philo, t_info **info);
-void	ft_putstr_fd(char *s, int fd);
-
+void		ft_putstr_fd(char *s, int fd);
 
 #endif
