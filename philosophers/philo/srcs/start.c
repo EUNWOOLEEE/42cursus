@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:23:54 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/03 13:53:30 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/03 18:21:57 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 bool	start(t_philo *philo, t_info *info);
 void	*routine(void *arg);
-bool	check_end(t_philo *philo, t_info *info);
 
 bool	start(t_philo *philo, t_info *info)
 {
@@ -25,34 +24,22 @@ bool	start(t_philo *philo, t_info *info)
 	while (i < info->num_philo)
 	{
 		if (pthread_create(&philo[i].id_thread, NULL, routine, &philo[i]))
+		{
+			info->error = true;
 			break;
+		}
 		i++;
 	}
-	if (i != info->num_philo)
+	check_end(philo, info);
+	j = 0;
+	while (j < i)
 	{
-		info->error = true;
-		j = 0;
-		while (j < i)
-		{
-			pthread_join(philo[j].id_thread, NULL);
-			j++;
-		}
-	}
-	else
-	{
-		check_end(philo, info);
-		i = 0;
-		while (i < info->num_philo)
-		{
-			pthread_join(philo[i].id_thread, NULL);
-			i++;
-		}
+		pthread_join(philo[j].id_thread, NULL);
+		j++;
 	}
 	return (true);
 }
 
-//죽으면 바로 print mutex 걸고 프린트 뮤텍스 얻었을 때 한번 더 확인
-//->중간중간 체크 필요없음
 void	*routine(void *arg)
 {
 	t_philo	*philo;
@@ -61,34 +48,22 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	info = philo->info;
 
-	while (info->end == false || info->error == false)
+	while (true)
 	{
-		if (philo->id_philo % 2) //3번 방법
-			pass_time(info->time_to_eat);
 		while (!info->time_start)
+		{
+			if (info->end)
+				return (0);
 			continue;
-		if (info->end == true || info->error == true)
-			break;
-		if (eating(philo, info) == false)
-		{
-			info->error = true;
-			break;
 		}
-		if (info->end == true || info->error == true)
+		if (!philo->time_last_eat && philo->id_philo % 2)
+			pass_time(info->time_to_eat);
+		if (!philo->time_last_eat && philo->id_philo == info->num_philo - 1)
+			pass_time(info->time_to_eat * 2);
+		if (eating(philo, info) == false
+		 	|| sleeping(philo, info) == false
+			|| thinking(philo, info) == false)
 			break;
-		if (sleeping(philo, info) == false)
-		{
-			info->error = true;
-			break;
-		}
-		if (info->end == true || info->error == true)
-			break;
-		if (thinking(philo, info) == false)
-		{
-			info->error = true;
-			break;
-		}
 	}
-	printf("%d\n", philo->id_philo+1);
 	return (0);
 }

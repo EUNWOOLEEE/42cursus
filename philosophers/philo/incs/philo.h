@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:29:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/03 14:09:46 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/03 18:59:27 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@
 
 # define NOT_USING 0
 # define USING 1
+
+# define usage_msg "usage: ./philo <number_of_philosophers>\n \
+	<time_to_die> <time_to_eat> <time_to_sleep>\n \
+	[number_of_times_each_philosopher_must_eat]\n"
+# define time_msg "time must be at least 0\n"
+# define num_msg "number must be at least 1\n"
 
 typedef struct s_fork
 {
@@ -43,6 +49,7 @@ typedef struct s_info
 	pthread_mutex_t	print;
 	bool			end;
 	bool			error;
+	int				eat_cnt;
 }t_info;
 
 typedef struct s_philo
@@ -62,19 +69,18 @@ bool		init_mutex(t_info *info);
 void		init_philo(t_philo *philo, t_info *info);
 bool		start(t_philo *philo, t_info *info);
 void		*routine(void *arg);
-bool		check_end(t_philo *philo, t_info *info);
-// bool		check_flag(t_info *info);
+void		check_end(t_philo *philo, t_info *info);
 bool		eating(t_philo *philo, t_info *info);
 bool		sleeping(t_philo *philo, t_info *info);
 bool		thinking(t_philo *philo, t_info *info);
-bool		get_time(uint64_t *time);
-bool		pass_time(uint64_t time);
-void		print_usage();
+void		get_time(uint64_t *time);
+void		pass_time(uint64_t time);
+bool		print_error(char *str);
 bool		print_state(t_philo *philo, t_info *info, char *str);
 void		*ft_calloc(size_t count, size_t size);
 uint64_t	ft_atoi(char *str, bool *state);
 char		*ft_strdup(const char *s1);
-void 		all_free(t_philo **philo, t_info **info);
+bool 		all_free(t_philo **philo, t_info **info);
 void		ft_putstr_fd(char *s, int fd);
 
 #endif
