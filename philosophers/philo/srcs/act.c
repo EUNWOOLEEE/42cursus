@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:29:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/03 13:48:40 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/03 14:47:51 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@ bool	eating(t_philo *philo, t_info *info);
 bool	sleeping(t_philo *philo, t_info *info);
 bool	thinking(t_philo *philo, t_info *info);
 
+//gettimeofday도 error flag로 체크하기
 //lock unlock은 에러 핸들링 가능함
-//홀수일 때 마지막 애를 제일 마지막에
+//홀수일 때 마지막 스레드를 제일 마지막에
 bool	eating(t_philo *philo, t_info *info) //3번 방법
 {
 

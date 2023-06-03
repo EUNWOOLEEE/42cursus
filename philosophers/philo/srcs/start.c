@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:23:54 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/03 13:53:30 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/03 14:43:37 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ bool	start(t_philo *philo, t_info *info)
 
 //죽으면 바로 print mutex 걸고 프린트 뮤텍스 얻었을 때 한번 더 확인
 //->중간중간 체크 필요없음
+//포크를 들고있는 애가 내려놓지 않고 종료하면 기다리고 있는 애가 print로 들어갈 수 없기 때문에
+//unlock 해주고 종료시켜야 함
 void	*routine(void *arg)
 {
 	t_philo	*philo;
