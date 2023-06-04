@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 18:27:55 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/03 19:43:12 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/04 13:30:43 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ bool	print_state(t_philo *philo, t_info *info, char *str)
 
 	get_time(&cur);
 	pthread_mutex_lock(&info->print);
-	if (info->end == true || info->error == true)
+	if (info->end == true)
 	{
 		pthread_mutex_unlock(&info->print);
 		return (false);

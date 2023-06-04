@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:23:54 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/03 19:54:16 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/04 13:28:17 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ bool	start(t_philo *philo, t_info *info)
 		if (pthread_create(&philo[i].id_thread, NULL, routine, &philo[i]))
 		{
 			info->error = true;
+			info->end = true;
 			break ;
 		}
 		i++;
