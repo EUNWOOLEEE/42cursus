@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:46:34 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/03 19:48:33 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/04 18:08:25 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ t_philo	*init(int argc, char **argv)
 	info = (t_info *)ft_calloc(1, sizeof(t_info));
 	memset(info, 0, sizeof(t_info));
 	if (!info)
-		return (false);
+	{
+		print_error(MALLOC);
+		return (NULL);
+	}
 	if (init_info(argc, argv, info) == false || init_mutex(info) == false)
 	{
 		free(info);
@@ -37,7 +40,8 @@ t_philo	*init(int argc, char **argv)
 	{
 		free(info->fork);
 		free(info);
-		return (false);
+		print_error(MALLOC);
+		return (NULL);
 	}
 	init_philo(philo, info);
 	return (philo);
@@ -49,22 +53,26 @@ bool	init_info(int argc, char **argv, t_info *info)
 
 	info->num_philo = (int)ft_atoi(argv[1], &state);
 	if (!info->num_philo || state == false)
-		return (print_error(MSG_NUM));
+		return (print_error(NUM));
 	info->time_to_die = ft_atoi(argv[2], &state);
 	if (state == false)
-		return (print_error(MSG_TIME));
+		return (print_error(TIME));
 	info->time_to_eat = ft_atoi(argv[3], &state);
 	if (state == false)
-		return (print_error(MSG_TIME));
+		return (print_error(TIME));
 	info->time_to_sleep = ft_atoi(argv[4], &state);
 	if (state == false)
-		return (print_error(MSG_TIME));
+		return (print_error(TIME));
 	if (argc == 6)
 	{
 		info->num_must_eat = ft_atoi(argv[5], &state);
 		if (!info->num_must_eat || state == false)
-			return (print_error(MSG_NUM));
+			return (print_error(NUM));
 	}
+	info->end = false;
+	info->error = false;
+	if (info->num_philo % 2 && info->time_to_eat >= info->time_to_sleep)
+		info->scheduling = true;
 	return (true);
 }
 
@@ -72,20 +80,21 @@ bool	init_mutex(t_info *info)
 {
 	int	i;
 
-	if (pthread_mutex_init(&info->print, NULL))
-		return (false);
+	if (pthread_mutex_init(&info->start, NULL)
+		|| pthread_mutex_init(&info->print, NULL))
+		return (print_error(MUTEX));
 	info->fork = (t_fork *)ft_calloc(info->num_philo, sizeof(t_fork));
 	if (!info->fork)
-		return (false);
-	i = 0;
-	while (i < info->num_philo)
+		return (print_error(MALLOC));
+	i = -1;
+	while (++i < info->num_philo)
 	{
-		if (pthread_mutex_init(&info->fork[i].mutex, NULL))
+		if (pthread_mutex_init(&info->fork[i].mutex, NULL)
+			|| pthread_mutex_init(&info->fork[i].eat, NULL))
 		{
 			free(info->fork);
-			return (false);
+			return (print_error(MUTEX));
 		}
-		i++;
 	}
 	return (true);
 }
@@ -98,9 +107,17 @@ void	init_philo(t_philo *philo, t_info *info)
 	while (i < info->num_philo)
 	{
 		philo[i].id_philo = i;
-		philo[i].left = i;
-		philo[i].right = (i + 1) % info->num_philo;
 		philo[i].info = info;
+		if (!(i % 2))
+		{
+			philo[i].first = i;
+			philo[i].second = (i + 1) % info->num_philo;
+		}
+		else
+		{
+			philo[i].first = (i + 1) % info->num_philo;
+			philo[i].second = i;
+		}
 		i++;
 	}
 }

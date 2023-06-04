@@ -6,13 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:23:54 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/04 13:28:17 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/04 18:07:10 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/philo.h"
 
 bool	start(t_philo *philo, t_info *info);
+void	set_start_time(t_philo *philo, t_info *info);
 void	*routine(void *arg);
 void	check_end(t_philo *philo, t_info *info);
 
@@ -21,8 +22,9 @@ bool	start(t_philo *philo, t_info *info)
 	int	i;
 	int	j;
 
-	i = 0;
-	while (i < info->num_philo)
+	i = -1;
+	pthread_mutex_lock(&info->start);
+	while (++i < info->num_philo)
 	{
 		if (pthread_create(&philo[i].id_thread, NULL, routine, &philo[i]))
 		{
@@ -30,16 +32,24 @@ bool	start(t_philo *philo, t_info *info)
 			info->end = true;
 			break ;
 		}
-		i++;
 	}
+	set_start_time(philo, info);
+	pthread_mutex_unlock(&info->start);
 	check_end(philo, info);
-	j = 0;
-	while (j < i)
-	{
+	j = -1;
+	while (++j < i)
 		pthread_join(philo[j].id_thread, NULL);
-		j++;
-	}
 	return (true);
+}
+
+void	set_start_time(t_philo *philo, t_info *info)
+{
+	int	i;
+
+	get_time(&info->time_start);
+	i = -1;
+	while (++i < info->num_philo)
+		philo[i].time_last_eat = info->time_start;
 }
 
 void	*routine(void *arg)
@@ -49,19 +59,15 @@ void	*routine(void *arg)
 
 	philo = (t_philo *)arg;
 	info = philo->info;
+	pthread_mutex_lock(&info->start);
+	pthread_mutex_unlock(&info->start);
+	if (philo->id_philo % 2)
+		pass_time(info->time_to_eat);
+	if (info->num_philo % 2
+		&& philo->id_philo == info->num_philo - 1)
+		pass_time(info->time_to_eat * 2);
 	while (true)
 	{
-		while (!info->time_start)
-		{
-			if (info->end)
-				return (0);
-			continue ;
-		}
-		if (!philo->time_last_eat && philo->id_philo % 2)
-			pass_time(info->time_to_eat);
-		if (!philo->time_last_eat && info->num_philo % 2
-			&& philo->id_philo == info->num_philo - 1)
-			pass_time(info->time_to_eat * 2);
 		if (eating(philo, info) == false \
 			|| sleeping(philo, info) == false \
 			|| thinking(philo, info) == false)
