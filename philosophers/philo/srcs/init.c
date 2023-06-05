@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:46:34 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/04 18:08:25 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/05 08:06:27 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,29 +49,26 @@ t_philo	*init(int argc, char **argv)
 
 bool	init_info(int argc, char **argv, t_info *info)
 {
-	bool	state;
-
-	info->num_philo = (int)ft_atoi(argv[1], &state);
-	if (!info->num_philo || state == false)
+	info->num_philo = ft_atoi(argv[1]);
+	if (info->num_philo <= 0)
 		return (print_error(NUM));
-	info->time_to_die = ft_atoi(argv[2], &state);
-	if (state == false)
-		return (print_error(TIME));
-	info->time_to_eat = ft_atoi(argv[3], &state);
-	if (state == false)
-		return (print_error(TIME));
-	info->time_to_sleep = ft_atoi(argv[4], &state);
-	if (state == false)
+	info->time_to_die = ft_atoi(argv[2]);
+	info->time_to_eat = ft_atoi(argv[3]);
+	info->time_to_sleep = ft_atoi(argv[4]);
+	if (info->time_to_die < 0 \
+		|| info->time_to_eat < 0 \
+		|| info->time_to_sleep < 0)
 		return (print_error(TIME));
 	if (argc == 6)
 	{
-		info->num_must_eat = ft_atoi(argv[5], &state);
-		if (!info->num_must_eat || state == false)
+		info->num_must_eat = ft_atoi(argv[5]);
+		if (info->num_must_eat <= 0)
 			return (print_error(NUM));
 	}
 	info->end = false;
 	info->error = false;
-	if (info->num_philo % 2 && info->time_to_eat >= info->time_to_sleep)
+	if (info->num_philo % 2 \
+		&& info->time_to_eat >= info->time_to_sleep)
 		info->scheduling = true;
 	return (true);
 }
@@ -89,8 +86,7 @@ bool	init_mutex(t_info *info)
 	i = -1;
 	while (++i < info->num_philo)
 	{
-		if (pthread_mutex_init(&info->fork[i].mutex, NULL)
-			|| pthread_mutex_init(&info->fork[i].eat, NULL))
+		if (pthread_mutex_init(&info->fork[i].mutex, NULL))
 		{
 			free(info->fork);
 			return (print_error(MUTEX));

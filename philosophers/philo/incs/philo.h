@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:29:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/04 17:54:49 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/05 08:44:41 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,25 +32,24 @@
 # define MUTEX "Mutex init failure"
 # define TIME "Time must be at least 0"
 # define NUM "Number must be at least 1"
-# define FORK "has taken a fork"
-# define EAT "is eating"
-# define SLEEP "is sleeping"
-# define THINK "is thinking"
-# define DIE "died"
+# define FORK "%llu %d has taken a fork\n"
+# define EAT "%llu %d is eating\n"
+# define SLEEP "%llu %d is sleeping\n"
+# define THINK "%llu %d is thinking\n"
+# define DIE "%llu %d died\n"
 
 typedef struct s_fork
 {
 	bool			state;
 	pthread_mutex_t	mutex;
-	pthread_mutex_t	eat;
 }t_fork;
 
 typedef struct s_info
 {
 	int				num_philo;
-	uint64_t		time_to_die;
-	uint64_t		time_to_eat;
-	uint64_t		time_to_sleep;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
 	int				num_must_eat;
 	uint64_t		time_start;
 	t_fork			*fork;
@@ -79,16 +78,18 @@ bool		init_mutex(t_info *info);
 void		init_philo(t_philo *philo, t_info *info);
 bool		start(t_philo *philo, t_info *info);
 void		*routine(void *arg);
-void		check_end(t_philo *philo, t_info *info);
+void		check_end_main(t_info *info);
+void		check_end_philo(t_philo *philo, t_info *info);
+bool		take_fork(t_philo *philo, t_info *info);;
 bool		eating(t_philo *philo, t_info *info);
 bool		sleeping(t_philo *philo, t_info *info);
 bool		thinking(t_philo *philo, t_info *info);
-void		get_time(uint64_t *time);
-void		pass_time(uint64_t time);
+uint64_t	get_time();
+bool		pass_time(t_philo *philo, t_info *info, uint64_t time);
 bool		print_error(char *str);
 bool		print_state(t_philo *philo, t_info *info, char *str);
 void		*ft_calloc(size_t count, size_t size);
-uint64_t	ft_atoi(char *str, bool *state);
+int			ft_atoi(char *str);
 bool		all_free(t_philo **philo, t_info **info);
 
 #endif

@@ -6,33 +6,34 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:13:24 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/03 15:47:25 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/05 08:44:34 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/philo.h"
 
-void	get_time(uint64_t *time);
-void	pass_time(uint64_t time);
+uint64_t	get_time();
+bool		pass_time(t_philo *philo, t_info *info, uint64_t time);
 
-void	get_time(uint64_t *time)
+uint64_t	get_time()
 {
 	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
-	*time = tv.tv_sec * 1000 + tv.tv_usec / 1000;
+	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 
-void	pass_time(uint64_t time)
+bool	pass_time(t_philo *philo, t_info *info, uint64_t time)
 {
 	uint64_t	start;
-	uint64_t	cur;
 
-	get_time(&start);
-	get_time(&cur);
-	while (cur - start < time)
+	start = get_time();
+	while (get_time() - start < time && info->end == false)
 	{
 		usleep(10);
-		get_time(&cur);
+		check_end_philo(philo, info);
+		if (info->end == true)
+			return (false);
 	}
+	return (true);
 }

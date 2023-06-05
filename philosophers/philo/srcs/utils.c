@@ -6,15 +6,16 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:15:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/04 18:08:39 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/05 08:24:51 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/philo.h"
 
-void		*ft_calloc(size_t count, size_t size);
-uint64_t	ft_atoi(char *str, bool *state);
-bool		all_free(t_philo **philo, t_info **info);
+void	*ft_calloc(size_t count, size_t size);
+int		ft_atoi(char *str);
+bool	print_error(char *str);
+bool	all_free(t_philo **philo, t_info **info);
 
 void	*ft_calloc(size_t count, size_t size)
 {
@@ -27,16 +28,13 @@ void	*ft_calloc(size_t count, size_t size)
 	return (tmp);
 }
 
-uint64_t	ft_atoi(char *str, bool *state)
+int	ft_atoi(char *str)
 {
-	int64_t	res;
-	int64_t	sign;
+	int	res;
+	int	sign;
 
 	res = 0;
 	sign = 1;
-	*state = false;
-	if (*str == '\0')
-		return (0);
 	while ((*str >= 9 && *str <= 13) || *str == 32)
 		str++;
 	if (*str == '+' || *str == '-')
@@ -47,10 +45,14 @@ uint64_t	ft_atoi(char *str, bool *state)
 	}
 	while (*str >= '0' && *str <= '9')
 		res = (res * 10) + (*str++ - '0');
-	res *= sign;
-	if (res >= 0)
-		*state = true;
-	return ((uint64_t)res);
+	return (res * sign);
+}
+
+bool	print_error(char *str)
+{
+	printf("\033[31mError\033[0m\n");
+	printf("\033[36m%s\033[0m\n", str);
+	return (false);
 }
 
 bool	all_free(t_philo **philo, t_info **info)
@@ -61,10 +63,7 @@ bool	all_free(t_philo **philo, t_info **info)
 	error = (*info)->error;
 	i = -1;
 	while (++i < (*info)->num_philo)
-	{
 		pthread_mutex_destroy(&(*info)->fork[i].mutex);
-		pthread_mutex_destroy(&(*info)->fork[i].eat);
-	}
 	pthread_mutex_destroy(&(*info)->print);
 	pthread_mutex_destroy(&(*info)->start);
 	free((*info)->fork);
