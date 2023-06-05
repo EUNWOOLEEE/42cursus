@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:46:34 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/05 08:06:27 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/05 18:39:23 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ void	init_philo(t_philo *philo, t_info *info)
 {
 	int	i;
 
-	i = 0;
-	while (i < info->num_philo)
+	i = -1;
+	while (++i < info->num_philo)
 	{
 		philo[i].id_philo = i;
 		philo[i].info = info;
@@ -114,6 +114,5 @@ void	init_philo(t_philo *philo, t_info *info)
 			philo[i].first = (i + 1) % info->num_philo;
 			philo[i].second = i;
 		}
-		i++;
 	}
 }

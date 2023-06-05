@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:29:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/05 08:44:41 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/05 19:10:56 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,18 +76,16 @@ t_philo		*init(int argc, char **argv);
 bool		init_info(int argc, char **argv, t_info *info);
 bool		init_mutex(t_info *info);
 void		init_philo(t_philo *philo, t_info *info);
-bool		start(t_philo *philo, t_info *info);
+void		start(t_philo *philo, t_info *info);
 void		*routine(void *arg);
-void		check_end_main(t_info *info);
-void		check_end_philo(t_philo *philo, t_info *info);
+void		check_end(t_philo *philo, t_info *info);
 bool		take_fork(t_philo *philo, t_info *info);;
 bool		eating(t_philo *philo, t_info *info);
 bool		sleeping(t_philo *philo, t_info *info);
 bool		thinking(t_philo *philo, t_info *info);
 uint64_t	get_time();
-bool		pass_time(t_philo *philo, t_info *info, uint64_t time);
+bool		pass_time(t_info *info, uint64_t time);
 bool		print_error(char *str);
-bool		print_state(t_philo *philo, t_info *info, char *str);
 void		*ft_calloc(size_t count, size_t size);
 int			ft_atoi(char *str);
 bool		all_free(t_philo **philo, t_info **info);

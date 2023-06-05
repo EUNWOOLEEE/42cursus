@@ -6,14 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:13:24 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/05 08:44:34 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/05 19:03:36 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/philo.h"
 
 uint64_t	get_time();
-bool		pass_time(t_philo *philo, t_info *info, uint64_t time);
+bool		pass_time(t_info *info, uint64_t time);
 
 uint64_t	get_time()
 {
@@ -23,15 +23,14 @@ uint64_t	get_time()
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 
-bool	pass_time(t_philo *philo, t_info *info, uint64_t time)
+bool	pass_time(t_info *info, uint64_t time)
 {
 	uint64_t	start;
 
 	start = get_time();
-	while (get_time() - start < time && info->end == false)
+	while (get_time() - start < time)
 	{
 		usleep(10);
-		check_end_philo(philo, info);
 		if (info->end == true)
 			return (false);
 	}
