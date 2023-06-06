@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:23:54 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/06 14:01:48 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/06 17:34:14 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,16 +86,11 @@ void	check_end(t_philo *philo, t_info *info)
 		i = -1;
 		while (++i < info->num_philo)
 		{
-			// printf("before %llu\n", get_time() - philo[i].time_last_eat);
 			if (get_time() - philo[i].time_last_eat >= (uint64_t)info->time_to_die)
 			{
 				pthread_mutex_lock(&info->print);
-				if (get_time() - philo[i].time_last_eat < (uint64_t)info->time_to_die)
-					continue ;
-				// printf("after %llu\n", get_time() - philo[i].time_last_eat);
 				info->end = true;
 				printf(DIE, get_time() - info->time_start, philo[i].id_philo + 1);
-				pthread_mutex_unlock(&info->print);
 				return ;
 			}
 		}

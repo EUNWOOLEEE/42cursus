@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:29:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/06 14:58:08 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/06 17:19:44 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ bool	take_fork(t_philo *philo, t_info *info)
 {
 	pthread_mutex_lock(&info->fork[philo->first].mutex);
 	info->fork[philo->first].state = USING;
-	printf("a %d\n", philo->id_philo+1);
 	pthread_mutex_lock(&info->print);
-	printf("a m %d\n", philo->id_philo+1);
 	if (info->end == true)
 	{
 		pthread_mutex_unlock(&info->fork[philo->first].mutex);
@@ -34,9 +32,7 @@ bool	take_fork(t_philo *philo, t_info *info)
 	pthread_mutex_unlock(&info->print);
 	pthread_mutex_lock(&info->fork[philo->second].mutex);
 	info->fork[philo->second].state = USING;
-	printf("b %d\n", philo->id_philo+1);
 	pthread_mutex_lock(&info->print);
-	printf("b m %d\n", philo->id_philo+1);
 	if (info->end == true)
 	{
 		pthread_mutex_unlock(&info->fork[philo->first].mutex);
@@ -72,9 +68,7 @@ bool	eating(t_philo *philo, t_info *info)
 
 bool	sleeping(t_philo *philo, t_info *info)
 {
-	printf("d %d\n", philo->id_philo+1);
 	pthread_mutex_lock(&info->print);
-	printf("d m %d\n", philo->id_philo+1);
 	if (info->end == true)
 	{
 		pthread_mutex_unlock(&info->print);
@@ -90,9 +84,7 @@ bool	sleeping(t_philo *philo, t_info *info)
 
 bool	thinking(t_philo *philo, t_info *info)
 {
-	printf("e %d\n", philo->id_philo+1);
 	pthread_mutex_lock(&info->print);
-	printf("e m %d\n", philo->id_philo+1);
 	if (info->end == true)
 	{
 		pthread_mutex_unlock(&info->print);

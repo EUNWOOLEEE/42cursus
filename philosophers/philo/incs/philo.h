@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:29:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/06 13:11:03 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/06 17:25:35 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_fork
 {
 	bool			state;
 	pthread_mutex_t	mutex;
+	pthread_mutex_t	check;
 }t_fork;
 
 typedef struct s_info
