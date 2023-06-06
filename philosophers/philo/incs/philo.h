@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:29:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/05 19:10:56 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/06 13:11:03 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ bool		eating(t_philo *philo, t_info *info);
 bool		sleeping(t_philo *philo, t_info *info);
 bool		thinking(t_philo *philo, t_info *info);
 uint64_t	get_time();
-bool		pass_time(t_info *info, uint64_t time);
+void		pass_time(t_info *info, uint64_t time);
 bool		print_error(char *str);
 void		*ft_calloc(size_t count, size_t size);
 int			ft_atoi(char *str);

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:23:54 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/05 20:13:47 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/06 14:01:48 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	*routine(void *arg)
 			|| sleeping(philo, info) == false \
 			|| thinking(philo, info) == false)
 			break ;
+		// printf("%d\n", philo->id_philo+1);
 	}
 	return (0);
 }
@@ -89,7 +90,8 @@ void	check_end(t_philo *philo, t_info *info)
 			if (get_time() - philo[i].time_last_eat >= (uint64_t)info->time_to_die)
 			{
 				pthread_mutex_lock(&info->print);
-
+				if (get_time() - philo[i].time_last_eat < (uint64_t)info->time_to_die)
+					continue ;
 				// printf("after %llu\n", get_time() - philo[i].time_last_eat);
 				info->end = true;
 				printf(DIE, get_time() - info->time_start, philo[i].id_philo + 1);
@@ -99,6 +101,5 @@ void	check_end(t_philo *philo, t_info *info)
 		}
 		if (info->eat_cnt == info->num_philo)
 			info->end = true;
-		usleep(info->num_philo * 20);
 	}
 }
