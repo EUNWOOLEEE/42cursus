@@ -6,13 +6,13 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:13:41 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/06 17:35:28 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/06 17:35:54 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/philo.h"
 
-//메인스레드가 모니터링
+//스레드가 각자 모니터링
 
 int	main(int argc, char **argv)
 {
