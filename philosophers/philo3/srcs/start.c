@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:23:54 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/08 07:54:40 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/08 07:36:07 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ void	*routine(void *arg)
 	pthread_mutex_lock(&info->start);
 	pthread_mutex_unlock(&info->start);
 	if (philo->id_philo % 2)
-		pass_time(philo, info, info->time_to_eat);
-	if (info->num_philo > 1 && info->num_philo % 2
+		pass_time(philo, info, info->time_to_eat + get_time());
+	if (info->num_philo % 2
 		&& philo->id_philo == info->num_philo - 1)
-		pass_time(philo, info, info->time_to_eat * 2);
+		pass_time(philo, info, info->time_to_eat * 2 + get_time());
 	while (true)
 	{
 		if (take_fork(philo, info) == false \

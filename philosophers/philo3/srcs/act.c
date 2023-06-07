@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:29:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/08 08:15:41 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/08 07:38:57 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,6 @@ bool	take_fork(t_philo *philo, t_info *info)
 	}
 	printf(FORK, get_time() - info->time_start, philo->id_philo + 1);
 	pthread_mutex_unlock(&info->print);
-	if (info->num_philo == 1)
-	{
-		pass_time(philo, info, info->time_to_die);
-		return (false);
-	}
 	pthread_mutex_lock(&info->fork[philo->second].mutex);
 	info->fork[philo->second].state = USING;
 	pthread_mutex_lock(&info->print);
@@ -59,7 +54,7 @@ bool	eating(t_philo *philo, t_info *info)
 	if (philo->eat_cnt == info->num_must_eat)
 		info->eat_cnt++;
 	pthread_mutex_unlock(&info->print);
-	pass_time(philo, info, info->time_to_eat);
+	pass_time(philo, info, info->time_to_eat + get_time());
 	if (info->end == true)
 	{
 		pthread_mutex_unlock(&info->fork[philo->first].mutex);
@@ -84,7 +79,7 @@ bool	sleeping(t_philo *philo, t_info *info)
 	}
 	printf(SLEEP, get_time() - info->time_start, philo->id_philo + 1);
 	pthread_mutex_unlock(&info->print);
-	pass_time(philo, info, info->time_to_sleep);
+	pass_time(philo, info, info->time_to_sleep + get_time());
 	if (info->end == true)
 		return (false);
 	return (true);
@@ -103,7 +98,7 @@ bool	thinking(t_philo *philo, t_info *info)
 	pthread_mutex_unlock(&info->print);
 	if (info->scheduling == true)
 	{
-		pass_time(philo, info, info->time_to_eat * 2 - info->time_to_sleep);
+		pass_time(philo, info, info->time_to_eat * 2 - info->time_to_sleep + get_time());
 		if (info->end == true)
 			return (false);
 	}

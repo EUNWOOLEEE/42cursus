@@ -1,36 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/25 13:13:41 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/08 07:51:59 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/05/25 17:13:24 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/06/08 07:49:02 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/philo.h"
 
-//스레드가 각자 모니터링
+uint64_t	get_time();
+void	pass_time(t_philo *philo, t_info *info, uint64_t time);
 
-int	main(int argc, char **argv)
+uint64_t	get_time()
 {
-	t_philo	*philo;
+	struct timeval	tv;
 
-	if (argc != 5 && argc != 6)
-		return (print_error(USAGE));
-	philo = init(argc, argv);
-	if (!philo)
-		return (1);
-	start(philo, philo->info);
-	return (all_free(&philo, &philo->info));
+	gettimeofday(&tv, NULL);
+	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 
-// 5 800 200 200 (계속) o
-// 5 410 200 200 (죽음) o
-// 200 410 200 200 x
-// 200 800 200 200 x
-// 199 610 200 200 x
-// 시간이 0일 때 o
-// 1명일 때
+void	pass_time(t_philo *philo, t_info *info, uint64_t time)
+{
+	while (time > get_time() && info->end == false)
+		check_end_philo(philo, info);
+}
