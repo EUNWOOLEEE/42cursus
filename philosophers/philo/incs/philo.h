@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:29:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/08 08:14:52 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/08 14:10:00 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ typedef struct s_fork
 {
 	bool			state;
 	pthread_mutex_t	mutex;
-	pthread_mutex_t	check;
 }t_fork;
 
 typedef struct s_info
@@ -87,7 +86,7 @@ bool		sleeping(t_philo *philo, t_info *info);
 bool		thinking(t_philo *philo, t_info *info);
 uint64_t	get_time();
 void		pass_time(t_philo *philo, t_info *info, uint64_t time);
-bool		ft_mutex_unlock(pthread_mutex_t a, pthread_mutex_t b, pthread_mutex_t c, int num);
+bool		ft_mutex_unlock(pthread_mutex_t *a, pthread_mutex_t *b, pthread_mutex_t *c, int num);
 bool		print_error(char *str);
 void		*ft_calloc(size_t count, size_t size);
 int			ft_atoi(char *str);

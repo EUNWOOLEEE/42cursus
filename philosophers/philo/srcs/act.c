@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:29:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/08 08:17:39 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/08 15:02:11 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,14 @@ bool	take_fork(t_philo *philo, t_info *info)
 	pthread_mutex_lock(&info->print);
 	check_end_philo(philo, info);
 	if (info->end == true)
-	{
-		pthread_mutex_unlock(&info->print);
-		pthread_mutex_unlock(&info->fork[philo->first].mutex);
-		return (false);
-	}
+		return (ft_mutex_unlock(&info->print, \
+			&info->fork[philo->first].mutex, NULL, 2));
 	printf(FORK, get_time() - info->time_start, philo->id_philo + 1);
 	pthread_mutex_unlock(&info->print);
 	if (info->num_philo == 1)
 	{
 		pass_time(philo, info, info->time_to_die);
+		pthread_mutex_unlock(&info->fork[philo->first].mutex);
 		return (false);
 	}
 	pthread_mutex_lock(&info->fork[philo->second].mutex);
@@ -41,12 +39,8 @@ bool	take_fork(t_philo *philo, t_info *info)
 	pthread_mutex_lock(&info->print);
 	check_end_philo(philo, info);
 	if (info->end == true)
-	{
-		pthread_mutex_unlock(&info->print);
-		pthread_mutex_unlock(&info->fork[philo->first].mutex);
-		pthread_mutex_unlock(&info->fork[philo->second].mutex);
-		return (false);
-	}
+		return (ft_mutex_unlock(&info->print, &info->fork[philo->first].mutex, \
+			&info->fork[philo->second].mutex, 3));
 	printf(FORK, get_time() - info->time_start, philo->id_philo + 1);
 	return (true);
 }
@@ -61,11 +55,8 @@ bool	eating(t_philo *philo, t_info *info)
 	pthread_mutex_unlock(&info->print);
 	pass_time(philo, info, info->time_to_eat);
 	if (info->end == true)
-	{
-		pthread_mutex_unlock(&info->fork[philo->first].mutex);
-		pthread_mutex_unlock(&info->fork[philo->second].mutex);
-		return (false);
-	}
+		return (ft_mutex_unlock(&info->fork[philo->first].mutex, \
+			&info->fork[philo->second].mutex, NULL, 2));
 	info->fork[philo->first].state = NOT_USING;
 	pthread_mutex_unlock(&info->fork[philo->first].mutex);
 	info->fork[philo->second].state = NOT_USING;
@@ -78,10 +69,7 @@ bool	sleeping(t_philo *philo, t_info *info)
 	pthread_mutex_lock(&info->print);
 	check_end_philo(philo, info);
 	if (info->end == true)
-	{
-		pthread_mutex_unlock(&info->print);
-		return (false);
-	}
+		return (ft_mutex_unlock(&info->print, NULL, NULL, 1));
 	printf(SLEEP, get_time() - info->time_start, philo->id_philo + 1);
 	pthread_mutex_unlock(&info->print);
 	pass_time(philo, info, info->time_to_sleep);
@@ -95,10 +83,7 @@ bool	thinking(t_philo *philo, t_info *info)
 	pthread_mutex_lock(&info->print);
 	check_end_philo(philo, info);
 	if (info->end == true)
-	{
-		pthread_mutex_unlock(&info->print);
-		return (false);
-	}
+		return (ft_mutex_unlock(&info->print, NULL, NULL, 1));
 	printf(THINK, get_time() - info->time_start, philo->id_philo + 1);
 	pthread_mutex_unlock(&info->print);
 	if (info->scheduling == true)
