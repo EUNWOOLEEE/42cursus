@@ -6,13 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:29:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/08 14:10:00 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/08 15:42:37 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
+# include "./color.h"
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -32,11 +33,17 @@
 # define MUTEX "Mutex init failure"
 # define TIME "Time must be at least 0"
 # define NUM "Number must be at least 1"
-# define FORK "%llu %d has taken a fork\n"
-# define EAT "%llu %d is eating\n"
-# define SLEEP "%llu %d is sleeping\n"
-# define THINK "%llu %d is thinking\n"
-# define DIE "%llu %d died\n"
+// # define FORK "\033[38;2;179;200;144m%llu %d has taken a fork\n\033[0m"
+// # define EAT "\033[38;2;255;170;201m%llu %d is eating\n\033[0m"
+// # define SLEEP "\033[38;2;255;231;155m%llu %d is sleeping\n\033[0m"
+// # define THINK "\033[38;2;115;187;201m%llu %d is thinking\n\033[0m"
+// # define DIE "\033[38;2;228;165;255m%llu %d died\n\033[0m"
+
+# define FORK "%s%llu %d has taken a fork\n%s"
+# define EAT "%s%llu %d is eating\n%s"
+# define SLEEP "%s%llu %d is sleeping\n%s"
+# define THINK "%s%llu %d is thinking\n%s"
+# define DIE "%s%llu %d died\n%s"
 
 typedef struct s_fork
 {

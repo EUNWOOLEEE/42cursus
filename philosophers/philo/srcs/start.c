@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:23:54 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/08 07:54:40 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/08 15:44:32 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	check_end_philo(t_philo *philo, t_info *info)
 			return ;
 		}
 		info->end = true;
-		printf(DIE, get_time() - info->time_start, philo->id_philo + 1);
+		printf(DIE, PURPLE, get_time() - info->time_start, philo->id_philo + 1, RESET);
 		pthread_mutex_unlock(&info->print);
 	}
 }
