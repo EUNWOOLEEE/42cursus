@@ -4,7 +4,8 @@ INCS_DIR = incs
 SRCS_DIR = srcs
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -pthread
+# CFLAGS = -Wall -Wextra -Werror -pthread -fsanitize=thread -g
 
 RM = rm -rf
 MAKE = make

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:15:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/05 08:24:51 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/08 08:07:03 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	*ft_calloc(size_t count, size_t size);
 int		ft_atoi(char *str);
+bool	ft_mutex_unlock(pthread_mutex_t a, pthread_mutex_t b, pthread_mutex_t c, int num);
 bool	print_error(char *str);
 bool	all_free(t_philo **philo, t_info **info);
 
@@ -46,6 +47,19 @@ int	ft_atoi(char *str)
 	while (*str >= '0' && *str <= '9')
 		res = (res * 10) + (*str++ - '0');
 	return (res * sign);
+}
+
+bool	ft_mutex_unlock(pthread_mutex_t a, pthread_mutex_t b, pthread_mutex_t c, int num)
+{
+	if (num < 1 || 3 < num)
+		return (false);
+	if (num >= 1)
+		pthread_mutex_unlock(&a);
+	if (num >= 2)
+		pthread_mutex_unlock(&b);
+	if (num == 3)
+		pthread_mutex_unlock(&c);
+	return (false);
 }
 
 bool	print_error(char *str)
