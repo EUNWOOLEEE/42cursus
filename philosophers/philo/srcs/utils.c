@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:15:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/09 09:01:53 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/09 15:20:24 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ bool	all_free(t_philo **philo, t_info **info)
 	pthread_mutex_destroy(&(*info)->start);
 	pthread_mutex_destroy(&(*info)->print);
 	pthread_mutex_destroy(&(*info)->check_eat);
+	pthread_mutex_destroy(&(*info)->check_end);
 	free((*info)->fork);
 	free(*info);
 	free(*philo);

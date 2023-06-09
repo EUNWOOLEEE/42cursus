@@ -6,16 +6,16 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:29:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/09 07:53:00 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/09 15:04:02 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-# include "./msg.h"
 # include "./color.h"
 # include "./struct.h"
+# include "./message.h"
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
