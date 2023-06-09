@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msg.h                                              :+:      :+:    :+:   */
+/*   message.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 06:33:04 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/09 08:47:10 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/09 15:48:11 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MSG_H
-# define MSG_H
+#ifndef MESSAGE_H
+# define MESSAGE_H
 
 # define NOT_USING 0
 # define USING 1
@@ -22,7 +22,7 @@
 # define MALLOC "Malloc failure"
 # define MUTEX "Mutex init failure"
 # define TIME "Time must be at least 0"
-# define NUM "Number must be at least 1"
+# define NUMBER "Number must be at least 1"
 
 // # define FORK "%s%llu %d has taken a fork%s\n"
 // # define EAT "%s%llu %d is eating%s\n"

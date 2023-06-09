@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 06:35:38 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/09 09:07:51 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/09 15:41:14 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ typedef struct s_info
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				num_must_eat;
+	int				time_to_think;
 	uint64_t		time_start;
 	t_fork			*fork;
 	pthread_mutex_t	start;
 	pthread_mutex_t	print;
 	pthread_mutex_t	check_eat;
 	pthread_mutex_t	check_end;
-	bool			scheduling;
 	bool			end;
 	bool			error;
 	int				eat_cnt;
