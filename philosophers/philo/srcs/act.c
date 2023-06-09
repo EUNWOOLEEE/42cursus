@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:29:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/09 08:48:42 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/09 09:02:19 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,11 @@ bool	eating(t_philo *philo, t_info *info)
 	philo->time_last_eat = get_time();
 	// printf(EAT, PINK, get_time() - info->time_start, philo->id_philo + 1, RESET);
 	printf(EAT, get_time() - info->time_start, philo->id_philo + 1);
+	pthread_mutex_lock(&info->check_eat);
 	philo->eat_cnt++;
 	if (philo->eat_cnt == info->num_must_eat)
 		info->eat_cnt++;
+	pthread_mutex_unlock(&info->check_eat);
 	pthread_mutex_unlock(&info->print);
 	if (pass_time(philo, info, info->time_to_eat) == false)
 		return (ft_mutex_unlock(&info->fork[philo->first].mutex, \

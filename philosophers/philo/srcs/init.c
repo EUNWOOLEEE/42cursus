@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:46:34 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/08 07:01:22 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/09 09:00:58 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ bool	init_mutex(t_info *info)
 	int	i;
 
 	if (pthread_mutex_init(&info->start, NULL)
-		|| pthread_mutex_init(&info->print, NULL))
+		|| pthread_mutex_init(&info->print, NULL)
+		|| pthread_mutex_init(&info->check_eat, NULL))
 		return (print_error(MUTEX));
 	info->fork = (t_fork *)ft_calloc(info->num_philo, sizeof(t_fork));
 	if (!info->fork)

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 06:35:38 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/09 06:43:25 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/09 09:00:36 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_info
 	t_fork			*fork;
 	pthread_mutex_t	start;
 	pthread_mutex_t	print;
-	pthread_mutex_t	check;
+	pthread_mutex_t	check_eat;
 	bool			scheduling;
 	bool			end;
 	bool			error;

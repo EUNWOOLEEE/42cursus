@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 08:43:07 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/09 08:47:43 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/09 09:04:00 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,12 @@ bool	check_end_philo(t_philo *philo, t_info *info, bool print);
 void	check_end_main(t_info *info)
 {
 	while (info->end == false)
+	{
+		pthread_mutex_lock(&info->check_eat);
 		if (info->eat_cnt == info->num_philo)
 			info->end = true;
+		pthread_mutex_unlock(&info->check_eat);
+	}
 }
 
 bool	check_end_philo(t_philo *philo, t_info *info, bool print)
