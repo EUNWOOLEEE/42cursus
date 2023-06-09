@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:29:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/09 16:16:57 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/09 17:28:39 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,7 @@ bool	thinking(t_philo *philo, t_info *info)
 	// printf(THINK, PEACOCK, get_time() - info->time_start, philo->id_philo + 1, RESET);
 	printf(THINK, get_time() - info->time_start, philo->id_philo + 1);
 	pthread_mutex_unlock(&info->print);
-	if (info->time_to_think)
-		if (pass_time(philo, info, info->time_to_think) == false)
-			return (false);
+	if (pass_time(philo, info, info->time_to_think) == false)
+		return (false);
 	return (true);
 }
