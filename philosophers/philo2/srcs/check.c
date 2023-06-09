@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 08:43:07 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/09 09:13:32 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/09 15:16:08 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ bool	check_end_philo(t_philo *philo, t_info *info, bool print)
 {
 	pthread_mutex_lock(&info->check_end);
 	if (info->end == true)
+	{
+		pthread_mutex_unlock(&info->check_end);
 		return (false);
+	}
 	if (get_time() - philo->time_last_eat >= (uint64_t)info->time_to_die)
 	{
 		if (print == false)
