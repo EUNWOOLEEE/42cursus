@@ -6,16 +6,16 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:46:34 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/09 09:08:17 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/09 15:52:35 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/philo.h"
 
-t_philo	*init(int argc, char **argv);
-bool	init_info(int argc, char **argv, t_info *info);
-bool	init_mutex(t_info *info);
-void	init_philo(t_philo *philo, t_info *info);
+t_philo		*init(int argc, char **argv);
+static bool	init_info(int argc, char **argv, t_info *info);
+static bool	init_mutex(t_info *info);
+static void	init_philo(t_philo *philo, t_info *info);
 
 t_philo	*init(int argc, char **argv)
 {
@@ -23,7 +23,6 @@ t_philo	*init(int argc, char **argv)
 	t_philo	*philo;
 
 	info = (t_info *)ft_calloc(1, sizeof(t_info));
-	memset(info, 0, sizeof(t_info));
 	if (!info)
 	{
 		print_error(MALLOC);
@@ -32,10 +31,9 @@ t_philo	*init(int argc, char **argv)
 	if (init_info(argc, argv, info) == false || init_mutex(info) == false)
 	{
 		free(info);
-		return (false);
+		return (NULL);
 	}
 	philo = (t_philo *)ft_calloc(info->num_philo, sizeof(t_philo));
-	memset(philo, 0, sizeof(t_philo) * info->num_philo);
 	if (!philo)
 	{
 		free(info->fork);
@@ -47,11 +45,11 @@ t_philo	*init(int argc, char **argv)
 	return (philo);
 }
 
-bool	init_info(int argc, char **argv, t_info *info)
+static bool	init_info(int argc, char **argv, t_info *info)
 {
 	info->num_philo = ft_atoi(argv[1]);
 	if (info->num_philo <= 0)
-		return (print_error(NUM));
+		return (print_error(NUMBER));
 	info->time_to_die = ft_atoi(argv[2]);
 	info->time_to_eat = ft_atoi(argv[3]);
 	info->time_to_sleep = ft_atoi(argv[4]);
@@ -63,17 +61,17 @@ bool	init_info(int argc, char **argv, t_info *info)
 	{
 		info->num_must_eat = ft_atoi(argv[5]);
 		if (info->num_must_eat <= 0)
-			return (print_error(NUM));
+			return (print_error(NUMBER));
 	}
 	info->end = false;
 	info->error = false;
 	if (info->num_philo % 2 \
 		&& info->time_to_eat >= info->time_to_sleep)
-		info->scheduling = true;
+		info->time_to_think = info->time_to_eat * 2 - info->time_to_sleep;
 	return (true);
 }
 
-bool	init_mutex(t_info *info)
+static bool	init_mutex(t_info *info)
 {
 	int	i;
 
@@ -97,7 +95,7 @@ bool	init_mutex(t_info *info)
 	return (true);
 }
 
-void	init_philo(t_philo *philo, t_info *info)
+static void	init_philo(t_philo *philo, t_info *info)
 {
 	int	i;
 
