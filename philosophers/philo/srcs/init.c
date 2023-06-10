@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:46:34 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/09 17:29:25 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/10 13:19:20 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,13 @@ static bool	init_info(int argc, char **argv, t_info *info)
 	}
 	info->end = false;
 	info->error = false;
-	if (info->num_philo % 2 \
-		&& info->time_to_eat >= info->time_to_sleep)
-		info->time_to_think = info->time_to_eat * 2 - info->time_to_sleep;
-	else if (!(info->num_philo % 2) \
-		&& info->time_to_eat >= info->time_to_sleep)
-		info->time_to_think = info->time_to_eat - info->time_to_sleep;
+	if (info->time_to_eat >= info->time_to_sleep)
+	{
+		if (info->num_philo % 2)
+			info->time_to_think = info->time_to_eat * 2 - info->time_to_sleep;
+		else
+			info->time_to_think = info->time_to_eat - info->time_to_sleep;
+	}
 	return (true);
 }
 

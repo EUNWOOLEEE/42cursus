@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:29:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/09 15:44:48 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/09 15:56:03 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,6 @@
 # include <sys/time.h>
 
 t_philo		*init(int argc, char **argv);
-bool		init_info(int argc, char **argv, t_info *info);
-bool		init_mutex(t_info *info);
-void		init_philo(t_philo *philo, t_info *info);
 void		start(t_philo *philo, t_info *info);
 void		*routine(void *arg);
 void		check_end_main(t_info *info);
@@ -36,10 +33,10 @@ bool		sleeping(t_philo *philo, t_info *info);
 bool		thinking(t_philo *philo, t_info *info);
 uint64_t	get_time(void);
 bool		pass_time(t_philo *philo, t_info *info, uint64_t time);
-bool		ft_mutex_unlock(t_philo *philo, t_info *info, char *mode);
-bool		print_error(char *str);
 void		*ft_calloc(size_t count, size_t size);
 int			ft_atoi(char *str);
+bool		ft_mutex_unlock(t_philo *philo, t_info *info, char *mode);
+bool		print_error(char *str);
 bool		all_free(t_philo **philo, t_info **info);
 
 #endif
