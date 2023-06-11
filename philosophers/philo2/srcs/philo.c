@@ -1,23 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/12 15:48:24 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/11 16:46:47 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/05/25 13:13:41 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/06/11 19:16:40 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../incs/philo.h"
 
-size_t	ft_strlen(const char *s)
+// void asd()
+// {
+// 	system("leaks philo");
+// }
+
+//philo - 원본
+//philo2 - init 정리하는중
+
+int	main(int argc, char **argv)
 {
-	size_t	len;
+	t_philo	*philo;
 
-	len = 0;
-	while (s[len])
-		len++;
-	return (len);
+	// atexit(asd);
+	
+	if (argc != 5 && argc != 6)
+		return (print_error(USAGE));
+	philo = init(argc, argv);
+	if (!philo)
+		return (1);
+	start(philo, philo->info);
+	return (all_free(&philo, &philo->info));
 }

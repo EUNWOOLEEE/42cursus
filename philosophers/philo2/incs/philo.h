@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:29:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/11 18:19:35 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/09 15:56:03 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,11 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
-# include <signal.h>
 # include <sys/time.h>
-# include <sys/wait.h>
 
 t_philo		*init(int argc, char **argv);
 void		start(t_philo *philo, t_info *info);
-void		routine(t_philo *philo, t_info *info);
+void		*routine(void *arg);
 void		check_end_main(t_info *info);
 bool		check_end_philo(t_philo *philo, t_info *info, bool print);
 bool		take_fork(t_philo *philo, t_info *info);;
@@ -40,9 +38,5 @@ int			ft_atoi(char *str);
 bool		ft_mutex_unlock(t_philo *philo, t_info *info, char *mode);
 bool		print_error(char *str);
 bool		all_free(t_philo **philo, t_info **info);
-
-char		*ft_strjoin(char const *s1, char const *s2);
-size_t		ft_strlen(const char *s);
-
 
 #endif

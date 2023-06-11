@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:46:34 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/11 18:44:22 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/11 19:15:35 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 t_philo		*init(int argc, char **argv);
 static bool	init_info(int argc, char **argv, t_info *info);
-static bool	init_sem(t_info *info);
-static bool	init_fork(t_info *info);
 static void	init_philo(t_philo *philo, t_info *info);
+static bool	init_mutex(t_info *info);
+static bool	init_fork(t_info *info);
 
 t_philo	*init(int argc, char **argv)
 {
@@ -29,21 +29,24 @@ t_philo	*init(int argc, char **argv)
 		print_error(MALLOC);
 		return (NULL);
 	}
-	if (init_info(argc, argv, info) == false \
-		|| init_sem(info) == false || init_fork(info) == false) // sem unlink 수정하기
+	if (init_info(argc, argv, info) == false)
 	{
 		free(info);
 		return (NULL);
 	}
+	init_philo(philo, info);
 	philo = (t_philo *)ft_calloc(info->num_philo, sizeof(t_philo));
 	if (!philo)
 	{
-		free(info->fork);
 		free(info);
 		print_error(MALLOC);
 		return (NULL);
 	}
-	init_philo(philo, info);
+	if (init_mutex(info) == false || init_fork(info) == false)
+	{
+		free(info);
+		return (NULL);
+	}
 	return (philo);
 }
 
@@ -65,8 +68,6 @@ static bool	init_info(int argc, char **argv, t_info *info)
 		if (info->num_must_eat <= 0)
 			return (print_error(NUMBER));
 	}
-	info->end = false;
-	info->error = false;
 	if (info->time_to_eat >= info->time_to_sleep)
 	{
 		if (info->num_philo % 2)
@@ -77,59 +78,57 @@ static bool	init_info(int argc, char **argv, t_info *info)
 	return (true);
 }
 
-static bool	init_sem(t_info *info)
+static bool	init_mutex(t_info *info)
 {
-	info->start = sem_open("start", O_CREAT | O_EXCL, 0644, 1);
-	if (info->start == SEM_FAILED)
-		return (print_error(SEM));
-	info->print = sem_open("print", O_CREAT | O_EXCL, 0644, 1);
-	if (info->print == SEM_FAILED)
+	if (pthread_mutex_init(&info->start, NULL))
+		return (print_error(MUTEX));
+	if (pthread_mutex_init(&info->print, NULL))
 	{
-		sem_unlink("start");
-		return (print_error(SEM));
+		pthread_mutex_destroy(&info->start);
+		return (print_error(MUTEX));
 	}
-	info->check_eat = sem_open("check_eat", O_CREAT | O_EXCL, 0644, 1);
-	if (info->check_eat == SEM_FAILED)
+	if (pthread_mutex_init(&info->check_eat, NULL))
 	{
-		sem_unlink("start");
-		sem_unlink("print");
-		return (print_error(SEM));
+		pthread_mutex_destroy(&info->start);
+		pthread_mutex_destroy(&info->print);
+		return (print_error(MUTEX));
 	}
-	info->check_end = sem_open("check_end", O_CREAT | O_EXCL, 0644, 1);
-	if (info->check_end == SEM_FAILED)
+	if (pthread_mutex_init(&info->check_end, NULL))
 	{
-		sem_unlink("start");
-		sem_unlink("print");
-		sem_unlink("check_end");
-		return (print_error(SEM));
+		pthread_mutex_destroy(&info->start);
+		pthread_mutex_destroy(&info->print);
+		pthread_mutex_destroy(&info->check_eat);
+		return (print_error(MUTEX));
 	}
 	return (true);
 }
 
 static bool	init_fork(t_info *info)
 {
-	int		i;
-	char	num[2];
-
+	int	i;
+	
 	info->fork = (t_fork *)ft_calloc(info->num_philo, sizeof(t_fork));
 	if (!info->fork)
+	{
+		pthread_mutex_destroy(&info->start);
+		pthread_mutex_destroy(&info->print);
+		pthread_mutex_destroy(&info->check_eat);
+		pthread_mutex_destroy(&info->check_end);
 		return (print_error(MALLOC));
+	}
 	i = -1;
 	while (++i < info->num_philo)
 	{
-		num[0] = i + '0';
-		num[1] = '\0';
-		info->fork[i].name = ft_strjoin("fork", num);
-		info->fork[i].sem = sem_open(info->fork[i].name, O_CREAT | O_EXCL, 0644, 1);
-		if (info->fork[i].sem == SEM_FAILED)
+		if (pthread_mutex_init(&info->fork[i].mutex, NULL))
 		{
-			sem_unlink(info->fork[i].name);
-			info->fork[i].sem = sem_open(info->fork[i].name, O_CREAT | O_EXCL, 0644, 1);
-			if (info->fork[i].sem == SEM_FAILED)
-			{
-				free(info->fork);
-				return (print_error(SEM));
-			}
+			while (--i)
+				pthread_mutex_destroy(&info->fork[i].mutex);
+			free(info->fork);
+			pthread_mutex_destroy(&info->start);
+			pthread_mutex_destroy(&info->print);
+			pthread_mutex_destroy(&info->check_eat);
+			pthread_mutex_destroy(&info->check_end);
+			return (print_error(MUTEX));
 		}
 	}
 	return (true);

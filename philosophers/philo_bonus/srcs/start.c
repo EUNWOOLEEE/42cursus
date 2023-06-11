@@ -6,14 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:23:54 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/09 15:53:38 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/11 18:27:34 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/philo.h"
 
 void		start(t_philo *philo, t_info *info);
-void		*routine(void *arg);
+void		routine(t_philo *philo, t_info *info);
 static void	set_start_time(t_philo *philo, t_info *info);
 
 void	start(t_philo *philo, t_info *info)
@@ -22,33 +22,32 @@ void	start(t_philo *philo, t_info *info)
 	int	j;
 
 	i = -1;
-	pthread_mutex_lock(&info->start);
+	sem_wait(&info->start);
 	while (++i < info->num_philo)
 	{
-		if (pthread_create(&philo[i].id_thread, NULL, routine, &philo[i]))
+		philo[i].id_process = fork();
+		if (philo[i].id_process == -1)
 		{
 			info->error = true;
 			info->end = true;
+			print_error(PROCESS); //에러 시 나가는 방법 정리
 			break ;
 		}
+		if (philo[i].id_process == CHILD)
+			routine(&philo[i], info);
 	}
 	set_start_time(philo, info);
-	pthread_mutex_unlock(&info->start);
+	sem_post(&info->start);
 	check_end_main(info);
 	j = -1;
 	while (++j < i)
-		pthread_join(philo[j].id_thread, NULL);
+		waitpid(philo[j].id_process, NULL, 0);
 }
 
-void	*routine(void *arg)
+void	routine(t_philo *philo, t_info *info)
 {
-	t_philo	*philo;
-	t_info	*info;
-
-	philo = (t_philo *)arg;
-	info = philo->info;
-	pthread_mutex_lock(&info->start);
-	pthread_mutex_unlock(&info->start);
+	sem_wait(&info->start);
+	sem_post(&info->start);
 	if (philo->id_philo % 2)
 		pass_time(philo, info, info->time_to_eat);
 	if (info->num_philo > 1 && info->num_philo % 2
@@ -62,7 +61,6 @@ void	*routine(void *arg)
 			|| thinking(philo, info) == false)
 			break ;
 	}
-	return (0);
 }
 
 static void	set_start_time(t_philo *philo, t_info *info)
