@@ -6,16 +6,16 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:46:34 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/11 18:44:22 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/12 08:23:49 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/philo.h"
 
 t_philo		*init(int argc, char **argv);
+void		unlink_sem(void);
 static bool	init_info(int argc, char **argv, t_info *info);
 static bool	init_sem(t_info *info);
-static bool	init_fork(t_info *info);
 static void	init_philo(t_philo *philo, t_info *info);
 
 t_philo	*init(int argc, char **argv)
@@ -29,8 +29,7 @@ t_philo	*init(int argc, char **argv)
 		print_error(MALLOC);
 		return (NULL);
 	}
-	if (init_info(argc, argv, info) == false \
-		|| init_sem(info) == false || init_fork(info) == false) // sem unlink 수정하기
+	if (init_info(argc, argv, info) == false || init_sem(info) == false)
 	{
 		free(info);
 		return (NULL);
@@ -38,13 +37,22 @@ t_philo	*init(int argc, char **argv)
 	philo = (t_philo *)ft_calloc(info->num_philo, sizeof(t_philo));
 	if (!philo)
 	{
-		free(info->fork);
+		unlink_sem();
 		free(info);
 		print_error(MALLOC);
 		return (NULL);
 	}
 	init_philo(philo, info);
 	return (philo);
+}
+
+void	unlink_sem(void)
+{
+	sem_unlink("fork");
+	sem_unlink("start");
+	sem_unlink("print");
+	sem_unlink("check_eat");
+	sem_unlink("check_end");
 }
 
 static bool	init_info(int argc, char **argv, t_info *info)
@@ -65,8 +73,6 @@ static bool	init_info(int argc, char **argv, t_info *info)
 		if (info->num_must_eat <= 0)
 			return (print_error(NUMBER));
 	}
-	info->end = false;
-	info->error = false;
 	if (info->time_to_eat >= info->time_to_sleep)
 	{
 		if (info->num_philo % 2)
@@ -79,58 +85,20 @@ static bool	init_info(int argc, char **argv, t_info *info)
 
 static bool	init_sem(t_info *info)
 {
+	unlink_sem();
+	info->start = sem_open("fork", O_CREAT | O_EXCL, 0644, info->num_philo);
 	info->start = sem_open("start", O_CREAT | O_EXCL, 0644, 1);
-	if (info->start == SEM_FAILED)
-		return (print_error(SEM));
 	info->print = sem_open("print", O_CREAT | O_EXCL, 0644, 1);
-	if (info->print == SEM_FAILED)
-	{
-		sem_unlink("start");
-		return (print_error(SEM));
-	}
-	info->check_eat = sem_open("check_eat", O_CREAT | O_EXCL, 0644, 1);
-	if (info->check_eat == SEM_FAILED)
-	{
-		sem_unlink("start");
-		sem_unlink("print");
-		return (print_error(SEM));
-	}
+	info->check_eat = sem_open("check_eat", O_CREAT | O_EXCL, 0644, info->num_philo);
 	info->check_end = sem_open("check_end", O_CREAT | O_EXCL, 0644, 1);
-	if (info->check_end == SEM_FAILED)
+	if (info->fork == SEM_FAILED \
+		|| info->start == SEM_FAILED \
+		|| info->print == SEM_FAILED \
+		|| info->check_eat == SEM_FAILED \
+		|| info->check_end == SEM_FAILED)
 	{
-		sem_unlink("start");
-		sem_unlink("print");
-		sem_unlink("check_end");
+		unlink_sem();
 		return (print_error(SEM));
-	}
-	return (true);
-}
-
-static bool	init_fork(t_info *info)
-{
-	int		i;
-	char	num[2];
-
-	info->fork = (t_fork *)ft_calloc(info->num_philo, sizeof(t_fork));
-	if (!info->fork)
-		return (print_error(MALLOC));
-	i = -1;
-	while (++i < info->num_philo)
-	{
-		num[0] = i + '0';
-		num[1] = '\0';
-		info->fork[i].name = ft_strjoin("fork", num);
-		info->fork[i].sem = sem_open(info->fork[i].name, O_CREAT | O_EXCL, 0644, 1);
-		if (info->fork[i].sem == SEM_FAILED)
-		{
-			sem_unlink(info->fork[i].name);
-			info->fork[i].sem = sem_open(info->fork[i].name, O_CREAT | O_EXCL, 0644, 1);
-			if (info->fork[i].sem == SEM_FAILED)
-			{
-				free(info->fork);
-				return (print_error(SEM));
-			}
-		}
 	}
 	return (true);
 }
@@ -141,18 +109,5 @@ static void	init_philo(t_philo *philo, t_info *info)
 
 	i = -1;
 	while (++i < info->num_philo)
-	{
 		philo[i].id_philo = i;
-		philo[i].info = info;
-		if (!(i % 2))
-		{
-			philo[i].first = i;
-			philo[i].second = (i + 1) % info->num_philo;
-		}
-		else
-		{
-			philo[i].first = (i + 1) % info->num_philo;
-			philo[i].second = i;
-		}
-	}
 }

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:29:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/11 18:31:24 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/12 08:11:46 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool	thinking(t_philo *philo, t_info *info);
 
 bool	take_fork(t_philo *philo, t_info *info)
 {
-	sem_wait(info->fork[philo->first].sem);
+	sem_wait(info->fork);
 	sem_wait(info->print);
 	if (check_end_philo(philo, info, true) == false)
 		exit(1);
@@ -31,7 +31,7 @@ bool	take_fork(t_philo *philo, t_info *info)
 		pass_time(philo, info, info->time_to_die);
 		exit(1);
 	}
-	sem_wait(info->fork[philo->second].sem);
+	sem_wait(info->fork);
 	sem_wait(info->print);
 	if (check_end_philo(philo, info, true) == false)
 		exit(1);
@@ -48,13 +48,13 @@ bool	eating(t_philo *philo, t_info *info)
 	sem_wait(info->check_eat);
 	philo->eat_cnt++;
 	if (philo->eat_cnt == info->num_must_eat)
-		info->eat_cnt++;
+		sem_post(info->check_eat);
 	sem_post(info->check_eat);
 	sem_post(info->print);
 	if (pass_time(philo, info, info->time_to_eat) == false)
 		exit(1);
-	sem_post(info->fork[philo->first].sem);
-	sem_post(info->fork[philo->second].sem);
+	sem_post(info->fork);
+	sem_post(info->fork);
 	return (true);
 }
 

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:29:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/11 18:19:35 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/12 07:35:56 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <sys/wait.h>
 
 t_philo		*init(int argc, char **argv);
+void		unlink_sem();
 void		start(t_philo *philo, t_info *info);
 void		routine(t_philo *philo, t_info *info);
 void		check_end_main(t_info *info);

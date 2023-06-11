@@ -6,16 +6,16 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:46:34 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/11 18:45:43 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/12 07:25:27 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/philo.h"
 
 t_philo		*init(int argc, char **argv);
+void		destroy_mutex(t_info *info);
 static bool	init_info(int argc, char **argv, t_info *info);
 static bool	init_mutex(t_info *info);
-static bool	init_fork(t_info *info);
 static void	init_philo(t_philo *philo, t_info *info);
 
 t_philo	*init(int argc, char **argv)
@@ -34,25 +34,30 @@ t_philo	*init(int argc, char **argv)
 		free(info);
 		return (NULL);
 	}
-	if (init_fork(info) == false)
-	{
-		pthread_mutex_destroy(&info->start);
-		pthread_mutex_destroy(&info->print);
-		pthread_mutex_destroy(&info->check_eat);
-		pthread_mutex_destroy(&info->check_end);
-		free(info);
-		return (NULL);
-	}
 	philo = (t_philo *)ft_calloc(info->num_philo, sizeof(t_philo));
 	if (!philo)
 	{
-		free(info->fork);
+		destroy_mutex(info);
 		free(info);
 		print_error(MALLOC);
-		return (NULL); //뮤텍스들 파괴
+		return (NULL);
 	}
 	init_philo(philo, info);
 	return (philo);
+}
+
+void	destroy_mutex(t_info *info)
+{
+	int	i;
+
+	pthread_mutex_destroy(&info->start);
+	pthread_mutex_destroy(&info->print);
+	pthread_mutex_destroy(&info->check_eat);
+	pthread_mutex_destroy(&info->check_end);
+	i = -1;
+	while (++i < info->num_philo)
+		pthread_mutex_destroy(&info->fork[i].mutex);
+	free(info->fork);
 }
 
 static bool	init_info(int argc, char **argv, t_info *info)
@@ -73,8 +78,6 @@ static bool	init_info(int argc, char **argv, t_info *info)
 		if (info->num_must_eat <= 0)
 			return (print_error(NUMBER));
 	}
-	info->end = false;
-	info->error = false;
 	if (info->time_to_eat >= info->time_to_sleep)
 	{
 		if (info->num_philo % 2)
@@ -86,31 +89,6 @@ static bool	init_info(int argc, char **argv, t_info *info)
 }
 
 static bool	init_mutex(t_info *info)
-{
-	if (pthread_mutex_init(&info->start, NULL))
-		return (print_error(MUTEX));
-	if (pthread_mutex_init(&info->print, NULL))
-	{
-		pthread_mutex_destroy(&info->start);
-		return (print_error(MUTEX));
-	}
-	if (pthread_mutex_init(&info->check_eat, NULL))
-	{
-		pthread_mutex_destroy(&info->start);
-		pthread_mutex_destroy(&info->print);
-		return (print_error(MUTEX));
-	}
-	if (pthread_mutex_init(&info->check_end, NULL))
-	{
-		pthread_mutex_destroy(&info->start);
-		pthread_mutex_destroy(&info->print);
-		pthread_mutex_destroy(&info->check_eat);
-		return (print_error(MUTEX));
-	}
-	return (true);
-}
-
-static bool	init_fork(t_info *info)
 {
 	int	i;
 	
@@ -127,6 +105,14 @@ static bool	init_fork(t_info *info)
 			free(info->fork);
 			return (print_error(MUTEX));
 		}
+	}
+	if (pthread_mutex_init(&info->start, NULL)
+		|| pthread_mutex_init(&info->print, NULL)
+		|| pthread_mutex_init(&info->check_eat, NULL)
+		|| pthread_mutex_init(&info->check_end, NULL))
+	{
+		destroy_mutex(info);
+		return (print_error(MUTEX));
 	}
 	return (true);
 }

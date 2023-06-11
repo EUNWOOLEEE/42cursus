@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:23:54 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/11 18:27:34 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/12 08:11:14 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	start(t_philo *philo, t_info *info)
 	int	j;
 
 	i = -1;
-	sem_wait(&info->start);
+	sem_wait(info->start);
+	set_start_time(philo, info);
 	while (++i < info->num_philo)
 	{
 		philo[i].id_process = fork();
@@ -30,14 +31,13 @@ void	start(t_philo *philo, t_info *info)
 		{
 			info->error = true;
 			info->end = true;
-			print_error(PROCESS); //에러 시 나가는 방법 정리
+			print_error(PROCESS);
 			break ;
 		}
 		if (philo[i].id_process == CHILD)
 			routine(&philo[i], info);
 	}
-	set_start_time(philo, info);
-	sem_post(&info->start);
+	sem_post(info->start);
 	check_end_main(info);
 	j = -1;
 	while (++j < i)
@@ -46,8 +46,9 @@ void	start(t_philo *philo, t_info *info)
 
 void	routine(t_philo *philo, t_info *info)
 {
-	sem_wait(&info->start);
-	sem_post(&info->start);
+	sem_wait(info->check_eat);
+	sem_wait(info->start);
+	sem_post(info->start);
 	if (philo->id_philo % 2)
 		pass_time(philo, info, info->time_to_eat);
 	if (info->num_philo > 1 && info->num_philo % 2

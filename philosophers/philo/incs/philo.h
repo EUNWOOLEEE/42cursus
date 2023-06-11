@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:29:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/09 15:56:03 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/12 07:19:43 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <sys/time.h>
 
 t_philo		*init(int argc, char **argv);
+void		destroy_mutex(t_info *info);
 void		start(t_philo *philo, t_info *info);
 void		*routine(void *arg);
 void		check_end_main(t_info *info);
