@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:15:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/12 09:24:29 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/16 08:43:57 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,8 @@ bool	print_error(char *str)
 
 bool	all_free(t_philo **philo, t_info **info)
 {
-	int	error;
-
-	error = (*info)->flag_error;
 	destroy_mutex(*info);
 	free(*info);
 	free(*philo);
-	return (error);
+	return ((*info)->flag_error);
 }

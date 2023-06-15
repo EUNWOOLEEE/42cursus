@@ -6,36 +6,29 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 08:43:07 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/15 18:09:26 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/16 08:18:21 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/philo_bonus.h"
 
-void	check_child(t_info *info);
+void	check_end_main(t_info *info);
 bool	check_end_philo(t_info *info, bool print);
 
-void	check_child(t_info *info)
+void	check_end_main(t_info *info)
 {
 	int	i;
 	int	status;
 
 	if (info->flag_error == true)
 		return ;
-	printf("%d\n", waitpid(-1, &status, 0)); //왜 이게 없으면 안되지...
 	while (waitpid(-1, &status, 0) <= 0)
 		continue;
 	i = -1;
-	printf("%d\n", status);
-	if (status == info->num_philo)
-		while (++i < info->num_philo)
-			kill(info->philo.id_process[i], SIGKILL);
-	else
-	{
-		while (++i < info->num_philo)
-			kill(info->philo.id_process[i], SIGKILL);
+	while (++i < info->num_philo)
+		kill(info->philo.id_process[i], SIGKILL);
+	if (status != info->num_philo * 256)
 		kill(info->monitor, SIGKILL);
-	}
 }
 
 bool	check_end_philo(t_info *info, bool print)
@@ -49,6 +42,5 @@ bool	check_end_philo(t_info *info, bool print)
 		// sem_post(info->sem.print);
 		return (false);
 	}
-		// printf("a\n");
 	return (true);
 }

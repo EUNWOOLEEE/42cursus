@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 12:29:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/15 15:26:37 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/16 08:13:07 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_info		*init(int argc, char **argv);
 void		unlink_sem();
 void		start(t_info *info);
 void		routine(t_info *info);
-void		check_child(t_info *info);
+void		check_end_main(t_info *info);
 bool		check_end_philo(t_info *info, bool print);
 bool		take_fork(t_info *info);;
 bool		eating(t_info *info);

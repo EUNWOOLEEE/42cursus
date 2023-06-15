@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:29:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/15 18:00:47 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/16 08:14:57 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ bool	sleeping(t_info *info)
 	printf(SLEEP, get_time() - info->time_start, info->philo.id_philo + 1);
 	sem_post(info->sem.print);
 	if (pass_time(info, info->time_to_sleep) == false)
-		return (false);
+		exit(info->philo.id_philo);
 	return (true);
 }
 
@@ -79,6 +79,6 @@ bool	thinking(t_info *info)
 	sem_post(info->sem.print);
 	if (info->time_to_think)
 		if (pass_time(info, info->time_to_think) == false)
-			return (false);
+			exit(info->philo.id_philo);
 	return (true);
 }

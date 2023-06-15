@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:23:54 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/15 18:00:55 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/16 08:40:38 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	start(t_info *info)
 			continue;
 		info->philo.id_philo = i;
 		info->philo.id_process[i] = fork();
+		printf("i: %d, pid: %d\n", i, info->philo.id_process[i]);
 		if (info->philo.id_process[i] == -1)
 		{
 			info->flag_error = true;
@@ -48,6 +49,7 @@ void	start(t_info *info)
 			continue;
 		info->philo.id_philo = i;
 		info->philo.id_process[i] = fork();
+		printf("i: %d, pid: %d\n", i, info->philo.id_process[i]);
 		if (info->philo.id_process[i] == -1)
 		{
 			info->flag_error = true;
@@ -64,19 +66,23 @@ void	start(t_info *info)
 			kill(info->philo.id_process[j], SIGKILL);
 		kill(info->monitor, SIGKILL);
 	}
-	check_child(info);
+	check_end_main(info);
 }
 
 bool	start_monitoring(t_info *info)
 {
+	int	num;
+
 	info->monitor = fork();
 	if (info->monitor == -1)
 		return (print_error(PROCESS));
 	if (info->monitor == CHILD)
 	{
-		while (info->num_must_eat--)
+		num = info->num_philo;
+		while (num--)
 			sem_wait(info->sem.check_eat);
-		exit(info->num_philo);
+		// exit(info->num_philo);
+		exit(4);
 	}
 	return (true);
 }
@@ -105,6 +111,7 @@ void	routine(t_info *info)
 		sleeping(info);
 		thinking(info);
 	}
+	printf("%d\n", info->philo.id_philo+1);
 }
 
 static void	set_start_time(t_info *info)
