@@ -6,16 +6,16 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:15:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/12 07:31:46 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/15 15:43:48 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/philo.h"
+#include "../incs/philo_bonus.h"
 
 void	*ft_calloc(size_t count, size_t size);
 int		ft_atoi(char *str);
 bool	print_error(char *str);
-bool	all_free(t_philo **philo, t_info **info);
+bool	all_free(t_info **info);
 
 void	*ft_calloc(size_t count, size_t size)
 {
@@ -55,13 +55,12 @@ bool	print_error(char *str)
 	return (false);
 }
 
-bool	all_free(t_philo **philo, t_info **info)
+bool	all_free(t_info **info)
 {
 	int	error;
 
-	error = (*info)->error;
-	unlink_sem(*info);
+	error = (*info)->flag_error;
+	unlink_sem();
 	free(*info);
-	free(*philo);
 	return (error);
 }

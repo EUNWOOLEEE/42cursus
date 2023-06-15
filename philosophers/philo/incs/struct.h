@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 06:35:38 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/09 15:58:57 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/12 09:22:11 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,14 @@ typedef struct s_fork
 	pthread_mutex_t	mutex;
 }t_fork;
 
+typedef struct s_mutex
+{
+	pthread_mutex_t	start;
+	pthread_mutex_t	print;
+	pthread_mutex_t	check_eat;
+	pthread_mutex_t	check_end;
+}t_mutex;
+
 typedef struct s_info
 {
 	int				num_philo;
@@ -33,12 +41,9 @@ typedef struct s_info
 	int				time_to_think;
 	uint64_t		time_start;
 	t_fork			*fork;
-	pthread_mutex_t	start;
-	pthread_mutex_t	print;
-	pthread_mutex_t	check_eat;
-	pthread_mutex_t	check_end;
-	bool			end;
-	bool			error;
+	t_mutex			mutex;
+	bool			flag_end;
+	bool			flag_error;
 	int				eat_cnt;
 }t_info;
 

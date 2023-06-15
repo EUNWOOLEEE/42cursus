@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:46:34 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/12 07:25:27 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/12 09:22:56 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ void	destroy_mutex(t_info *info)
 {
 	int	i;
 
-	pthread_mutex_destroy(&info->start);
-	pthread_mutex_destroy(&info->print);
-	pthread_mutex_destroy(&info->check_eat);
-	pthread_mutex_destroy(&info->check_end);
+	pthread_mutex_destroy(&info->mutex.start);
+	pthread_mutex_destroy(&info->mutex.print);
+	pthread_mutex_destroy(&info->mutex.check_eat);
+	pthread_mutex_destroy(&info->mutex.check_end);
 	i = -1;
 	while (++i < info->num_philo)
 		pthread_mutex_destroy(&info->fork[i].mutex);
@@ -106,10 +106,10 @@ static bool	init_mutex(t_info *info)
 			return (print_error(MUTEX));
 		}
 	}
-	if (pthread_mutex_init(&info->start, NULL)
-		|| pthread_mutex_init(&info->print, NULL)
-		|| pthread_mutex_init(&info->check_eat, NULL)
-		|| pthread_mutex_init(&info->check_end, NULL))
+	if (pthread_mutex_init(&info->mutex.start, NULL)
+		|| pthread_mutex_init(&info->mutex.print, NULL)
+		|| pthread_mutex_init(&info->mutex.check_eat, NULL)
+		|| pthread_mutex_init(&info->mutex.check_end, NULL))
 	{
 		destroy_mutex(info);
 		return (print_error(MUTEX));

@@ -6,11 +6,13 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:13:41 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/12 07:32:33 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/12 08:28:31 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/philo.h"
+
+//mutex 구조체 따로 만들기
 
 // void asd()
 // {

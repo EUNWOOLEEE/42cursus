@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:15:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/12 07:31:16 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/12 09:24:29 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_atoi(char *str)
 bool	ft_mutex_unlock(t_philo *philo, t_info *info, char *mode)
 {
 	if (mode[0] == '1')
-		pthread_mutex_unlock(&info->print);
+		pthread_mutex_unlock(&info->mutex.print);
 	if (mode[1] == '1')
 		pthread_mutex_unlock(&info->fork[philo->first].mutex);
 	if (mode[2] == '1')
@@ -71,7 +71,7 @@ bool	all_free(t_philo **philo, t_info **info)
 {
 	int	error;
 
-	error = (*info)->error;
+	error = (*info)->flag_error;
 	destroy_mutex(*info);
 	free(*info);
 	free(*philo);

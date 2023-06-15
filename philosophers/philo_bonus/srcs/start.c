@@ -6,70 +6,109 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:23:54 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/12 08:11:14 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/15 18:00:55 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/philo.h"
+#include "../incs/philo_bonus.h"
 
-void		start(t_philo *philo, t_info *info);
-void		routine(t_philo *philo, t_info *info);
-static void	set_start_time(t_philo *philo, t_info *info);
+void		start(t_info *info);
+bool		start_monitoring(t_info *info);
+void		routine(t_info *info);
+static void	set_start_time(t_info *info);
 
-void	start(t_philo *philo, t_info *info)
+void	start(t_info *info)
 {
 	int	i;
 	int	j;
 
+	if (start_monitoring(info) == false)
+		return ;
+	set_start_time(info);
 	i = -1;
-	sem_wait(info->start);
-	set_start_time(philo, info);
 	while (++i < info->num_philo)
 	{
-		philo[i].id_process = fork();
-		if (philo[i].id_process == -1)
+		if (i % 2)
+			continue;
+		info->philo.id_philo = i;
+		info->philo.id_process[i] = fork();
+		if (info->philo.id_process[i] == -1)
 		{
-			info->error = true;
-			info->end = true;
+			info->flag_error = true;
 			print_error(PROCESS);
 			break ;
 		}
-		if (philo[i].id_process == CHILD)
-			routine(&philo[i], info);
+		else if (info->philo.id_process[i] == CHILD)
+			routine(info);
 	}
-	sem_post(info->start);
-	check_end_main(info);
-	j = -1;
-	while (++j < i)
-		waitpid(philo[j].id_process, NULL, 0);
-}
-
-void	routine(t_philo *philo, t_info *info)
-{
-	sem_wait(info->check_eat);
-	sem_wait(info->start);
-	sem_post(info->start);
-	if (philo->id_philo % 2)
-		pass_time(philo, info, info->time_to_eat);
-	if (info->num_philo > 1 && info->num_philo % 2
-		&& philo->id_philo == info->num_philo - 1)
-		pass_time(philo, info, info->time_to_eat * 2);
-	while (true)
-	{
-		if (take_fork(philo, info) == false \
-			|| eating(philo, info) == false \
-			|| sleeping(philo, info) == false \
-			|| thinking(philo, info) == false)
-			break ;
-	}
-}
-
-static void	set_start_time(t_philo *philo, t_info *info)
-{
-	int	i;
-
-	info->time_start = get_time();
 	i = -1;
 	while (++i < info->num_philo)
-		philo[i].time_last_eat = info->time_start;
+	{
+		if (!(i % 2))
+			continue;
+		info->philo.id_philo = i;
+		info->philo.id_process[i] = fork();
+		if (info->philo.id_process[i] == -1)
+		{
+			info->flag_error = true;
+			print_error(PROCESS);
+			break ;
+		}
+		else if (info->philo.id_process[i] == CHILD)
+			routine(info);
+	}
+	if (info->flag_error == true)
+	{
+		j = -1;
+		while (++j < i)
+			kill(info->philo.id_process[j], SIGKILL);
+		kill(info->monitor, SIGKILL);
+	}
+	check_child(info);
+}
+
+bool	start_monitoring(t_info *info)
+{
+	info->monitor = fork();
+	if (info->monitor == -1)
+		return (print_error(PROCESS));
+	if (info->monitor == CHILD)
+	{
+		while (info->num_must_eat--)
+			sem_wait(info->sem.check_eat);
+		exit(info->num_philo);
+	}
+	return (true);
+}
+
+void	routine(t_info *info)
+{
+	// int	i;
+
+	// if (info->philo.id_philo == info->num_philo - 1)
+	// {
+	// 	i = info->num_philo;
+	// 	while (i--)
+	// 		sem_post(info->sem.start);
+	// }
+	// else
+	// 	sem_wait(info->sem.start);
+	// if (info->philo.id_philo % 2)
+	// 	pass_time(info, info->time_to_eat);
+	// if (info->num_philo > 1 && info->num_philo % 2
+	// 	&& info->philo.id_philo == info->num_philo - 1)
+	// 	pass_time(info, info->time_to_eat * 2);
+	while (true)
+	{
+		take_fork(info);
+		eating(info);
+		sleeping(info);
+		thinking(info);
+	}
+}
+
+static void	set_start_time(t_info *info)
+{
+	info->time_start = get_time();
+	info->philo.time_last_eat = info->time_start;
 }

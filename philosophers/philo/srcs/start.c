@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:23:54 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/11 18:15:17 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/12 09:23:25 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,19 @@ void	start(t_philo *philo, t_info *info)
 	int	j;
 
 	i = -1;
-	pthread_mutex_lock(&info->start);
+	pthread_mutex_lock(&info->mutex.start);
 	while (++i < info->num_philo)
 	{
 		if (pthread_create(&philo[i].id_thread, NULL, routine, &philo[i]))
 		{
-			info->error = true;
-			info->end = true;
+			info->flag_error = true;
+			info->flag_end = true;
 			print_error(THREAD);
 			break ;
 		}
 	}
 	set_start_time(philo, info);
-	pthread_mutex_unlock(&info->start);
+	pthread_mutex_unlock(&info->mutex.start);
 	check_end_main(info);
 	j = -1;
 	while (++j < i)
@@ -48,8 +48,8 @@ void	*routine(void *arg)
 
 	philo = (t_philo *)arg;
 	info = philo->info;
-	pthread_mutex_lock(&info->start);
-	pthread_mutex_unlock(&info->start);
+	pthread_mutex_lock(&info->mutex.start);
+	pthread_mutex_unlock(&info->mutex.start);
 	if (philo->id_philo % 2)
 		pass_time(philo, info, info->time_to_eat);
 	if (info->num_philo > 1 && info->num_philo % 2

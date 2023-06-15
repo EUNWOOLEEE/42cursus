@@ -6,53 +6,49 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 08:43:07 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/12 07:48:39 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/15 18:09:26 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/philo.h"
+#include "../incs/philo_bonus.h"
 
-void	check_end_main(t_info *info);
-bool	check_end_philo(t_philo *philo, t_info *info, bool print);
+void	check_child(t_info *info);
+bool	check_end_philo(t_info *info, bool print);
 
-void	check_end_main(t_info *info)
+void	check_child(t_info *info)
 {
-	while (true)
+	int	i;
+	int	status;
+
+	if (info->flag_error == true)
+		return ;
+	printf("%d\n", waitpid(-1, &status, 0)); //왜 이게 없으면 안되지...
+	while (waitpid(-1, &status, 0) <= 0)
+		continue;
+	i = -1;
+	printf("%d\n", status);
+	if (status == info->num_philo)
+		while (++i < info->num_philo)
+			kill(info->philo.id_process[i], SIGKILL);
+	else
 	{
-		sem_wait(info->check_eat);
-		sem_wait(info->check_end);
-		if (info->eat_cnt == info->num_philo)
-			info->end = true;
-		if (info->end == true)
-		{
-			sem_post(info->check_end);
-			sem_post(info->check_eat);
-			return ;
-		}
-		sem_post(info->check_end);
-		sem_post(info->check_eat);
+		while (++i < info->num_philo)
+			kill(info->philo.id_process[i], SIGKILL);
+		kill(info->monitor, SIGKILL);
 	}
 }
 
-bool	check_end_philo(t_philo *philo, t_info *info, bool print)
+bool	check_end_philo(t_info *info, bool print)
 {
-	sem_wait(info->check_end);
-	if (info->end == true)
-	{
-		sem_post(info->check_end);
-		return (false);
-	}
-	if (get_time() - philo->time_last_eat >= (uint64_t)info->time_to_die)
+	if (get_time() - info->philo.time_last_eat >= (uint64_t)info->time_to_die)
 	{
 		if (print == false)
-			sem_wait(info->print);
-		info->end = true;
+			sem_wait(info->sem.print);
 		// printf(DIE, PURPLE, get_time() - info->time_start, philo->id_philo + 1, RESET);
-		printf(DIE, get_time() - info->time_start, philo->id_philo + 1);
-		sem_post(info->print);
-		sem_post(info->check_end);
+		printf(DIE, get_time() - info->time_start, info->philo.id_philo + 1);
+		// sem_post(info->sem.print);
 		return (false);
 	}
-	sem_post(info->check_end);
+		// printf("a\n");
 	return (true);
 }

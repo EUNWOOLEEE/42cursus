@@ -6,22 +6,20 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:46:34 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/12 08:23:49 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/15 17:27:44 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/philo.h"
+#include "../incs/philo_bonus.h"
 
-t_philo		*init(int argc, char **argv);
+t_info		*init(int argc, char **argv);
 void		unlink_sem(void);
 static bool	init_info(int argc, char **argv, t_info *info);
 static bool	init_sem(t_info *info);
-static void	init_philo(t_philo *philo, t_info *info);
 
-t_philo	*init(int argc, char **argv)
+t_info	*init(int argc, char **argv)
 {
 	t_info	*info;
-	t_philo	*philo;
 
 	info = (t_info *)ft_calloc(1, sizeof(t_info));
 	if (!info)
@@ -34,16 +32,15 @@ t_philo	*init(int argc, char **argv)
 		free(info);
 		return (NULL);
 	}
-	philo = (t_philo *)ft_calloc(info->num_philo, sizeof(t_philo));
-	if (!philo)
+	info->philo.id_process = (pid_t *)ft_calloc(info->num_philo, sizeof(pid_t));
+	if (!info->philo.id_process)
 	{
 		unlink_sem();
 		free(info);
 		print_error(MALLOC);
 		return (NULL);
 	}
-	init_philo(philo, info);
-	return (philo);
+	return (info);
 }
 
 void	unlink_sem(void)
@@ -52,7 +49,6 @@ void	unlink_sem(void)
 	sem_unlink("start");
 	sem_unlink("print");
 	sem_unlink("check_eat");
-	sem_unlink("check_end");
 }
 
 static bool	init_info(int argc, char **argv, t_info *info)
@@ -86,28 +82,17 @@ static bool	init_info(int argc, char **argv, t_info *info)
 static bool	init_sem(t_info *info)
 {
 	unlink_sem();
-	info->start = sem_open("fork", O_CREAT | O_EXCL, 0644, info->num_philo);
-	info->start = sem_open("start", O_CREAT | O_EXCL, 0644, 1);
-	info->print = sem_open("print", O_CREAT | O_EXCL, 0644, 1);
-	info->check_eat = sem_open("check_eat", O_CREAT | O_EXCL, 0644, info->num_philo);
-	info->check_end = sem_open("check_end", O_CREAT | O_EXCL, 0644, 1);
-	if (info->fork == SEM_FAILED \
-		|| info->start == SEM_FAILED \
-		|| info->print == SEM_FAILED \
-		|| info->check_eat == SEM_FAILED \
-		|| info->check_end == SEM_FAILED)
+	info->sem.fork = sem_open("fork", O_CREAT | O_EXCL, 0644, info->num_philo);
+	info->sem.start = sem_open("start", O_CREAT | O_EXCL, 0644, 0);
+	info->sem.print = sem_open("print", O_CREAT | O_EXCL, 0644, 1);
+	info->sem.check_eat = sem_open("check_eat", O_CREAT | O_EXCL, 0644, 0);
+	if (info->sem.fork == SEM_FAILED \
+		|| info->sem.start == SEM_FAILED \
+		|| info->sem.print == SEM_FAILED \
+		|| info->sem.check_eat == SEM_FAILED)
 	{
 		unlink_sem();
 		return (print_error(SEM));
 	}
 	return (true);
-}
-
-static void	init_philo(t_philo *philo, t_info *info)
-{
-	int	i;
-
-	i = -1;
-	while (++i < info->num_philo)
-		philo[i].id_philo = i;
 }
