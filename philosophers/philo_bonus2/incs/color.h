@@ -1,35 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   color.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/25 13:13:41 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/16 08:45:30 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/06/08 15:36:48 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/06/08 15:49:53 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/philo.h"
+#ifndef COLOR_H
+# define COLOR_H
 
-//mutex 구조체 따로 만들기
+# define RESET "\033[0m"
+# define RED "\033[31m"
+# define BLUE "\033[36m"
+# define GREEN "\033[38;2;179;200;144m"
+# define PINK "\033[38;2;255;170;201m"
+# define YELLOW "\033[38;2;255;231;155m"
+# define PEACOCK "\033[38;2;115;187;201m"
+# define PURPLE "\033[38;2;228;165;255m"
 
-// void asd()
-// {
-// 	system("leaks philo");
-// }
-
-int	main(int argc, char **argv)
-{
-	t_philo	*philo;
-
-	
-	if (argc != 5 && argc != 6)
-		return (print_error(USAGE));
-	philo = init(argc, argv);
-	if (!philo)
-		return (1);
-	start(philo, philo->info);
-	// atexit(asd);
-	return (all_free(&philo, &philo->info));
-}
+#endif
