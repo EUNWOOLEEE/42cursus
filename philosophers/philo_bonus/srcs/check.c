@@ -6,14 +6,32 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 08:43:07 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/16 15:09:53 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/16 18:45:41 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/philo_bonus.h"
 
+bool	check_full(t_info *info);
 void	check_end_main(t_info *info);
 bool	check_end_philo(t_info *info, bool print);
+
+bool	check_full(t_info *info)
+{
+	int	num;
+
+	info->monitor = fork();
+	if (info->monitor == -1)
+		return (print_error(PROCESS));
+	if (info->monitor == CHILD)
+	{
+		num = info->num_philo;
+		while (num--)
+			sem_wait(info->sem.check_eat);
+		exit(info->num_philo);
+	}
+	return (true);
+}
 
 void	check_end_main(t_info *info)
 {
