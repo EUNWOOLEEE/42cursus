@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 08:43:07 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/16 08:18:21 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/16 15:09:53 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,11 @@ void	check_end_main(t_info *info)
 		continue;
 	i = -1;
 	while (++i < info->num_philo)
+	{
+		if (status == i * 256)
+			continue;
 		kill(info->philo.id_process[i], SIGKILL);
+	}
 	if (status != info->num_philo * 256)
 		kill(info->monitor, SIGKILL);
 }

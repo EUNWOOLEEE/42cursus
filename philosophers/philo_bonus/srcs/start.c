@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:23:54 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/16 08:40:38 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/16 16:43:34 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,28 +28,11 @@ void	start(t_info *info)
 	i = -1;
 	while (++i < info->num_philo)
 	{
-		if (i % 2)
-			continue;
+		if (i == info->num_philo / 2)
+			// pass_time(info, info->time_to_eat - (get_time() - info->time_start));
+			pass_time(info, info->time_to_eat / 2);
 		info->philo.id_philo = i;
 		info->philo.id_process[i] = fork();
-		printf("i: %d, pid: %d\n", i, info->philo.id_process[i]);
-		if (info->philo.id_process[i] == -1)
-		{
-			info->flag_error = true;
-			print_error(PROCESS);
-			break ;
-		}
-		else if (info->philo.id_process[i] == CHILD)
-			routine(info);
-	}
-	i = -1;
-	while (++i < info->num_philo)
-	{
-		if (!(i % 2))
-			continue;
-		info->philo.id_philo = i;
-		info->philo.id_process[i] = fork();
-		printf("i: %d, pid: %d\n", i, info->philo.id_process[i]);
 		if (info->philo.id_process[i] == -1)
 		{
 			info->flag_error = true;
@@ -81,29 +64,13 @@ bool	start_monitoring(t_info *info)
 		num = info->num_philo;
 		while (num--)
 			sem_wait(info->sem.check_eat);
-		// exit(info->num_philo);
-		exit(4);
+		exit(info->num_philo);
 	}
 	return (true);
 }
 
 void	routine(t_info *info)
 {
-	// int	i;
-
-	// if (info->philo.id_philo == info->num_philo - 1)
-	// {
-	// 	i = info->num_philo;
-	// 	while (i--)
-	// 		sem_post(info->sem.start);
-	// }
-	// else
-	// 	sem_wait(info->sem.start);
-	// if (info->philo.id_philo % 2)
-	// 	pass_time(info, info->time_to_eat);
-	// if (info->num_philo > 1 && info->num_philo % 2
-	// 	&& info->philo.id_philo == info->num_philo - 1)
-	// 	pass_time(info, info->time_to_eat * 2);
 	while (true)
 	{
 		take_fork(info);
@@ -111,7 +78,6 @@ void	routine(t_info *info)
 		sleeping(info);
 		thinking(info);
 	}
-	printf("%d\n", info->philo.id_philo+1);
 }
 
 static void	set_start_time(t_info *info)
