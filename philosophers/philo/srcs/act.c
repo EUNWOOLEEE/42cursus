@@ -6,16 +6,17 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:29:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/17 16:02:46 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/17 17:07:13 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/philo.h"
 
-bool	take_fork(t_philo *philo, t_info *info);
-bool	eating(t_philo *philo, t_info *info);
-bool	sleeping(t_philo *philo, t_info *info);
-bool	thinking(t_philo *philo, t_info *info);
+bool		take_fork(t_philo *philo, t_info *info);
+bool		eating(t_philo *philo, t_info *info);
+bool		sleeping(t_philo *philo, t_info *info);
+bool		thinking(t_philo *philo, t_info *info);
+static bool	ft_mutex_unlock(t_philo *philo, t_info *info, char *mode);
 
 bool	take_fork(t_philo *philo, t_info *info)
 {
@@ -87,4 +88,15 @@ bool	thinking(t_philo *philo, t_info *info)
 		if (pass_time(philo, info, info->time_to_think) == false)
 			return (false);
 	return (true);
+}
+
+static bool	ft_mutex_unlock(t_philo *philo, t_info *info, char *mode)
+{
+	if (mode[0] == '1')
+		pthread_mutex_unlock(&info->mutex.print);
+	if (mode[1] == '1')
+		pthread_mutex_unlock(&info->fork[philo->first].mutex);
+	if (mode[2] == '1')
+		pthread_mutex_unlock(&info->fork[philo->second].mutex);
+	return (false);
 }

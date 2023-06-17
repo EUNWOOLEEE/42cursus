@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:23:54 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/17 16:10:24 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/17 16:34:01 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	*routine(void *arg)
 			|| thinking(philo, info) == false)
 			break ;
 	}
-	return (0);
+	return (NULL);
 }
 
 static void	set_start_time(t_philo *philo, t_info *info)

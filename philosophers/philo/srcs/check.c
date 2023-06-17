@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 08:43:07 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/17 16:17:18 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/17 16:35:39 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ void	check_end_main(t_info *info)
 		pthread_mutex_lock(&info->mutex.check_eat);
 		pthread_mutex_lock(&info->mutex.check_end);
 		if (info->eat_cnt == info->num_philo)
-		{
 			info->flag_end = true;
+		if (info->flag_end == true)
+		{
 			pthread_mutex_unlock(&info->mutex.check_end);
 			pthread_mutex_unlock(&info->mutex.check_eat);
 			return ;
