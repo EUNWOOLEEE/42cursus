@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:29:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/12 09:20:13 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/17 16:02:46 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ bool	take_fork(t_philo *philo, t_info *info)
 	pthread_mutex_lock(&info->mutex.print);
 	if (check_end_philo(philo, info, true) == false)
 		return (ft_mutex_unlock(philo, info, "110"));
-	// printf(FORK, GREEN, get_time() - info->time_start, philo->id_philo + 1, RESET);
-	printf(FORK, get_time() - info->time_start, philo->id_philo + 1);
+	printf(FORK, GREEN, get_time() - info->time_start, \
+		philo->id_philo + 1, RESET);
 	pthread_mutex_unlock(&info->mutex.print);
 	if (info->num_philo == 1)
 	{
@@ -37,16 +37,16 @@ bool	take_fork(t_philo *philo, t_info *info)
 	pthread_mutex_lock(&info->mutex.print);
 	if (check_end_philo(philo, info, true) == false)
 		return (ft_mutex_unlock(philo, info, "111"));
-	// printf(FORK, GREEN, get_time() - info->time_start, philo->id_philo + 1, RESET);
-	printf(FORK, get_time() - info->time_start, philo->id_philo + 1);
+	printf(FORK, GREEN, get_time() - info->time_start, \
+		philo->id_philo + 1, RESET);
 	return (true);
 }
 
 bool	eating(t_philo *philo, t_info *info)
 {
 	philo->time_last_eat = get_time();
-	// printf(EAT, PINK, get_time() - info->time_start, philo->id_philo + 1, RESET);
-	printf(EAT, get_time() - info->time_start, philo->id_philo + 1);
+	printf(EAT, PINK, get_time() - info->time_start, \
+		philo->id_philo + 1, RESET);
 	pthread_mutex_lock(&info->mutex.check_eat);
 	philo->eat_cnt++;
 	if (philo->eat_cnt == info->num_must_eat)
@@ -67,8 +67,8 @@ bool	sleeping(t_philo *philo, t_info *info)
 	pthread_mutex_lock(&info->mutex.print);
 	if (check_end_philo(philo, info, true) == false)
 		return (ft_mutex_unlock(philo, info, "100"));
-	// printf(SLEEP, YELLOW, get_time() - info->time_start, philo->id_philo + 1, RESET);
-	printf(SLEEP, get_time() - info->time_start, philo->id_philo + 1);
+	printf(SLEEP, YELLOW, get_time() - info->time_start, \
+		philo->id_philo + 1, RESET);
 	pthread_mutex_unlock(&info->mutex.print);
 	if (pass_time(philo, info, info->time_to_sleep) == false)
 		return (false);
@@ -80,8 +80,8 @@ bool	thinking(t_philo *philo, t_info *info)
 	pthread_mutex_lock(&info->mutex.print);
 	if (check_end_philo(philo, info, true) == false)
 		return (ft_mutex_unlock(philo, info, "100"));
-	// printf(THINK, PEACOCK, get_time() - info->time_start, philo->id_philo + 1, RESET);
-	printf(THINK, get_time() - info->time_start, philo->id_philo + 1);
+	printf(THINK, PEACOCK, get_time() - info->time_start, \
+		philo->id_philo + 1, RESET);
 	pthread_mutex_unlock(&info->mutex.print);
 	if (info->time_to_think)
 		if (pass_time(philo, info, info->time_to_think) == false)

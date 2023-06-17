@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:46:34 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/12 09:22:56 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/17 15:08:15 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static bool	init_info(int argc, char **argv, t_info *info)
 static bool	init_mutex(t_info *info)
 {
 	int	i;
-	
+
 	info->fork = (t_fork *)ft_calloc(info->num_philo, sizeof(t_fork));
 	if (!info->fork)
 		return (print_error(MALLOC));
