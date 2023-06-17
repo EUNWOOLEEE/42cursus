@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:15:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/16 08:44:19 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/17 17:27:03 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	*ft_calloc(size_t count, size_t size);
 int		ft_atoi(char *str);
+bool	check_arg(int argc, char **argv);
 bool	print_error(char *str);
 bool	all_free(t_info **info);
 
@@ -46,6 +47,27 @@ int	ft_atoi(char *str)
 	while (*str >= '0' && *str <= '9')
 		res = (res * 10) + (*str++ - '0');
 	return (res * sign);
+}
+
+bool	check_arg(int argc, char **argv)
+{
+	int	i;
+	int	j;
+
+	if (argc != 5 && argc != 6)
+		return (false);
+	i = 0;
+	while (++i < argc)
+	{
+		j = 0;
+		while ((argv[i][j] >= 9 && argv[i][j] <= 13) || argv[i][j] == 32)
+			j++;
+		if (argv[i][j] == '+' || argv[i][j] == '-')
+			j++;
+		if (argv[i][j] < '0' || '9' < argv[i][j])
+			return (false);
+	}
+	return (true);
 }
 
 bool	print_error(char *str)

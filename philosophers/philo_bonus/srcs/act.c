@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:29:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/16 16:27:55 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/17 18:24:30 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ bool	take_fork(t_info *info)
 	sem_wait(info->sem.print);
 	if (check_end_philo(info, true) == false)
 		exit(info->philo.id_philo);
-	// printf(FORK, GREEN, get_time() - info->time_start, info->philo.id_philo + 1, RESET);
-	printf(FORK, get_time() - info->time_start, info->philo.id_philo + 1);
+	printf(FORK, GREEN, get_time() - info->time_start, \
+		info->philo.id_philo + 1, RESET);
 	sem_post(info->sem.print);
 	if (info->num_philo == 1)
 	{
@@ -35,16 +35,16 @@ bool	take_fork(t_info *info)
 	sem_wait(info->sem.print);
 	if (check_end_philo(info, true) == false)
 		exit(info->philo.id_philo);
-	// printf(FORK, GREEN, get_time() - info->time_start, info->philo.id_philo + 1, RESET);
-	printf(FORK, get_time() - info->time_start, info->philo.id_philo + 1);
+	printf(FORK, GREEN, get_time() - info->time_start, \
+		info->philo.id_philo + 1, RESET);
 	return (true);
 }
 
 bool	eating(t_info *info)
 {
 	info->philo.time_last_eat = get_time();
-	// printf(EAT, PINK, get_time() - info->time_start, info->philo.id_philo + 1, RESET);
-	printf(EAT, get_time() - info->time_start, info->philo.id_philo + 1);
+	printf(EAT, PINK, get_time() - info->time_start, \
+		info->philo.id_philo + 1, RESET);
 	info->philo.eat_cnt++;
 	if (info->philo.eat_cnt == info->num_must_eat)
 		sem_post(info->sem.check_eat);
@@ -61,8 +61,8 @@ bool	sleeping(t_info *info)
 	sem_wait(info->sem.print);
 	if (check_end_philo(info, true) == false)
 		exit(info->philo.id_philo);
-	// printf(SLEEP, YELLOW, get_time() - info->time_start, info->philo.id_philo + 1, RESET);
-	printf(SLEEP, get_time() - info->time_start, info->philo.id_philo + 1);
+	printf(SLEEP, YELLOW, get_time() - info->time_start, \
+		info->philo.id_philo + 1, RESET);
 	sem_post(info->sem.print);
 	if (pass_time(info, info->time_to_sleep) == false)
 		exit(info->philo.id_philo);
@@ -74,8 +74,8 @@ bool	thinking(t_info *info)
 	sem_wait(info->sem.print);
 	if (check_end_philo(info, true) == false)
 		exit(info->philo.id_philo);
-	// printf(THINK, PEACOCK, get_time() - info->time_start, info->philo.id_philo + 1, RESET);
-	printf(THINK, get_time() - info->time_start, info->philo.id_philo + 1);
+	printf(THINK, PEACOCK, get_time() - info->time_start, \
+		info->philo.id_philo + 1, RESET);
 	sem_post(info->sem.print);
 	if (info->time_to_think)
 		if (pass_time(info, info->time_to_think) == false)

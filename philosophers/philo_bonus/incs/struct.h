@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 06:35:38 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/16 16:26:29 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/17 20:39:08 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,5 @@ typedef struct s_info
 	t_sem		sem;
 	bool		flag_error;
 }t_info;
-
 
 #endif

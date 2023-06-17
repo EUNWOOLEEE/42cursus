@@ -6,20 +6,20 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:23:54 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/16 18:45:37 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/17 20:47:57 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/philo_bonus.h"
 
 void		start(t_info *info);
-void		routine(t_info *info);
+static void	routine(t_info *info);
 static void	set_start_time(t_info *info);
+static void	kill_process(t_info *info, int i);
 
 void	start(t_info *info)
 {
 	int	i;
-	int	j;
 
 	if (check_full(info) == false)
 		return ;
@@ -27,9 +27,6 @@ void	start(t_info *info)
 	i = -1;
 	while (++i < info->num_philo)
 	{
-		if (i == info->num_philo / 2)
-			// pass_time(info, info->time_to_eat - (get_time() - info->time_start));
-			pass_time(info, info->time_to_eat / 2);
 		info->philo.id_philo = i;
 		info->philo.id_process[i] = fork();
 		if (info->philo.id_process[i] == -1)
@@ -42,16 +39,11 @@ void	start(t_info *info)
 			routine(info);
 	}
 	if (info->flag_error == true)
-	{
-		j = -1;
-		while (++j < i)
-			kill(info->philo.id_process[j], SIGKILL);
-		kill(info->monitor, SIGKILL);
-	}
+		kill_process(info, i);
 	check_end_main(info);
 }
 
-void	routine(t_info *info)
+static void	routine(t_info *info)
 {
 	while (true)
 	{
@@ -66,4 +58,14 @@ static void	set_start_time(t_info *info)
 {
 	info->time_start = get_time();
 	info->philo.time_last_eat = info->time_start;
+}
+
+static void	kill_process(t_info *info, int i)
+{
+	int	j;
+
+	j = -1;
+	while (++j < i)
+		kill(info->philo.id_process[j], SIGKILL);
+	kill(info->monitor, SIGKILL);
 }

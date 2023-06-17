@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 08:43:07 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/16 18:45:41 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/17 20:39:46 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ void	check_end_main(t_info *info)
 	if (info->flag_error == true)
 		return ;
 	while (waitpid(-1, &status, 0) <= 0)
-		continue;
+		continue ;
 	i = -1;
 	while (++i < info->num_philo)
 	{
 		if (status == i * 256)
-			continue;
+			continue ;
 		kill(info->philo.id_process[i], SIGKILL);
 	}
 	if (status != info->num_philo * 256)
@@ -59,9 +59,8 @@ bool	check_end_philo(t_info *info, bool print)
 	{
 		if (print == false)
 			sem_wait(info->sem.print);
-		// printf(DIE, PURPLE, get_time() - info->time_start, philo->id_philo + 1, RESET);
-		printf(DIE, get_time() - info->time_start, info->philo.id_philo + 1);
-		// sem_post(info->sem.print);
+		printf(DIE, PURPLE, get_time() - info->time_start, \
+			info->philo.id_philo + 1, RESET);
 		return (false);
 	}
 	return (true);
