@@ -18,3 +18,4 @@
 |[so_long](https://github.com/EUNWOOLEEE/42cursus/tree/main/so_long)|2|[![eunwolee's 42 so_long Score](https://badge42.vercel.app/api/v2/clb1l2gnk00160fmlwuxxmvs4/project/3032349)](https://github.com/JaeSeoKim/badge42)
 |[pipex](https://github.com/EUNWOOLEEE/42cursus/tree/main/pipex)|2|[![eunwolee's 42 pipex Score](https://badge42.vercel.app/api/v2/clb1l2gnk00160fmlwuxxmvs4/project/3058772)](https://github.com/JaeSeoKim/badge42)
 |[Exam Rank 03](https://github.com/EUNWOOLEEE/42cursus/tree/main/exam/exam03)|3|[![eunwolee's 42 Exam Rank 03 Score](https://badge42.vercel.app/api/v2/clb1l2gnk00160fmlwuxxmvs4/project/3087536)](https://github.com/JaeSeoKim/badge42)
+|[Philosophers](https://github.com/EUNWOOLEEE/42cursus/tree/main/philosophers)|3|[![eunwolee's 42 Philosophers Score](https://badge42.vercel.app/api/v2/clb1l2gnk00160fmlwuxxmvs4/project/3103081)](https://github.com/JaeSeoKim/badge42)
