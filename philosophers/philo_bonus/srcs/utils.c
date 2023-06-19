@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:15:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/06/17 17:27:03 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/06/19 15:53:50 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,11 @@ bool	print_error(char *str)
 
 bool	all_free(t_info **info)
 {
+	int	error;
+
+	error = (*info)->flag_error;
 	unlink_sem();
 	free((*info)->philo.id_process);
 	free(*info);
-	return ((*info)->flag_error);
+	return (error);
 }
