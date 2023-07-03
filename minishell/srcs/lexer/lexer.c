@@ -6,13 +6,13 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 16:24:37 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/03 12:59:17 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/03 14:21:08 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-bool	tokenize(char *input, t_token *token, int *i, t_list**head);
+bool	tokenize(char *input, t_token **token, int *i, t_list**head);
 
 t_token	*new_token()
 {
@@ -29,7 +29,6 @@ bool	add_token_to_list(t_list **head, t_token *token)
 {
 	t_list	*new;
 	
-	// printf("token.str: %s, address: %p\n", token->str, token->str);
 	new = ft_lstnew(token);
 	if (!new)
 		return (false);
@@ -60,7 +59,7 @@ t_list	*lexer(char *input)
 				if (!token)
 					return (NULL);
 			}
-			tokenize(input, token, &i, &head);
+			tokenize(input, &token, &i, &head);
 		}
 		else if (input[i] == ' ')
 		{
@@ -80,37 +79,42 @@ t_list	*lexer(char *input)
 	return (head);
 }
 
-bool	tokenize(char *input, t_token *token, int *i, t_list**head)
+bool	tokenize(char *input, t_token **token, int *i, t_list**head)
 {
 	if (input[*i] == '|')
-		token->type = T_PIPE;
+	{
+		(*token)->type = T_PIPE;
+		(*token)->str = ft_strdup("");
+	}
 	else if (input[*i] == '\"')
 	{
-		if (double_quote(input, token, i) == false)
+		if (double_quote(input, *token, i) == false)
 			return (false);
 	}
 	else if (input[*i] == '\'')
 	{
-		if (single_quote(input, token, i) == false)
+		if (single_quote(input, *token, i) == false)
 			return (false);
 	}
 	else if (input[*i] == '>' || input[*i] == '<')
 	{
-		token->type = T_REDIRECT;
+		(*token)->type = T_REDIRECT;
 		if (input[*i + 1] == input[*i])
 		{
-			token->str = ft_strncat(token->str, &input[*i], 2);
-			i += 1;
+			(*token)->str = ft_strncat((*token)->str, &input[*i], 2);
+			*i += 2;
 		}
 		else
-			ft_strncat(token->str, &input[*i], 1);
+		{
+			(*token)->str = ft_strncat((*token)->str, &input[*i], 1);
+			*i += 1;
+		}
 	}
 	else if (input[*i] == '\0')
-		token->type = T_NULL;
-	printf("%d %s\n", token->type, token->str);
-	add_token_to_list(head, token);
-	token = new_token();
-	if (!token)
+		(*token)->type = T_NULL;
+	add_token_to_list(head, *token);
+	*token = new_token();
+	if (!*token)
 		return (false);
 	return (true);
 }

@@ -1,32 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   hashtable.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/29 11:06:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/03 14:19:28 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/07/03 19:07:28 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/07/03 19:25:05 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/minishell.h"
+#include "../../incs/minishell.h"
 
-int main()
+int	h_key_maker(char *str)
 {
-	t_list	*list;
-	// t_node	*root;
-	char	*input;
-	
-	//loop 시작 후 gnl로 읽고, input을 lexer에 전달해서 parsing
-	input = ft_strdup("cat << end > | grep \"abc\" > test | cat -a -e >> test.txt");
-	list = lexer(input);
+	int	key;
 
-	t_list *tmp = list;
-	while (tmp)
-	{
-		printf("%d, %s\n", tmp->token->type, tmp->token->str);
-		tmp = tmp->next;
-	}
-	return (0);
+	key = 0;
+	while (*str)
+		key += (int)*str;
+	return (key);
+}
+
+t_node	*h_create_node()
+{
+	t_node	*new;
+
+	new = (t_node *)ft_calloc(1, sizeof(t_node));
+	if (!new)
+		return (NULL);
+	return (new);
+}
+
+bool	h_add_hash(t_bucket *table, int key)
+{
+	
 }

@@ -1,32 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/29 11:06:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/03 14:19:28 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/07/03 18:35:07 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/07/03 18:35:35 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/minishell.h"
+#include "../../incs/minishell.h"
 
-int main()
+bool	parser()
 {
-	t_list	*list;
-	// t_node	*root;
-	char	*input;
-	
-	//loop 시작 후 gnl로 읽고, input을 lexer에 전달해서 parsing
-	input = ft_strdup("cat << end > | grep \"abc\" > test | cat -a -e >> test.txt");
-	list = lexer(input);
-
-	t_list *tmp = list;
-	while (tmp)
-	{
-		printf("%d, %s\n", tmp->token->type, tmp->token->str);
-		tmp = tmp->next;
-	}
-	return (0);
+	return (true);
 }

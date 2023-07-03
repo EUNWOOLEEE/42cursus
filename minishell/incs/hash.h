@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   hash.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/29 11:06:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/03 14:19:28 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/07/03 19:07:26 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/07/03 19:25:36 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/minishell.h"
+#ifndef HASH_H
+# define HASH_H
 
-int main()
+typedef struct s_node
 {
-	t_list	*list;
-	// t_node	*root;
-	char	*input;
-	
-	//loop 시작 후 gnl로 읽고, input을 lexer에 전달해서 parsing
-	input = ft_strdup("cat << end > | grep \"abc\" > test | cat -a -e >> test.txt");
-	list = lexer(input);
+	int				key;
+	char			*value;
+	struct s_node	*hash;
+}	t_node;
 
-	t_list *tmp = list;
-	while (tmp)
-	{
-		printf("%d, %s\n", tmp->token->type, tmp->token->str);
-		tmp = tmp->next;
-	}
-	return (0);
-}
+//배열로 만들어서 사용
+typedef struct s_bucket
+{
+	t_node	*root;
+	int		size;
+}	t_bucket;
+
+#endif
