@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 07:46:30 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/03 08:36:42 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/03 12:45:57 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ bool single_quote(char *input, t_token *token, int *i)
 	}
 	if (input[*i] == '\0')
 		exit(1); //error
-	*i -= 1;
 	return (true);
 }
 
@@ -48,6 +47,5 @@ bool double_quote(char *input, t_token *token, int *i)
 	}
 	if (input[*i] == '\0')
 		exit(1); //error
-	*i -= 1;
 	return (true);
 }

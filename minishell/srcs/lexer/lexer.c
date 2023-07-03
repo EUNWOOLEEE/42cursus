@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 16:24:37 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/03 09:01:29 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/03 12:59:17 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ bool	add_token_to_list(t_list **head, t_token *token)
 {
 	t_list	*new;
 	
+	// printf("token.str: %s, address: %p\n", token->str, token->str);
 	new = ft_lstnew(token);
 	if (!new)
 		return (false);
@@ -49,21 +50,21 @@ t_list	*lexer(char *input)
 		return (NULL);
 	while (input[++i])
 	{
-		printf("%d: %s\n", i, &input[i]);
+		// printf("%d, %s\n", i, &input[i]);
 		if (input[i] == '|' || input[i] == '<' || input[i] == '>' || input[i] == '\'' || input[i] == '\"')
 		{
-			if (*(token->str))
+			if (token->str)
 			{
 				add_token_to_list(&head, token); // 함수로 잘 합쳐보기
 				token = new_token();
 				if (!token)
 					return (NULL);
 			}
-			tokenize(&input[i], token, &i, &head);
+			tokenize(input, token, &i, &head);
 		}
 		else if (input[i] == ' ')
 		{
-			if (*(token->str))
+			if (token->str)
 			{
 				add_token_to_list(&head, token);
 				token = new_token();
@@ -104,6 +105,9 @@ bool	tokenize(char *input, t_token *token, int *i, t_list**head)
 		else
 			ft_strncat(token->str, &input[*i], 1);
 	}
+	else if (input[*i] == '\0')
+		token->type = T_NULL;
+	printf("%d %s\n", token->type, token->str);
 	add_token_to_list(head, token);
 	token = new_token();
 	if (!token)

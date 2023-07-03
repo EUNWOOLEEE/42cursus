@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 11:06:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/03 08:44:48 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/03 12:49:01 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int main()
 	char	*input;
 	
 	//loop 시작 후 gnl로 읽고, input을 lexer에 전달해서 parsing
-	input = ft_strdup("grep \"abc\" | cat -e");
+	input = ft_strdup("grep \"abc\" | cat -a -e");
 	list = lexer(input);
 
 	t_list *tmp = list;

@@ -28,7 +28,7 @@ $(NAME): $(L_NAME) $(OBJS)
 	$(CC) $^ -o $@ -I $(INCS_DIR)
 
 $(L_NAME):
-	$(MAKE) -C $(L_DIR)
+	$(MAKE) re -C $(L_DIR)
 	cp ./$(L_DIR)/$(L_NAME) .
 
 clean:
