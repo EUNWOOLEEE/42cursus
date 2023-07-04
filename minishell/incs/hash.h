@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:07:26 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/04 07:46:21 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/04 08:49:48 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ typedef struct s_bucket
 }	t_bucket;
 
 /*hash_table*/
-int		h_get_idx(int table_size, int key);
+int		h_make_key(char *str);
+int		h_func(int table_size, int key);
 bool	h_add(t_bucket *table, int table_size, char *value);
 char	*h_search(t_bucket *table, int table_size, int key);
 

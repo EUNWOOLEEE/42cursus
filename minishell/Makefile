@@ -13,9 +13,12 @@ RM = rm -rf
 MAKE = make
 
 SRCS = $(SRCS_DIR)/minishell.c \
+	$(SRCS_DIR)/init/init.c \
 	$(SRCS_DIR)/lexer/lexer.c \
 	$(SRCS_DIR)/lexer/quote.c \
-	$(SRCS_DIR)/lexer/list.c
+	$(SRCS_DIR)/lexer/list.c \
+	$(SRCS_DIR)/hash/hash_table.c \
+	$(SRCS_DIR)/hash/hash_remove.c
 
 OBJS = $(SRCS:%.c=%.o)
 

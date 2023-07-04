@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 06:23:54 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/04 07:47:32 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/04 08:50:08 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ bool	h_remove_one(t_bucket *table, int table_size, int key)
 	t_node	*pre;
 	t_node	*cur;
 
-	h_idx = h_get_idx(table_size, key);
+	h_idx = h_func(table_size, key);
 	pre = NULL;
 	cur = table[h_idx].root;
 	while (cur)

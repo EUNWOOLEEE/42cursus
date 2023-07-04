@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 11:05:33 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/03 19:08:01 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/04 08:19:07 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,26 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdbool.h>
-# include "struct.h"
 # include "hash.h"
+# include "parse.h"
 # include "../Libft/libft.h"
 
-bool	add_token_to_list(t_list **head, t_token *token);
-bool single_quote(char *input, t_token *token, int *i);
-bool double_quote(char *input, t_token *token, int *i);
-t_list	*lexer(char *input);
+typedef struct s_data
+{
+	t_bucket *env;
+	int		table_size;
+}	t_data;
+
+/*init*/
+bool	init(t_data **data, char **envp);
+bool	init_env(t_data *data, char **envp);
+
 
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_back(t_list **lst, t_list *new);
-void	ft_lstclear(t_list **lst, void (*del)(void *));
 t_list	*ft_lstlast(t_list *lst);
+void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstdelone(t_list *lst, void (*del)(void *));
-int	ft_lstsize(t_list *lst);
+int		ft_lstsize(t_list *lst);
 
 #endif

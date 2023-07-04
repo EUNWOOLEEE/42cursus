@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct.h                                           :+:      :+:    :+:   */
+/*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/29 14:42:41 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/03 08:31:37 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/07/04 07:53:54 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/07/04 08:16:39 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCT_H
-# define STRUCT_H
+#ifndef PARSE_H
+# define PARSE_H
 
 typedef enum e_type
 {
@@ -40,10 +40,9 @@ typedef struct s_list
 // 	struct s_node	*right_child;
 // }t_node;
 
-// typedef struct s_env
-// {
-// 	int	key;
-// 	char *value;
-// }	t_env;
+bool	add_token_to_list(t_list **head, t_token *token);
+bool 	single_quote(char *input, t_token *token, int *i);
+bool	double_quote(char *input, t_token *token, int *i);
+t_list	*lexer(char *input);
 
 #endif
