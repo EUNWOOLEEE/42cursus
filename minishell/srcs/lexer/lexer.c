@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 16:24:37 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/05 15:43:16 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/06 08:18:21 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_list	*lexer(char *input)
 			}
 			tokenize(input, &token, &i, &head);
 		}
-		else if (input[i] == ' ')
+		else if (input[i] == ' ' || input[i] == '\t')
 		{
 			if (token->str)
 			{

@@ -6,20 +6,20 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 07:53:54 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/04 08:16:39 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/06 08:27:40 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSE_H
 # define PARSE_H
 
-typedef enum e_type
+typedef enum e_token_type
 {
 	T_NULL,
 	T_PIPE,
 	T_WORD,
 	T_REDIRECT
-}t_type;
+}t_token_type;
 
 typedef struct s_token
 {
@@ -32,13 +32,6 @@ typedef struct s_list
 	t_token			*token;
 	struct s_list	*next;
 }t_list;
-
-// typedef struct s_node
-// {
-// 	t_token			*token;
-// 	struct s_node	*left_child;
-// 	struct s_node	*right_child;
-// }t_node;
 
 bool	add_token_to_list(t_list **head, t_token *token);
 bool 	single_quote(char *input, t_token *token, int *i);

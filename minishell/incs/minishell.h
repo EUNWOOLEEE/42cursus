@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 11:05:33 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/04 08:19:07 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/06 07:52:44 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include "hash.h"
+# include "tree.h"
 # include "parse.h"
 # include "../Libft/libft.h"
 
