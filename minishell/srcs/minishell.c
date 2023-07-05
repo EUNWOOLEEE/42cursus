@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 11:06:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/04 08:53:10 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/05 16:25:14 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,14 @@ int main(int argc, char **argv, char **envp)
 	list = lexer(input);
 
 	//print env in hash
-	for(int i=0; envp[i]; i++)
-	{
-		int key = h_make_key(envp[i]);
-		printf("key: %d, value: %s\n", key, h_search(data->env, data->table_size, key));
-	}
+	// for(int i=0; envp[i]; i++)
+	// {
+	// 	int cnt=0;
+	// 	while(envp[i][cnt] != '=')
+	// 		cnt++;
+	// 	int key = h_make_key(ft_substr(envp[i], 0, cnt));
+	// 	printf("env: %s, key: %d, h_idx: %d, value: %s\n", envp[i], key, h_func(data->table_size, key), h_search(data->env, data->table_size, key));
+	// }
 
 	//print token
 	t_list *tmp = list;

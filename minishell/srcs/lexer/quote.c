@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 07:46:30 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/03 13:58:45 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/04 17:24:31 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ bool double_quote(char *input, t_token *token, int *i)
 			token->str = ft_strncat(token->str, &input[*i], 2);
 			*i += 1;
 		}
-		// if (input[*i] == '$')
-		// {
-		// 	//expand
-		// }
+		if (input[*i] == '$')
+		{
+			//expand
+		}
 		else
 			token->str = ft_strncat(token->str, &input[*i], 1);
 		if (!token->str)
@@ -51,3 +51,8 @@ bool double_quote(char *input, t_token *token, int *i)
 		exit(1); //error
 	return (true);
 }
+
+// bool	expand()
+// {
+	
+// }

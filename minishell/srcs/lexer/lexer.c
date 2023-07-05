@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 16:24:37 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/03 14:21:08 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/05 15:43:16 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ bool	tokenize(char *input, t_token **token, int *i, t_list**head)
 	if (input[*i] == '|')
 	{
 		(*token)->type = T_PIPE;
-		(*token)->str = ft_strdup("");
+		(*token)->str = ft_strdup("|");
 	}
 	else if (input[*i] == '\"')
 	{

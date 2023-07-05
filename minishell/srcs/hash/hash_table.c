@@ -6,26 +6,36 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:07:28 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/04 08:52:57 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/05 16:24:19 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-int				h_make_key(char *str);
+int				h_make_key(char *e_key);
 int				h_func(int table_size, int key);
-bool			h_add(t_bucket *table, int table_size, char *value);
+bool			h_add(t_bucket *table, int table_size, char *e_key, char *e_value);
 char			*h_search(t_bucket *table, int table_size, int key);
-static t_node	*h_create_node(char *value);
+static t_node	*h_create_node(char *e_key, char *e_value);
 
-int	h_make_key(char *str)
+int	h_make_key(char *e_key)
 {
-	int	key;
+	int			i;
+	int			j;
+	long long	mid;
+	long long	key;
 
+	i = -1;
 	key = 0;
-	while (*str)
-		key += (int)*str++;
-	return (key);
+	while (e_key[++i])
+	{
+		j = i;
+		mid = 1;
+		while (j--)
+			mid = (mid * 31) % MODULAR;
+		key += e_key[i] * mid;
+	}
+	return (key % MODULAR);
 }
 
 int	h_func(int table_size, int key)
@@ -33,17 +43,18 @@ int	h_func(int table_size, int key)
 	return (key % table_size);
 }
 
-bool	h_add(t_bucket *table, int table_size, char *value)
+bool	h_add(t_bucket *table, int table_size, char *e_key, char *e_value)
 {
 	int	h_idx;
 	t_node	*new;
 	
-	if (!value)
+	if (!e_value)
 		return (false);
-	new = h_create_node(value);
+	new = h_create_node(e_key, e_value);
+	free(e_key);
 	if (!new)
 	{
-		free(value);
+		free(e_value);
 		return (false);
 	}
 	if (h_search(table, table_size, new->key)) //Overlapped Key
@@ -56,7 +67,7 @@ bool	h_add(t_bucket *table, int table_size, char *value)
 	if (table[h_idx].size)
 		new->next = table[h_idx].root;
 	table[h_idx].root = new;
-	table->size++;
+	table[h_idx].size++;
 	return (true);
 }
 
@@ -76,7 +87,7 @@ char	*h_search(t_bucket *table, int table_size, int key)
 	return (NULL);
 }
 
-static t_node	*h_create_node(char *value)
+static t_node	*h_create_node(char* e_key, char *e_value)
 {
 	t_node	*new;
 	int		key;
@@ -84,9 +95,9 @@ static t_node	*h_create_node(char *value)
 	new = (t_node *)ft_calloc(1, sizeof(t_node));
 	if (!new)
 		return (NULL);
-	key = h_make_key(value);
+	key = h_make_key(e_key);
 	new->key = key;
-	new->value = value;
+	new->value = e_value;
 	new->next = NULL;
 	return (new);
 }

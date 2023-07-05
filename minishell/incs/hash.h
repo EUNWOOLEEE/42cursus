@@ -6,13 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:07:26 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/04 08:49:48 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/05 15:27:16 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HASH_H
 # define HASH_H
 
+# define MODULAR 1234567891
 typedef struct s_node
 {
 	int				key;
@@ -30,7 +31,7 @@ typedef struct s_bucket
 /*hash_table*/
 int		h_make_key(char *str);
 int		h_func(int table_size, int key);
-bool	h_add(t_bucket *table, int table_size, char *value);
+bool	h_add(t_bucket *table, int table_size, char *e_key, char *e_value);
 char	*h_search(t_bucket *table, int table_size, int key);
 
 /*hash_remove*/
