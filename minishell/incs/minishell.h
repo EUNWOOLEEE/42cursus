@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 11:05:33 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/06 07:52:44 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/07 07:27:01 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,12 @@
 # include "hash.h"
 # include "tree.h"
 # include "parse.h"
+# include "struct.h"
 # include "../Libft/libft.h"
-
-typedef struct s_data
-{
-	t_bucket *env;
-	int		table_size;
-}	t_data;
 
 /*init*/
 bool	init(t_data **data, char **envp);
 bool	init_env(t_data *data, char **envp);
-
 
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_back(t_list **lst, t_list *new);

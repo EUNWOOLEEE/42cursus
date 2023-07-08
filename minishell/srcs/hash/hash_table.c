@@ -6,19 +6,19 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:07:28 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/05 16:24:19 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/07 19:57:14 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-int				h_make_key(char *e_key);
+int				h_make_key(char *name);
 int				h_func(int table_size, int key);
-bool			h_add(t_bucket *table, int table_size, char *e_key, char *e_value);
+bool			h_add(t_bucket *table, int table_size, char *name, char *value);
 char			*h_search(t_bucket *table, int table_size, int key);
-static t_node	*h_create_node(char *e_key, char *e_value);
+static t_node	*h_create_node(char *name, char *value);
 
-int	h_make_key(char *e_key)
+int	h_make_key(char *name)
 {
 	int			i;
 	int			j;
@@ -27,13 +27,13 @@ int	h_make_key(char *e_key)
 
 	i = -1;
 	key = 0;
-	while (e_key[++i])
+	while (name[++i])
 	{
 		j = i;
 		mid = 1;
 		while (j--)
 			mid = (mid * 31) % MODULAR;
-		key += e_key[i] * mid;
+		key += name[i] * mid;
 	}
 	return (key % MODULAR);
 }
@@ -43,18 +43,18 @@ int	h_func(int table_size, int key)
 	return (key % table_size);
 }
 
-bool	h_add(t_bucket *table, int table_size, char *e_key, char *e_value)
+bool	h_add(t_bucket *table, int table_size, char *name, char *value)
 {
-	int	h_idx;
+	int		h_idx;
 	t_node	*new;
 	
-	if (!e_value)
+	if (!value)
 		return (false);
-	new = h_create_node(e_key, e_value);
-	free(e_key);
+	new = h_create_node(name, value);
+	free(name);
 	if (!new)
 	{
-		free(e_value);
+		free(value);
 		return (false);
 	}
 	if (h_search(table, table_size, new->key)) //Overlapped Key
@@ -87,7 +87,7 @@ char	*h_search(t_bucket *table, int table_size, int key)
 	return (NULL);
 }
 
-static t_node	*h_create_node(char* e_key, char *e_value)
+static t_node	*h_create_node(char* e_key, char *value)
 {
 	t_node	*new;
 	int		key;
@@ -97,7 +97,7 @@ static t_node	*h_create_node(char* e_key, char *e_value)
 		return (NULL);
 	key = h_make_key(e_key);
 	new->key = key;
-	new->value = e_value;
+	new->value = value;
 	new->next = NULL;
 	return (new);
 }

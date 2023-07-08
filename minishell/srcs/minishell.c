@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 11:06:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/05 16:25:14 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/08 11:18:09 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,14 @@
 
 int main(int argc, char **argv, char **envp)
 {
-	t_list	*list;
-	// t_node	*root;
-	char	*input;
 	t_data	*data;
 	
 	(void)argc;
 	(void)argv;
 	init(&data, envp);
 	//loop 시작 후 gnl로 읽고, input을 lexer에 전달해서 parsing
-	input = ft_strdup("cat << end > | grep \"abc\" > test | cat -a -e >> test.txt");
-	list = lexer(input);
+	data->input = ft_strdup("cat << end > a | grep o\"hello\"\"world\" > $TEST | cat -a -e >> txt | echo \"a\"b\"c\" \"$a\"");
+	lexer(data);
 
 	//print env in hash
 	// for(int i=0; envp[i]; i++)
@@ -37,7 +34,7 @@ int main(int argc, char **argv, char **envp)
 	// }
 
 	//print token
-	t_list *tmp = list;
+	t_list *tmp = data->tokens;
 	while (tmp)
 	{
 		printf("%d, %s\n", tmp->token->type, tmp->token->str);

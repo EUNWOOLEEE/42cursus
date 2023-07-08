@@ -6,13 +6,13 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 16:24:37 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/06 08:18:21 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/08 14:56:14 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-bool	tokenize(char *input, t_token **token, int *i, t_list**head);
+bool	tokenize(t_data *data, t_token **token, int *i, t_list**head);
 
 t_token	*new_token()
 {
@@ -36,7 +36,7 @@ bool	add_token_to_list(t_list **head, t_token *token)
 	return (true);
 }
 
-t_list	*lexer(char *input)
+bool	lexer(t_data *data)
 {
 	int	i;
 	t_list	*head;
@@ -47,71 +47,78 @@ t_list	*lexer(char *input)
 	token = new_token();
 	if (!token)
 		return (NULL);
-	while (input[++i])
+	while (data->input[++i])
 	{
-		// printf("%d, %s\n", i, &input[i]);
-		if (input[i] == '|' || input[i] == '<' || input[i] == '>' || input[i] == '\'' || input[i] == '\"')
+		// printf("%d, %s\n", i, &data->input[i]);
+		if (data->input[i] == '|' || data->input[i] == '<' || data->input[i] == '>')
 		{
 			if (token->str)
 			{
 				add_token_to_list(&head, token); // 함수로 잘 합쳐보기
 				token = new_token();
 				if (!token)
-					return (NULL);
+					return (false);
 			}
-			tokenize(input, &token, &i, &head);
+			if (tokenize(data, &token, &i, &head) == false)
+				return (false);
 		}
-		else if (input[i] == ' ' || input[i] == '\t')
+		else if (data->input[i] == '\'' || data->input[i] == '\"') // 논리적으로 맞는지 체크
+		{
+			if (tokenize(data, &token, &i, &head) == false)
+				return (false);
+		}
+		else if (data->input[i] == ' ' || data->input[i] == '\t')
 		{
 			if (token->str)
 			{
 				add_token_to_list(&head, token);
 				token = new_token();
 				if (!token)
-					return (NULL);
+					return (false);
 			}
 		}
 		else
-			token->str = ft_strncat(token->str, &input[i], 1);
+			token->str = ft_strncat(token->str, &data->input[i], 1);
 	}
 	if (*(token->str))
 		add_token_to_list(&head, token);
-	return (head);
+	data->tokens = head;
+	return (true);
 }
 
-bool	tokenize(char *input, t_token **token, int *i, t_list**head)
+bool	tokenize(t_data *data, t_token **token, int *i, t_list**head)
 {
-	if (input[*i] == '|')
+	if (data->input[*i] == '|')
 	{
 		(*token)->type = T_PIPE;
 		(*token)->str = ft_strdup("|");
 	}
-	else if (input[*i] == '\"')
+	else if (data->input[*i] == '\"')
 	{
-		if (double_quote(input, *token, i) == false)
+		if (double_quote(data->input, *token, i, data) == false)
 			return (false);
 	}
-	else if (input[*i] == '\'')
+	else if (data->input[*i] == '\'')
 	{
-		if (single_quote(input, *token, i) == false)
+		if (single_quote(data->input, *token, i) == false)
 			return (false);
 	}
-	else if (input[*i] == '>' || input[*i] == '<')
+	else if (data->input[*i] == '>' || data->input[*i] == '<')
 	{
 		(*token)->type = T_REDIRECT;
-		if (input[*i + 1] == input[*i])
+		if (data->input[*i + 1] == data->input[*i])
 		{
-			(*token)->str = ft_strncat((*token)->str, &input[*i], 2);
+			(*token)->str = ft_strncat((*token)->str, &data->input[*i], 2);
 			*i += 2;
 		}
 		else
 		{
-			(*token)->str = ft_strncat((*token)->str, &input[*i], 1);
+			(*token)->str = ft_strncat((*token)->str, &data->input[*i], 1);
 			*i += 1;
 		}
 	}
-	else if (input[*i] == '\0')
-		(*token)->type = T_NULL;
+	if ((data->input[*i] == '\'' || data->input[*i] == '\"') && (data->input[*i + 1] != ' ' && data->input[*i + 1] != '\t'))
+		return (true);
 	add_token_to_list(head, *token);
 	*token = new_token();
 	if (!*token)
