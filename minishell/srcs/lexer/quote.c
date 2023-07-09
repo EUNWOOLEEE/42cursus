@@ -6,13 +6,11 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 07:46:30 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/07 08:16:13 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/10 07:00:08 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
-
-static bool	expand(char *input, t_token *token, int *i, t_data *data);
 
 bool single_quote(char *input, t_token *token, int *i)
 {
@@ -60,14 +58,15 @@ bool double_quote(char *input, t_token *token, int *i, t_data *data)
 	return (true);
 }
 
-static bool	expand(char *input, t_token *token, int *i, t_data *data)
+bool	expand(char *input, t_token *token, int *i, t_data *data)
 {
 	char	*name;
 	char	*value;
 	
 	*i += 1;
-	name = 0;
-	while (input[*i] != ' ' && input[*i] != '\t' && input[*i] != '\"')
+	name = NULL;
+	while (input[*i] != ' ' && input[*i] != '\t' && input[*i] != '\"' && input[*i] != '\0'\
+		&& input[*i] != '\'' && input[*i] != '\"')
 	{
 		name = ft_strncat(name, &input[*i], 1);
 		if (!name)

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 16:24:37 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/08 14:56:14 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/10 06:52:01 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,13 @@ bool	lexer(t_data *data)
 				if (!token)
 					return (false);
 			}
+		}
+		else if (data->input[i] == '$')
+		{
+			if (data->input[i + 1] == '\"' || data->input[i + 1] == ' ' || data->input[i + 1] == '\t')
+				token->str = ft_strncat(token->str, &data->input[i], 1);
+			else
+				expand(data->input, token, &i, data);
 		}
 		else
 			token->str = ft_strncat(token->str, &data->input[i], 1);

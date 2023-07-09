@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 11:06:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/08 11:18:09 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/10 06:45:53 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int main(int argc, char **argv, char **envp)
 	(void)argv;
 	init(&data, envp);
 	//loop 시작 후 gnl로 읽고, input을 lexer에 전달해서 parsing
-	data->input = ft_strdup("cat << end > a | grep o\"hello\"\"world\" > $TEST | cat -a -e >> txt | echo \"a\"b\"c\" \"$a\"");
+	// data->input = ft_strdup("cat << end > a | grep o\"hello\"\"world\" > $TEST | cat -a -e >> txt | echo \"a\"b\"c\" \"$a\"");
+	data->input = ft_strdup("ca$a'def'");
 	lexer(data);
 
 	//print env in hash
