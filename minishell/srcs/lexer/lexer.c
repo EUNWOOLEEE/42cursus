@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 16:24:37 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/10 06:52:01 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/10 15:11:10 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ bool	lexer(t_data *data)
 			if (tokenize(data, &token, &i, &head) == false)
 				return (false);
 		}
-		else if (data->input[i] == '\'' || data->input[i] == '\"') // 논리적으로 맞는지 체크
+		else if (data->input[i] == '\'' || data->input[i] == '\"')
 		{
 			if (tokenize(data, &token, &i, &head) == false)
 				return (false);
@@ -78,12 +78,7 @@ bool	lexer(t_data *data)
 			}
 		}
 		else if (data->input[i] == '$')
-		{
-			if (data->input[i + 1] == '\"' || data->input[i + 1] == ' ' || data->input[i + 1] == '\t')
-				token->str = ft_strncat(token->str, &data->input[i], 1);
-			else
-				expand(data->input, token, &i, data);
-		}
+			expand(data->input, token, &i, data, false);
 		else
 			token->str = ft_strncat(token->str, &data->input[i], 1);
 	}
@@ -116,13 +111,10 @@ bool	tokenize(t_data *data, t_token **token, int *i, t_list**head)
 		if (data->input[*i + 1] == data->input[*i])
 		{
 			(*token)->str = ft_strncat((*token)->str, &data->input[*i], 2);
-			*i += 2;
-		}
-		else
-		{
-			(*token)->str = ft_strncat((*token)->str, &data->input[*i], 1);
 			*i += 1;
 		}
+		else
+			(*token)->str = ft_strncat((*token)->str, &data->input[*i], 1);
 	}
 	if ((data->input[*i] == '\'' || data->input[*i] == '\"') && (data->input[*i + 1] != ' ' && data->input[*i + 1] != '\t'))
 		return (true);

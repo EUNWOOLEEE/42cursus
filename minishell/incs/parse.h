@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 07:53:54 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/10 06:48:29 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/10 15:09:59 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,6 @@ bool	add_token_to_list(t_list **head, t_token *token);
 bool 	single_quote(char *input, t_token *token, int *i);
 bool	double_quote(char *input, t_token *token, int *i, t_data *data);
 bool	lexer(t_data *data);
-bool	expand(char *input, t_token *token, int *i, t_data *data);
+bool	expand(char *input, t_token *token, int *i, t_data *data, bool quote);
 
 #endif
