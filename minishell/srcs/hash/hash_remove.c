@@ -6,22 +6,22 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 06:23:54 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/07 19:56:56 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/11 06:56:05 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-bool	h_remove_one(t_bucket *table, int table_size, int key);
-void	h_clear_all(t_bucket **table, int table_size);
+bool	hash_remove_one(t_bucket *table, int table_size, int key);
+void	hash_clear_all(t_bucket **table, int table_size);
 
-bool	h_remove_one(t_bucket *table, int table_size, int key)
+bool	hash_remove_one(t_bucket *table, int table_size, int key)
 {
 	int		h_idx;
 	t_node	*pre;
 	t_node	*cur;
 
-	h_idx = h_func(table_size, key);
+	h_idx = hash_func(table_size, key);
 	pre = NULL;
 	cur = table[h_idx].root;
 	while (cur)
@@ -43,7 +43,7 @@ bool	h_remove_one(t_bucket *table, int table_size, int key)
 	return (false);
 }
 
-void	h_clear_all(t_bucket **table, int table_size)
+void	hash_clear_all(t_bucket **table, int table_size)
 {
 	int		i;
 	t_node	*cur;

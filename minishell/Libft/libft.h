@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 21:00:01 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/03 08:48:20 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/10 19:27:32 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,20 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
+
+typedef struct s_g_list
+{
+	int				fd;
+	char			*buff;
+	struct s_g_list	*next;
+}	t_g_list;
+
+char	*get_next_line(int fd);
+char	*delete_nod(t_g_list **head, t_g_list *nod);
 
 //Libc functions
 int	ft_isalpha(int c);

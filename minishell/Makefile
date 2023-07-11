@@ -17,8 +17,9 @@ SRCS = $(SRCS_DIR)/minishell.c \
 	$(SRCS_DIR)/lexer/lexer.c \
 	$(SRCS_DIR)/lexer/quote.c \
 	$(SRCS_DIR)/lexer/list.c \
-	$(SRCS_DIR)/hash/hash_table.c \
-	$(SRCS_DIR)/hash/hash_remove.c
+	$(SRCS_DIR)/env/env.c \
+	# $(SRCS_DIR)/hash/hash_table.c \
+	# $(SRCS_DIR)/hash/hash_remove.c
 
 OBJS = $(SRCS:%.c=%.o)
 

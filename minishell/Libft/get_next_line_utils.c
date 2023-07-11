@@ -1,30 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct.h                                           :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/07 07:22:04 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/11 07:00:31 by eunwolee         ###   ########.fr       */
+/*   Created: 2022/12/26 16:01:47 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/07/10 19:31:14 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCT_H
-# define STRUCT_H
+#include "libft.h"
 
-# include "hash.h"
-# include "tree.h"
-# include "parse.h"
-
-typedef struct s_data
+char	*delete_nod(t_g_list **head, t_g_list *nod)
 {
-	// t_bucket			*env; //hashtable
-	int			table_size;
-	char		*input;
-	t_list		*tokens;
-	t_list		*envs;
-	// t_leaf		*root;
-}	t_data;
+	t_g_list	*tmp;
 
-#endif
+	tmp = *head;
+	if (tmp == nod)
+	{
+		if (!(tmp->next))
+			*head = 0;
+		else
+			*head = tmp->next;
+		free(nod->buff);
+		free(nod);
+		return (0);
+	}
+	while (tmp->next != nod)
+		tmp = tmp->next;
+	tmp->next = nod->next;
+	free(nod->buff);
+	free(nod);
+	return (0);
+}

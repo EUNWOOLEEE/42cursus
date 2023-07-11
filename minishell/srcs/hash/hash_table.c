@@ -6,19 +6,20 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:07:28 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/07 19:57:14 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/11 08:02:39 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-int				h_make_key(char *name);
-int				h_func(int table_size, int key);
-bool			h_add(t_bucket *table, int table_size, char *name, char *value);
-char			*h_search(t_bucket *table, int table_size, int key);
-static t_node	*h_create_node(char *name, char *value);
+// 환경변수 키값만 저장해둘 리스트 만들기
+int				hash_make_key(char *name);
+int				hash_func(int table_size, int key);
+bool			hash_add(t_bucket *table, int table_size, char *name, char *value);
+char			*hash_search(t_bucket *table, int table_size, int key);
+static t_node	*hash_create_node(char *name, char *value);
 
-int	h_make_key(char *name)
+int	hash_make_key(char *name)
 {
 	int			i;
 	int			j;
@@ -38,32 +39,32 @@ int	h_make_key(char *name)
 	return (key % MODULAR);
 }
 
-int	h_func(int table_size, int key)
+int	hash_func(int table_size, int key)
 {
 	return (key % table_size);
 }
 
-bool	h_add(t_bucket *table, int table_size, char *name, char *value)
+bool	hash_add(t_bucket *table, int table_size, char *name, char *value)
 {
 	int		h_idx;
 	t_node	*new;
 	
 	if (!value)
 		return (false);
-	new = h_create_node(name, value);
+	new = hash_create_node(name, value);
 	free(name);
 	if (!new)
 	{
 		free(value);
 		return (false);
 	}
-	if (h_search(table, table_size, new->key)) //Overlapped Key
+	if (hash_search(table, table_size, new->key)) //Overlapped Key
 	{
 		free(new->value);
 		free(new);
 		return (false);
 	}
-	h_idx = h_func(table_size, new->key);
+	h_idx = hash_func(table_size, new->key);
 	if (table[h_idx].size)
 		new->next = table[h_idx].root;
 	table[h_idx].root = new;
@@ -71,12 +72,12 @@ bool	h_add(t_bucket *table, int table_size, char *name, char *value)
 	return (true);
 }
 
-char	*h_search(t_bucket *table, int table_size, int key)
+char	*hash_search(t_bucket *table, int table_size, int key)
 {
 	int		h_idx;
 	t_node	*cur;
 
-	h_idx = h_func(table_size, key);
+	h_idx = hash_func(table_size, key);
 	cur = table[h_idx].root;
 	while (cur)
 	{
@@ -87,7 +88,7 @@ char	*h_search(t_bucket *table, int table_size, int key)
 	return (NULL);
 }
 
-static t_node	*h_create_node(char* e_key, char *value)
+static t_node	*hash_create_node(char* e_key, char *value)
 {
 	t_node	*new;
 	int		key;
@@ -95,9 +96,21 @@ static t_node	*h_create_node(char* e_key, char *value)
 	new = (t_node *)ft_calloc(1, sizeof(t_node));
 	if (!new)
 		return (NULL);
-	key = h_make_key(e_key);
+	key = hash_make_key(e_key);
 	new->key = key;
 	new->value = value;
 	new->next = NULL;
 	return (new);
 }
+
+// void print_env(char **envp, t_data *data)
+// {
+// 	for(int i=0; envp[i]; i++)
+// 	{
+// 		int cnt=0;
+// 		while(envp[i][cnt] != '=')
+// 			cnt++;
+// 		int key = h_make_key(ft_substr(envp[i], 0, cnt));
+// 		printf("env: %s, key: %d, h_idx: %d, value: %s\n", envp[i], key, h_func(data->table_size, key), h_search(data->env, data->table_size, key));
+// 	}
+// }

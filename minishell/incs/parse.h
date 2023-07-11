@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 07:53:54 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/10 15:09:59 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/11 08:21:02 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,26 @@ typedef enum e_token_type
 	T_REDIRECT,
 	T_CMD,
 	T_ARG,
+	T_INPUT,
+	T_OUTPUT,
+	T_HEREDOC,
+	T_APPEND
 }t_token_type;
-
-// typedef enum e_status_type
-// {
-// 	S_PIPE,
-// 	S_REDIRECT,
-// }t_status_type;
 
 typedef struct s_token
 {
 	int		type;
+	int		redirect_type;
 	char	*str;
 }	t_token;
 
 typedef struct s_list
 {
-	t_token			*token;
+	struct s_list	*pre;
 	struct s_list	*next;
+	t_token			*token;
+	char			*env_key;
+	char			*env_value;
 }t_list;
 
 # include "struct.h"

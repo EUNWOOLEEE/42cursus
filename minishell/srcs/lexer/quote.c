@@ -6,34 +6,75 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 07:46:30 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/10 16:15:43 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/11 08:45:30 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
+bool	find_next_squote(char *input, int i)
+{
+	while (input[i] != '\'' && input[i] != '\0')
+	{
+		if (input[i] == '\\' && input[i + 1] == '\'')
+			i++;
+		i++;
+	}
+	if (input[i] == '\0')
+		return (false);
+	return (true);
+}
+
+bool	find_next_dquote(char *input, int i)
+{
+	while (input[i] != '\"' && input[i] != '\0')
+	{
+		if (input[i] == '\\' && input[i + 1] == '\"')
+			i++;
+		i++;
+	}
+	if (input[i] == '\0')
+		return (false);
+	return (true);
+}
+
 bool single_quote(char *input, t_token *token, int *i)
 {
 	*i += 1;
+	if (find_next_squote(input, *i) == false)
+		token->str = ft_strncat(token->str, "\'", 1);
 	while (input[*i] != '\'' && input[*i] != '\0')
 	{
-		token->str = ft_strncat(token->str, &input[*i], 1);
+		if (input[*i] == '\\' && input[*i + 1] == '\'')
+		{
+			token->str = ft_strncat(token->str, "\\\'", 1);
+			*i += 1;
+		}
+		else
+			token->str = ft_strncat(token->str, &input[*i], 1);
 		if (!token->str)
 			return (false);
 		*i += 1;
 	}
 	if (token->str == NULL)
 		token->str = ft_strdup("");
-	// if (input[*i] == '\0')
-	// 	exit(1); //error
+	if (input[*i] == '\0')
+		*i -= 1;
 	return (true);
 }
 
 bool double_quote(char *input, t_token *token, int *i, t_data *data)
 {
 	*i += 1;
+	if (find_next_dquote(input, *i) == false)
+		token->str = ft_strncat(token->str, "\"", 1);
 	while (input[*i] != '\"' && input[*i] != '\0')
 	{
+		if (input[*i] == '\\' && input[*i + 1] == '\"')
+		{
+			token->str = ft_strncat(token->str, "\\\"", 1);
+			*i += 1;
+		}
 		if (input[*i] == '$')
 		{
 			if (input[*i + 1] == '\'')
@@ -50,16 +91,24 @@ bool double_quote(char *input, t_token *token, int *i, t_data *data)
 	}
 	if (token->str == NULL)
 		token->str = ft_strdup("");
+	if (input[*i] == '\0')
+		*i -= 1;
 	return (true);
 }
 
 bool	expand(char *input, t_token *token, int *i, t_data *data, bool quote)
 {
 	char	*name;
-	char	*value;
+	t_list	*value;
 	
 	*i += 1;
 	name = NULL;
+	if (ft_lstlast(data->tokens)->token->redirect_type == T_HEREDOC)
+	{
+		token->str = ft_strncat(token->str, "$", 1);
+		*i -= 1;
+		return (true);
+	}
 	if (input[*i] == ' ' || input[*i] == '\t')
 	{
 		token->str = ft_strncat(token->str, "$", 1);
@@ -90,20 +139,21 @@ bool	expand(char *input, t_token *token, int *i, t_data *data, bool quote)
 		*i += 1;
 	}
 	*i -= 1;
-	value = h_search(data->env, data->table_size, h_make_key(name));
+	value = env_search(data, name);
+	// value = h_search(data->env, data->table_size, h_make_key(name));
 	if (!value)
 	{
-		token->str = ft_strdup("");
+		token->str = ft_strdup("$");
+		token->str = ft_strncat(token->str, name, ft_strlen(name));
 		if (!token->str)
 			return (false);
 	}
 	else
 	{
-		token->str = ft_strncat(token->str, value, ft_strlen(value));
+		token->str = ft_strncat(token->str, value->env_value, ft_strlen(value->env_value));
 		if (!token->str)
 			return (false);
 	}
 	free(name);
-	free(value);
 	return (true);
 }
