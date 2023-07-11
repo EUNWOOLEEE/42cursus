@@ -15,7 +15,9 @@ MAKE = make
 SRCS = $(SRCS_DIR)/minishell.c \
 	$(SRCS_DIR)/init/init.c \
 	$(SRCS_DIR)/lexer/lexer.c \
+	$(SRCS_DIR)/lexer/tokenizer.c \
 	$(SRCS_DIR)/lexer/quote.c \
+	$(SRCS_DIR)/lexer/expand.c \
 	$(SRCS_DIR)/utils/env.c \
 	$(SRCS_DIR)/utils/list.c \
 	$(SRCS_DIR)/utils/list_remove.c \
