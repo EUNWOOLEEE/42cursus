@@ -16,10 +16,10 @@ SRCS = $(SRCS_DIR)/minishell.c \
 	$(SRCS_DIR)/init/init.c \
 	$(SRCS_DIR)/lexer/lexer.c \
 	$(SRCS_DIR)/lexer/quote.c \
-	$(SRCS_DIR)/lexer/list.c \
-	$(SRCS_DIR)/env/env.c \
-	# $(SRCS_DIR)/hash/hash_table.c \
-	# $(SRCS_DIR)/hash/hash_remove.c
+	$(SRCS_DIR)/utils/env.c \
+	$(SRCS_DIR)/utils/list.c \
+	$(SRCS_DIR)/utils/list_remove.c \
+	$(SRCS_DIR)/utils/tree.c \
 
 OBJS = $(SRCS:%.c=%.o)
 
@@ -36,10 +36,12 @@ $(L_NAME):
 	cp ./$(L_DIR)/$(L_NAME) .
 
 clean:
+	$(MAKE) fclean -C $(L_DIR)
 	$(RM) $(OBJS)
 	$(RM) $(SRCS_DIR_M)/*.o $(SRCS_DIR_B)/*.o $(L_NAME)
 
 fclean:
+	$(MAKE) fclean -C $(L_DIR)
 	$(MAKE) clean
 	$(RM) $(NAME)
 

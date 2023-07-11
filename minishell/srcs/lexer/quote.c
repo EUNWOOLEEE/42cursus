@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 07:46:30 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/11 08:45:30 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/11 12:01:31 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,11 +99,12 @@ bool double_quote(char *input, t_token *token, int *i, t_data *data)
 bool	expand(char *input, t_token *token, int *i, t_data *data, bool quote)
 {
 	char	*name;
-	t_list	*value;
+	t_list	*tmp;
 	
 	*i += 1;
 	name = NULL;
-	if (ft_lstlast(data->tokens)->token->redirect_type == T_HEREDOC)
+	tmp = ft_lstlast(data->tokens);
+	if (tmp && tmp->token->redirect_type == T_HEREDOC)
 	{
 		token->str = ft_strncat(token->str, "$", 1);
 		*i -= 1;
@@ -139,9 +140,8 @@ bool	expand(char *input, t_token *token, int *i, t_data *data, bool quote)
 		*i += 1;
 	}
 	*i -= 1;
-	value = env_search(data, name);
-	// value = h_search(data->env, data->table_size, h_make_key(name));
-	if (!value)
+	tmp = env_search(data, name);
+	if (!tmp)
 	{
 		token->str = ft_strdup("$");
 		token->str = ft_strncat(token->str, name, ft_strlen(name));
@@ -150,7 +150,10 @@ bool	expand(char *input, t_token *token, int *i, t_data *data, bool quote)
 	}
 	else
 	{
-		token->str = ft_strncat(token->str, value->env_value, ft_strlen(value->env_value));
+		int j = 0;
+		while (tmp->env[j] != '=')
+			j++;
+		token->str = ft_strncat(token->str, &tmp->env[j + 1], ft_strlen(&tmp->env[j + 1]));
 		if (!token->str)
 			return (false);
 	}

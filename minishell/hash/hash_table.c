@@ -6,11 +6,11 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:07:28 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/11 08:02:39 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/11 10:49:30 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../incs/minishell.h"
+#include "hash.h"
 
 // 환경변수 키값만 저장해둘 리스트 만들기
 int				hash_make_key(char *name);

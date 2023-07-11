@@ -6,11 +6,11 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 06:23:54 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/11 06:56:05 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/11 10:49:16 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../incs/minishell.h"
+#include "hash.h"
 
 bool	hash_remove_one(t_bucket *table, int table_size, int key);
 void	hash_clear_all(t_bucket **table, int table_size);

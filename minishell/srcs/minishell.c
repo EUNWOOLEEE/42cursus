@@ -6,12 +6,13 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 11:06:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/11 08:23:10 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/11 11:57:42 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
+//토큰 출력용 임시 함수
 void print_token(t_data *data)
 {
 	t_list *tmp = data->tokens;
@@ -30,11 +31,13 @@ int main(int argc, char **argv, char **envp)
 	(void)argv;
 	init(&data, envp);
 
-	//loop 시작 후 readline로 읽고, input을 lexer에 전달해서 parsing
 	char *str = get_next_line(0);
-	data->input = ft_substr(str, 0, ft_strlen(str) - 1); //개행 떼기
+	data->input = ft_substr(str, 0, ft_strlen(str) - 1); //-1 개행 떼기
 	lexer(data);
 
+	// env_print(data);
+	// env_array_print(data);
 	print_token(data);
+	
 	return (0);
 }
