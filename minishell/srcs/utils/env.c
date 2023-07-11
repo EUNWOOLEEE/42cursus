@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 06:38:21 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/11 12:00:38 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/11 17:18:51 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	env_print(t_data *data);
 t_list	*env_search(t_data *data, char *key);
-bool	env_remove(t_data *data, char *key);
+t_bool	env_remove(t_data *data, char *key);
+char	**env_to_array(t_data *data);
 
 void	env_print(t_data *data)
 {
@@ -44,20 +45,20 @@ t_list	*env_search(t_data *data, char *key)
 	return (NULL);
 }
 
-bool	env_remove(t_data *data, char *key)
+t_bool	env_remove(t_data *data, char *key)
 {
 	t_list	*env;
 
 	env = env_search(data, key);
 	if (!env)
-		return (false);
+		return (FALSE);
+	if (env->pre)//지우려는게 첫번째 노드일때 처리
 	env->pre->next = env->next;
 	ft_lstdelone(env);
-	return (true);
+	return (TRUE);
 }
 
-//이거 execve 이후에 free하는 함수 만들어야하나?(더블포인터만 해제하면 됨) 아니면 바로 리턴값을 execve에 보내도 되나?(data 구조체에 안 담고)
-//execve에서 자동으로 해제되는거면 모든 환경변수들을 그냥 가리키게 하지말고 복제해야되나?
+//data->env_array에 담아서 사용, 쓰고 나서 더블포인터만 free해주면 됨
 char	**env_to_array(t_data *data)
 {
 	t_list	*cur;

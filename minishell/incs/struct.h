@@ -6,14 +6,18 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 10:24:15 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/11 11:43:58 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:09:10 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
 
-# include <stdbool.h>
+typedef enum e_bool
+{
+	FALSE,
+	TRUE
+}t_bool;
 
 typedef enum e_token_type
 {
@@ -49,7 +53,7 @@ typedef struct s_leaf
 {
 	struct s_leaf	*left_child;
 	struct s_leaf	*right_child;
-	bool			exist;
+	t_bool			exist;
 	t_token			*token;
 }t_leaf;
 

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 11:06:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/11 11:57:42 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/11 18:48:20 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void print_token(t_data *data)
 	t_list *tmp = data->tokens;
 	while (tmp)
 	{
-		printf("%d, %s\n", tmp->token->type, tmp->token->str);
+		printf("token: %d, redirect: %d, str: %s\n", tmp->token->type, tmp->token->redirect_type, tmp->token->str);
 		tmp = tmp->next;
 	}
 }

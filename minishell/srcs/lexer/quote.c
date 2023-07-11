@@ -6,18 +6,20 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 07:46:30 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/11 12:21:00 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/11 17:18:11 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-static bool	find_next_quote(char *input, int i, char quote);
+t_bool 			single_quote(char *input, t_token *token, int *i);
+t_bool 			double_quote(char *input, t_token *token, int *i, t_data *data);
+static t_bool	find_next_quote(char *input, int i, char quote);
 
-bool single_quote(char *input, t_token *token, int *i)
+t_bool single_quote(char *input, t_token *token, int *i)
 {
 	*i += 1;
-	if (find_next_quote(input, *i, '\'') == false)
+	if (find_next_quote(input, *i, '\'') == FALSE)
 		token->str = ft_strncat(token->str, "\'", 1);
 	while (input[*i] != '\'' && input[*i] != '\0')
 	{
@@ -29,20 +31,18 @@ bool single_quote(char *input, t_token *token, int *i)
 		else
 			token->str = ft_strncat(token->str, &input[*i], 1);
 		if (!token->str)
-			return (false);
+			return (FALSE);
 		*i += 1;
 	}
-	if (token->str == NULL)
-		token->str = ft_strdup("");
 	if (input[*i] == '\0')
 		*i -= 1;
-	return (true);
+	return (TRUE);
 }
 
-bool double_quote(char *input, t_token *token, int *i, t_data *data)
+t_bool double_quote(char *input, t_token *token, int *i, t_data *data)
 {
 	*i += 1;
-	if (find_next_quote(input, *i, '\"') == false)
+	if (find_next_quote(input, *i, '\"') == FALSE)
 		token->str = ft_strncat(token->str, "\"", 1);
 	while (input[*i] != '\"' && input[*i] != '\0')
 	{
@@ -56,23 +56,21 @@ bool double_quote(char *input, t_token *token, int *i, t_data *data)
 			if (input[*i + 1] == '\'')
 				token->str = ft_strncat(token->str, &input[*i], 1);
 			else
-				if (expand(input, token, i, data, true) == false)
-					return (false);
+				if (expand(data, token, i, TRUE) == FALSE)
+					return (FALSE);
 		}
 		else
 			token->str = ft_strncat(token->str, &input[*i], 1);
 		if (!token->str)
-			return (false);
+			return (FALSE);
 		*i += 1;
 	}
-	if (token->str == NULL)
-		token->str = ft_strdup("");
 	if (input[*i] == '\0')
 		*i -= 1;
-	return (true);
+	return (TRUE);
 }
 
-static bool	find_next_quote(char *input, int i, char quote)
+static t_bool	find_next_quote(char *input, int i, char quote)
 {
 	while (input[i] != quote && input[i] != '\0')
 	{
@@ -81,6 +79,6 @@ static bool	find_next_quote(char *input, int i, char quote)
 		i++;
 	}
 	if (input[i] == '\0')
-		return (false);
-	return (true);
+		return (FALSE);
+	return (TRUE);
 }

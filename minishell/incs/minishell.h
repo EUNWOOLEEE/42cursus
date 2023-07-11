@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 11:05:33 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/11 11:16:39 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/11 14:57:44 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdio.h>
 # include <unistd.h>
+# include <errno.h>
 # include "init.h"
 # include "parse.h"
 # include "struct.h"
