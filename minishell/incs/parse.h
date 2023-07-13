@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 07:53:54 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/12 19:12:43 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/14 07:35:30 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ void	syntax(t_data *data);
 
 void	parser(t_data *data);
 
-void	expand(t_data *data, t_token *token, int *i, t_bool quote);
+t_bool	expand(t_data *data, t_token *token, int *i, t_bool quote);
 
 #endif
