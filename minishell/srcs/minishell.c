@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 11:06:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/14 08:12:48 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/15 09:37:10 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
 
+	atexit(check_leak);
+	
 	(void)argc;
 	(void)argv;
 	init(&data, envp);
@@ -26,9 +28,10 @@ int	main(int argc, char **argv, char **envp)
 	syntax(data);
 	parser(data);
 
-	print_token(data);
-	printf("\n\n");
-	tree_print(data->root);
+	// print_token(data);
+	// printf("\n\n");
+	// tree_print(data->root);
 	
+	all_free(data);
 	return (0);
 }
