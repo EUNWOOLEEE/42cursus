@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 12:20:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/14 08:45:36 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/17 06:13:56 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static t_bool	check_blank(t_data *data, t_token *token, int *i, t_bool quote);
 static t_bool	check_other(t_data *data, t_token *token, int *i, t_bool 	quote);
 static void		replace(t_data *data, t_token *token, char *name);
 
+//환경변수 뒤에 숫자 알파벳 외에는 환경변수 치환해야함
 t_bool	expand(t_data *data, t_token *token, int *i, t_bool quote)
 {
 	char	*name;
@@ -32,11 +33,11 @@ t_bool	expand(t_data *data, t_token *token, int *i, t_bool quote)
 		return (TRUE);
 	while (data->input[*i] != '\'' && data->input[*i] != '\"' \
 		&& data->input[*i] != ' ' && data->input[*i] != '\t' \
-		&& data->input[*i] != '\0')
+		&& data->input[*i] != '\0' && ft_isalnum(data->input[*i]))
 	{
 		name = ft_strncat(name, &data->input[*i], 1);
 		if (!name)
-			error_exit("bash");
+			program_error_exit("bash");
 		*i += 1;
 	}
 	replace(data, token, name);
@@ -56,7 +57,7 @@ static t_bool	check_heredoc(t_data *data, t_token *token, int *i)
 	{
 		token->str = ft_strncat(token->str, "$", 1);
 		if (!token->str)
-			error_exit("bash");
+			program_error_exit("bash");
 		*i -= 1;
 		return (TRUE);
 	}
@@ -69,7 +70,7 @@ static t_bool	check_blank(t_data *data, t_token *token, int *i, t_bool quote)
 	{
 		token->str = ft_strncat(token->str, "$", 1);
 		if (!token->str)
-			error_exit("bash");
+			program_error_exit("bash");
 		if (quote == FALSE)
 		{
 			*i -= 1;
@@ -77,7 +78,7 @@ static t_bool	check_blank(t_data *data, t_token *token, int *i, t_bool quote)
 		}
 		token->str = ft_strncat(token->str, &data->input[*i], 1);
 		if (!token->str)
-			error_exit("bash");
+			program_error_exit("bash");
 		if (quote == TRUE)
 			return (TRUE);
 	}
@@ -100,7 +101,7 @@ static t_bool	check_other(t_data *data, t_token *token, int *i, t_bool quote)
 	{
 		token->str = ft_strncat(token->str, "$", 1);
 		if (!token->str)
-			error_exit("bash");
+			program_error_exit("bash");
 		return (TRUE);
 	}
 	return (FALSE);
@@ -116,10 +117,10 @@ static void	replace(t_data *data, t_token *token, char *name)
 	{
 		token->str = ft_strdup("$");
 		if (!token->str)
-			error_exit("bash");
+			program_error_exit("bash");
 		token->str = ft_strncat(token->str, name, ft_strlen(name));
 		if (!token->str)
-			error_exit("bash");
+			program_error_exit("bash");
 	}
 	else
 	{
@@ -129,7 +130,7 @@ static void	replace(t_data *data, t_token *token, char *name)
 		token->str = ft_strncat(token->str, \
 			&tmp->env[j + 1], ft_strlen(&tmp->env[j + 1]));
 		if (!token->str)
-			error_exit("bash");
+			program_error_exit("bash");
 	}
 	free(name);
 }
