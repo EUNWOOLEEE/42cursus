@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 12:20:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/17 06:13:56 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/17 06:59:05 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,17 +87,29 @@ static t_bool	check_blank(t_data *data, t_token *token, int *i, t_bool quote)
 
 static t_bool	check_other(t_data *data, t_token *token, int *i, t_bool quote)
 {
-	if (data->input[*i] == '\'' || data->input[*i] == '\"')
+	if (data->input[*i] == '\"')
 	{
+
 		if (quote == TRUE)
 		{
-			*i += 1;
-			return (FALSE);
+			token->str = ft_strncat(token->str, "$", 1);
+			if (!token->str)
+				program_error_exit("bash");
 		}
+		else
+		{
+			if (data->input[*i + 1] == '\0')
+				return (FALSE);
+			*i -= 1;
+		}
+		return (TRUE);
+	}
+	else if (data->input[*i] == '\'')
+	{
 		*i -= 1 ;
 		return (TRUE);
 	}
-	if (data->input[*i] == '\0')
+	else if (data->input[*i] == '\0')
 	{
 		token->str = ft_strncat(token->str, "$", 1);
 		if (!token->str)
@@ -106,6 +118,28 @@ static t_bool	check_other(t_data *data, t_token *token, int *i, t_bool quote)
 	}
 	return (FALSE);
 }
+
+// static t_bool	check_other(t_data *data, t_token *token, int *i, t_bool quote)
+// {
+// 	if (data->input[*i] == '\'' || data->input[*i] == '\"')
+// 	{
+// 		if (quote == TRUE)
+// 		{
+// 			*i += 1;
+// 			return (FALSE);
+// 		}
+// 		*i -= 1 ;
+// 		return (TRUE);
+// 	}
+// 	if (data->input[*i] == '\0')
+// 	{
+// 		token->str = ft_strncat(token->str, "$", 1);
+// 		if (!token->str)
+// 			program_error_exit("bash");
+// 		return (TRUE);
+// 	}
+// 	return (FALSE);
+// }
 
 static void	replace(t_data *data, t_token *token, char *name)
 {

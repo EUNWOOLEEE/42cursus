@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 22:24:38 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/16 20:34:15 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/17 06:40:42 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,15 @@ t_bool	syntax(t_data *data)
 		if (cur->token->type == T_WORD)
 			syntax_word(cur);
 		else if (cur->token->type == T_PIPE)
-			syntax_pipe(data, cur);
+		{
+			if (syntax_pipe(data, cur) == FALSE)
+				return (FALSE);
+		}
 		else if (cur->token->type == T_REDIRECT)
-			syntax_redirect(data, cur);
+		{
+			if (syntax_redirect(data, cur) == FALSE)
+				return (FALSE);
+		}
 		cur = cur->next;
 	}
 	return (TRUE);
