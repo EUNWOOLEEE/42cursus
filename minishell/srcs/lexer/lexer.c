@@ -6,22 +6,20 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 16:24:37 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/16 20:33:18 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/17 07:09:23 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-t_bool		lexer(t_data *data);
+void		lexer(t_data *data);
 static void	check_char(t_data *data, t_token **token, int *i);
 
-t_bool	lexer(t_data *data)
+void	lexer(t_data *data)
 {
 	int			i;
 	t_token		*token;
 
-	if (!*data->input)
-		return (FALSE);
 	token = token_create();
 	if (!token)
 		program_error_exit("bash");
@@ -30,7 +28,6 @@ t_bool	lexer(t_data *data)
 		check_char(data, &token, &i);
 	if (token->str && *(token->str))
 		token_add_list(&data->tokens, &token, FALSE);
-	return (TRUE);
 }
 
 static void	check_char(t_data *data, t_token **token, int *i)
