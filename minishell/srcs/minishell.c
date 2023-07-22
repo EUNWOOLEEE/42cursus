@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 11:06:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/21 08:43:15 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/21 16:19:56 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
 
-	atexit(check_leak);
+	// atexit(check_leak);
 	
 	(void)argc;
 	(void)argv;
@@ -39,9 +39,9 @@ int	main(int argc, char **argv, char **envp)
 			tree_print(data->root);
 			printf("\n\n");
 			
-			input_free(data);
+			// input_free(data);
 		}
 	}
-	data_free(data);
+	// data_free(data);
 	return (0);
 }

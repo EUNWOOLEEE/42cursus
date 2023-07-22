@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 12:20:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/21 09:03:15 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/21 16:19:42 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static t_bool	check_blank(t_data *data, t_token *token, int *i, t_bool quote);
 static t_bool	check_other(t_data *data, t_token *token, int *i, t_bool 	quote);
 static void		replace(t_data *data, t_token *token, char *name);
 
-//환경변수 뒤에 숫자 알파벳 외에는 환경변수 치환해야함
 t_bool	expand(t_data *data, t_token *token, int *i, t_bool quote)
 {
 	char	*name;
