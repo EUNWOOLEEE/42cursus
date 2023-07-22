@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 12:20:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/21 16:19:42 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/07/22 21:45:48 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ static void	replace(t_data *data, t_token *token, char *name)
 	tmp = env_search(data, name);
 	if (!tmp)
 	{
-		token->str = ft_strdup("$");
+		token->str = ft_strncat(token->str, "$", 1);
 		if (!token->str)
 			program_error_exit("bash");
 		token->str = ft_strncat(token->str, name, ft_strlen(name));
