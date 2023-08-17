@@ -1,48 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_clear.c                                       :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/11 12:03:31 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/15 09:38:40 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/07/19 16:24:31 by kichlee           #+#    #+#             */
+/*   Updated: 2023/08/16 15:54:41 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-void	ft_lstdelone(t_list *lst);
-void	ft_lstclear(t_list **lst);
+void	ft_pwd(void);
 
-void	ft_lstdelone(t_list *lst)
+void	ft_pwd(void)
 {
-	if (!lst)
-		return ;
-	if (lst->token)
-	{
-		if (lst->token->str)
-			free(lst->token->str);
-		free(lst->token);
-	}
-	if (lst->env)
-		free(lst->env);
-	free(lst);
-}
+	char	*buf;
+	size_t	buf_size;
 
-void	ft_lstclear(t_list **lst)
-{
-	t_list	*cur;
-	t_list	*tmp;
-
-	if (!lst)
-		return ;
-	cur = *lst;
-	while (cur)
+	buf = NULL;
+	buf_size = BUF_SIZE;
+	while (1)
 	{
-		tmp = cur->next;
-		ft_lstdelone(cur);
-		cur = tmp;
+		buf = (char *)ft_calloc(buf_size, sizeof(char));
+		if (!buf)
+			program_error_exit("ft_calloc fail!");
+		if (getcwd(buf, buf_size) != NULL)
+		{
+			printf("%s\n", buf);
+			free(buf);
+			return ;
+		}
+		free(buf);
+		if (buf_size > SIZE_MAX / 2)
+			program_error_exit("get_cwd fail!");
+		buf_size *= 2;
 	}
-	*lst = NULL;
 }

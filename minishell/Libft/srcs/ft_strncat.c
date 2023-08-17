@@ -1,36 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_strncat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/14 17:55:14 by eunwolee          #+#    #+#             */
-/*   Updated: 2022/11/25 16:48:59 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/07/03 07:51:04 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/08/11 10:29:43 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_strncat(char *dest, char *src, int n)
 {
-	char		*tmp;
-	size_t		idx;
-	size_t		size;
+	int		size;
+	char	*res;
+	int		i;
+	int		j;
 
-	if (start > ft_strlen(s))
-		size = 0;
-	else if (len > ft_strlen(s + start))
-		size = ft_strlen(s + start);
-	else
-		size = len;
-	tmp = (char *)malloc(sizeof(char) * (size + 1));
-	if (!tmp)
-		return (0);
-	idx = 0;
-	if (size)
-		while (idx < len && s[start])
-			tmp[idx++] = s[start++];
-	tmp[idx] = '\0';
-	return (tmp);
+	if (!dest || !src)
+		return (NULL);
+	size = ft_strlen(dest) + n;
+	res = (char *)ft_calloc(size + 1, sizeof(char));
+	if (!res)
+		return (NULL);
+	i = 0;
+	while (dest[i])
+	{
+		res[i] = dest[i];
+		i++;
+	}
+	free(dest);
+	j = 0;
+	while (j < n)
+	{
+		res[i + j] = src[j];
+		j++;
+	}
+	return (res);
 }

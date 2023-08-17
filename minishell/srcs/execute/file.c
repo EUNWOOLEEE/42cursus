@@ -1,48 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_clear.c                                       :+:      :+:    :+:   */
+/*   file.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/11 12:03:31 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/15 09:38:40 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/08/14 18:53:28 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/08/16 16:38:20 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-void	ft_lstdelone(t_list *lst);
-void	ft_lstclear(t_list **lst);
+void	check_file(int fd, t_data *data);
+void	close_file(t_data *data);
 
-void	ft_lstdelone(t_list *lst)
+void	check_file(int fd, t_data *data)
 {
-	if (!lst)
-		return ;
-	if (lst->token)
+	char	*str;
+
+	str = data->root->left_child->left_child->left_child->token->str;
+	if (fd < 0)
 	{
-		if (lst->token->str)
-			free(lst->token->str);
-		free(lst->token);
+		close(fd);
+		data->error_code = 1;
+		error_print(str, 0, 1);
+		if (data->info->parent == 1)
+			exit(1);
 	}
-	if (lst->env)
-		free(lst->env);
-	free(lst);
 }
 
-void	ft_lstclear(t_list **lst)
+void	close_file(t_data *data)
 {
-	t_list	*cur;
-	t_list	*tmp;
+	int	i;
 
-	if (!lst)
-		return ;
-	cur = *lst;
-	while (cur)
-	{
-		tmp = cur->next;
-		ft_lstdelone(cur);
-		cur = tmp;
-	}
-	*lst = NULL;
+	i = -1;
+	while (++i < data->info->index)
+		unlink(data->info->heredoc_file[i]);
 }

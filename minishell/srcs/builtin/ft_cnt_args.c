@@ -1,44 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncat.c                                       :+:      :+:    :+:   */
+/*   ft_cnt_args.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/03 07:51:04 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/21 16:19:01 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/07/22 13:20:41 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/08/14 20:49:20 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../incs/minishell.h"
 
-char	*ft_strncat(char *dest, char *src, int n)
+int	ft_cnt_args(char **args);
+
+int	ft_cnt_args(char **args)
 {
-	int		size;
-	char	*res;
-	int		i;
-	int		j;
+	int	count;
 
-	size = ft_strlen(dest) + n;
-	res = (char *)ft_calloc(size + 1, sizeof(char));
-	i = 0;
-	if (dest)
+	count = 0;
+	while (*args != NULL)
 	{
-		while (dest[i])
-		{
-			res[i] = dest[i];
-			i++;
-		}
-		// free(dest);
+		count++;
+		args++;
 	}
-	j = 0;
-	if (src)
-	{
-		while (j < n)
-		{
-			res[i + j] = src[j];
-			j++;
-		}
-	}
-	return (res);
+	return (count);
 }

@@ -6,16 +6,17 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 11:06:52 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/21 08:50:37 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/08/16 15:55:23 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/minishell.h"
+#include "../../incs/minishell.h"
 
 void	init(t_data **data, char **envp);
 void	env_init(t_data *data, char **envp);
+void	pipe_init(t_pipe **pipe);
+void	info_init(t_info **info);
 
-//필요하신 초기화 내용 여기 넣어주시면 됩니당
 void	init(t_data **data, char **envp)
 {
 	*data = (t_data *)ft_calloc(1, sizeof(t_data));
@@ -36,8 +37,25 @@ void	env_init(t_data *data, char **envp)
 		if (!new)
 			program_error_exit("bash");
 		new->env = ft_strdup(envp[i]);
+		new->equal_flag = 0;
 		if (!new->env)
 			program_error_exit("bash");
 		ft_lstadd_back(&data->envs, new);
 	}
+}
+
+void	pipe_init(t_pipe **pipe)
+{
+	*pipe = (t_pipe *)ft_calloc(1, sizeof(t_pipe));
+	if (!*pipe)
+		program_error_exit("bash");
+}
+
+void	info_init(t_info **info)
+{
+	*info = (t_info *)ft_calloc(1, sizeof(t_info));
+	if (!*info)
+		program_error_exit("bash");
+	(*info)->oristdin = dup(STDIN_FILENO);
+	(*info)->oristdout = dup(STDOUT_FILENO);
 }

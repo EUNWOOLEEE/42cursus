@@ -6,12 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 10:24:15 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/07/16 17:37:07 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/08/16 21:54:25 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
+
+# define BUF_SIZE 1024
 
 typedef enum e_bool
 {
@@ -30,6 +32,8 @@ typedef enum e_type
 	T_OUTPUT,
 	T_HEREDOC,
 	T_APPEND,
+	T_SINGLE,
+	T_DOUBLE
 }t_type;
 
 typedef struct s_token
@@ -37,15 +41,17 @@ typedef struct s_token
 	int		type;
 	int		redirect_type;
 	char	*str;
-}	t_token;
+	t_bool	blank;
+	int		quote;
+}t_token;
 
-//tokens와 envs에서 통용되는 리스트 구조체
 typedef struct s_list
 {
 	struct s_list	*pre;
 	struct s_list	*next;
 	t_token			*token;
 	char			*env;
+	int				equal_flag;
 }t_list;
 
 typedef struct s_leaf
@@ -58,6 +64,32 @@ typedef struct s_leaf
 	t_bool			exist;
 }t_leaf;
 
+typedef struct s_pid
+{
+	pid_t	pid;
+	int		fd[2];
+}t_pid;
+
+typedef struct s_pipe
+{
+	t_pid	*com;
+	char	**cmd_path;
+	char	*command;
+	char	**cmd_abs;
+}t_pipe;
+
+typedef struct s_info
+{
+	int			index;
+	int			heredoc_flag;
+	char		**heredoc_file;
+	int			oristdin;
+	int			oristdout;
+	int			pipe_num;
+	int			parent;
+	int			pipe_index;
+}t_info;
+
 typedef struct s_data
 {
 	char		*input;
@@ -65,7 +97,10 @@ typedef struct s_data
 	t_list		*envs;
 	char		**env_array;
 	t_leaf		*root;
+	t_pipe		*pipe;
+	t_info		*info;
 	int			error_code;
-}	t_data;
+	char		*abs_home;
+}t_data;
 
 #endif
