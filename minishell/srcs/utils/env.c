@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: kichlee <kichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 06:38:21 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/08/17 01:03:09 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/08/17 18:56:37 by kichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,15 @@ t_bool	env_remove(t_data *data, char *key)
 			return (FALSE);
 	}
 	if (!env->pre)
+	{
+		env->next->pre = NULL;
 		data->envs = env->next;
+	}
 	else
+	{
+		env->next->pre = env->pre;
 		env->pre->next = env->next;
+	}
 	ft_lstdelone(env);
 	return (TRUE);
 }
@@ -84,9 +90,9 @@ char	**env_to_array(t_data *data)
 	int		cnt;
 
 	cnt = ft_lstsize(data->envs);
-	array = (char **)ft_calloc(cnt, sizeof(char *));
+	array = (char **)ft_calloc(cnt + 1, sizeof(char *));
 	if (!array)
-		return (NULL);
+		program_error_exit("bash");
 	i = -1;
 	cur = data->envs;
 	while (++i < cnt)

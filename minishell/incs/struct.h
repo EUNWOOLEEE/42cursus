@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 10:24:15 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/08/16 21:54:25 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/08/17 21:25:58 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define STRUCT_H
 
 # define BUF_SIZE 1024
+
+int	g_error_code;
 
 typedef enum e_bool
 {
@@ -99,7 +101,6 @@ typedef struct s_data
 	t_leaf		*root;
 	t_pipe		*pipe;
 	t_info		*info;
-	int			error_code;
 	char		*abs_home;
 }t_data;
 

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 17:49:19 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/08/16 19:15:52 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/08/17 16:41:42 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ void	execute_cmd(t_data *data, int flag);
 int		check_builtin(t_data *data);
 void	recover_std(t_data *data);
 void	heredoc_flag(t_leaf *leaf, t_data *data);
-void	error_print(char *cmd, char *option, int flag);
 
 /*child*/
 void	do_cmd(t_data *data);
 void	exec_fork(t_data *data);
+t_bool	check_dir(char *command);
 
 /*parent*/
 void	wait_child_processes(t_data *data);
@@ -40,8 +40,10 @@ int		fork_heredoc(t_data *data);
 /*heredoc_uilts*/
 void	write_str(t_data *data, char *content, int fd);
 
-char	*set_path(t_data *data, t_leaf *leaf);
+char	*set_path(t_data *data);
 void	abs_path(t_data *data);
+char	*search_path(t_pipe *base);
+int		check_path(char *str);
 
 void	check_file(int fd, t_data *data);
 void	close_file(t_data *data);
