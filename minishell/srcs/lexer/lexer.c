@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: kichlee <kichlee@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 16:24:37 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/08/17 21:23:34 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/08/19 17:01:28 by kichlee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@ t_bool	lexer(t_data *data)
 	free(token->str);
 	free(token);
 	if (!data->tokens)
-	{
-		free(data->input);
 		return (FALSE);
-	}
 	last_token = ft_lstlast(data->tokens);
 	last_token->token->blank = FALSE;
 	return (TRUE);
@@ -79,9 +76,7 @@ static void	normal_char(t_data *data, t_token **token, int *i)
 {
 	(*token)->blank = FALSE;
 	(*token)->str = ft_strncat((*token)->str, &data->input[*i], 1);
-	if (check_end(data->input[*i + 1]) == TRUE \
-		&& check_last_blank(data->input, *i + 1) == FALSE)
-		(*token)->blank = TRUE;
+	(*token)->blank = check_last_blank(data->input, *i + 1);
 	if (data->input[*i + 1] == '|' \
 		|| data->input[*i + 1] == '<' \
 		|| data->input[*i + 1] == '>' \
