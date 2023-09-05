@@ -6,13 +6,13 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 09:36:24 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/08/07 09:37:12 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/05 18:56:38 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "phonebook.hpp"
 
-int pb_exit(phonebook *pb)
+int pb_exit(void)
 {
-	return (0);
+	exit(0);
 }
