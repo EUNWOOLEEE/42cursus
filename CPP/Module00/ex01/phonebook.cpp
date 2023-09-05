@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 06:44:56 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/04 08:10:36 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/05 20:15:51 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int main()
 	while (true)
 	{
 		std::cout << "Enter a command [ADD][SEARCH][EXIT]" << std::endl;
-		std::cin >> cmd;
+		if (!(std::cin >> cmd))
+			exit(0);
 		
 		if (cmd == "ADD")
 			pb_add(&pb);

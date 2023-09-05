@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 09:11:23 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/05 18:39:50 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/05 20:15:08 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void pb_search(phonebook pb)
 {
 	if(!pb.cnt)
 	{
-		std::cout << "None";
+		std::cout << "No contacts" << std::endl;
 		return ;
 	}
 	
