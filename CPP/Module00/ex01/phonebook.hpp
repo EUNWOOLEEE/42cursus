@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 06:45:25 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/08 12:36:35 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/10 20:00:52 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,61 +15,37 @@
 
 # include <iostream>
 
-class contact
-{
-	private:
-		std::string first_name;
-		std::string last_name;
-		std::string nickname;
-		std::string number;
-		std::string secret;
-		std::string info_arr[5];
-	public:
-		std::string get_info(int i){
-			return info_arr[i];
-		}
-		void add_info(void){
-			std::cout << "First name: ";
-			if (!(std::cin >> first_name))
-				exit(0);
-			info_arr[0] = first_name;
-		
-			std::cout << "Last name: ";
-			if (!(std::cin >> last_name))
-				exit(0);
-			info_arr[1] = last_name;
-			
-			std::cout << "Nickname: ";
-			if (!(std::cin >> nickname))
-				exit(0);
-			info_arr[2] = nickname;
+class contact{
 
-			std::cout << "Phone number: ";
-			if (!(std::cin >> number))
-				exit(0);
-			info_arr[3] = number;
+private:
+	std::string first_name;
+	std::string last_name;
+	std::string nickname;
+	std::string number;
+	std::string secret;
+	std::string info_arr[5];
 
-			std::cout << "Darkest secret: ";
-			if (!(std::cin >> secret))
-				exit(0);
-			info_arr[4] = secret;
-		}
+public:
+	std::string get_info(int i){
+		return info_arr[i];
+	}
+	void		add_info(void);
 };
 
-class phonebook
-{
-	private:
-		contact contacts[8];
-	public:
-		int	cur;
-		int cnt;
-		contact *get_contact(int i){
-			return &contacts[i];
-		}
-};
+class phonebook{
 
-void pb_add(phonebook *pb);
-void pb_search(phonebook pb);
-int pb_exit(void);
+private:
+	contact	contacts[8];
+
+public:
+	int		cur;
+	int		cnt;
+	contact *get_contact(int i){
+		return &contacts[i];
+	}
+	void	pb_add(phonebook *pb);
+	void	pb_search(phonebook pb);
+	void	pb_exit(void);
+};
 
 #endif

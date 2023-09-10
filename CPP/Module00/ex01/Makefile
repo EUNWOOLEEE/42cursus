@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 22:47:37 by eunwolee          #+#    #+#              #
-#    Updated: 2023/09/08 12:02:38 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/09/10 20:00:31 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,13 +18,12 @@ CFLAGS = -Wall -Wextra -Werror -std=c++98
 RM = rm -f
 MAKE = make
 
-SRCS = ./phonebook.cpp \
+SRCS = ./main.cpp \
 	./pb_add.cpp \
 	./pb_search.cpp \
 	./pb_exit.cpp
 
 OBJS = $(SRCS:%.cpp=%.o)
-
 
 RESET = \033[0m
 PINK = \033[38;2;255;170;201m
