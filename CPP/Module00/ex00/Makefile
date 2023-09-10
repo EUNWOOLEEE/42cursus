@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 22:47:37 by eunwolee          #+#    #+#              #
-#    Updated: 2023/09/05 18:42:27 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/09/08 12:02:53 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ all:
 	@$(MAKE) $(NAME)
 
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) $^ -o $@
+	@$(CC) $(CFLAGS) $^ -o $@ -I .
 	$(eval END = $(shell expr $(END) - 1))
 ifneq ($(END),$(NUM_GAUGE))
 	$(eval END = $(shell expr $(END) + 1))
@@ -60,7 +60,7 @@ endif
 	$(eval PROGRESS = $(shell echo "$(GAUGE)" | cut -c $(END)-$(shell expr $(END) + $(SIZE) - 1)))
 	$(eval END = $(shell expr $(END) + $(SIZE)))
 	@printf "$(PROGRESS)"
-	@$(CC) $(CFLAGS) -c $^ -o $@
+	@$(CC) $(CFLAGS) -c $^ -o $@ -I .
 
 clean:
 	@echo "$(PECOCK)CLEANING OBJS... 🧹$(RESET)"

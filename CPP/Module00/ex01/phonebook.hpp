@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 06:45:25 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/05 19:00:01 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/08 12:36:35 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,31 +28,31 @@ class contact
 		std::string get_info(int i){
 			return info_arr[i];
 		}
-		void add_info(contact *info){
+		void add_info(void){
 			std::cout << "First name: ";
-			if (!(std::cin >> info->first_name))
+			if (!(std::cin >> first_name))
 				exit(0);
-			info->info_arr[0] = info->first_name;
+			info_arr[0] = first_name;
 		
 			std::cout << "Last name: ";
-			if (!(std::cin >> info->last_name))
+			if (!(std::cin >> last_name))
 				exit(0);
-			info->info_arr[1] = info->last_name;
+			info_arr[1] = last_name;
 			
 			std::cout << "Nickname: ";
-			if (!(std::cin >> info->nickname))
+			if (!(std::cin >> nickname))
 				exit(0);
-			info->info_arr[2] = info->nickname;
+			info_arr[2] = nickname;
 
 			std::cout << "Phone number: ";
-			if (!(std::cin >> info->number))
+			if (!(std::cin >> number))
 				exit(0);
-			info->info_arr[3] = info->number;
+			info_arr[3] = number;
 
 			std::cout << "Darkest secret: ";
-			if (!(std::cin >> info->secret))
+			if (!(std::cin >> secret))
 				exit(0);
-			info->info_arr[4] = info->secret;
+			info_arr[4] = secret;
 		}
 };
 
