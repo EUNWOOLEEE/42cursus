@@ -6,11 +6,13 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 19:57:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/10 19:59:31 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/13 08:49:06 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "phonebook.hpp"
+
+static void get_line(std::string *str, std::string *arr);
 
 void	phonebook::pb_add(phonebook *pb){
 	int idx = pb->cur;
@@ -23,28 +25,29 @@ void	phonebook::pb_add(phonebook *pb){
 }
 
 void	contact::add_info(void){
+	std::cin.ignore();
 	std::cout << "First name: ";
-	if (!(std::cin >> first_name))
-		exit(0);
-	info_arr[0] = first_name;
+	get_line(&first_name, &info_arr[0]);
 
 	std::cout << "Last name: ";
-	if (!(std::cin >> last_name))
-		exit(0);
-	info_arr[1] = last_name;
+	get_line(&last_name, &info_arr[1]);
 	
 	std::cout << "Nickname: ";
-	if (!(std::cin >> nickname))
-		exit(0);
-	info_arr[2] = nickname;
+	get_line(&nickname, &info_arr[2]);
 
 	std::cout << "Phone number: ";
-	if (!(std::cin >> number))
-		exit(0);
-	info_arr[3] = number;
+	get_line(&number, &info_arr[3]);
 
 	std::cout << "Darkest secret: ";
-	if (!(std::cin >> secret))
-		exit(0);
-	info_arr[4] = secret;
+	get_line(&secret, &info_arr[4]);
+}
+
+static void get_line(std::string *str, std::string *arr){
+	while (str->empty() == true || std::all_of(str->begin(), str->end(), isspace) == true)
+	{
+		std::getline(std::cin, *str);
+		if (std::cin.eof() == true)
+			exit(0);
+	}
+	*arr = *str;
 }

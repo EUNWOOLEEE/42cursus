@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 19:58:13 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/10 19:58:31 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/13 08:16:20 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,14 @@ void phonebook::pb_search(phonebook pb){
 		std::cout << "No contacts" << std::endl;
 		return ;
 	}
+	
 	show_all(pb);
 	show_specific(pb);
 }
 
 static void print_name(std::string name){
 	int cnt = 10 - name.length();
+	
 	if(cnt > 0){
 		for(int k = 0; k < cnt; k++) std::cout << " ";
 		std::cout << name;
@@ -39,8 +41,7 @@ static void print_name(std::string name){
 		std::cout << name;
 }
 
-static void show_all(phonebook pb)
-{
+static void show_all(phonebook pb){
 	int i = pb.cnt < 8 ? 0 : pb.cur;
 	
 	for(int j = 0; j < pb.cnt; j++){
@@ -65,8 +66,11 @@ static void	show_specific(phonebook pb){
 	std::cout << "Select an index to display" << std::endl;
 
 	int idx;
-	std::cin >> idx;
 	
+	if (!(std::cin >> idx))
+		exit(0);
+	
+
 	int i = pb.cnt < 8 ? 0 + idx : (pb.cur + idx) % 8;
 
 	if (0 <= idx && idx < pb.cnt){
