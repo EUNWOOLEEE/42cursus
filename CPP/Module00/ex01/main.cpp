@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:52:09 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/10 19:01:14 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/13 20:34:46 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int main(){
 	phonebook pb = phonebook();
 	std::string cmd;
-	
+
 	while (true){
 		std::cout << "Enter a command [ADD][SEARCH][EXIT]" << std::endl;
 		if (!(std::cin >> cmd))
@@ -28,5 +28,5 @@ int main(){
 		else if (cmd == "EXIT")
 			pb.pb_exit();
 	}
-		return (0);
+	return (0);
 }
