@@ -1,17 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pb_exit.cpp                                        :+:      :+:    :+:   */
+/*   phonebook.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/10 19:58:37 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/10 19:58:46 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/08/07 06:45:25 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/09/13 21:14:55 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "phonebook.hpp"
+#ifndef PHONEBOOK_HPP
+# define PHONEBOOK_HPP
 
-void phonebook::pb_exit(void){
-	exit(0);
-}
+# include <iostream>
+# include "contact.hpp"
+
+class phonebook{
+
+private:
+	contact	contacts[8];
+
+public:
+	int		cur;
+	int		cnt;
+	contact *get_contact(int i);
+	void	pb_add(phonebook *pb);
+	void	pb_search(phonebook pb);
+	void	pb_exit(void);
+};
+
+#endif

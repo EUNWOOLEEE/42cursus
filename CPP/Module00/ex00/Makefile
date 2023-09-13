@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 22:47:37 by eunwolee          #+#    #+#              #
-#    Updated: 2023/09/10 18:46:40 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/09/13 20:59:35 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,7 @@ endif
 	$(eval PROGRESS = $(shell echo "$(GAUGE)" | cut -c $(END)-$(shell expr $(END) + $(SIZE) - 1)))
 	$(eval END = $(shell expr $(END) + $(SIZE)))
 	@printf "$(PROGRESS)"
-	@$(CC) $(CFLAGS) -c $^ -o $@ -I .
+	@$(CC) $(CFLAGS) -c $^ -o $@
 
 clean:
 	@echo "$(PECOCK)CLEANING OBJS... 🧹$(RESET)"

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pb_add.cpp                                         :+:      :+:    :+:   */
+/*   contact.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/10 19:57:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/13 08:49:06 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/09/13 21:02:17 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/09/13 21:18:56 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,8 @@
 
 static void get_line(std::string *str, std::string *arr);
 
-void	phonebook::pb_add(phonebook *pb){
-	int idx = pb->cur;
-	contact *info = pb->get_contact(idx);
-	
-	info->add_info();
-
-	(*pb).cur = ((*pb).cur + 1) % 8;
-	if ((*pb).cnt < 8) (*pb).cnt++;
+std::string contact::get_info(int i){
+	return info_arr[i];
 }
 
 void	contact::add_info(void){

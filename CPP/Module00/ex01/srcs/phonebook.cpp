@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pb_search.cpp                                      :+:      :+:    :+:   */
+/*   phonebook.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/10 19:58:13 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/13 08:16:20 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/09/13 21:14:38 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/09/13 21:17:41 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,24 @@
 static void print_name(std::string name);
 static void show_all(phonebook pb);
 static void	show_specific(phonebook pb);
+
+contact *phonebook::get_contact(int i){
+	return &contacts[i];
+}
+
+void	phonebook::pb_add(phonebook *pb){
+	int idx = pb->cur;
+	contact *info = pb->get_contact(idx);
+	
+	info->add_info();
+
+	(*pb).cur = ((*pb).cur + 1) % 8;
+	if ((*pb).cnt < 8) (*pb).cnt++;
+}
+
+void phonebook::pb_exit(void){
+	exit(0);
+}
 
 void phonebook::pb_search(phonebook pb){
 	if(!pb.cnt){

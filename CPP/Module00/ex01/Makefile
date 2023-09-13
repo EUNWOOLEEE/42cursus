@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 22:47:37 by eunwolee          #+#    #+#              #
-#    Updated: 2023/09/10 20:00:31 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/09/13 21:18:26 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,15 +15,19 @@ NAME = phonebook
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-RM = rm -f
+SRCS_DIR = srcs
+INCS_DIR = incs
+OBJS_DIR = objs
+
+RM = rm -rf
 MAKE = make
 
 SRCS = ./main.cpp \
-	./pb_add.cpp \
-	./pb_search.cpp \
-	./pb_exit.cpp
+	./phonebook.cpp \
+	./contact.cpp
 
-OBJS = $(SRCS:%.cpp=%.o)
+SRCS_WITH_PATH = $(addprefix $(SRCS_DIR)/, $(SRCS))
+OBJS = $(SRCS_WITH_PATH:$(SRCS_DIR)/%.cpp=$(OBJS_DIR)/%.o)
 
 RESET = \033[0m
 PINK = \033[38;2;255;170;201m
@@ -48,7 +52,7 @@ all:
 	@$(MAKE) $(NAME)
 
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) $^ -o $@ -I .
+	@$(CC) $(CFLAGS) $^ -o $@ -I $(INCS_DIR)
 	$(eval END = $(shell expr $(END) - 1))
 ifneq ($(END),$(NUM_GAUGE))
 	$(eval END = $(shell expr $(END) + 1))
@@ -58,16 +62,19 @@ ifneq ($(END),$(NUM_GAUGE))
 endif
 	@printf " ready!$(RESET)\n"
 
-%.o: %.cpp
+$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.cpp | $(OBJS_DIR)
 	$(eval SIZE = $(shell expr $(NUM_GAUGE) / $(NUM_TASK)))
 	$(eval PROGRESS = $(shell echo "$(GAUGE)" | cut -c $(END)-$(shell expr $(END) + $(SIZE) - 1)))
 	$(eval END = $(shell expr $(END) + $(SIZE)))
 	@printf "$(PROGRESS)"
-	@$(CC) $(CFLAGS) -c $^ -o $@ -I .
+	@$(CC) $(CFLAGS) -c $^ -o $@ -I $(INCS_DIR)
+
+$(OBJS_DIR):
+	@mkdir ${OBJS_DIR}
 
 clean:
 	@echo "$(PECOCK)CLEANING OBJS... 🧹$(RESET)"
-	@$(RM) $(OBJS)
+	@$(RM) $(OBJS_DIR)
 
 fclean:
 	@echo "$(GREEN)CLEANING ALL... 🗑️$(RESET)"
