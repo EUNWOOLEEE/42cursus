@@ -6,23 +6,23 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 21:14:38 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/13 21:17:41 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/13 21:23:08 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "phonebook.hpp"
+#include "Phonebook.hpp"
 
 static void print_name(std::string name);
-static void show_all(phonebook pb);
-static void	show_specific(phonebook pb);
+static void show_all(Phonebook pb);
+static void	show_specific(Phonebook pb);
 
-contact *phonebook::get_contact(int i){
+Contact *Phonebook::get_contact(int i){
 	return &contacts[i];
 }
 
-void	phonebook::pb_add(phonebook *pb){
+void	Phonebook::pb_add(Phonebook *pb){
 	int idx = pb->cur;
-	contact *info = pb->get_contact(idx);
+	Contact *info = pb->get_contact(idx);
 	
 	info->add_info();
 
@@ -30,13 +30,13 @@ void	phonebook::pb_add(phonebook *pb){
 	if ((*pb).cnt < 8) (*pb).cnt++;
 }
 
-void phonebook::pb_exit(void){
+void Phonebook::pb_exit(void){
 	exit(0);
 }
 
-void phonebook::pb_search(phonebook pb){
+void Phonebook::pb_search(Phonebook pb){
 	if(!pb.cnt){
-		std::cout << "No contacts" << std::endl;
+		std::cout << "No Contacts" << std::endl;
 		return ;
 	}
 	
@@ -59,11 +59,11 @@ static void print_name(std::string name){
 		std::cout << name;
 }
 
-static void show_all(phonebook pb){
+static void show_all(Phonebook pb){
 	int i = pb.cnt < 8 ? 0 : pb.cur;
 	
 	for(int j = 0; j < pb.cnt; j++){
-		contact *info = pb.get_contact(i);
+		Contact *info = pb.get_contact(i);
 		
 		std::cout << "[" << j << "]";
 		std::cout << " | ";
@@ -80,7 +80,7 @@ static void show_all(phonebook pb){
 	}
 }
 
-static void	show_specific(phonebook pb){
+static void	show_specific(Phonebook pb){
 	std::cout << "Select an index to display" << std::endl;
 
 	int idx;
@@ -92,7 +92,7 @@ static void	show_specific(phonebook pb){
 	int i = pb.cnt < 8 ? 0 + idx : (pb.cur + idx) % 8;
 
 	if (0 <= idx && idx < pb.cnt){
-		contact *info = pb.get_contact(i);
+		Contact *info = pb.get_contact(i);
 		for (int j = 0; j < 5; j++){
 			print_name(info->get_info(j));
 			if (j < 4)

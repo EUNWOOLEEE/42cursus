@@ -6,19 +6,19 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 21:02:17 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/13 21:18:56 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/13 21:25:24 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "phonebook.hpp"
+#include "Phonebook.hpp"
 
 static void get_line(std::string *str, std::string *arr);
 
-std::string contact::get_info(int i){
+std::string Contact::get_info(int i){
 	return info_arr[i];
 }
 
-void	contact::add_info(void){
+void	Contact::add_info(void){
 	std::cin.ignore();
 	std::cout << "First name: ";
 	get_line(&first_name, &info_arr[0]);

@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 22:47:37 by eunwolee          #+#    #+#              #
-#    Updated: 2023/09/13 21:18:26 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/09/13 21:26:49 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,8 @@ RM = rm -rf
 MAKE = make
 
 SRCS = ./main.cpp \
-	./phonebook.cpp \
-	./contact.cpp
+	./Phonebook.cpp \
+	./Contact.cpp
 
 SRCS_WITH_PATH = $(addprefix $(SRCS_DIR)/, $(SRCS))
 OBJS = $(SRCS_WITH_PATH:$(SRCS_DIR)/%.cpp=$(OBJS_DIR)/%.o)

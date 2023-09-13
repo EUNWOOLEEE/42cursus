@@ -6,14 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:52:09 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/13 20:34:46 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/13 21:25:41 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "phonebook.hpp"
+#include "Phonebook.hpp"
 
 int main(){
-	phonebook pb = phonebook();
+	Phonebook pb = Phonebook();
 	std::string cmd;
 
 	while (true){

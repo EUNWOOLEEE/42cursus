@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 21:04:14 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/13 21:05:10 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/13 21:21:30 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <iostream>
 
-class contact{
+class Contact{
 
 private:
 	std::string first_name;
