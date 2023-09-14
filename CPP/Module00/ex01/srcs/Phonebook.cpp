@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 21:14:38 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/14 08:14:51 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/14 15:57:35 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,8 @@ static void	show_specific(Phonebook pb){
 	std::cout << "Select an index to display" << std::endl;
 
 	int idx;
-	
 	if(!(std::cin >> idx))
-		exit(0);
-	
+		std::exit(0);
 
 	int i = pb.cnt < 8 ? 0 + idx : (pb.cur + idx) % 8;
 

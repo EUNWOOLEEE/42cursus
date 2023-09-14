@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 21:02:17 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/14 08:14:26 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/14 15:56:46 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void get_line(std::string *str, std::string *arr){
 	{
 		std::getline(std::cin, *str);
 		if (std::cin.eof() == true)
-			exit(0);
+			std::exit(0);
 	}
 	*arr = *str;
 }

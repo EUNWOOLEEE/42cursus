@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 15:45:04 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/14 15:45:05 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/14 15:56:04 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,5 @@ int main(int argc, char **argv){
 			std::cout << argv[i];
 	}
 	std::cout << std::endl;
-	return (0);
+	return 0;
 }
