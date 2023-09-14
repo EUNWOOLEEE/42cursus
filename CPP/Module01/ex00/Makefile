@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 22:47:37 by eunwolee          #+#    #+#              #
-#    Updated: 2023/09/14 07:54:18 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/09/14 10:39:24 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ GAUGE = BraiiiiiiinnnzzzZ...
 NUM_GAUGE = 20
 
 all:
-	@echo "$(YELLOW)ZOMBIE WAKING UP 👻$(RESET)"
+	@echo "$(YELLOW)ZOMBIE IS WAKING UP 👻$(RESET)"
 	@printf "$(GREEN)$(CHAR)"
 	@$(MAKE) $(NAME)
 
