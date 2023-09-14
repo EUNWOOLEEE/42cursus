@@ -6,14 +6,14 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 22:47:37 by eunwolee          #+#    #+#              #
-#    Updated: 2023/09/14 10:37:06 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/09/14 15:33:55 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = Zombie
+NAME = zombie
 
-CC = c++
-CFLAGS = -Wall -Wextra -Werror -std=c++98
+CXX = c++
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
 SRCS_DIR = srcs
 INCS_DIR = incs
@@ -36,7 +36,7 @@ YELLOW = \033[38;2;255;231;155m
 PECOCK = \033[38;2;115;187;201m
 PURPLE = \033[38;2;228;165;255m
 
-NUM_TASK = 4
+NUM_TASK = 3
 SIZE = 0
 END = 1
 CHAR = 🧟🧟🧟 : 
@@ -49,7 +49,7 @@ all:
 	@$(MAKE) $(NAME)
 
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) $^ -o $@ -I $(INCS_DIR)
+	@$(CXX) $(CXXFLAGS) $^ -o $@ -I $(INCS_DIR)
 	$(eval END = $(shell expr $(END) - 1))
 ifneq ($(END),$(NUM_GAUGE))
 	$(eval END = $(shell expr $(END) + 1))
@@ -64,7 +64,7 @@ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.cpp | $(OBJS_DIR)
 	$(eval PROGRESS = $(shell echo "$(GAUGE)" | cut -c $(END)-$(shell expr $(END) + $(SIZE) - 1)))
 	$(eval END = $(shell expr $(END) + $(SIZE)))
 	@printf "$(PROGRESS)"
-	@$(CC) $(CFLAGS) -c $^ -o $@ -I $(INCS_DIR)
+	@$(CXX) $(CXXFLAGS) -c $^ -o $@ -I $(INCS_DIR)
 
 $(OBJS_DIR):
 	@mkdir ${OBJS_DIR}

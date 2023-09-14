@@ -6,22 +6,29 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 22:47:37 by eunwolee          #+#    #+#              #
-#    Updated: 2023/09/14 15:33:27 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/09/14 15:34:21 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = Account
+NAME = Weapon
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-RM = rm -f
+SRCS_DIR = srcs
+INCS_DIR = incs
+OBJS_DIR = objs
+
+RM = rm -rf
 MAKE = make
 
-SRCS = ./Account.cpp \
-	./tests.cpp
+SRCS = main.cpp \
+	Weapon.cpp \
+	HumanA.cpp \
+	HumanB.cpp
 
-OBJS = $(SRCS:%.cpp=%.o)
+SRCS_WITH_PATH = $(addprefix $(SRCS_DIR)/, $(SRCS))
+OBJS = $(SRCS_WITH_PATH:$(SRCS_DIR)/%.cpp=$(OBJS_DIR)/%.o)
 
 RESET = \033[0m
 PINK = \033[38;2;255;170;201m
@@ -33,7 +40,7 @@ PURPLE = \033[38;2;228;165;255m
 PRE = ✧･ﾟ: *✧･ﾟ:*
 NEXT = *:･ﾟ✧*:･ﾟ✧
 
-NUM_TASK = 2
+NUM_TASK = 4
 SIZE = 0
 END = 1
 CHAR = ଘ(੭'꒳')੭━ 
@@ -46,7 +53,7 @@ all:
 	@$(MAKE) $(NAME)
 
 $(NAME): $(OBJS)
-	@$(CXX) $(CXXFLAGS) $^ -o $@ -I .
+	@$(CXX) $(CXXFLAGS) $^ -o $@ -I $(INCS_DIR)
 	$(eval END = $(shell expr $(END) - 1))
 ifneq ($(END),$(NUM_GAUGE))
 	$(eval END = $(shell expr $(END) + 1))
@@ -56,16 +63,19 @@ ifneq ($(END),$(NUM_GAUGE))
 endif
 	@printf " ready!$(RESET)\n"
 
-%.o: %.cpp
+$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.cpp | $(OBJS_DIR)
 	$(eval SIZE = $(shell expr $(NUM_GAUGE) / $(NUM_TASK)))
 	$(eval PROGRESS = $(shell echo "$(GAUGE)" | cut -c $(END)-$(shell expr $(END) + $(SIZE) - 1)))
 	$(eval END = $(shell expr $(END) + $(SIZE)))
 	@printf "$(PROGRESS)"
-	@$(CXX) $(CXXFLAGS) -c $^ -o $@ -I .
+	@$(CXX) $(CXXFLAGS) -c $^ -o $@ -I $(INCS_DIR)
+
+$(OBJS_DIR):
+	@mkdir ${OBJS_DIR}
 
 clean:
 	@echo "$(PECOCK)CLEANING OBJS... 🧹$(RESET)"
-	@$(RM) $(OBJS)
+	@$(RM) $(OBJS_DIR)
 
 fclean:
 	@echo "$(GREEN)CLEANING ALL... 🗑️$(RESET)"

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 06:45:25 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/13 21:25:09 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/14 12:50:49 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@
 
 class Phonebook{
 
-private:
-	Contact	contacts[8];
-
 public:
 	int		cur;
 	int		cnt;
@@ -28,6 +25,9 @@ public:
 	void	pb_add(Phonebook *pb);
 	void	pb_search(Phonebook pb);
 	void	pb_exit(void);
+
+private:
+	Contact	contacts[8];
 };
 
 #endif

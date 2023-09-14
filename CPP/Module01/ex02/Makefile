@@ -6,11 +6,11 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 22:47:37 by eunwolee          #+#    #+#              #
-#    Updated: 2023/09/14 15:33:27 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/09/14 15:34:07 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = Account
+NAME = Brain
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
@@ -18,8 +18,7 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 RM = rm -f
 MAKE = make
 
-SRCS = ./Account.cpp \
-	./tests.cpp
+SRCS = ./main.cpp
 
 OBJS = $(SRCS:%.cpp=%.o)
 
@@ -33,7 +32,7 @@ PURPLE = \033[38;2;228;165;255m
 PRE = ✧･ﾟ: *✧･ﾟ:*
 NEXT = *:･ﾟ✧*:･ﾟ✧
 
-NUM_TASK = 2
+NUM_TASK = 1
 SIZE = 0
 END = 1
 CHAR = ଘ(੭'꒳')੭━ 

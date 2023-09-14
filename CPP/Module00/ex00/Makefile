@@ -6,14 +6,14 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 22:47:37 by eunwolee          #+#    #+#              #
-#    Updated: 2023/09/13 21:53:27 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/09/14 15:32:34 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = Megaphone
 
-CC = c++
-CFLAGS = -Wall -Wextra -Werror -std=c++98
+CXX = c++
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
 RM = rm -f
 MAKE = make
@@ -45,7 +45,7 @@ all:
 	@$(MAKE) $(NAME)
 
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) $^ -o $@ -I .
+	@$(CXX) $(CPPFLAGS) $^ -o $@ -I .
 	$(eval END = $(shell expr $(END) - 1))
 ifneq ($(END),$(NUM_GAUGE))
 	$(eval END = $(shell expr $(END) + 1))
@@ -60,7 +60,7 @@ endif
 	$(eval PROGRESS = $(shell echo "$(GAUGE)" | cut -c $(END)-$(shell expr $(END) + $(SIZE) - 1)))
 	$(eval END = $(shell expr $(END) + $(SIZE)))
 	@printf "$(PROGRESS)"
-	@$(CC) $(CFLAGS) -c $^ -o $@
+	@$(CXX) $(CPPFLAGS) -c $^ -o $@
 
 clean:
 	@echo "$(PECOCK)CLEANING OBJS... 🧹$(RESET)"
