@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 12:04:21 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/14 08:15:25 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/14 16:07:31 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,8 @@ void Account::displayStatus(void) const{
 		std::endl;
 }
 
+static void	print_num(int num);
+
 void Account::_displayTimestamp(void){
 	time_t		timer = time(NULL);
 	struct tm	*time  = localtime(&timer);
@@ -131,10 +133,17 @@ void Account::_displayTimestamp(void){
 	int			min = time->tm_min;
 	int			sec = time->tm_sec;
 
-	std::cout << "[" << year << \
-		(mon > 9 ? std::to_string(mon) : "0" + std::to_string(mon)) << \
-		(day > 9 ? std::to_string(day) : "0" + std::to_string(day)) << '_' << \
-		(hour > 9 ? std::to_string(hour) : "0" + std::to_string(hour)) << \
-		(min > 9 ? std::to_string(min) : "0" + std::to_string(min)) << \
-		(sec > 9 ? std::to_string(sec) : "0" + std::to_string(sec)) << "] ";
+	std::cout << "[" << year;
+	print_num(mon);
+	print_num(day);
+	std::cout << "_";
+	print_num(hour);
+	print_num(min);
+	print_num(sec);
+	std::cout << "] ";
+}
+
+static void	print_num(int num){
+	if (num <= 9) std::cout << "0";
+	std::cout << num;
 }
