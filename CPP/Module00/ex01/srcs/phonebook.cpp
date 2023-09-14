@@ -6,11 +6,11 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 21:14:38 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/13 21:23:08 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/14 08:14:51 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Phonebook.hpp"
+#include "../incs/Phonebook.hpp"
 
 static void print_name(std::string name);
 static void show_all(Phonebook pb);
@@ -27,7 +27,7 @@ void	Phonebook::pb_add(Phonebook *pb){
 	info->add_info();
 
 	(*pb).cur = ((*pb).cur + 1) % 8;
-	if ((*pb).cnt < 8) (*pb).cnt++;
+	if((*pb).cnt < 8) (*pb).cnt++;
 }
 
 void Phonebook::pb_exit(void){
@@ -51,7 +51,7 @@ static void print_name(std::string name){
 		for(int k = 0; k < cnt; k++) std::cout << " ";
 		std::cout << name;
 	}
-	else if (cnt < 0){
+	else if(cnt < 0){
 		std::string sub = name.substr(0, 9);
 		std::cout << sub << ".";
 	}
@@ -85,17 +85,17 @@ static void	show_specific(Phonebook pb){
 
 	int idx;
 	
-	if (!(std::cin >> idx))
+	if(!(std::cin >> idx))
 		exit(0);
 	
 
 	int i = pb.cnt < 8 ? 0 + idx : (pb.cur + idx) % 8;
 
-	if (0 <= idx && idx < pb.cnt){
+	if(0 <= idx && idx < pb.cnt){
 		Contact *info = pb.get_contact(i);
-		for (int j = 0; j < 5; j++){
+		for(int j = 0; j < 5; j++){
 			print_name(info->get_info(j));
-			if (j < 4)
+			if(j < 4)
 				std::cout << " | ";
 			else
 				std::cout << std::endl;

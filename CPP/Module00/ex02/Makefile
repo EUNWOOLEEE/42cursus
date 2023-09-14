@@ -6,11 +6,11 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 22:47:37 by eunwolee          #+#    #+#              #
-#    Updated: 2023/09/13 07:41:09 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/09/13 21:53:16 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = account
+NAME = Account
 
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98

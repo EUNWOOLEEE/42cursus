@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 12:04:21 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/13 07:18:51 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/14 08:15:25 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void Account::makeDeposit(int deposit){
 bool Account::makeWithdrawal(int withdrawal){
 	_displayTimestamp();
 
-	if (checkAmount() < withdrawal)
+	if(checkAmount() < withdrawal)
 	{
 		std::cout << "index:" << _accountIndex << \
 			";p_amount:" << checkAmount() << \
@@ -123,7 +123,7 @@ void Account::displayStatus(void) const{
 
 void Account::_displayTimestamp(void){
 	time_t		timer = time(NULL);
-	struct tm	*time = localtime(&timer);
+	struct tm	*time  = localtime(&timer);
 	int			year = time->tm_year + 1900;
 	int			mon = time->tm_mon + 1;
 	int			day = time->tm_mday;

@@ -6,11 +6,11 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 22:47:37 by eunwolee          #+#    #+#              #
-#    Updated: 2023/09/13 21:26:49 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/09/13 21:55:04 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = phonebook
+NAME = Phonebook
 
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
@@ -22,9 +22,9 @@ OBJS_DIR = objs
 RM = rm -rf
 MAKE = make
 
-SRCS = ./main.cpp \
-	./Phonebook.cpp \
-	./Contact.cpp
+SRCS = main.cpp \
+	Phonebook.cpp \
+	Contact.cpp
 
 SRCS_WITH_PATH = $(addprefix $(SRCS_DIR)/, $(SRCS))
 OBJS = $(SRCS_WITH_PATH:$(SRCS_DIR)/%.cpp=$(OBJS_DIR)/%.o)

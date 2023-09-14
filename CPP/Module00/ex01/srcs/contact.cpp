@@ -6,11 +6,11 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 21:02:17 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/13 21:25:24 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/14 08:14:26 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Phonebook.hpp"
+#include "../incs/Phonebook.hpp"
 
 static void get_line(std::string *str, std::string *arr);
 
@@ -37,7 +37,7 @@ void	Contact::add_info(void){
 }
 
 static void get_line(std::string *str, std::string *arr){
-	while (str->empty() == true || std::all_of(str->begin(), str->end(), isspace) == true)
+	while(str->empty() == true || std::all_of(str->begin(), str->end(), isspace) == true)
 	{
 		std::getline(std::cin, *str);
 		if (std::cin.eof() == true)

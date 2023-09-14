@@ -6,11 +6,11 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 22:47:37 by eunwolee          #+#    #+#              #
-#    Updated: 2023/09/13 20:59:35 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/09/13 21:53:27 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = megaphone
+NAME = Megaphone
 
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
@@ -18,7 +18,7 @@ CFLAGS = -Wall -Wextra -Werror -std=c++98
 RM = rm -f
 MAKE = make
 
-SRCS = ./megaphone.cpp
+SRCS = ./Megaphone.cpp
 
 OBJS = $(SRCS:%.cpp=%.o)
 
