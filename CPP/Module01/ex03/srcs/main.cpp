@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 11:43:59 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/14 18:35:42 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/15 08:14:34 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,5 @@ int main()
 		club.setType("some other type of club");
 		jim.attack();
 	}
-
 	return 0;
 }

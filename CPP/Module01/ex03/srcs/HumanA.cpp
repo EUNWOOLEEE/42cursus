@@ -6,16 +6,13 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 11:43:52 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/14 18:21:03 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/15 06:48:21 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/HumanA.hpp"
 
-HumanA::HumanA(std::string s, Weapon w){
-	name = s;
-	weapon = w;
-}
+HumanA::HumanA(std::string s, Weapon& w) : name(s), weapon(w){}
 
 HumanA::~HumanA(){}
 
