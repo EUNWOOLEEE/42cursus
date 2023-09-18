@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   phonebook.cpp                                      :+:      :+:    :+:   */
+/*   Phonebook.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 21:14:38 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/14 15:57:35 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/18 13:24:11 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,6 @@ void Phonebook::pb_search(Phonebook pb){
 	
 	show_all(pb);
 	show_specific(pb);
-}
-
-static void print_name(std::string name){
-	int cnt = 10 - name.length();
-	
-	if(cnt > 0){
-		for(int k = 0; k < cnt; k++) std::cout << " ";
-		std::cout << name;
-	}
-	else if(cnt < 0){
-		std::string sub = name.substr(0, 9);
-		std::cout << sub << ".";
-	}
-	else
-		std::cout << name;
 }
 
 static void show_all(Phonebook pb){
@@ -101,4 +86,19 @@ static void	show_specific(Phonebook pb){
 	}
 	else
 		std::cout << "Wrong index" << std::endl;
+}
+
+static void print_name(std::string name){
+	int cnt = 10 - name.length();
+	
+	if(cnt > 0){
+		for(int k = 0; k < cnt; k++) std::cout << " ";
+		std::cout << name;
+	}
+	else if(cnt < 0){
+		std::string sub = name.substr(0, 9);
+		std::cout << sub << ".";
+	}
+	else
+		std::cout << name;
 }
