@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   contact.hpp                                        :+:      :+:    :+:   */
+/*   Contact.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 21:04:14 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/14 12:50:33 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/18 17:12:32 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@
 class Contact{
 
 public:
-	std::string get_info(int i);
+	std::string	get_info(int i);
 	void		add_info(void);
 
 private:
-	std::string first_name;
-	std::string last_name;
+	std::string	first_name;
+	std::string	last_name;
 	std::string nickname;
 	std::string number;
 	std::string secret;
