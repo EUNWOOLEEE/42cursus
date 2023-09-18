@@ -6,11 +6,11 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 22:47:37 by eunwolee          #+#    #+#              #
-#    Updated: 2023/09/18 14:23:51 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/09/18 14:23:09 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = Weapon
+NAME = Sed
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
@@ -22,10 +22,7 @@ OBJS_DIR = objs
 RM = rm -rf
 MAKE = make
 
-SRCS = main.cpp \
-	Weapon.cpp \
-	HumanA.cpp \
-	HumanB.cpp
+SRCS = main.cpp
 
 SRCS_WITH_PATH = $(addprefix $(SRCS_DIR)/, $(SRCS))
 OBJS = $(SRCS_WITH_PATH:$(SRCS_DIR)/%.cpp=$(OBJS_DIR)/%.o)
@@ -44,7 +41,7 @@ NUM_TASK = 4
 SIZE = 0
 END = 1
 CHAR = ଘ(੭'꒳')੭━ 
-GAUGE = ▁▁▂▂▃▃▅▅▆▆▓▒░✩ 🔫
+GAUGE = ▁▁▂▂▃▃▅▅▆▆▓▒░✩ 🌟
 NUM_GAUGE = 16
 
 all:
