@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 21:14:38 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/18 18:27:15 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/19 15:43:37 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void print_name(std::string name);
 static void show_all(Phonebook pb);
-static void	show_specific(Phonebook pb);
+static bool	show_specific(Phonebook pb);
 
 Contact& Phonebook::get_contact(int i){
 	return contacts[i];
@@ -41,9 +41,9 @@ void Phonebook::pb_search(Phonebook pb){
 	}
 	
 	show_all(pb);
-	show_specific(pb);
-	std::cin.ignore();
-	std::cin.clear();
+	if(show_specific(pb) == false)
+		std::cout << "Wrong index" << std::endl;
+
 }
 
 static void show_all(Phonebook pb){
@@ -67,16 +67,21 @@ static void show_all(Phonebook pb){
 	}
 }
 
-static void	show_specific(Phonebook pb){
+static bool	show_specific(Phonebook pb){
 	std::cout << "Select an index to display" << std::endl;
 
 	int idx = 0;
-	if(!(std::cin >> idx) || idx < 0 || pb.cnt <= idx)
-	{
+	if(!(std::cin >> idx)){
 		if(std::cin.eof() == true)
 			std::exit(0);
-		std::cout << "Wrong index" << std::endl;
-		return ;
+
+		std::cin.clear();
+		std::cin.ignore(1000, '\n');
+		return false;
+	}
+	else if(idx < 0 || pb.cnt <= idx){
+		std::cin.ignore();
+		return false;
 	}
 
 	int i = pb.cnt < 8 ? 0 + idx : (pb.cur + idx) % 8;
@@ -90,7 +95,9 @@ static void	show_specific(Phonebook pb){
 			else
 				std::cout << std::endl;
 		}
+		std::cin.ignore();
 	}
+	return true;
 }
 
 static void print_name(std::string name){
