@@ -6,20 +6,20 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 14:44:03 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/21 17:58:58 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/23 19:52:50 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/Sed.hpp"
 
-Sed::Sed(char *file_name, char* str1, char* str2){
+Sed::Sed(char* file_name, char* str1, char* str2){
 	file.open(file_name, std::ios_base::in);
 	if(!file){
 		throw Exception("File open error!");
 	}
 
 	std::string copy_file_name = std::string(file_name).append(".replace");
-	copy_file.open(copy_file_name, std::ios_base::out);
+	copy_file.open(copy_file_name.c_str(), std::ios_base::out);
 	if(!copy_file){
 		file.close();
 		throw Exception("File create error!");
