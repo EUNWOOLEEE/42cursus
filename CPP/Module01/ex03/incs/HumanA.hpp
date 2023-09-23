@@ -6,12 +6,12 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 11:43:12 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/15 06:48:11 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/21 18:01:13 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HUMANA_H
-# define HUMANA_H
+#ifndef HUMANA_HPP
+# define HUMANA_HPP
 
 # include "Weapon.hpp"
 

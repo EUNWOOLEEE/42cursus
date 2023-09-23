@@ -6,11 +6,11 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 22:47:37 by eunwolee          #+#    #+#              #
-#    Updated: 2023/09/21 17:56:58 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/09/23 09:19:06 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = Sed
+NAME = Harl
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
@@ -23,7 +23,7 @@ RM = rm -rf
 MAKE = make
 
 SRCS = main.cpp \
-		Sed.cpp
+		Harl.cpp
 
 SRCS_WITH_PATH = $(addprefix $(SRCS_DIR)/, $(SRCS))
 OBJS = $(SRCS_WITH_PATH:$(SRCS_DIR)/%.cpp=$(OBJS_DIR)/%.o)

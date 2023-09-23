@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   HumanB.hpp                                         :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/14 11:42:42 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/21 18:01:11 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/09/21 18:02:21 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/09/23 17:57:52 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HUMANB_HPP
-# define HUMANB_HPP
+#include "../incs/Harl.hpp"
 
-# include "Weapon.hpp"
+int main(){
+	Harl harl = Harl();
 
-class HumanB{
-	public:
-		HumanB(std::string s);
-		~HumanB(void);
+	harl.complain("DEBUG");
+	std::cout << std::endl;
 
-		void	attack(void);
-		void	setWeapon(Weapon& w);
-
-	private:
-		std::string	name;
-		Weapon*		weapon;
-};
-
-#endif
+	harl.complain("INFO");
+	std::cout << std::endl;
+	
+	harl.complain("WARNING");
+	std::cout << std::endl;
+	
+	harl.complain("ERROR");
+	std::cout << std::endl;
+	
+	return 0;
+}
