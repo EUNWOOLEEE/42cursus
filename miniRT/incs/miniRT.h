@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 22:12:15 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/25 08:18:22 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/25 21:55:16 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,60 +18,35 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include "struct.h"
 # include "../Libft/incs/libft.h"
 
-typedef enum e_bool
-{
-	FALSE,
-	TRUE
-}t_bool;
+t_info	*init_info(int argc, char *file_neme);
+t_bool	read_info(t_info *info);
 
-typedef struct s_info
-{
-	void		*mlx;
-	void		*win;
-	int			fd;
-	t_element	A;
-	t_element	SR;
-	t_element	C;
-	t_element	L;
-	t_object	sp;
-	t_object	cl;
-	t_object	py;
-	t_object	co;
-}t_info;
+t_bool	check_argument(t_info *info, int argc, char *file_name);
 
-typedef struct s_coor
-{
-	double	x;
-	double	y;
-	double	z;
-}t_coor;
+t_bool	check_ratio(double ratio);
+t_bool	check_color(t_color color);
+t_bool	check_vector(t_coor vector);
+t_bool	check_FOV(int FOV);
 
-typedef struct s_color
-{
-	int	R;
-	int	G;
-	int	B;
-}t_color;
+t_bool	set_element(t_info *info, char **strs);
+t_bool	set_object(t_info *info, char **strs);
+t_bool	set_color(t_color *color, char **strs);
+t_bool	set_coor(t_coor *coor, char **strs);
 
-typedef struct s_element
-{
-	int		FOV;
-	double	light_ratio;
-	t_coor	view_coor;
-	t_coor	light_coor;
-	t_coor	vector_coor;
-	t_color	color;
-}t_element;
+t_bool	emt_A(t_element *A, char **strs);
+t_bool	emt_SR(t_element *SR, char **strs);
+t_bool	emt_C(t_element *C, char **strs);
+t_bool	emt_L(t_element *L, char **strs);
 
-typedef struct s_object
-{
-	double	diameter;
-	double	height;
-	t_coor	coor;
-	t_coor	vector_coor;
-	t_color	color;
-}t_object;
+t_bool	obj_sp(t_object *sp, char **strs);
+t_bool	obj_pl(t_object *pl, char **strs);
+t_bool	obj_cy(t_object *cy, char **strs);
+t_bool	obj_co(t_object *co, char **strs);
+
+int		cnt_strs(char **strs);
+void	free_double_pointer(char **strs);
 
 #endif

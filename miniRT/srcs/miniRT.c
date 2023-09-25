@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 22:07:02 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/25 06:45:20 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/25 16:35:25 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,7 @@ int main(int argc, char **argv)
 {
 	t_info	*info;
 	
+	info = init_info(argc, argv[1]);
+	read_info(info);
 	return (0);
 }

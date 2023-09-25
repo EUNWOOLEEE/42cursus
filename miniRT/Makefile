@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 21:45:52 by eunwolee          #+#    #+#              #
-#    Updated: 2023/09/24 22:20:06 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/09/25 18:13:58 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,12 @@ RM = rm -rf
 MAKE = make
 
 SRCS =	miniRT.c \
+		init.c \
+		utils.c \
+		parse/check_valid.c \
+		parse/set_type.c \
+		parse/element.c \
+		parse/object.c
 
 SRCS_WITH_PATH = $(addprefix $(SRCS_DIR)/, $(SRCS))
 OBJS = $(SRCS_WITH_PATH:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
@@ -55,8 +61,6 @@ all:
 	@echo "$(PINK)$(PRE)  BUILD  $(NAME)  $(NEXT)$(RESET)"
 	@printf "$(YELLOW)$(CHAR)"
 	@$(MAKE) $(NAME)
-
-	@mkdir ${OBJS_DIR}/Libft
 
 $(NAME): $(L_NAME) $(OBJS)
 	@$(CC) $(MLX_FLAGS) $^ -o $@ -I $(INCS_DIR) -L .
@@ -84,6 +88,7 @@ ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c | ${OBJS_DIR}
 
 ${OBJS_DIR}:
 	@mkdir ${OBJS_DIR}
+	@mkdir ${OBJS_DIR}/parse
 
 clean:
 	@echo "$(PECOCK)CLEANING OBJS... 🧹$(RESET)"
