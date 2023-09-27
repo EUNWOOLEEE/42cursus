@@ -6,13 +6,13 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 14:44:03 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/27 16:31:35 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/27 19:22:10 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/Sed.hpp"
 
-Sed::Sed(char* file_name, char* str1, char* str2){
+Sed::Sed(char* file_name, char* s1, char* s2){
 	file.open(file_name, std::ios_base::in);
 	if(!file){
 		throw Exception("File open error!");
@@ -25,8 +25,8 @@ Sed::Sed(char* file_name, char* str1, char* str2){
 		throw Exception("File create error!");
 	}
 
-	orignal_str = (std::string)str1;
-	replace_str = (std::string)str2;
+	orignal_str = (std::string)s1;
+	replace_str = (std::string)s2;
 }
 
 Sed::~Sed(){
@@ -37,7 +37,7 @@ Sed::~Sed(){
 }
 
 void	Sed::rewrite(){
-	char	buf[3];
+	char	buf[1000];
 
 	while(file.getline(buf, sizeof(buf))){
 		std::string buf_tmp = (std::string)buf;

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 18:01:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/23 18:24:46 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/27 19:28:47 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ Harl::Harl(){
 
 void	Harl::complain(std::string level){
 	bool	flag = false;
+	
 	for(int i = 0; i < 4; i++){
 		if(level == cmd[i])
 			flag = true;

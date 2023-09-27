@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 14:26:33 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/24 16:02:19 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/27 19:22:21 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 class Sed{
 
 	public:
-		Sed(char *file_name, char* str1, char* str2);
+		Sed(char *file_name, char* s1, char* s2);
 		~Sed();
 		
 		void rewrite();
