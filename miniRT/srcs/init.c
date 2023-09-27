@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 22:21:10 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/25 18:16:25 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/26 00:24:42 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ t_bool	read_info(t_info *info)
 		strs = ft_split(buf, ' ');
 		if (!strs)
 			return (FALSE);
-		if (check_element(info, strs) == FALSE \
-			|| check_object(info, strs) == FALSE)
+		if (set_element(info, strs) == FALSE \
+			|| set_object(info, strs) == FALSE)
 		{
 			free_double_pointer(strs);
 			return (FALSE);
@@ -47,6 +47,7 @@ t_bool	read_info(t_info *info)
 		free(buf);
 		buf = get_next_line(info->fd);
 	}
+	printf("A %lf %d,%d,%d\n", info->A.light_ratio, info->A.color.R, info->A.color.G, info->A.color.B);
 	return (TRUE);
 }
 

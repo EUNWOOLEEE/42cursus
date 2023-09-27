@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 21:45:52 by eunwolee          #+#    #+#              #
-#    Updated: 2023/09/25 18:13:58 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/09/26 00:20:29 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRCS =	miniRT.c \
 		init.c \
 		utils.c \
 		parse/check_valid.c \
+		parse/check_valid_type.c \
 		parse/set_type.c \
 		parse/element.c \
 		parse/object.c
@@ -50,7 +51,7 @@ PURPLE = \033[38;2;228;165;255m
 PRE = ✧･ﾟ: *✧･ﾟ:*
 NEXT = *:･ﾟ✧*:･ﾟ✧
 
-NUM_TASK = 2
+NUM_TASK = 8
 SIZE = 0
 END = 1
 CHAR = ଘ(੭'꒳')੭━ 
@@ -63,7 +64,6 @@ all:
 	@$(MAKE) $(NAME)
 
 $(NAME): $(L_NAME) $(OBJS)
-	@$(CC) $(MLX_FLAGS) $^ -o $@ -I $(INCS_DIR) -L .
 	$(eval END = $(shell expr $(END) - 1))
 ifneq ($(END),$(NUM_GAUGE))
 	$(eval END = $(shell expr $(END) + 1))
@@ -74,6 +74,7 @@ endif
 	@printf " ready!$(RESET)\n"
 	@$(MAKE) -C $(MLX_DIR)
 	@cp ./$(MLX_DIR)/$(MLX_NAME) .
+	@$(CC) $(MLX_FLAGS) $^ -o $@ -I $(INCS_DIR) -L .
 
 $(L_NAME):
 	@$(MAKE) -C $(L_DIR)
