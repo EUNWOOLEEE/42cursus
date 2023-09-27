@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 14:44:03 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/24 16:02:37 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/27 16:31:35 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	Sed::rewrite(){
 		std::string buf_tmp = (std::string)buf;
 		int			compare = 0;
 
-		for(u_int64_t i = 0; i < buf_tmp.length(); i++){
+		for(size_t i = 0; i < buf_tmp.length(); i++){
 			compare = buf_tmp.find(orignal_str, i);
 			if(compare >= 0){
 				buf_tmp.erase(compare, orignal_str.length());
