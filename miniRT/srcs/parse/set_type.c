@@ -6,60 +6,36 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 16:17:56 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/25 18:22:13 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/28 14:17:58 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/miniRT.h"
 
-t_bool	set_element(t_info *info, char **strs)
+t_bool	set_func(t_info *info, char **strs)
 {
-	if (!ft_strncmp(strs[0], "A", 2))
-	{
-		if (emt_A(&(info->A), strs) == FALSE)
-			return (FALSE);
-	}
-	else if(!ft_strncmp(strs[0], "SR", 2))
-	{
-		if (emt_SR(&(info->SR), strs) == FALSE)
-			return (FALSE);
-	}
-	else if(!ft_strncmp(strs[0], "C", 2))
-	{
-		if (emt_C(&(info->C), strs) == FALSE)
-			return (FALSE);
-	}
-	else if(!ft_strncmp(strs[0], "L", 2))
-	{
-		if (emt_L(&(info->L), strs) == FALSE)
-			return (FALSE);
-	}
-	return (TRUE);
-}
+	t_bool	res;
 
-t_bool	set_object(t_info *info, char **strs)
-{
-	if(!ft_strncmp(strs[0], "sp", 3))
-	{
-		if (obj_sp(&(info->sp), strs) == FALSE)
-			return (FALSE);
-	}
+	res = TRUE;
+	if (!ft_strncmp(strs[0], "A", 2))
+		res = emt_A(&(info->A), strs);
+	else if(!ft_strncmp(strs[0], "SR", 2))
+		res = emt_SR(&(info->SR), strs);
+	else if(!ft_strncmp(strs[0], "C", 2))
+		res = emt_C(&(info->C), strs);
+	else if(!ft_strncmp(strs[0], "L", 2))
+		res = emt_L(&(info->L), strs);
+	else if(!ft_strncmp(strs[0], "sp", 3))
+		res = obj_sp(&(info->sp), strs);
 	else if(!ft_strncmp(strs[0], "pl", 3))
-	{
-		if (obj_pl(&(info->pl), strs) == FALSE)
-			return (FALSE);
-	}
+		res = obj_pl(&(info->pl), strs);
 	else if(!ft_strncmp(strs[0], "cy", 3))
-	{
-		if (obj_cy(&(info->cy), strs) == FALSE)
-			return (FALSE);
-	}
+		res = obj_cy(&(info->cy), strs);
 	else if(!ft_strncmp(strs[0], "co", 3))
-	{
-		if (obj_co(&(info->co), strs) == FALSE)
-			return (FALSE);
-	}
-	return (TRUE);
+		res = obj_co(&(info->co), strs);
+	else
+		res = FALSE;
+	return (res);
 }
 
 t_bool	set_color(t_color *color, char **strs)

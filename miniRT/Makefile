@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 21:45:52 by eunwolee          #+#    #+#              #
-#    Updated: 2023/09/26 00:20:29 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/09/28 12:41:48 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,13 +30,14 @@ RM = rm -rf
 MAKE = make
 
 SRCS =	miniRT.c \
-		init.c \
+		info.c \
 		utils.c \
 		parse/check_valid.c \
 		parse/check_valid_type.c \
 		parse/set_type.c \
 		parse/element.c \
-		parse/object.c
+		parse/object.c \
+		temp.c
 
 SRCS_WITH_PATH = $(addprefix $(SRCS_DIR)/, $(SRCS))
 OBJS = $(SRCS_WITH_PATH:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)

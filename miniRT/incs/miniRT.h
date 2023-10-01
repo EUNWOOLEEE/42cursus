@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 22:12:15 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/25 21:55:16 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/28 14:18:52 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ t_bool	check_color(t_color color);
 t_bool	check_vector(t_coor vector);
 t_bool	check_FOV(int FOV);
 
-t_bool	set_element(t_info *info, char **strs);
-t_bool	set_object(t_info *info, char **strs);
+t_bool	set_func(t_info *info, char **strs);
 t_bool	set_color(t_color *color, char **strs);
 t_bool	set_coor(t_coor *coor, char **strs);
 
@@ -48,5 +47,7 @@ t_bool	obj_co(t_object *co, char **strs);
 
 int		cnt_strs(char **strs);
 void	free_double_pointer(char **strs);
+
+void	print_infos(t_info *info);
 
 #endif

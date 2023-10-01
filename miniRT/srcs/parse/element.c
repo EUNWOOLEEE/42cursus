@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 15:56:51 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/25 18:32:09 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/28 14:20:34 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_bool	emt_L(t_element *L, char **strs)
 		return (FALSE);
 	}
 	set_coor(&(L->light_coor), ft_split(strs[1], ','));
-	L->light_ratio = ft_atoi(strs[2]);
+	L->light_ratio = ft_atod(strs[2]);
 	set_color(&(L->color), ft_split(strs[3], ','));
 	if (check_ratio(L->light_ratio) == FALSE ||
 		check_color(L->color) == FALSE)

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 18:00:37 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/23 18:21:37 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/28 11:10:21 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ class Harl{
 		void		warning(void);
 		void		error(void);
 		
-		std::string	cmd[4];
 		void		(Harl::*func[4])(void);
 };
 

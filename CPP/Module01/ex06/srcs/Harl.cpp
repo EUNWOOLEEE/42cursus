@@ -6,18 +6,13 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 18:01:57 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/27 19:28:47 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/28 11:58:32 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/Harl.hpp"
 
 Harl::Harl(){
-	cmd[0] = "DEBUG";
-	cmd[1] = "INFO";
-	cmd[2] = "WARNING";
-	cmd[3] = "ERROR";
-
 	func[0] = &Harl::debug;
 	func[1] = &Harl::info;
 	func[2] = &Harl::warning;
@@ -25,16 +20,26 @@ Harl::Harl(){
 }
 
 void	Harl::complain(std::string level){
-	bool	flag = false;
-	
-	for(int i = 0; i < 4; i++){
-		if(level == cmd[i])
-			flag = true;
-		if(flag == true)
-			(this->*func[i])();
-	}
-	if(flag == false)
+	int	value = (1 * (level == "DEBUG")) + (2 * (level == "INFO")) + (3 * (level == "WARNING")) + (4 * (level == "ERROR"));
+
+	switch (value)
+	{
+	case 1:
+		(this->*func[0])();
+		//FALLTHROUGH
+	case 2:
+		(this->*func[1])();
+		//FALLTHROUGH
+	case 3:
+		(this->*func[2])();
+		//FALLTHROUGH
+	case 4:
+		(this->*func[3])();
+		break;
+	default:
 		std::cout << OTHER_MSG;
+		break;
+	}
 }
 
 void	Harl::debug(void){

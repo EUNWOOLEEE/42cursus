@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   info.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 22:21:10 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/26 00:24:42 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/09/28 14:50:21 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,25 @@ t_bool	read_info(t_info *info)
 	char	*buf;
 	char	**strs;
 
+	printf("1 %d\n", info->fd);
 	buf = get_next_line(info->fd);
+	printf("2 %d\n", info->fd);
+	printf("read info before %s\n", buf);
 	while (buf)
 	{
 		strs = ft_split(buf, ' ');
 		if (!strs)
 			return (FALSE);
-		if (set_element(info, strs) == FALSE \
-			|| set_object(info, strs) == FALSE)
+		if (set_func(info, strs) == FALSE)
 		{
 			free_double_pointer(strs);
 			return (FALSE);
 		}
 		free(buf);
+		printf("3 %d\n", info->fd);
 		buf = get_next_line(info->fd);
+		printf("read info after %s\n", buf);
 	}
-	printf("A %lf %d,%d,%d\n", info->A.light_ratio, info->A.color.R, info->A.color.G, info->A.color.B);
 	return (TRUE);
 }
 
