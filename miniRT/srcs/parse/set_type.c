@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 16:17:56 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/28 14:17:58 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/01 20:44:10 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,15 @@ t_bool	set_func(t_info *info, char **strs)
 	return (res);
 }
 
-t_bool	set_color(t_color *color, char **strs)
+t_bool	set_rgb(t_rgb *rgb, char **strs)
 {
 	if (!strs)
 		return (FALSE);
 	if (cnt_strs(strs) != 3)
-	{
-		printf("Usage: R,G,B [0-255]\n");
 		return (FALSE);
-	}
-	color->R = ft_atoi(strs[0]);
-	color->G = ft_atoi(strs[1]);
-	color->B = ft_atoi(strs[2]);
+	rgb->R = (long long)ft_atoi(strs[0]);
+	rgb->G = (long long)ft_atoi(strs[1]);
+	rgb->B = (long long)ft_atoi(strs[2]);
 	return (TRUE);
 }
 
@@ -58,12 +55,14 @@ t_bool	set_coor(t_coor *coor, char **strs)
 	if (!strs)
 		return (FALSE);
 	if (cnt_strs(strs) != 3)
-	{
-		printf("Usage: x,y,z (in vector [-1,1])\n");
 		return (FALSE);
-	}
 	coor->x = ft_atod(strs[0]);
 	coor->y = ft_atod(strs[1]);
 	coor->z = ft_atod(strs[2]);
 	return (TRUE);
+}
+
+int	set_color(int t, int r, int g, int b)
+{
+	return (t << 24 | r << 16 | g << 8 | b);
 }

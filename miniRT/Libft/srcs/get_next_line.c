@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:01:43 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/28 14:50:51 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/01 18:01:07 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,5 @@ char	*get_next_line(int fd)
 		return (delete_nod(&head, nod));
 	if (!*(nod->buff))
 		delete_nod(&head, nod);
-	printf("gnl end %d\n", fd);
 	return (line);
 }

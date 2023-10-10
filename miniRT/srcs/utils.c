@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:04:39 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/25 18:16:06 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/01 17:00:51 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,10 @@ void	free_double_pointer(char **strs)
 	while (strs[i])
 		free(strs[i++]);
 	free(strs);
+}
+
+t_bool	print_error_return(char *str)
+{
+	printf("%s\n", str);
+	return (FALSE);
 }

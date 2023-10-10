@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 22:12:15 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/28 14:18:52 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/01 20:44:42 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,26 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include "struct.h"
+# include "message.h"
+# include "../mlx/mlx.h"
 # include "../Libft/incs/libft.h"
 
 t_info	*init_info(int argc, char *file_neme);
 t_bool	read_info(t_info *info);
 
+t_bool	create_mlx(t_info *info);
+
 t_bool	check_argument(t_info *info, int argc, char *file_name);
 
 t_bool	check_ratio(double ratio);
-t_bool	check_color(t_color color);
+t_bool	check_rgb(t_rgb rgb);
 t_bool	check_vector(t_coor vector);
 t_bool	check_FOV(int FOV);
 
 t_bool	set_func(t_info *info, char **strs);
-t_bool	set_color(t_color *color, char **strs);
+t_bool	set_rgb(t_rgb *rgb, char **strs);
 t_bool	set_coor(t_coor *coor, char **strs);
+int		set_color(int t, int r, int g, int b);
 
 t_bool	emt_A(t_element *A, char **strs);
 t_bool	emt_SR(t_element *SR, char **strs);
@@ -47,6 +52,7 @@ t_bool	obj_co(t_object *co, char **strs);
 
 int		cnt_strs(char **strs);
 void	free_double_pointer(char **strs);
+t_bool	print_error_return(char *str);
 
 void	print_infos(t_info *info);
 
