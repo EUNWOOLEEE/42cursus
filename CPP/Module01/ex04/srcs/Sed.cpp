@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 14:44:03 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/15 20:54:05 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/15 21:07:44 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void	Sed::rewrite_nl(){
 
 		if(file.eof() == false)
 			buf_tmp.append(replace_str);
-
 	}
 	if(file.eof() == false)
 		throw Exception("Buffer overflow!");
