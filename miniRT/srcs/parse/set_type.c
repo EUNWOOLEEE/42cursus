@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 16:17:56 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/01 20:44:10 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/13 21:31:58 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,15 @@ t_bool	set_func(t_info *info, char **strs)
 	return (res);
 }
 
-t_bool	set_rgb(t_rgb *rgb, char **strs)
+t_bool	set_rgb(t_color *rgb, char **strs)
 {
 	if (!strs)
 		return (FALSE);
 	if (cnt_strs(strs) != 3)
 		return (FALSE);
-	rgb->R = (long long)ft_atoi(strs[0]);
-	rgb->G = (long long)ft_atoi(strs[1]);
-	rgb->B = (long long)ft_atoi(strs[2]);
+	rgb->x = (long long)ft_atoi(strs[0]);
+	rgb->y = (long long)ft_atoi(strs[1]);
+	rgb->z = (long long)ft_atoi(strs[2]);
 	return (TRUE);
 }
 

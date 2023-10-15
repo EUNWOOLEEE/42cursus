@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 16:32:35 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/01 20:46:48 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/14 17:39:51 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_bool	obj_sp(t_object *sp, char **strs)
 	set_rgb(&(sp->rgb), ft_split(strs[3], ','));
 	if (check_rgb(sp->rgb) == FALSE)
 		return (print_error_return(USAGE_SP));
-	sp->color = set_color(0, sp->rgb.R, sp->rgb.G, sp->rgb.B);
+	sp->color = set_color(0, sp->rgb.x, sp->rgb.y, sp->rgb.z);
 	return (TRUE);
 }
 
@@ -35,7 +35,7 @@ t_bool	obj_pl(t_object *pl, char **strs)
 	if (check_vector(pl->vector_coor) == FALSE ||
 		check_rgb(pl->rgb) == FALSE)
 		return (print_error_return(USAGE_PL));
-	pl->color = set_color(0, pl->rgb.R, pl->rgb.G, pl->rgb.B);
+	pl->color = set_color(0, pl->rgb.x, pl->rgb.y, pl->rgb.z);
 	return (TRUE);
 }
 
@@ -51,7 +51,7 @@ t_bool	obj_cy(t_object *cy, char **strs)
 	if (check_vector(cy->vector_coor) == FALSE ||
 		check_rgb(cy->rgb) == FALSE)
 		return (print_error_return(USAGE_CY));
-	cy->color = set_color(0, cy->rgb.R, cy->rgb.G, cy->rgb.B);
+	cy->color = set_color(0, cy->rgb.x, cy->rgb.y, cy->rgb.z);
 	return (TRUE);
 }
 
@@ -67,6 +67,6 @@ t_bool	obj_co(t_object *co, char **strs)
 	if (check_vector(co->vector_coor) == FALSE ||
 		check_rgb(co->rgb) == FALSE)
 		return (print_error_return(USAGE_CO));
-	co->color = set_color(0, co->rgb.R, co->rgb.G, co->rgb.B);
+	co->color = set_color(0, co->rgb.x, co->rgb.y, co->rgb.z);
 	return (TRUE);
 }

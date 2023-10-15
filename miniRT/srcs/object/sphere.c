@@ -1,44 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/25 18:04:39 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/13 21:46:51 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/10/14 18:02:33 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/10/14 22:06:32 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/miniRT.h"
+#include "../../incs/miniRT.h"
 
-int	cnt_strs(char **strs)
+t_sphere	sphere(t_point center, double radius)
 {
-	int	i;
+	t_sphere	sp;
 
-	i = 0;
-	while (strs[i])
-		i++;
-	return (i);
+	sp.center = center;
+	sp.radius = radius;
+	return (sp);
 }
 
-void	free_double_pointer(char **strs)
+t_bool	sphere_hit(t_point p, t_sphere sp)
 {
-	int	i;
-
-	i = 0;
-	while (strs[i])
-		free(strs[i++]);
-	free(strs);
-}
-
-t_bool	print_error_return(char *str)
-{
-	printf("%s\n", str);
-	return (FALSE);
-}
-
-double	degrees_to_radians(t_info *info)
-{
-	return (info->C.FOV * pi / 180.0);
+	
 }

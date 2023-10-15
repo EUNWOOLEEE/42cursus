@@ -1,44 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   product.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/25 18:04:39 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/13 21:46:51 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/10/12 18:20:52 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/10/12 18:56:33 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/miniRT.h"
+#include "../../incs/miniRT.h"
 
-int	cnt_strs(char **strs)
+double	vec_dot(t_vec vec1, t_vec vec2)
 {
-	int	i;
-
-	i = 0;
-	while (strs[i])
-		i++;
-	return (i);
+	return (vec1.x * vec2.x + vec1.y * vec2.y + vec1.z * vec2.z);
 }
 
-void	free_double_pointer(char **strs)
+t_vec	vec_cross(t_vec vec1, t_vec vec2)
 {
-	int	i;
+	t_vec	tmp;
 
-	i = 0;
-	while (strs[i])
-		free(strs[i++]);
-	free(strs);
-}
-
-t_bool	print_error_return(char *str)
-{
-	printf("%s\n", str);
-	return (FALSE);
-}
-
-double	degrees_to_radians(t_info *info)
-{
-	return (info->C.FOV * pi / 180.0);
+	tmp.x = (vec1.y * vec2.z - vec1.z * vec2.y);
+	tmp.y = (vec1.z * vec2.x - vec1.x * vec2.z);
+	tmp.z = (vec1.x * vec2.y - vec1.y * vec2.x);
+	return (tmp);
 }

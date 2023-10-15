@@ -1,44 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   vector.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/25 18:04:39 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/13 21:46:51 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/10/12 19:32:01 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/10/14 17:18:14 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/miniRT.h"
+#include "../../incs/miniRT.h"
 
-int	cnt_strs(char **strs)
+t_vec	vec_set(double x, double y, double z)
 {
-	int	i;
+	t_vec	vec;
 
-	i = 0;
-	while (strs[i])
-		i++;
-	return (i);
+	vec.x = x;
+	vec.y = y;
+	vec.z = z;
+	return (vec);
 }
 
-void	free_double_pointer(char **strs)
+t_vec	vec_n_vec_set(t_vec vec)
 {
-	int	i;
+	t_vec	res;
 
-	i = 0;
-	while (strs[i])
-		free(strs[i++]);
-	free(strs);
-}
-
-t_bool	print_error_return(char *str)
-{
-	printf("%s\n", str);
-	return (FALSE);
-}
-
-double	degrees_to_radians(t_info *info)
-{
-	return (info->C.FOV * pi / 180.0);
+	res.x = vec.x;
+	res.y = vec.y;
+	res.z = vec.z;
+	return (res);
 }

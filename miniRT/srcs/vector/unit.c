@@ -1,44 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   unit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/25 18:04:39 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/13 21:46:51 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/10/12 18:42:51 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/10/13 21:49:56 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/miniRT.h"
+#include "../../incs/miniRT.h"
 
-int	cnt_strs(char **strs)
+double	vec_len_squared(t_vec vec)
 {
-	int	i;
-
-	i = 0;
-	while (strs[i])
-		i++;
-	return (i);
+	return (vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
 }
 
-void	free_double_pointer(char **strs)
+double	vec_len(t_vec vec)
 {
-	int	i;
-
-	i = 0;
-	while (strs[i])
-		free(strs[i++]);
-	free(strs);
+	return (sqrt(vec_len_squared(vec)));
 }
 
-t_bool	print_error_return(char *str)
+t_vec	vec_unit(t_vec vec)
 {
-	printf("%s\n", str);
-	return (FALSE);
-}
+	double	len;
 
-double	degrees_to_radians(t_info *info)
-{
-	return (info->C.FOV * pi / 180.0);
+	len = vec_len(vec);
+	vec.x /= len;
+	vec.y /= len;
+	vec.z /= len;
+	return vec;
 }

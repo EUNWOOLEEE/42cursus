@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 21:45:52 by eunwolee          #+#    #+#              #
-#    Updated: 2023/09/28 12:41:48 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/10/12 20:59:52 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,13 +30,23 @@ RM = rm -rf
 MAKE = make
 
 SRCS =	miniRT.c \
-		info.c \
 		utils.c \
 		parse/check_valid.c \
 		parse/check_valid_type.c \
 		parse/set_type.c \
 		parse/element.c \
 		parse/object.c \
+		render/info.c \
+		render/draw.c \
+		vector/cal.c \
+		vector/product.c \
+		vector/unit.c \
+		vector/vector.c \
+		ray/ray.c \
+		init/img.c \
+		color/cal.c \
+		color/color.c \
+		camera/cam.c \
 		temp.c
 
 SRCS_WITH_PATH = $(addprefix $(SRCS_DIR)/, $(SRCS))
@@ -91,6 +101,12 @@ ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c | ${OBJS_DIR}
 ${OBJS_DIR}:
 	@mkdir ${OBJS_DIR}
 	@mkdir ${OBJS_DIR}/parse
+	@mkdir ${OBJS_DIR}/render
+	@mkdir ${OBJS_DIR}/vector
+	@mkdir ${OBJS_DIR}/ray
+	@mkdir ${OBJS_DIR}/init
+	@mkdir ${OBJS_DIR}/color
+	@mkdir ${OBJS_DIR}/camera
 
 clean:
 	@echo "$(PECOCK)CLEANING OBJS... 🧹$(RESET)"

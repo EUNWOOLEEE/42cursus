@@ -1,44 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   img.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/25 18:04:39 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/13 21:46:51 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/10/12 19:27:43 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/10/14 17:43:20 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/miniRT.h"
+#include "../../incs/miniRT.h"
 
-int	cnt_strs(char **strs)
+void	img_set(t_info *info)
 {
-	int	i;
-
-	i = 0;
-	while (strs[i])
-		i++;
-	return (i);
+	info->img.aspect_ratio = 16.0 / 9.0;
+	info->img.h = 600;
+	info->img.w = info->img.h * info->img.aspect_ratio;
 }
 
-void	free_double_pointer(char **strs)
+void	img_ptr_set(t_info *info)
 {
-	int	i;
-
-	i = 0;
-	while (strs[i])
-		free(strs[i++]);
-	free(strs);
-}
-
-t_bool	print_error_return(char *str)
-{
-	printf("%s\n", str);
-	return (FALSE);
-}
-
-double	degrees_to_radians(t_info *info)
-{
-	return (info->C.FOV * pi / 180.0);
+	info->img.ptr = mlx_new_image(info->mlx_ptr, info->img.w, info->img.h);
+	info->img.addr = mlx_get_data_addr(info->img.ptr, \
+					&info->img.bits_per_pixel, \
+					&info->img.size_line, \
+					&info->img.endian);
 }

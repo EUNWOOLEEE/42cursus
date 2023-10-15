@@ -6,13 +6,13 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 22:21:10 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/01 19:39:23 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/14 17:43:32 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/miniRT.h"
+#include "../../incs/miniRT.h"
 
-t_info	*init_info(int argc, char *file_neme)
+t_info	*info_init(int argc, char *file_neme)
 {
 	t_info	*info;
 
@@ -27,7 +27,7 @@ t_info	*init_info(int argc, char *file_neme)
 	return (info);
 }
 
-t_bool	read_info(t_info *info)
+t_bool	info_read(t_info *info)
 {
 	char	*buf;
 	char	**strs;
@@ -58,7 +58,7 @@ int	key_press(int keycode, t_info *info)
 {
 	if (keycode == 53)
 	{
-		mlx_destroy_window(info->mlx, info->win);
+		mlx_destroy_window(info->mlx_ptr, info->win_ptr);
 		exit(0);
 	}
 	return (0);
@@ -69,14 +69,14 @@ int	red_cross_press(void)
 	exit(0);
 }
 
-t_bool	create_mlx(t_info *info)
+t_bool	mlx_set(t_info *info)
 {
-	info->mlx = mlx_init();
-	info->win = mlx_new_window(info->mlx, 1000, 600, "miniRT");
-	if (!info->mlx || !info->win)
+	info->mlx_ptr = mlx_init();
+	info->win_ptr = mlx_new_window(info->mlx_ptr, info->img.w, info->img.h, "miniRT");
+	if (!info->mlx_ptr || !info->win_ptr)
 		return (FALSE);
-	mlx_hook(info->win, 2, 0, key_press, info);
-	mlx_hook(info->win, 17, 0, red_cross_press, info);
-	mlx_loop(info->mlx);
+	// mlx_hook(info->win_ptr, 2, 0, key_press, info);
+	// mlx_hook(info->win_ptr, 17, 0, red_cross_press, info);
+	// mlx_loop(info->mlx_ptr);
 	return (TRUE);
 }

@@ -1,44 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/25 18:04:39 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/13 21:46:51 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/10/12 19:49:41 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/10/13 08:14:37 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/miniRT.h"
+#include "../../incs/miniRT.h"
 
-int	cnt_strs(char **strs)
+void	my_mlx_pixel_put(t_info *info, int x, int y, int color)
 {
-	int	i;
+	char *tmp;
 
-	i = 0;
-	while (strs[i])
-		i++;
-	return (i);
+	tmp = info->img.addr + y * info->img.size_line + x * (info->img.bits_per_pixel / 8);
+	*(unsigned int *)tmp = color;
 }
 
-void	free_double_pointer(char **strs)
+void	img_draw_to_window(t_info *info)
 {
-	int	i;
-
-	i = 0;
-	while (strs[i])
-		free(strs[i++]);
-	free(strs);
-}
-
-t_bool	print_error_return(char *str)
-{
-	printf("%s\n", str);
-	return (FALSE);
-}
-
-double	degrees_to_radians(t_info *info)
-{
-	return (info->C.FOV * pi / 180.0);
+	mlx_put_image_to_window(info->mlx_ptr, info->win_ptr, info->img.ptr, 0, 0);
 }

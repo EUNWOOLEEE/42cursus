@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 15:56:51 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/01 20:45:57 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/14 17:39:26 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_bool	emt_A(t_element *A, char **strs)
 	if (check_ratio(A->light_ratio) == FALSE ||
 		check_rgb(A->rgb) == FALSE)
 		return (print_error_return(USAGE_A));
-	A->color = set_color(0, A->rgb.R, A->rgb.G, A->rgb.B);
+	A->color = set_color(0, A->rgb.x, A->rgb.y, A->rgb.z);
 	return (TRUE);
 }
 
@@ -34,7 +34,7 @@ t_bool	emt_SR(t_element *SR, char **strs)
 	if (check_ratio(SR->light_ratio) == FALSE ||
 		check_rgb(SR->rgb) == FALSE)
 		return (print_error_return(USAGE_SR));
-	SR->color = set_color(0, SR->rgb.R, SR->rgb.G, SR->rgb.B);
+	SR->color = set_color(0, SR->rgb.x, SR->rgb.y, SR->rgb.z);
 	return (TRUE);
 }
 
@@ -61,6 +61,6 @@ t_bool	emt_L(t_element *L, char **strs)
 	if (check_ratio(L->light_ratio) == FALSE ||
 		check_rgb(L->rgb) == FALSE)
 		return (print_error_return(USAGE_L));
-	L->color = set_color(0, L->rgb.R, L->rgb.G, L->rgb.B);
+	L->color = set_color(0, L->rgb.x, L->rgb.y, L->rgb.z);
 	return (TRUE);
 }
