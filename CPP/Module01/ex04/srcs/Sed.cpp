@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 14:44:03 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/27 19:22:10 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/15 20:54:05 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,22 @@ void	Sed::rewrite(){
 			buf_tmp.append("\n");
 
 		copy_file.write(buf_tmp.c_str(), buf_tmp.length());
+	}
+	if(file.eof() == false)
+		throw Exception("Buffer overflow!");
+}
+
+void	Sed::rewrite_nl(){
+	char	buf[1000];
+
+	while(file.getline(buf, sizeof(buf))){
+		std::string buf_tmp = (std::string)buf;
+
+		copy_file.write(buf_tmp.c_str(), buf_tmp.length());
+
+		if(file.eof() == false)
+			buf_tmp.append(replace_str);
+
 	}
 	if(file.eof() == false)
 		throw Exception("Buffer overflow!");

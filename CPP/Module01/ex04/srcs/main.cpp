@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:38:19 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/24 16:02:29 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/15 20:53:50 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ bool	check_error(int argc, char **argv){
 		std::cout << "Usage: filename original_str replace_str\n";
 		return true;
 	}
-	if(!argv[2][0] || !argv[3][0]){
+	if(!argv[2][0]){
 		std::cout << "String must not be empty\n";
 		return true;
 	}
@@ -30,7 +30,10 @@ int	main(int argc, char **argv){
 
 	try{
 		Sed files(argv[1], argv[2], argv[3]);
-		files.rewrite();
+		if(argv[2][0] == '\\' && argv[2][1] == 'n')
+			files.rewrite_nl();
+		else
+			files.rewrite();
 	} catch(Exception& e){
 		std::cerr << e.what() << std::endl;
 	}

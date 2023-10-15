@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 14:26:33 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/27 19:22:21 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/15 20:34:27 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ class Sed{
 		~Sed();
 		
 		void rewrite();
+		void rewrite_nl();
 
 	private:
 		std::ifstream	file;
