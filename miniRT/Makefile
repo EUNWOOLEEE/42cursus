@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 21:45:52 by eunwolee          #+#    #+#              #
-#    Updated: 2023/10/12 20:59:52 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/10/20 15:41:19 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,24 +30,41 @@ RM = rm -rf
 MAKE = make
 
 SRCS =	miniRT.c \
-		utils.c \
+		util.c \
 		parse/check_valid.c \
 		parse/check_valid_type.c \
 		parse/set_type.c \
-		parse/element.c \
-		parse/object.c \
-		render/info.c \
+		parse/scene.c \
 		render/draw.c \
 		vector/cal.c \
+		vector/cal2.c \
 		vector/product.c \
 		vector/unit.c \
-		vector/vector.c \
+		vector/vec.c \
 		ray/ray.c \
-		init/img.c \
-		color/cal.c \
+		trace/hit.c \
+		image/img.c \
 		color/color.c \
+		color/cal.c \
+		color/cal2.c \
 		camera/cam.c \
-		temp.c
+		light/ambient.c \
+		light/light.c \
+		object/sphere.c \
+		object/plane.c \
+		object/cylinder.c \
+		object/cone.c \
+		object/util.c \
+		list/ft_lstadd_back.c \
+		list/ft_lstadd_front.c \
+		list/ft_lstclear.c \
+		list/ft_lstdelone.c \
+		list/ft_lstiter.c \
+		list/ft_lstlast.c \
+		list/ft_lstmap.c \
+		list/object.c \
+		list/ft_lstsize.c \
+		system/mlx.c
 
 SRCS_WITH_PATH = $(addprefix $(SRCS_DIR)/, $(SRCS))
 OBJS = $(SRCS_WITH_PATH:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
@@ -101,12 +118,17 @@ ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c | ${OBJS_DIR}
 ${OBJS_DIR}:
 	@mkdir ${OBJS_DIR}
 	@mkdir ${OBJS_DIR}/parse
-	@mkdir ${OBJS_DIR}/render
 	@mkdir ${OBJS_DIR}/vector
 	@mkdir ${OBJS_DIR}/ray
-	@mkdir ${OBJS_DIR}/init
+	@mkdir ${OBJS_DIR}/image
 	@mkdir ${OBJS_DIR}/color
 	@mkdir ${OBJS_DIR}/camera
+	@mkdir ${OBJS_DIR}/light
+	@mkdir ${OBJS_DIR}/object
+	@mkdir ${OBJS_DIR}/trace
+	@mkdir ${OBJS_DIR}/render
+	@mkdir ${OBJS_DIR}/list
+	@mkdir ${OBJS_DIR}/system
 
 clean:
 	@echo "$(PECOCK)CLEANING OBJS... 🧹$(RESET)"

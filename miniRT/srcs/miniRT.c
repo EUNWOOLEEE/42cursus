@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 22:07:02 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/14 17:50:28 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/20 16:34:39 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,38 +21,32 @@ double	clamp(double x, double min, double max)
 
 int main(int argc, char **argv)
 {
-	t_info	*info;
+	t_scene	*scene;
 	
-	info = info_init(argc, argv[1]);
-	if (!info)
-		return (0);
-	if (info_read(info) == FALSE)
-	{
-		close(info->fd);
-		free(info);
-		return (0);
-	}
+	scene = scene_init(argc, argv[1]);
+	scene_read(scene);
 
-	img_set(info);
-	mlx_set(info);
-	img_ptr_set(info);
-	cam_set(info);
-	
-	for(int j = info->img.h - 1; j >= 0; j--)
+	img_set(scene);
+	cam_set(scene);
+	mlx_set(scene);
+	img_ptr_set(scene);
+
+	for(int j = 0, k = scene->img.h - 1; j < scene->img.h - 1; j++, k--)
 	{
-		for(int i = 0; i < info->img.w; i++)
+		for(int i = 0; i < scene->img.w; i++)
 		{
-			double u = (double)i / (double)(info->img.w - 1);
-			double v = (double)j / (double)(info->img.h - 1);
+			double u = (double)i / (scene->img.w - 1);
+			double v = (double)k / (scene->img.h - 1);
+
+			scene->ray = ray_first(scene, u, v);
+			t_color	color = ray_color(scene);
 			
-			t_color rgb = ray_color(ray_first(info, u, v));
-			my_mlx_pixel_put(info, i, j, set_color(0, rgb.x * TIMES, rgb.y * TIMES, rgb.z * TIMES));
+			my_mlx_pixel_put(scene, i, j, \
+				color_to_int(0, color.x * TIMES, color.y * TIMES, color.z * TIMES));
 		}
 	}
 
-	img_draw_to_window(info);
-	mlx_loop(info->mlx_ptr);
-	
-	// print_infos(info);
+	img_draw_to_window(scene);
+	mlx_loop(scene->mlx_ptr);
 	return (0);
 }

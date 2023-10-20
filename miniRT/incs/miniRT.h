@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 22:12:15 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/14 17:26:48 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/20 16:31:24 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,69 +19,114 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include "struct.h"
+# include "object.h"
 # include "message.h"
 # include "../mlx/mlx.h"
 # include "../Libft/incs/libft.h"
 
-t_info	*info_init(int argc, char *file_neme);
-t_bool	info_read(t_info *info);
+t_scene	*scene_init(int argc, char *file_neme);
+void	scene_read(t_scene *scene);
 
-t_bool	mlx_set(t_info *info);
+t_bool	mlx_set(t_scene *scene);
 
-t_bool	check_argument(t_info *info, int argc, char *file_name);
+t_bool	check_argument(t_scene *scene, int argc, char *file_name);
 
 t_bool	check_ratio(double ratio);
-t_bool	check_rgb(t_color rgb);
-t_bool	check_vector(t_coor vector);
+t_bool	check_color(t_color color);
+t_bool	check_vector(t_vec vector);
 t_bool	check_FOV(int FOV);
 
-t_bool	set_func(t_info *info, char **strs);
-t_bool	set_rgb(t_color *rgb, char **strs);
-t_bool	set_coor(t_coor *coor, char **strs);
-int		set_color(int t, int r, int g, int b);
+void	parse_func(t_scene *scene, char **strs);
+t_bool	parse_color(t_color *color, char **strs);
+t_bool	parse_coor(t_vec *coor, char **strs);
 
-t_bool	emt_A(t_element *A, char **strs);
-t_bool	emt_SR(t_element *SR, char **strs);
-t_bool	emt_C(t_element *C, char **strs);
-t_bool	emt_L(t_element *L, char **strs);
+void	amb(t_scene *scene, char **strs);
+t_light	*light(char **strs);
+t_color	light_phong(t_scene *scene);
 
-t_bool	obj_sp(t_object *sp, char **strs);
-t_bool	obj_pl(t_object *pl, char **strs);
-t_bool	obj_cy(t_object *cy, char **strs);
-t_bool	obj_co(t_object *co, char **strs);
+void	cam(t_scene *scene, char **strs);
+void	cam_set(t_scene *scene);
+
 
 int		cnt_strs(char **strs);
 void	free_double_pointer(char **strs);
-t_bool	print_error_return(char *str);
-double	degrees_to_radians(t_info *info);
+void	print_error_exit(char *str);
+double	degrees_to_radians(t_scene *scene);
 
-void	print_infos(t_info *info);
+void	my_mlx_pixel_put(t_scene *scene, int x, int y, int color);
+void	img_draw_to_window(t_scene *scene);
+
+void	img_set(t_scene *scene);
+void	img_ptr_set(t_scene *scene);
 
 
-void	my_mlx_pixel_put(t_info *info, int x, int y, int color);
-void	img_draw_to_window(t_info *info);
+//vec
+t_vec	vec(double x, double y, double z);
 
-void	img_set(t_info *info);
-void	img_ptr_set(t_info *info);
+t_vec	vec_plus(t_vec vec, double t);
+t_vec	vec_minus(t_vec vec, double t);
+t_vec	vec_multi(t_vec vec, double t);
+t_vec	vec_divide(t_vec vec, double t);
 
-void	cam_set(t_info *info);
-
-t_vec	vec_set(double x, double y, double z);
-t_vec	vec_n_vec_set(t_vec vec);
-t_vec	vec_cal(t_vec vec, double value, char operator);
-t_vec	vec_n_vec_cal(t_vec vec1, t_vec vec2, char operator);
+t_vec	vec_plus2(t_vec vec1, t_vec vec2);
+t_vec	vec_minus2(t_vec vec1, t_vec vec2);
+t_vec	vec_multi2(t_vec vec1, t_vec vec2);
+t_vec	vec_divide2(t_vec vec1, t_vec vec2);
 
 double	vec_len_squared(t_vec vec);
 double	vec_len(t_vec vec);
 t_vec	vec_unit(t_vec vec);
+double	vec_dot(t_vec vec1, t_vec vec2);
+t_vec	vec_cross(t_vec vec1, t_vec vec2);
 
-t_color	rgb_cal(t_color rgb, double value, char operator);
-t_color	rgb_n_rgb_cal(t_color rgb1, t_color rgb2, char operator);
-void	rgb_set(t_color *rgb, double R, double G, double B);
-void	rgb_n_rgb_set(t_color *rgb1, t_color rgb2);
 
+//color
+t_color	color(double R, double G, double B);
+int		color_to_int(int t, int r, int g, int b);
+
+t_color	color_plus(t_color color, double t);
+t_color	color_minus(t_color color, double t);
+t_color	color_multi(t_color color, double t);
+t_color	color_divide(t_color color, double t);
+
+t_color	color_plus2(t_color color1, t_color color2);
+t_color	color_minus2(t_color color1, t_color color2);
+t_color	color_multi2(t_color color1, t_color color2);
+t_color	color_divide2(t_color color1, t_color color2);
+
+
+//ray
 t_point	ray_at(t_ray ray, double t);
-t_ray	ray_first(t_info *info, double u, double v);
-t_color ray_color(t_ray r);
+t_ray	ray_first(t_scene *scene, double u, double v);
+t_color	ray_color(t_scene *scene);
+
+t_bool	hit(t_scene *scene);
+t_bool	hit_set_func(t_scene *scene, t_object *obj);
+
+
+//object
+t_sphere	*sphere(char **strs);
+t_bool		sphere_hit(t_scene *scene, t_object *obj);
+
+t_plane		*plane(char **strs);
+t_cylinder	*cylinder(char **strs);
+t_cone		*cone(char **strs);
+
+
+void	obj_set_rec(t_hit_record *rec);
+void	obj_set_face_n(t_ray r, t_hit_record *rec);
+
+
+//list
+int			ft_lstsize(t_object *lst);
+void		ft_lstadd_front(t_object **lst, t_object *new);
+void		ft_lstadd_back(t_object **lst, t_object *new);
+void		ft_lstdelone(t_object *lst, void (*del)(void *));
+void		ft_lstclear(t_object **lst, void (*del)(void *));
+void		ft_lstiter(t_object *lst, void (*f)(void *));
+t_object	*ft_lstlast(t_object *lst);
+t_object	*ft_lstmap(t_object *lst, void *(*f)(void *), void (*del)(void *));
+
+t_object	*object(void *content, int type);
 
 #endif

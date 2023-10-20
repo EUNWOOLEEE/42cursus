@@ -1,44 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_type.c                                         :+:      :+:    :+:   */
+/*   parse_type.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 16:17:56 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/13 21:31:58 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/16 14:48:22 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/miniRT.h"
 
-t_bool	set_func(t_info *info, char **strs)
+void	parse_func(t_scene *scene, char **strs)
 {
-	t_bool	res;
-
-	res = TRUE;
 	if (!ft_strncmp(strs[0], "A", 2))
-		res = emt_A(&(info->A), strs);
-	else if(!ft_strncmp(strs[0], "SR", 2))
-		res = emt_SR(&(info->SR), strs);
+		amb(scene, strs);
 	else if(!ft_strncmp(strs[0], "C", 2))
-		res = emt_C(&(info->C), strs);
+		cam(scene, strs);
 	else if(!ft_strncmp(strs[0], "L", 2))
-		res = emt_L(&(info->L), strs);
+		ft_lstadd_back(&scene->world, object(light(strs), L));
 	else if(!ft_strncmp(strs[0], "sp", 3))
-		res = obj_sp(&(info->sp), strs);
+		ft_lstadd_back(&scene->world, object(sphere(strs), SP));
 	else if(!ft_strncmp(strs[0], "pl", 3))
-		res = obj_pl(&(info->pl), strs);
+		ft_lstadd_back(&scene->world, object(plane(strs), PL));
 	else if(!ft_strncmp(strs[0], "cy", 3))
-		res = obj_cy(&(info->cy), strs);
-	else if(!ft_strncmp(strs[0], "co", 3))
-		res = obj_co(&(info->co), strs);
-	else
-		res = FALSE;
-	return (res);
+		ft_lstadd_back(&scene->world, object(cylinder(strs), CY));
+	// else if(!ft_strncmp(strs[0], "co", 3))
+		// new = object(cone(strs), co);
+	else if (ft_strncmp(strs[0], "co", 3))
+		print_error_exit("Contain not allowed type\n");
+		//파싱 된 것들만 가지고 동작할 수 있게 수정하기
 }
 
-t_bool	set_rgb(t_color *rgb, char **strs)
+t_bool	parse_color(t_color *rgb, char **strs)
 {
 	if (!strs)
 		return (FALSE);
@@ -50,7 +45,7 @@ t_bool	set_rgb(t_color *rgb, char **strs)
 	return (TRUE);
 }
 
-t_bool	set_coor(t_coor *coor, char **strs)
+t_bool	parse_coor(t_vec *coor, char **strs)
 {
 	if (!strs)
 		return (FALSE);
@@ -60,9 +55,4 @@ t_bool	set_coor(t_coor *coor, char **strs)
 	coor->y = ft_atod(strs[1]);
 	coor->z = ft_atod(strs[2]);
 	return (TRUE);
-}
-
-int	set_color(int t, int r, int g, int b)
-{
-	return (t << 24 | r << 16 | g << 8 | b);
 }

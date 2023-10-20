@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:28:27 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/13 14:17:15 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/18 16:31:25 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@ t_bool	check_ratio(double ratio)
 	return (TRUE);
 }
 
-t_bool	check_rgb(t_color rgb)
+t_bool	check_color(t_color color)
 {
-	if (rgb.x < 0 || 255 < rgb.x \
-		|| rgb.y < 0 || 255 < rgb.y \
-		|| rgb.z < 0 || 255 < rgb.z)
+	if (color.x < 0 || 255 < color.x \
+		|| color.y < 0 || 255 < color.y \
+		|| color.z < 0 || 255 < color.z)
 		return (FALSE);
 	return (TRUE);
 }
 
-t_bool	check_vector(t_coor vector)
+t_bool	check_vector(t_vec vector)
 {
 	if (vector.x < -1 || 1 < vector.x \
 		|| vector.y < -1 || 1 < vector.y \

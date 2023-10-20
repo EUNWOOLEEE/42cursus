@@ -5,68 +5,42 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/12 20:35:56 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/13 21:28:27 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/10/18 17:16:05 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/10/18 18:58:06 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/miniRT.h"
 
-t_color	rgb_cal(t_color rgb, double value, char operator)
+t_color	color_plus(t_color color, double t)
 {
-	if (operator == '+')
-	{
-		rgb.x += value;
-		rgb.y += value;
-		rgb.z += value;
-	}
-	else if (operator == '-')
-	{
-		rgb.x -= value;
-		rgb.y -= value;
-		rgb.z -= value;
-	}
-	else if (operator == '*')
-	{
-		rgb.x *= value;
-		rgb.y *= value;
-		rgb.z *= value;
-	}
-	else if (operator == '/')
-	{
-		rgb.x /= value;
-		rgb.y /= value;
-		rgb.z /= value;
-	}
-	return (rgb);
+	color.x += t;
+	color.y += t;
+	color.z += t;
+	return (color);
 }
 
-t_color	rgb_n_rgb_cal(t_color rgb1, t_color rgb2, char operator)
+t_color	color_minus(t_color color, double t)
 {
-	if (operator == '+')
-	{
-		rgb1.x += rgb2.x;
-		rgb1.y += rgb2.y;
-		rgb1.z += rgb2.z;
-	}
-	else if (operator == '-')
-	{
-		rgb1.x -= rgb2.x;
-		rgb1.y -= rgb2.y;
-		rgb1.z -= rgb2.z;
-	}
-	else if (operator == '*')
-	{
-		rgb1.x *= rgb2.x;
-		rgb1.y *= rgb2.y;
-		rgb1.z *= rgb2.z;
-	}
-	else if (operator == '/')
-	{
-		rgb1.x /= rgb2.x;
-		rgb1.y /= rgb2.y;
-		rgb1.z /= rgb2.z;
-	}
-	return (rgb1);
+	color.x -= t;
+	color.y -= t;
+	color.z -= t;
+	return (color);
+}
+
+t_color	color_multi(t_color color, double t)
+{
+	color.x *= t;
+	color.y *= t;
+	color.z *= t;
+	return (color);
+}
+
+t_color	color_divide(t_color color, double t)
+{
+	color.x /= t;
+	color.y /= t;
+	color.z /= t;
+	return (color);
 }
 

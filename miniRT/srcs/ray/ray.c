@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/12 19:02:07 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/14 17:26:42 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/10/18 17:26:37 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/10/20 16:35:08 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,35 +16,32 @@ t_point	ray_at(t_ray ray, double t)
 {
 	t_point	at;
 
-	at = vec_n_vec_cal(ray.orig, vec_cal(ray.dir, t, '*'), '+');
+	at = vec_plus2(ray.orig, vec_multi(ray.dir, t));
 	return (at);
 }
 
-t_ray	ray_first(t_info *info, double u, double v)
+t_ray	ray_first(t_scene *scene, double u, double v)
 {
 	t_ray	r;
 
-	r.orig = info->cam.orig;
-	t_vec tmp1 = vec_cal(info->cam.horizontal, u, '*');
-	t_vec tmp2 = vec_cal(info->cam.vertical, v, '*');
-	r.dir = vec_n_vec_cal(info->cam.lower_left_corner, tmp1, '+');
-	r.dir = vec_n_vec_cal(r.dir, tmp2, '+');
-	r.dir = vec_n_vec_cal(r.dir, r.orig, '-');
+	r.orig = scene->cam.orig;
+	r.dir = vec_plus2(scene->cam.llc, vec_multi(scene->cam.horizontal, u));
+	r.dir = vec_plus2(r.dir, vec_multi(scene->cam.vertical, v));
+	r.dir = vec_minus2(r.dir, r.orig);
 	return (r);
 }
 
-t_color ray_color(t_ray r)
+t_color	ray_color(t_scene *scene)
 {
-	t_color	res;
-	t_color	tmp1;
-	t_color	tmp2;
+	double			t;
 
-	t_vec	unit_dir = vec_unit(r.dir);
-	double	t = 0.5 * (1.0 - unit_dir.y);
-	rgb_set(&tmp1, 1.0, 1.0, 1.0);
-	tmp1 = rgb_cal(tmp1, (1.0 - t), '*');
-	rgb_set(&tmp2, 0.5, 0.7, 1.0);
-	tmp2 = rgb_cal(tmp2, t, '*');
-	res = rgb_n_rgb_cal(tmp1, tmp2, '+');
-	return (res);
+	obj_set_rec(&scene->rec);
+	if (hit(scene))
+		return (light_phong(scene));
+	
+	// t_vec	unit = (vec_unit(r.dir));
+	// t = 0.5 * (unit.y + 1.0);
+	t = 0.5 * (scene->ray.dir.y + 1.0);
+	return (vec_plus2(vec_multi(color(1.0, 1.0, 1.0), 1.0 - t), \
+			vec_multi(color(0.5, 0.7, 1.0), t)));
 }
