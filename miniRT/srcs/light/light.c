@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:45:02 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/22 19:44:06 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/22 19:58:03 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static t_color	get_point(t_scene *scene, t_light *light)
 	light_ray.orig = scene->rec.p;
 	light_ray.orig = vec_plus2(scene->rec.p, vec_multi(scene->rec.n, EPSILON)); // hit point->광원의 원점
 	if (shadow(scene->world, light_ray, light_len))
-		return (printf("b\n"), color(0, 0, 0));
+		return (color(0, 0, 0));
 
 	theta = vec_dot(scene->rec.n, light_dir);
 	if (theta < 0.0)

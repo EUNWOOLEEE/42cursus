@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 17:47:56 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/22 19:51:58 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/22 20:00:22 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,3 +44,15 @@ t_bool	hit_set_func(t_object *obj, t_ray ray, t_hit_record *rec)
 	}
 	return res;
 }
+
+// t_bool	hit_set_func(t_object *obj, t_ray ray, t_hit_record *rec)
+// {
+// 	int	res;
+	
+// 	res = 0;
+// 	if (obj->type == SP)
+// 		res = sphere_hit((t_sphere *)obj->obj, ray, rec);
+// 	else if (obj->type == PL)
+// 		res = plane_hit((t_plane *)obj->obj, ray, rec);
+// 	return (res);
+// }
