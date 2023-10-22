@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 16:27:47 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/20 16:32:18 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/22 17:05:44 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # define EPSILON 0.000001
 
 # include "component.h"
+
 typedef enum e_bool
 {
 	FALSE,
@@ -54,8 +55,8 @@ typedef struct s_camera
 typedef struct s_light
 {
 	t_point	point;
-	double	ratio;
 	t_color	color;
+	double	ratio;
 }t_light;
 
 typedef enum e_type
@@ -64,7 +65,7 @@ typedef enum e_type
 	PL,
 	CY,
 	CO,
-	L
+	LIGHT_POINT
 }t_type;
 
 typedef struct s_object
@@ -72,7 +73,6 @@ typedef struct s_object
 	int		type;
 	void	*obj;
 	void	*next;
-	t_color	albedo;
 }t_object;
 
 typedef struct s_hit_record
@@ -83,21 +83,22 @@ typedef struct s_hit_record
 	double	t_min;
 	double	t_max;
 	t_bool	front_face;
-	t_color	albedo;
+	t_color	color;
 }t_hit_record;
 
 typedef struct s_scene
 {
-	void		*mlx_ptr;
-	void		*win_ptr;
-	int			fd;
-	t_ray		ray;
+	void			*mlx_ptr;
+	void			*win_ptr;
+	int				fd;
+	t_color			ambient;
+	double			specular_ratio;
+	t_ray			ray;
 	t_hit_record	rec;
-	t_color		amb;
-	t_camera	cam;
-	t_image		img;
-	t_object	*world;
-	t_object	*light;
+	t_camera		cam;
+	t_image			img;
+	t_object		*world;
+	t_object		*light;
 }t_scene;
 
 #endif

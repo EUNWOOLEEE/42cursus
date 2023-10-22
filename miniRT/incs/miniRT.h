@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 22:12:15 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/20 16:31:24 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/22 19:39:30 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include "../mlx/mlx.h"
 # include "../Libft/incs/libft.h"
 
+int debug;
+
 t_scene	*scene_init(int argc, char *file_neme);
 void	scene_read(t_scene *scene);
 
@@ -40,9 +42,11 @@ void	parse_func(t_scene *scene, char **strs);
 t_bool	parse_color(t_color *color, char **strs);
 t_bool	parse_coor(t_vec *coor, char **strs);
 
-void	amb(t_scene *scene, char **strs);
+void	ambient(t_scene *scene, char **strs);
+void	specular(t_scene *scene, char **strs);
 t_light	*light(char **strs);
-t_color	light_phong(t_scene *scene);
+t_color	light_phong(t_scene *scene, t_object *lights);
+t_bool	shadow(t_object *world, t_ray light_ray, double light_len);
 
 void	cam(t_scene *scene, char **strs);
 void	cam_set(t_scene *scene);
@@ -83,6 +87,7 @@ t_vec	vec_cross(t_vec vec1, t_vec vec2);
 //color
 t_color	color(double R, double G, double B);
 int		color_to_int(int t, int r, int g, int b);
+t_color	color_to_albedo(t_color color);
 
 t_color	color_plus(t_color color, double t);
 t_color	color_minus(t_color color, double t);
@@ -100,15 +105,18 @@ t_point	ray_at(t_ray ray, double t);
 t_ray	ray_first(t_scene *scene, double u, double v);
 t_color	ray_color(t_scene *scene);
 
-t_bool	hit(t_scene *scene);
-t_bool	hit_set_func(t_scene *scene, t_object *obj);
+t_bool	hit(t_object *world, t_ray ray, t_hit_record *rec);
+t_bool	hit_set_func(t_object *obj, t_ray ray, t_hit_record *rec);
 
 
 //object
 t_sphere	*sphere(char **strs);
-t_bool		sphere_hit(t_scene *scene, t_object *obj);
+t_bool		sphere_hit(t_sphere *sp, t_ray ray, t_hit_record *rec);
 
 t_plane		*plane(char **strs);
+t_bool		plane_hit(t_plane *pl, t_ray ray, t_hit_record *rec);
+t_bool		plane_hit2(t_plane *pl, t_ray ray, t_hit_record *rec);
+
 t_cylinder	*cylinder(char **strs);
 t_cone		*cone(char **strs);
 

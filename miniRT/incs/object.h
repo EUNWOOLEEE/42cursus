@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:33:05 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/18 15:41:08 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/22 16:50:15 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ typedef struct s_sphere
 
 typedef struct s_plane
 {
-	t_point	coor;
-	t_vec	n;
+	t_point	center;
+	t_vec	dir;
 	t_color	color;
 }t_plane;
 

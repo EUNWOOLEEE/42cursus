@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 21:45:52 by eunwolee          #+#    #+#              #
-#    Updated: 2023/10/20 15:41:19 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/10/21 17:22:53 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ SRCS =	miniRT.c \
 		camera/cam.c \
 		light/ambient.c \
 		light/light.c \
+		light/shadow.c \
 		object/sphere.c \
 		object/plane.c \
 		object/cylinder.c \

@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ambient.c                                          :+:      :+:    :+:   */
+/*   shadow.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/18 16:42:26 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/20 20:34:31 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/10/21 16:49:49 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/10/22 19:39:22 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/miniRT.h"
 
-void	ambient(t_scene *scene, char **strs)
+t_bool	shadow(t_object *world, t_ray light_ray, double light_len)
 {
-	double	ratio;
+	t_hit_record	rec;
 
-	if (cnt_strs(strs) != 3)
-		print_error_exit(USAGE_A);
-	ratio = ft_atod(strs[1]);
-	parse_color(&(scene->ambient), ft_split(strs[2], ','));
-	if (check_ratio(ratio) == FALSE ||
-		check_color(scene->ambient) == FALSE)
-		print_error_exit(USAGE_A);
-	scene->ambient = color_to_albedo(scene->ambient);
-	scene->ambient = vec_multi(scene->ambient, ratio);
+	rec.t_min = EPSILON;
+	rec.t_max = light_len;
+	return (hit(world, light_ray, &rec));
 }

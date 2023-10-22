@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:05:06 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/20 16:25:46 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/22 19:28:00 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,21 @@ t_sphere	*sphere(char **strs)
 	parse_color(&(sp->color), ft_split(strs[3], ','));
 	if (check_color(sp->color) == FALSE)
 		print_error_exit(USAGE_PL);
+	sp->color = color_to_albedo(sp->color);
 	return (sp);
 }
 
-t_bool	sphere_hit(t_scene *scene, t_object *obj)
+t_bool	sphere_hit(t_sphere *sp, t_ray ray, t_hit_record *rec)
 {
-	t_sphere	*sp;
 	t_vec		oc;
 	double		a;
 	double		half_b;
 	double		c;
 	double		D;
 
-	sp = (t_sphere *)obj->obj;
-	oc = vec_minus2(scene->ray.orig, sp->center);
-	a = vec_len_squared(scene->ray.dir);
-	half_b = vec_dot(scene->ray.dir, oc);
+	oc = vec_minus2(ray.orig, sp->center);
+	a = vec_len_squared(ray.dir);
+	half_b = vec_dot(ray.dir, oc);
 	c = vec_len_squared(oc) - sp->radius * sp->radius;
 	
 	D = half_b * half_b - a * c;
@@ -52,17 +51,19 @@ t_bool	sphere_hit(t_scene *scene, t_object *obj)
 
 	double	sqrtd = sqrt(D);
 	double	root = (-half_b - sqrtd) / a;
-	if (root < scene->rec.t_min || scene->rec.t_max < root)
+	if (root < rec->t_min || rec->t_max < root)
 	{
 		root = (-half_b + sqrtd) / a;
-		if (root < scene->rec.t_min || scene->rec.t_max < root)
+		if (root < rec->t_min || rec->t_max < root)
 			return (FALSE);
 	}
 
-	scene->rec.t = root;
-	scene->rec.p = ray_at(scene->ray, root);
-	scene->rec.n = vec_divide(vec_minus2(scene->rec.p, sp->center), sp->radius);
-	obj_set_face_n(scene->ray, &scene->rec);
-	scene->rec.albedo = obj->albedo;
+	rec->t = root;
+	rec->p = ray_at(ray, root);
+	rec->n = vec_divide(vec_minus2(rec->p, sp->center), sp->radius);
+	obj_set_face_n(ray, rec);
+	rec->color = sp->color;
+
+	debug = 1;
 	return (TRUE);
 }

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 17:02:19 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/19 21:20:02 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/20 21:06:44 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,14 @@
 
 # define USAGE_ARG "Usage: ./miniRT file.rt"
 
-# define USAGE_A "Usage: A  1,0  255,255,255\n\
+# define USAGE_A "Usage: A  1.0  255,255,255\n\
 - Identifier A\n\
 - Ambient lighting ratio in range [0.0,1.0]\n\
 - R,G,B colors in range [0-255]"
 
-# define USAGE_SR "Usage: SR 임시\n\
-- Identifier SR"
+# define USAGE_SR "Usage: SR 1.0\n\
+- Identifier SR\n\
+- Specular lighting ratio in range [0.0,1.0]\n"
 
 # define USAGE_C "Usage: C  -50,0,50  0,0,0  90\n\
 - Identifier C\n\

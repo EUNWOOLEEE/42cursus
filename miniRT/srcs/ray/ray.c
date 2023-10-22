@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 17:26:37 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/20 16:35:08 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/22 17:55:25 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,9 @@ t_color	ray_color(t_scene *scene)
 	double			t;
 
 	obj_set_rec(&scene->rec);
-	if (hit(scene))
-		return (light_phong(scene));
-	
-	// t_vec	unit = (vec_unit(r.dir));
-	// t = 0.5 * (unit.y + 1.0);
+	if (hit(scene->world, scene->ray, &scene->rec))
+		return (light_phong(scene, scene->light));
+	// return (color(0, 0, 0));
 	t = 0.5 * (scene->ray.dir.y + 1.0);
 	return (vec_plus2(vec_multi(color(1.0, 1.0, 1.0), 1.0 - t), \
 			vec_multi(color(0.5, 0.7, 1.0), t)));
