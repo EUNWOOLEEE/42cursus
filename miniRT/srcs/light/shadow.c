@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 16:49:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/22 19:39:22 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/23 06:46:21 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,5 @@ t_bool	shadow(t_object *world, t_ray light_ray, double light_len)
 
 	rec.t_min = EPSILON;
 	rec.t_max = light_len;
-	return (hit(world, light_ray, &rec));
+	return (hit(world, light_ray, &rec, TRUE));
 }

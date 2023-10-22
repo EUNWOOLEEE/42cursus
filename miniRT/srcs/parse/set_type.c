@@ -32,7 +32,7 @@ void	parse_func(t_scene *scene, char **strs)
 		// new = object(cone(strs), co);
 	else if (ft_strncmp(strs[0], "co", 3))
 		print_error_exit("Contain not allowed type\n");
-		//필수 외에는 파싱 된 것들만 가지고 동작할 수 있게 수정하기(필수가 있나?)
+		//필수 외에는 파싱 된 것들만 가지고 동작할 수 있게 수정하기
 }
 
 t_bool	parse_color(t_color *rgb, char **strs)

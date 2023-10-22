@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:45:02 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/22 19:58:03 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/23 06:17:14 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ t_color	light_phong(t_scene *scene, t_object *lights)
 	{
 		if (lights->type == LIGHT_POINT)
 			light_color = vec_plus2(light_color, get_point(scene, lights->obj));
+		// printf("%lf %lf %lf\n", light_color.x, light_color.y, light_color.z);
 		lights = lights->next;
 	}
-	// printf("%lf %lf %lf\n", light_color.x, light_color.y, light_color.z);
 		
 	light_color = vec_plus2(light_color, scene->ambient);
 	// printf("%lf %lf %lf\n", light_color.x, light_color.y, light_color.z);

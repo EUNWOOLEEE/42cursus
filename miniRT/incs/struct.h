@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 16:27:47 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/22 17:05:44 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/23 06:39:33 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef enum e_type
 typedef struct s_object
 {
 	int		type;
+	int		num;
 	void	*obj;
 	void	*next;
 }t_object;
@@ -84,6 +85,7 @@ typedef struct s_hit_record
 	double	t_max;
 	t_bool	front_face;
 	t_color	color;
+	int		obj_num;
 }t_hit_record;
 
 typedef struct s_scene

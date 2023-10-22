@@ -38,8 +38,11 @@ void	scene_read(t_scene *scene)
 		if (!strs)
 			print_error_exit(MEMORY);
 		free(buf);
-		if (cnt_strs(strs) > 1)
+		if (cnt_strs(strs) > 1) // 이거 맞나? 맑은 정신에 다시 생각해보기
 			parse_func(scene, strs);
+		// t_object *now = ft_lstlast(scene->world);
+		// if (now)
+		// 	printf("%d\n\n", now->num);
 		free_double_pointer(strs);
 	}
 }

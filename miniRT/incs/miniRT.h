@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 22:12:15 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/22 19:39:30 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/23 06:42:39 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ t_point	ray_at(t_ray ray, double t);
 t_ray	ray_first(t_scene *scene, double u, double v);
 t_color	ray_color(t_scene *scene);
 
-t_bool	hit(t_object *world, t_ray ray, t_hit_record *rec);
+t_bool	hit(t_object *world, t_ray ray, t_hit_record *rec, t_bool light);
 t_bool	hit_set_func(t_object *obj, t_ray ray, t_hit_record *rec);
 
 

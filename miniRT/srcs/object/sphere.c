@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:05:06 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/22 19:28:00 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/23 06:46:15 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,5 @@ t_bool	sphere_hit(t_sphere *sp, t_ray ray, t_hit_record *rec)
 	rec->n = vec_divide(vec_minus2(rec->p, sp->center), sp->radius);
 	obj_set_face_n(ray, rec);
 	rec->color = sp->color;
-
-	debug = 1;
 	return (TRUE);
 }
