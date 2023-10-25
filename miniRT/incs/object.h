@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:33:05 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/23 20:24:39 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/25 10:39:20 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ typedef struct s_cylinder
 	t_vec	dir;
 	double	diameter;
 	double	radius;
-	double	radius_squared;
 	double	h;
 	t_color	color;
 }t_cylinder;

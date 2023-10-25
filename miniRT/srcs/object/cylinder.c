@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:16:17 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/25 10:11:46 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/25 20:11:51 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ t_cylinder	*cylinder(char **strs)
 	parse_coor(&(cy->dir), ft_split(strs[2], ','));
 	cy->diameter = ft_atod(strs[3]);
 	cy->radius = cy->diameter / 2;
-	cy->radius_squared = cy->radius * cy->radius;
 	cy->h = ft_atod(strs[4]);
 	parse_color(&(cy->color), ft_split(strs[5], ','));
 	if (check_vector(cy->dir) == FALSE ||
@@ -38,33 +37,29 @@ t_cylinder	*cylinder(char **strs)
 t_bool	cylinder_hit(t_cylinder *cy, t_ray ray, t_hit_record *rec)
 {
 	double	a;
-	double	b;
+	double	half_b;
 	double	c;
 	double	D;
 	double	t;
 
 	t_vec	cl;
-	t_vec	h;
-	t_vec	h_unit;
 
 	cl = vec_minus2(ray.orig, cy->center); // 원기둥의 중심 -> 카메라
-	h = vec_plus2(vec_multi(cy->dir, cy->h), cy->center); // 원기둥의 중심 축
-	h_unit = vec_unit(h);
 	
-	double	vh = vec_dot(ray.dir, h_unit);
-	double	wh = vec_dot(cl, h_unit);
+	double	vh = vec_dot(ray.dir, cy->dir);
+	double	wh = vec_dot(cl, cy->dir);
 	
 	a = vec_len_squared(ray.dir) - vh * vh;
-	b = 2 * (vec_dot(ray.dir, cl) - vh * wh);
-	c = vec_len_squared(cl) - wh * wh - cy->radius_squared;
-	D = b * b - 4 * a * c;
+	half_b = vec_dot(ray.dir, cl) - vh * wh;
+	c = vec_len_squared(cl) - wh * wh - pow(cy->radius, 2);
+	D = half_b * half_b - a * c;
 	if (D < 0)
 		return (FALSE);
 		
-	t = (-b - sqrt(D)) / (2 * a);
+	t = (-half_b - sqrt(D)) / a;
 	if (t < rec->t_min || rec->t_max < t)
 	{
-		t = (-b + sqrt(D)) / (2 * a);
+		t = (-half_b + sqrt(D)) / a;
 		if (t < rec->t_min || rec->t_max < t)
 			return (FALSE);
 	}
@@ -74,7 +69,7 @@ t_bool	cylinder_hit(t_cylinder *cy, t_ray ray, t_hit_record *rec)
 	double	hit_h = vec_dot(cp, cy->dir);
 
 	// printf("hit_h: %lf h_len: %lf\n", hit_h, vec_len(h));
-	if (hit_h < 0 || cy->h < hit_h)
+	if (cy->h / 2 < fabs(hit_h))
 		return (FALSE);
 
 	rec->p = at;
@@ -87,17 +82,14 @@ t_bool	cylinder_hit(t_cylinder *cy, t_ray ray, t_hit_record *rec)
 	return (TRUE);
 }
 
-t_bool	cylinder_hit_plane(t_cylinder *cy, t_ray ray, t_hit_record *rec, t_bool top)
+t_bool	cylinder_hit_plane(t_cylinder *cy, t_ray ray, t_hit_record *rec, double h)
 {
 	double	pc_len;
 	double	t;
 	t_vec	center;
 
 	double dot = vec_dot(ray.dir, cy->dir);
-	if (top)
-		center = vec_plus2(vec_multi(cy->dir, cy->h), cy->center);
-	else
-		center = cy->center;
+	center = vec_multi(vec_plus2(cy->center, cy->dir), h); // 원평면의 중심
 	t = vec_dot(vec_minus2(center, ray.orig), cy->dir) / dot;
 
 	t_vec	at = ray_at(ray, t);
@@ -108,7 +100,7 @@ t_bool	cylinder_hit_plane(t_cylinder *cy, t_ray ray, t_hit_record *rec, t_bool t
 		return (FALSE);
 	rec->t = t;
 	rec->p = at;
-	if (top)
+	if (0 < h)
 		rec->n = cy->dir;
 	else
 		rec->n = vec_multi(cy->dir, -1);

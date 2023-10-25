@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:28:27 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/18 16:31:25 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/25 11:14:24 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ t_bool	check_vector(t_vec vector)
 	if (vector.x < -1 || 1 < vector.x \
 		|| vector.y < -1 || 1 < vector.y \
 		|| vector.z < -1 || 1 < vector.z)
+		return (FALSE);
+	if (!vector.x && !vector.y && !vector.z)
 		return (FALSE);
 	return (TRUE);
 }
