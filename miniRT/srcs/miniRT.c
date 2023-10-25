@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 22:07:02 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/23 06:21:41 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/23 08:27:37 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ double	clamp(double x, double min, double max)
 int main(int argc, char **argv)
 {
 	debug = 0;
+	hit_obj = -1;
 	t_scene	*scene;
 	
 	scene = scene_init(argc, argv[1]);

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 22:12:15 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/23 06:42:39 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/24 20:22:28 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include "../mlx/mlx.h"
 # include "../Libft/incs/libft.h"
 
+int	hit_obj;
 int debug;
 
 t_scene	*scene_init(int argc, char *file_neme);
@@ -115,9 +116,11 @@ t_bool		sphere_hit(t_sphere *sp, t_ray ray, t_hit_record *rec);
 
 t_plane		*plane(char **strs);
 t_bool		plane_hit(t_plane *pl, t_ray ray, t_hit_record *rec);
-t_bool		plane_hit2(t_plane *pl, t_ray ray, t_hit_record *rec);
 
 t_cylinder	*cylinder(char **strs);
+t_bool		cylinder_hit(t_cylinder *cy, t_ray ray, t_hit_record *rec);
+t_bool		cylinder_hit_plane(t_cylinder *cy, t_ray ray, t_hit_record *rec, t_bool top);
+
 t_cone		*cone(char **strs);
 
 

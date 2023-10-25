@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 16:27:47 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/23 06:39:33 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/23 08:27:04 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ typedef struct s_hit_record
 	double	t_max;
 	t_bool	front_face;
 	t_color	color;
-	int		obj_num;
 }t_hit_record;
 
 typedef struct s_scene

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:05:06 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/23 06:46:15 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/23 14:30:19 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,32 +34,32 @@ t_sphere	*sphere(char **strs)
 
 t_bool	sphere_hit(t_sphere *sp, t_ray ray, t_hit_record *rec)
 {
-	t_vec		oc;
+	t_vec		cl;
 	double		a;
 	double		half_b;
 	double		c;
 	double		D;
 
-	oc = vec_minus2(ray.orig, sp->center);
+	cl = vec_minus2(ray.orig, sp->center);
 	a = vec_len_squared(ray.dir);
-	half_b = vec_dot(ray.dir, oc);
-	c = vec_len_squared(oc) - sp->radius * sp->radius;
-	
+	half_b = vec_dot(ray.dir, cl);
+	c = vec_len_squared(cl) - sp->radius * sp->radius;
+
 	D = half_b * half_b - a * c;
 	if (D < 0)
 		return (FALSE);
 
 	double	sqrtd = sqrt(D);
-	double	root = (-half_b - sqrtd) / a;
-	if (root < rec->t_min || rec->t_max < root)
+	double	t = (-half_b - sqrtd) / a;
+	
+	if (t < rec->t_min || rec->t_max < t)
 	{
-		root = (-half_b + sqrtd) / a;
-		if (root < rec->t_min || rec->t_max < root)
+		t = (-half_b + sqrtd) / a;
+		if (t < rec->t_min || rec->t_max < t)
 			return (FALSE);
 	}
-
-	rec->t = root;
-	rec->p = ray_at(ray, root);
+	rec->t = t;
+	rec->p = ray_at(ray, t);
 	rec->n = vec_divide(vec_minus2(rec->p, sp->center), sp->radius);
 	obj_set_face_n(ray, rec);
 	rec->color = sp->color;

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:12:58 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/23 06:40:14 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/23 08:11:01 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_bool	plane_hit(t_plane *pl, t_ray ray, t_hit_record *rec)
 	rec->t = t;
 	rec->p = ray_at(ray, t);
 	rec->n = pl->dir;
-	// obj_set_face_n(ray, rec);
+	obj_set_face_n(ray, rec);
 	rec->color = pl->color;
 	return (TRUE);
 }

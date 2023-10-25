@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:33:05 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/22 16:50:15 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/23 20:24:39 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,10 @@ typedef struct s_plane
 typedef struct s_cylinder
 {
 	t_point	center;
-	t_vec	n;
+	t_vec	dir;
 	double	diameter;
+	double	radius;
+	double	radius_squared;
 	double	h;
 	t_color	color;
 }t_cylinder;
