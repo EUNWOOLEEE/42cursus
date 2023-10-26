@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:12:58 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/23 08:11:01 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/26 15:15:31 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ t_plane	*plane(char **strs)
 	pl = (t_plane *)ft_calloc(1, sizeof(t_plane));
 	if (!pl)
 		print_error_exit(MEMORY);
-	parse_coor(&(pl->center), ft_split(strs[1], ','));
-	parse_coor(&(pl->dir), ft_split(strs[2], ','));
-	parse_color(&(pl->color), ft_split(strs[3], ','));
-	if (check_vector(pl->dir) == FALSE ||
-		check_color(pl->color) == FALSE)
+	if (parse_coor(&(pl->center), ft_split(strs[1], ',')) == FALSE \
+		|| parse_coor(&(pl->dir), ft_split(strs[2], ',')) == FALSE \
+		|| parse_color(&(pl->color), ft_split(strs[3], ',')) == FALSE \
+		|| check_vector(pl->dir) == FALSE \
+		|| check_color(pl->color) == FALSE)
 		print_error_exit(USAGE_PL);
 	pl->color = color_to_albedo(pl->color);
 	return (pl);

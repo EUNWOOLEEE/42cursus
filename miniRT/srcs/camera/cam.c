@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:31:46 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/25 20:02:33 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/26 16:36:14 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,15 @@ void	cam_set(t_scene *scene)
 	half_w = tan(theta / 2);
 	scene->cam.viewport_w = 2.0 * half_w;
 	scene->cam.viewport_h = scene->cam.viewport_w / scene->img.aspect_ratio;
-
-	t_vec	lookat = vec(scene->cam.orig.x + scene->cam.dir.x, \
-						scene->cam.orig.y + scene->cam.dir.y, \
-						scene->cam.orig.z + scene->cam.dir.z);
 	
 	scene->cam.vec_up = vec(0, 1, 0);
 	
-	t_vec	w = vec_unit(vec_minus2(scene->cam.orig, lookat));
-	t_vec	u = vec_unit(vec_cross(scene->cam.vec_up, w));
+	t_vec	w = vec_unit(vec_multi(scene->cam.dir, -1));
+	t_vec	u = vec_cross(scene->cam.vec_up, w);
+	if (!vec_len(u))
+		u = vec_unit(vec_cross(vec(0, 0, -1), w));
+	else
+		u = vec_unit(u);
 	t_vec	v = vec_cross(w, u);
 
 	scene->cam.horizontal = vec_multi(u, scene->cam.viewport_w);

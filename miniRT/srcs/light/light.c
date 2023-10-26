@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:45:02 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/24 23:47:39 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/26 15:32:54 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,17 @@ t_light	*light(char **strs)
 	t_light	*light;
 	double	ratio;
 
+	ratio = 0.0;
 	if (cnt_strs(strs) != 4)
 		print_error_exit(USAGE_L);
 	light = (t_light *)ft_calloc(1, sizeof(t_light));
 	if (!light)
 		print_error_exit(MEMORY);
-	parse_coor(&light->point, ft_split(strs[1], ','));
-	ratio = ft_atod(strs[2]);
-	parse_color(&light->color, ft_split(strs[3], ','));
-	if (check_ratio(ratio) == FALSE ||
-		check_color(light->color) == FALSE)
+	if (parse_coor(&light->point, ft_split(strs[1], ',')) == FALSE \
+		|| parse_ratio(&ratio, strs[2]) == FALSE \
+		|| parse_color(&light->color, ft_split(strs[3], ',')) == FALSE \
+		|| check_ratio(ratio) == FALSE
+		|| check_color(light->color) == FALSE)
 		print_error_exit(USAGE_L);
 	light->color = color_to_albedo(light->color);
 	light->color = vec_multi(light->color, ratio);

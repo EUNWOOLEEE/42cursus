@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 22:12:15 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/25 20:08:45 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/26 18:17:38 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ t_bool	check_FOV(int FOV);
 void	parse_func(t_scene *scene, char **strs);
 t_bool	parse_color(t_color *color, char **strs);
 t_bool	parse_coor(t_vec *coor, char **strs);
+t_bool	parse_ratio(double *ratio, char *str);
 
 void	ambient(t_scene *scene, char **strs);
 void	specular(t_scene *scene, char **strs);
@@ -118,10 +119,10 @@ t_plane		*plane(char **strs);
 t_bool		plane_hit(t_plane *pl, t_ray ray, t_hit_record *rec);
 
 t_cylinder	*cylinder(char **strs);
-t_bool		cylinder_hit(t_cylinder *cy, t_ray ray, t_hit_record *rec);
-t_bool		cylinder_hit_plane(t_cylinder *cy, t_ray ray, t_hit_record *rec, double h);
+int			cylinder_hit(t_cylinder *cy, t_ray ray, t_hit_record *rec);
 
 t_cone		*cone(char **strs);
+int			cone_hit(t_cone *cy, t_ray ray, t_hit_record *rec);
 
 
 void	obj_set_rec(t_hit_record *rec);

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:33:05 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/25 10:39:20 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/26 18:14:54 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,12 @@ typedef struct s_cylinder
 
 typedef struct s_cone
 {
-	/* data */
+	t_point	center;
+	t_vec	dir;
+	double	diameter;
+	double	radius;
+	double	h;
+	t_color	color;
 }t_cone;
 
 #endif

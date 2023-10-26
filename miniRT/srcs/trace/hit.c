@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 17:47:56 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/25 20:10:04 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/26 18:22:12 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,8 @@ t_bool	hit_set_func(t_object *obj, t_ray ray, t_hit_record *rec)
 	else if (obj->type == PL)
 		res = plane_hit((t_plane *)obj->obj, ray, rec);
 	else if (obj->type == CY)
-	{
-		t_cylinder	*cy = (t_cylinder *)obj->obj;
-		res += cylinder_hit_plane(cy, ray, rec, cy->h / 2);
-		res += cylinder_hit_plane(cy, ray, rec, -(cy->h / 2));
-		res += cylinder_hit(cy, ray, rec);
-	}
-	return res;
+		res = cylinder_hit((t_cylinder *)obj->obj, ray, rec);
+	else if (obj->type == CO)
+		res = cone_hit((t_cone *)obj->obj, ray, rec);
+	return (res);
 }

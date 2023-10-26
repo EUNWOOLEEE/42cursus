@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 17:02:19 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/20 21:06:44 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/26 18:15:39 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,11 @@
 - R,G,B colors in range [0,255]"
 
 # define USAGE_CO "Usage: co  임시\
-- Identifier co"
+- Identifier co\n\
+- x,y,z coordinates of the center of the cone\n\
+- 3d normalized vector of axis of cone. In range [-1,1] for each x,y,z axis\n\
+- The cone diameter\n\
+- The cone height\n\
+- R,G,B colors in range [0,255]"
 
 #endif
