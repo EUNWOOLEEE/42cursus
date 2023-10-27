@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:05:06 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/26 15:15:48 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/27 12:38:51 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,12 @@ t_sphere	*sphere(char **strs)
 	sp = (t_sphere *)ft_calloc(1, sizeof(t_sphere));
 	if (!sp)
 		print_error_exit(MEMORY);
-	;
-	sp->diameter = ft_atod(strs[2]);
-	sp->radius = sp->diameter / 2;
-	sp->radius_squared = sp->radius * sp->radius;
 	if (parse_coor(&(sp->center), ft_split(strs[1], ',')) == FALSE \
+		|| parse_double(&sp->diameter, strs[2]) == FALSE \
 		|| parse_color(&(sp->color), ft_split(strs[3], ',')) == FALSE \
 		|| check_color(sp->color) == FALSE)
 		print_error_exit(USAGE_PL);
+	sp->radius = sp->diameter / 2;
 	sp->color = color_to_albedo(sp->color);
 	return (sp);
 }

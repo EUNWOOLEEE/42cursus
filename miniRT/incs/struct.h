@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 16:27:47 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/23 08:27:04 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/27 08:24:44 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef enum e_type
 	PL,
 	CY,
 	CO,
-	LIGHT_POINT
+	LIGHT
 }t_type;
 
 typedef struct s_object

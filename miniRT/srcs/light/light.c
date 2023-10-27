@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:45:02 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/26 15:32:54 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/27 12:38:26 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_light	*light(char **strs)
 	if (!light)
 		print_error_exit(MEMORY);
 	if (parse_coor(&light->point, ft_split(strs[1], ',')) == FALSE \
-		|| parse_ratio(&ratio, strs[2]) == FALSE \
+		|| parse_double(&ratio, strs[2]) == FALSE \
 		|| parse_color(&light->color, ft_split(strs[3], ',')) == FALSE \
 		|| check_ratio(ratio) == FALSE
 		|| check_color(light->color) == FALSE)
@@ -56,10 +56,11 @@ t_color	light_phong(t_scene *scene, t_object *lights)
 	// 	get_point(scene, lights->obj);
 	while (lights)
 	{
-		if (lights->type == LIGHT_POINT)
+		if (lights->type == LIGHT)
 			light_color = vec_plus2(light_color, get_point(scene, lights->obj));
 		lights = lights->next;
 	}
+	// printf("%lf %lf %lf\n", light_color.x, light_color.y, light_color.z);
 		
 	light_color = vec_plus2(light_color, scene->ambient);
 	light_color = vec_multi2(light_color, scene->rec.color);
@@ -67,7 +68,6 @@ t_color	light_phong(t_scene *scene, t_object *lights)
 	light_color.x = light_color.x >= 1 ? 1 : light_color.x;
 	light_color.y = light_color.y >= 1 ? 1 : light_color.y;
 	light_color.z = light_color.z >= 1 ? 1 : light_color.z;
-	// printf("%lf %lf %lf\n\n", light_color.x, light_color.y, light_color.z);
 	return(light_color);
 }
 

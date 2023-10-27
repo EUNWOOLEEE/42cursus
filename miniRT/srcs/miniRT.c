@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 22:07:02 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/23 08:27:37 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/27 08:38:51 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ double	clamp(double x, double min, double max)
 int main(int argc, char **argv)
 {
 	debug = 0;
-	hit_obj = -1;
 	t_scene	*scene;
 	
 	scene = scene_init(argc, argv[1]);
@@ -39,7 +38,7 @@ int main(int argc, char **argv)
 		{
 			double u = (double)i / (scene->img.w - 1);
 			double v = (double)k / (scene->img.h - 1);
-
+			
 			scene->ray = ray_first(scene, u, v);
 			t_color	color = ray_color(scene);
 			

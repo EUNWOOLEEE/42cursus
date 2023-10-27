@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:42:26 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/26 15:32:58 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/27 12:38:09 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ambient(t_scene *scene, char **strs)
 	ratio = 0.0;
 	if (cnt_strs(strs) != 3)
 		print_error_exit(USAGE_A);
-	if (parse_ratio(&ratio, strs[1]) == FALSE \
+	if (parse_double(&ratio, strs[1]) == FALSE \
 		|| parse_color(&(scene->ambient), ft_split(strs[2], ',')) == FALSE \
 		|| check_ratio(ratio) == FALSE \
 		|| check_color(scene->ambient) == FALSE)

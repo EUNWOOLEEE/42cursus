@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:16:17 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/26 19:01:31 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/27 12:53:13 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,17 @@ t_cylinder	*cylinder(char **strs)
 	cy = (t_cylinder *)ft_calloc(1, sizeof(t_cylinder));
 	if (!cy)
 		print_error_exit(MEMORY);
-	cy->diameter = ft_atod(strs[3]);
-	cy->radius = cy->diameter / 2;
-	cy->h = ft_atod(strs[4]);
 	if (parse_coor(&(cy->center), ft_split(strs[1], ',')) == FALSE \
 		|| parse_coor(&(cy->dir), ft_split(strs[2], ',')) == FALSE \
+		|| parse_double(&cy->diameter, strs[3]) == FALSE \
+		|| parse_double(&cy->h, strs[4]) == FALSE \
 		|| parse_color(&(cy->color), ft_split(strs[5], ',')) == FALSE \
 		|| check_vector(cy->dir) == FALSE \
 		|| check_color(cy->color) == FALSE)
 		print_error_exit(USAGE_CY);
+	cy->radius = cy->diameter / 2;
 	cy->color = color_to_albedo(cy->color);
+	cy->dir = vec_unit(cy->dir);
 	return (cy);
 }
 
@@ -56,13 +57,11 @@ static t_bool	cylinder_hit_side(t_cylinder *cy, t_ray ray, t_hit_record *rec)
 	double	t;
 
 	t_vec	cl;
-	t_vec	dir_unit;
 
 	cl = vec_minus2(ray.orig, cy->center); // 원기둥의 중심 -> 카메라
-	dir_unit = vec_unit(cy->dir);
 
-	double	vh = vec_dot(ray.dir, dir_unit);
-	double	wh = vec_dot(cl, dir_unit);
+	double	vh = vec_dot(ray.dir, cy->dir);
+	double	wh = vec_dot(cl, cy->dir);
 	
 	a = vec_len_squared(ray.dir) - vh * vh;
 	half_b = vec_dot(ray.dir, cl) - vh * wh;
@@ -82,20 +81,21 @@ static t_bool	cylinder_hit_side(t_cylinder *cy, t_ray ray, t_hit_record *rec)
 	t_vec	at = ray_at(ray, t);
 	t_vec	cp = vec_minus2(at, cy->center);
 	double	hit_h = sqrt(vec_len_squared(cp) - pow(cy->radius, 2.0));
-	// double hit_h = vec_dot(cp, dir_unit);
 
-	if (cy->h / 2 < fabs(hit_h))
-	{
-		// printf("at %lf %lf %lf\n", at.x, at.y, at.z);
-		// printf("hit_h %lf\n\n", fabs(hit_h));
+	if (cy->h / 2 < hit_h)
 		return (FALSE);
-	}
 
 	rec->p = at;
 	rec->t = t;
 	rec->color = cy->color;
 
-	t_vec	cq = vec_multi(vec_plus2(cy->center, cy->dir), hit_h);
+
+	t_vec	cq;
+	if (vec_dot(cy->dir, vec_unit(cp)) >= 0)
+		cq = vec_plus2(cy->center, vec_multi(cy->dir, hit_h));
+	else
+		cq = vec_plus2(cy->center, vec_multi(cy->dir, -hit_h));
+
 	rec->n = vec_unit(vec_minus2(rec->p, cq));
 	obj_set_face_n(ray, rec);
 	return (TRUE);
@@ -120,9 +120,9 @@ static t_bool	cylinder_hit_plane(t_cylinder *cy, t_ray ray, t_hit_record *rec, d
 	rec->t = t;
 	rec->p = at;
 	if (0 < h)
-		rec->n = cy->dir;
+		rec->n = vec_unit(cy->dir);
 	else
-		rec->n = vec_multi(cy->dir, -1);
+		rec->n = vec_multi(vec_unit(cy->dir), -1);
 	obj_set_face_n(ray, rec);
 	rec->color = cy->color;
 	return (TRUE);

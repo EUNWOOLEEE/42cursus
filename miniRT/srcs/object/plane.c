@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:12:58 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/26 15:15:31 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/27 08:11:03 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_plane	*plane(char **strs)
 		|| check_color(pl->color) == FALSE)
 		print_error_exit(USAGE_PL);
 	pl->color = color_to_albedo(pl->color);
+	pl->dir = vec_unit(pl->dir);
 	return (pl);
 }
 
@@ -44,7 +45,7 @@ t_bool	plane_hit(t_plane *pl, t_ray ray, t_hit_record *rec)
 		return (FALSE);
 	rec->t = t;
 	rec->p = ray_at(ray, t);
-	rec->n = pl->dir;
+	rec->n = vec_unit(pl->dir);
 	obj_set_face_n(ray, rec);
 	rec->color = pl->color;
 	return (TRUE);

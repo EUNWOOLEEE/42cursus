@@ -21,7 +21,7 @@ void	parse_func(t_scene *scene, char **strs)
 	else if(!ft_strncmp(strs[0], "C", 2))
 		cam(scene, strs);
 	else if(!ft_strncmp(strs[0], "L", 2))
-		ft_lstadd_back(&scene->light, object(light(strs), LIGHT_POINT));
+		ft_lstadd_back(&scene->light, object(light(strs), LIGHT));
 	else if(!ft_strncmp(strs[0], "sp", 3))
 		ft_lstadd_back(&scene->world, object(sphere(strs), SP));
 	else if(!ft_strncmp(strs[0], "pl", 3))
@@ -65,7 +65,7 @@ t_bool	parse_coor(t_vec *coor, char **strs)
 	return (TRUE);
 }
 
-t_bool	parse_ratio(double *ratio, char *str)
+t_bool	parse_double(double *d, char *str)
 {
 	int	i;
 	int	cnt;
@@ -80,6 +80,6 @@ t_bool	parse_ratio(double *ratio, char *str)
 			|| cnt > 1)
 			return (FALSE);
 	}
-	*ratio = ft_atod(str);
+	*d = ft_atod(str);
 	return (TRUE);
 }

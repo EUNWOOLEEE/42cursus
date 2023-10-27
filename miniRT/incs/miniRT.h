@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 22:12:15 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/26 18:17:38 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/27 12:37:57 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # include "../mlx/mlx.h"
 # include "../Libft/incs/libft.h"
 
-int	hit_obj;
 int debug;
+int	hit_obj;
 
 t_scene	*scene_init(int argc, char *file_neme);
 void	scene_read(t_scene *scene);
@@ -42,7 +42,7 @@ t_bool	check_FOV(int FOV);
 void	parse_func(t_scene *scene, char **strs);
 t_bool	parse_color(t_color *color, char **strs);
 t_bool	parse_coor(t_vec *coor, char **strs);
-t_bool	parse_ratio(double *ratio, char *str);
+t_bool	parse_double(double *d, char *str);
 
 void	ambient(t_scene *scene, char **strs);
 void	specular(t_scene *scene, char **strs);
