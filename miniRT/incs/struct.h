@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 16:27:47 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/28 14:20:31 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/28 15:53:19 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ typedef struct s_camera
 	t_vec	horizontal;
 	t_vec	vertical;
 	t_point	llc;
-	t_vec	vec_up;
-	t_vec	vec_right;
 }t_camera;
 
 typedef struct s_light

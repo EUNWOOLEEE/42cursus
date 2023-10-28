@@ -6,11 +6,16 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:29:37 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/18 18:58:17 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/28 16:26:19 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/miniRT.h"
+
+t_vec	vec_plus(t_vec vec, double t);
+t_vec	vec_minus(t_vec vec, double t);
+t_vec	vec_multi(t_vec vec, double t);
+t_vec	vec_divide(t_vec vec, double t);
 
 t_vec	vec_plus(t_vec vec, double t)
 {

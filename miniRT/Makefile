@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 21:45:52 by eunwolee          #+#    #+#              #
-#    Updated: 2023/10/28 14:22:18 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/10/28 18:58:26 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,42 +30,36 @@ RM = rm -rf
 MAKE = make
 
 SRCS =	miniRT.c \
-		util.c \
 		parse/check_valid.c \
 		parse/check_valid_type.c \
 		parse/set_type.c \
-		parse/scene.c \
+		scene/scene.c \
+		scene/img.c \
+		scene/cam.c \
+		render/mlx.c \
 		render/draw.c \
+		render/ray.c \
+		render/hit.c \
+		vector/vec.c \
 		vector/cal.c \
 		vector/cal2.c \
-		vector/product.c \
 		vector/unit.c \
-		vector/vec.c \
-		ray/ray.c \
-		trace/hit.c \
-		image/img.c \
+		vector/product.c \
 		color/color.c \
-		color/cal.c \
-		color/cal2.c \
-		camera/cam.c \
-		light/ambient.c \
 		light/light.c \
+		light/ambient.c \
+		light/specular.c \
 		light/shadow.c \
 		object/sphere.c \
 		object/plane.c \
 		object/cylinder.c \
 		object/cone.c \
 		object/util.c \
+		list/ft_lstnew.c \
 		list/ft_lstadd_back.c \
-		list/ft_lstadd_front.c \
-		list/ft_lstclear.c \
-		list/ft_lstdelone.c \
-		list/ft_lstiter.c \
 		list/ft_lstlast.c \
-		list/ft_lstmap.c \
-		list/object.c \
 		list/ft_lstsize.c \
-		system/mlx.c
+		util/util.c
 
 SRCS_WITH_PATH = $(addprefix $(SRCS_DIR)/, $(SRCS))
 OBJS = $(SRCS_WITH_PATH:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
@@ -119,17 +113,14 @@ ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c | ${OBJS_DIR}
 ${OBJS_DIR}:
 	@mkdir ${OBJS_DIR}
 	@mkdir ${OBJS_DIR}/parse
+	@mkdir ${OBJS_DIR}/scene
+	@mkdir ${OBJS_DIR}/render
 	@mkdir ${OBJS_DIR}/vector
-	@mkdir ${OBJS_DIR}/ray
-	@mkdir ${OBJS_DIR}/image
 	@mkdir ${OBJS_DIR}/color
-	@mkdir ${OBJS_DIR}/camera
 	@mkdir ${OBJS_DIR}/light
 	@mkdir ${OBJS_DIR}/object
-	@mkdir ${OBJS_DIR}/trace
-	@mkdir ${OBJS_DIR}/render
 	@mkdir ${OBJS_DIR}/list
-	@mkdir ${OBJS_DIR}/system
+	@mkdir ${OBJS_DIR}/util
 
 clean:
 	@echo "$(PECOCK)CLEANING OBJS... 🧹$(RESET)"

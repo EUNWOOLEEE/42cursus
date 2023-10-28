@@ -6,11 +6,15 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 17:16:25 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/20 16:49:46 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/28 14:26:11 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/miniRT.h"
+
+t_color	color(double R, double G, double B);
+int		color_to_int(int t, int r, int g, int b);
+t_color	color_to_albedo(t_color color);
 
 t_color	color(double R, double G, double B)
 {

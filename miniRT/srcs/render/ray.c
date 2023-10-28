@@ -6,11 +6,15 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 17:26:37 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/28 13:51:56 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/28 16:34:49 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/miniRT.h"
+
+t_point	ray_at(t_ray ray, double t);
+t_ray	ray_first(t_scene *scene, double u, double v);
+t_color	ray_color(t_scene *scene);
 
 t_point	ray_at(t_ray ray, double t)
 {
@@ -33,7 +37,7 @@ t_ray	ray_first(t_scene *scene, double u, double v)
 
 t_color	ray_color(t_scene *scene)
 {
-	obj_set_rec(&scene->rec);
+	rec_init(&scene->rec);
 	if (hit(scene->world, scene->ray, &scene->rec))
 		return (light_phong(scene, scene->light));
 	return (color(0, 0, 0));

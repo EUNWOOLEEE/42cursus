@@ -12,6 +12,9 @@
 
 #include "../../incs/miniRT.h"
 
+t_scene		*scene_init(int argc, char *file_neme);
+void		scene_read(t_scene *scene);
+
 t_scene	*scene_init(int argc, char *file_neme)
 {
 	t_scene	*scene;
@@ -38,8 +41,10 @@ void	scene_read(t_scene *scene)
 		if (!strs)
 			print_error_exit(MEMORY);
 		free(buf);
-		if (cnt_strs(strs) > 1) // 이거 맞나? 맑은 정신에 다시 생각해보기
+		if (cnt_strs(strs) > 1)
 			parse_func(scene, strs);
+		else if (strs[0][0] != '\n')
+			print_error_exit(NOTALLOWED);
 		free_double_pointer(strs);
 	}
 }

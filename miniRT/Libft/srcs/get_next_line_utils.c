@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:01:47 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/09/25 07:39:10 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/28 17:42:03 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,4 @@ char	*delete_nod(t_gnl_list **head, t_gnl_list *nod)
 	free(nod->buff);
 	free(nod);
 	return (0);
-}
-
-void	free_buff(char *tmp, char *buff)
-{
-	if (tmp)
-		free(tmp);
-	free(buff);
 }

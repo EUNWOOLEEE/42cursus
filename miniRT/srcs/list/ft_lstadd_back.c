@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:04:21 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/23 08:18:51 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/28 17:10:35 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_lstadd_back(t_object **lst, t_object *new)
 	t_object	*last;
 
 	if (!lst || !new)
-		return ;
+		print_error_exit(MEMORY);
 	if (!*lst)
 	{
 		*lst = new;

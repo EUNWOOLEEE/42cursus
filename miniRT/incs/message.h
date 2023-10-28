@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 17:02:19 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/28 14:19:24 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/28 16:07:52 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define MESSAGE_H
 
 # define MEMORY "Memory allocation failure"
+
+# define NOTALLOWED "Contain not allowed type"
 
 # define USAGE_ARG "Usage: ./miniRT file.rt"
 

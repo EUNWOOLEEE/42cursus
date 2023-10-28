@@ -6,11 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:37:25 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/23 08:50:24 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/28 14:26:27 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/miniRT.h"
+
+void	img_set(t_scene *scene);
+void	img_ptr_set(t_scene *scene);
 
 void	img_set(t_scene *scene)
 {

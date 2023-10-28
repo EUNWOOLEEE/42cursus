@@ -6,11 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:05:06 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/27 12:38:51 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/28 18:32:06 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/miniRT.h"
+
+t_sphere	*sphere(char **strs);
+t_bool		sphere_hit(t_sphere *sp, t_ray ray, t_hit_record *rec);
 
 t_sphere	*sphere(char **strs)
 {
@@ -23,6 +26,7 @@ t_sphere	*sphere(char **strs)
 		print_error_exit(MEMORY);
 	if (parse_coor(&(sp->center), ft_split(strs[1], ',')) == FALSE \
 		|| parse_double(&sp->diameter, strs[2]) == FALSE \
+		|| sp->diameter < 0 \
 		|| parse_color(&(sp->color), ft_split(strs[3], ',')) == FALSE \
 		|| check_color(sp->color) == FALSE)
 		print_error_exit(USAGE_PL);
@@ -33,33 +37,20 @@ t_sphere	*sphere(char **strs)
 
 t_bool	sphere_hit(t_sphere *sp, t_ray ray, t_hit_record *rec)
 {
-	t_vec		cl;
-	double		a;
-	double		half_b;
-	double		c;
-	double		D;
+	t_discriminant	d;
+	t_vec			cl;
 
 	cl = vec_minus2(ray.orig, sp->center);
-	a = vec_len_squared(ray.dir);
-	half_b = vec_dot(ray.dir, cl);
-	c = vec_len_squared(cl) - pow(sp->radius, 2);
+	d.a = vec_len_squared(ray.dir);
+	d.half_b = vec_dot(ray.dir, cl);
+	d.c = vec_len_squared(cl) - pow(sp->radius, 2);
 
-	D = half_b * half_b - a * c;
-	if (D < 0)
+	d.D = d.half_b * d.half_b - d.a * d.c;
+	if (d.D < 0 \
+		|| check_t_range(rec, &d) == FALSE)
 		return (FALSE);
 
-	double	t = (-half_b - sqrt(D)) / a;
-	
-	if (t < rec->t_min || rec->t_max < t)
-	{
-		t = (-half_b + sqrt(D)) / a;
-		if (t < rec->t_min || rec->t_max < t)
-			return (FALSE);
-	}
-	rec->t = t;
-	rec->p = ray_at(ray, t);
-	rec->n = vec_divide(vec_minus2(rec->p, sp->center), sp->radius);
-	obj_set_face_n(ray, rec);
-	rec->color = sp->color;
+	rec->n = vec_divide(vec_minus2(ray_at(ray, d.t), sp->center), sp->radius);
+	rec_set(ray, rec, d.t, sp->color);
 	return (TRUE);
 }

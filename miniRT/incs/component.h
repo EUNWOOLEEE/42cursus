@@ -30,4 +30,13 @@ typedef struct s_ray
 	t_vec	dir;
 }t_ray;
 
+typedef struct discriminant
+{
+	double	a;
+	double	half_b;
+	double	c;
+	double	D;
+	double	t;
+}t_discriminant;
+
 #endif

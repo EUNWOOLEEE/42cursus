@@ -1,46 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cal.c                                              :+:      :+:    :+:   */
+/*   util.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/18 17:16:05 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/28 14:23:59 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/09/25 18:04:39 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/10/28 16:56:35 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/miniRT.h"
 
-t_color	color_plus(t_color color, double t)
+int		cnt_strs(char **strs);
+void	print_error_exit(char *str);
+void	free_double_pointer(char **strs);
+
+int	cnt_strs(char **strs)
 {
-	color.x += t;
-	color.y += t;
-	color.z += t;
-	return (color);
+	int	i;
+
+	i = 0;
+	while (strs[i])
+		i++;
+	return (i);
 }
 
-t_color	color_minus(t_color color, double t)
+void	print_error_exit(char *str)
 {
-	color.x -= t;
-	color.y -= t;
-	color.z -= t;
-	return (color);
+	printf("%s\n", str);
+	exit(0);
 }
 
-t_color	color_multi(t_color color, double t)
+void	free_double_pointer(char **strs)
 {
-	color.x *= t;
-	color.y *= t;
-	color.z *= t;
-	return (color);
-}
+	int	i;
 
-t_color	color_divide(t_color color, double t)
-{
-	color.x /= t;
-	color.y /= t;
-	color.z /= t;
-	return (color);
+	i = 0;
+	while (strs[i])
+		free(strs[i++]);
+	free(strs);
 }
-

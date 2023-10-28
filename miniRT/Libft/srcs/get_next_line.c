@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:01:43 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/01 18:01:07 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/28 17:42:27 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,10 @@ static t_gnl_list	*get_new_nod(int fd)
 	char		*buff;
 	t_gnl_list	*nod;
 
-	buff = (char *)malloc(sizeof(char) * 1);
+	buff = (char *)ft_calloc(1, sizeof(char));
 	if (!buff)
 		return (0);
-	buff[0] = '\0';
-	nod = (t_gnl_list *)malloc(sizeof(t_gnl_list) * 1);
+	nod = (t_gnl_list *)ft_calloc(1, sizeof(t_gnl_list));
 	if (!nod)
 	{
 		free(buff);
@@ -95,7 +94,7 @@ static int	get_read_line(int fd, t_gnl_list *nod, char *tmp)
 	int		rd;
 	char	*buff;
 
-	buff = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
+	buff = (char *)ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (!buff)
 		return (-1);
 	rd = 1;
@@ -107,15 +106,16 @@ static int	get_read_line(int fd, t_gnl_list *nod, char *tmp)
 		buff[rd] = '\0';
 		tmp = nod->buff;
 		nod->buff = ft_strjoin(tmp, buff);
+		free(tmp);
 		if (!nod->buff)
 		{
-			free_buff(tmp, buff);
+			free(buff);
 			return (-1);
 		}
 		if (ft_strchr(nod->buff, '\n'))
 			break ;
 	}
-	free_buff(tmp, buff);
+	free(buff);
 	return (rd);
 }
 

@@ -6,11 +6,17 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:28:27 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/25 11:14:24 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/28 18:53:37 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/miniRT.h"
+
+t_bool	check_ratio(double ratio);
+t_bool	check_color(t_color color);
+t_bool	check_vector(t_vec vector);
+t_bool	check_FOV(int FOV);
+t_bool	check_double_char(char *str);
 
 t_bool	check_ratio(double ratio)
 {
@@ -43,5 +49,25 @@ t_bool	check_FOV(int FOV)
 {
 	if (FOV < 0 || 180 < FOV)
 		return (FALSE);
+	return (TRUE);
+}
+
+t_bool	check_double_char(char *str)
+{
+	int	i;
+	int	cnt;
+
+	i = -1;
+	cnt = 0;
+	if (str[i + 1] == '-')
+		i = 0;
+	while (str[++i])
+	{
+		if (str[i] == '.')
+			cnt++;
+		if ((!ft_isdigit(str[i]) && str[i] != '.' && str[i] != '\n') \
+			|| cnt > 1)
+			return (FALSE);
+	}
 	return (TRUE);
 }

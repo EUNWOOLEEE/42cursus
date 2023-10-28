@@ -6,11 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:29:51 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/18 17:13:39 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/28 16:26:49 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/miniRT.h"
+
+double	vec_dot(t_vec vec1, t_vec vec2);
+t_vec	vec_cross(t_vec vec1, t_vec vec2);
 
 double	vec_dot(t_vec vec1, t_vec vec2)
 {

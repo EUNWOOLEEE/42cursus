@@ -6,11 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 17:47:56 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/28 13:43:50 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/28 16:25:49 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/miniRT.h"
+
+t_bool	hit(t_object *world, t_ray ray, t_hit_record *rec);
+t_bool	hit_set_func(t_object *obj, t_ray ray, t_hit_record *rec);
 
 t_bool	hit(t_object *world, t_ray ray, t_hit_record *rec)
 {
@@ -19,7 +22,6 @@ t_bool	hit(t_object *world, t_ray ray, t_hit_record *rec)
 	hit_anything = FALSE;
 	while (world)
 	{
-		// if (light) printf("hit %d now %d\n", hit_obj, world->num);
 		if (hit_set_func(world, ray, rec))
 		{
 			hit_anything = TRUE;

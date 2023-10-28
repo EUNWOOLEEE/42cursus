@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 22:12:15 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/28 13:44:09 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/28 18:58:21 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,11 @@
 # include "../mlx/mlx.h"
 # include "../Libft/incs/libft.h"
 
-int debug;
-
-t_scene	*scene_init(int argc, char *file_neme);
-void	scene_read(t_scene *scene);
-
-t_bool	mlx_set(t_scene *scene);
+// parse
+void	parse_func(t_scene *scene, char **strs);
+t_bool	parse_color(t_color *color, char **strs);
+t_bool	parse_coor(t_vec *coor, char **strs);
+t_bool	parse_double(double *d, char *str);
 
 t_bool	check_argument(t_scene *scene, int argc, char *file_name);
 
@@ -37,35 +36,35 @@ t_bool	check_ratio(double ratio);
 t_bool	check_color(t_color color);
 t_bool	check_vector(t_vec vector);
 t_bool	check_FOV(int FOV);
+t_bool	check_double_char(char *str);
 
-void	parse_func(t_scene *scene, char **strs);
-t_bool	parse_color(t_color *color, char **strs);
-t_bool	parse_coor(t_vec *coor, char **strs);
-t_bool	parse_double(double *d, char *str);
 
-void	ambient(t_scene *scene, char **strs);
-void	specular(t_scene *scene, char **strs);
-t_light	*light(char **strs);
-t_color	light_phong(t_scene *scene, t_object *lights);
-t_bool	shadow(t_object *world, t_ray light_ray, double light_len);
+// scene
+t_scene	*scene_init(int argc, char *file_neme);
+void	scene_read(t_scene *scene);
 
 void	cam(t_scene *scene, char **strs);
 void	cam_set(t_scene *scene);
-
-
-int		cnt_strs(char **strs);
-void	free_double_pointer(char **strs);
-void	print_error_exit(char *str);
-double	degrees_to_radians(t_scene *scene);
-
-void	my_mlx_pixel_put(t_scene *scene, int x, int y, int color);
-void	img_draw_to_window(t_scene *scene);
 
 void	img_set(t_scene *scene);
 void	img_ptr_set(t_scene *scene);
 
 
-//vec
+// render
+t_bool	mlx_set_ptr(t_scene *scene);
+void	mlx_set_loop(t_scene *scene);
+
+void	draw_loop(t_scene *scene);
+
+t_point	ray_at(t_ray ray, double t);
+t_ray	ray_first(t_scene *scene, double u, double v);
+t_color	ray_color(t_scene *scene);
+
+t_bool	hit(t_object *world, t_ray ray, t_hit_record *rec);
+t_bool	hit_set_func(t_object *obj, t_ray ray, t_hit_record *rec);
+
+
+// vector
 t_vec	vec(double x, double y, double z);
 
 t_vec	vec_plus(t_vec vec, double t);
@@ -81,36 +80,30 @@ t_vec	vec_divide2(t_vec vec1, t_vec vec2);
 double	vec_len_squared(t_vec vec);
 double	vec_len(t_vec vec);
 t_vec	vec_unit(t_vec vec);
+
 double	vec_dot(t_vec vec1, t_vec vec2);
 t_vec	vec_cross(t_vec vec1, t_vec vec2);
 
 
-//color
+// color
 t_color	color(double R, double G, double B);
 int		color_to_int(int t, int r, int g, int b);
 t_color	color_to_albedo(t_color color);
 
-t_color	color_plus(t_color color, double t);
-t_color	color_minus(t_color color, double t);
-t_color	color_multi(t_color color, double t);
-t_color	color_divide(t_color color, double t);
 
-t_color	color_plus2(t_color color1, t_color color2);
-t_color	color_minus2(t_color color1, t_color color2);
-t_color	color_multi2(t_color color1, t_color color2);
-t_color	color_divide2(t_color color1, t_color color2);
+// light
+t_light	*light(char **strs);
+t_color	light_phong(t_scene *scene, t_object *lights);
 
+void	ambient(t_scene *scene, char **strs);
 
-//ray
-t_point	ray_at(t_ray ray, double t);
-t_ray	ray_first(t_scene *scene, double u, double v);
-t_color	ray_color(t_scene *scene);
+void	specular(t_scene *scene, char **strs);
+t_color	specular_get(t_scene *scene, t_light *light, t_vec light_dir);
 
-t_bool	hit(t_object *world, t_ray ray, t_hit_record *rec);
-t_bool	hit_set_func(t_object *obj, t_ray ray, t_hit_record *rec);
+t_bool	shadow(t_object *world, t_ray light_ray, double light_len);
 
 
-//object
+// object
 t_sphere	*sphere(char **strs);
 t_bool		sphere_hit(t_sphere *sp, t_ray ray, t_hit_record *rec);
 
@@ -123,21 +116,22 @@ int			cylinder_hit(t_cylinder *cy, t_ray ray, t_hit_record *rec);
 t_cone		*cone(char **strs);
 int			cone_hit(t_cone *cy, t_ray ray, t_hit_record *rec);
 
+void	rec_init(t_hit_record *rec);
+void	rec_set(t_ray ray, t_hit_record *rec, double t, t_color color);
+void	set_face_n(t_ray r, t_hit_record *rec);
+t_bool	check_t_range(t_hit_record *rec, t_discriminant *d);
 
-void	obj_set_rec(t_hit_record *rec);
-void	obj_set_face_n(t_ray r, t_hit_record *rec);
 
-
-//list
-int			ft_lstsize(t_object *lst);
-void		ft_lstadd_front(t_object **lst, t_object *new);
-void		ft_lstadd_back(t_object **lst, t_object *new);
-void		ft_lstdelone(t_object *lst, void (*del)(void *));
-void		ft_lstclear(t_object **lst, void (*del)(void *));
-void		ft_lstiter(t_object *lst, void (*f)(void *));
-t_object	*ft_lstlast(t_object *lst);
-t_object	*ft_lstmap(t_object *lst, void *(*f)(void *), void (*del)(void *));
-
+// list
 t_object	*object(void *content, int type);
+int			ft_lstsize(t_object *lst);
+void		ft_lstadd_back(t_object **lst, t_object *new);
+t_object	*ft_lstlast(t_object *lst);
+
+// util
+int		cnt_strs(char **strs);
+void	print_error_exit(char *str);
+void	free_double_pointer(char **strs);
+
 
 #endif

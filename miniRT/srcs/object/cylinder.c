@@ -6,13 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:16:17 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/27 12:53:13 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/28 18:33:06 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/miniRT.h"
 
 static t_bool	cylinder_hit_side(t_cylinder *cy, t_ray ray, t_hit_record *rec);
+static t_bool	get_side_n(t_cylinder *cy, t_ray ray, t_hit_record *rec, double t);
 static t_bool	cylinder_hit_plane(t_cylinder *cy, t_ray ray, t_hit_record *rec, double h);
 
 t_cylinder	*cylinder(char **strs)
@@ -27,7 +28,9 @@ t_cylinder	*cylinder(char **strs)
 	if (parse_coor(&(cy->center), ft_split(strs[1], ',')) == FALSE \
 		|| parse_coor(&(cy->dir), ft_split(strs[2], ',')) == FALSE \
 		|| parse_double(&cy->diameter, strs[3]) == FALSE \
+		|| cy->diameter < 0 \
 		|| parse_double(&cy->h, strs[4]) == FALSE \
+		|| cy->h < 0 \
 		|| parse_color(&(cy->color), ft_split(strs[5], ',')) == FALSE \
 		|| check_vector(cy->dir) == FALSE \
 		|| check_color(cy->color) == FALSE)
@@ -50,54 +53,46 @@ int		cylinder_hit(t_cylinder *cy, t_ray ray, t_hit_record *rec)
 
 static t_bool	cylinder_hit_side(t_cylinder *cy, t_ray ray, t_hit_record *rec)
 {
-	double	a;
-	double	half_b;
-	double	c;
-	double	D;
-	double	t;
-
-	t_vec	cl;
+	t_discriminant	d;
+	t_vec			cl;
+	double			vh;
+	double			wh;
 
 	cl = vec_minus2(ray.orig, cy->center); // 원기둥의 중심 -> 카메라
-
-	double	vh = vec_dot(ray.dir, cy->dir);
-	double	wh = vec_dot(cl, cy->dir);
+	vh = vec_dot(ray.dir, cy->dir);
+	wh = vec_dot(cl, cy->dir);
 	
-	a = vec_len_squared(ray.dir) - vh * vh;
-	half_b = vec_dot(ray.dir, cl) - vh * wh;
-	c = vec_len_squared(cl) - wh * wh - pow(cy->radius, 2);
-	D = pow(half_b, 2) - a * c;
-	if (D < 0)
+	d.a = vec_len_squared(ray.dir) - vh * vh;
+	d.half_b = vec_dot(ray.dir, cl) - vh * wh;
+	d.c = vec_len_squared(cl) - wh * wh - pow(cy->radius, 2);
+	d.D = pow(d.half_b, 2) - d.a * d.c;
+	if (d.D < 0 \
+		|| check_t_range(rec, &d) == FALSE \
+		|| get_side_n(cy, ray, rec, d.t) == FALSE)
 		return (FALSE);
-		
-	t = (-half_b - sqrt(D)) / a;
-	if (t < rec->t_min || rec->t_max < t)
-	{
-		t = (-half_b + sqrt(D)) / a;
-		if (t < rec->t_min || rec->t_max < t)
-			return (FALSE);
-	}
+	rec_set(ray, rec, d.t, cy->color);
+	return (TRUE);
+}
 
-	t_vec	at = ray_at(ray, t);
-	t_vec	cp = vec_minus2(at, cy->center);
-	double	hit_h = sqrt(vec_len_squared(cp) - pow(cy->radius, 2.0));
+static t_bool	get_side_n(t_cylinder *cy, t_ray ray, t_hit_record *rec, double t)
+{
+	t_vec	at;
+	t_vec	cp;
+	t_vec	cq;
+	double	hit_h;
+	
+	at = ray_at(ray, t);
+	cp = vec_minus2(at, cy->center);
+	hit_h = sqrt(vec_len_squared(cp) - pow(cy->radius, 2.0));
 
 	if (cy->h / 2 < hit_h)
 		return (FALSE);
 
-	rec->p = at;
-	rec->t = t;
-	rec->color = cy->color;
-
-
-	t_vec	cq;
 	if (vec_dot(cy->dir, vec_unit(cp)) >= 0)
 		cq = vec_plus2(cy->center, vec_multi(cy->dir, hit_h));
 	else
 		cq = vec_plus2(cy->center, vec_multi(cy->dir, -hit_h));
-
-	rec->n = vec_unit(vec_minus2(rec->p, cq));
-	obj_set_face_n(ray, rec);
+	rec->n = vec_unit(vec_minus2(at, cq));
 	return (TRUE);
 }
 
@@ -107,23 +102,18 @@ static t_bool	cylinder_hit_plane(t_cylinder *cy, t_ray ray, t_hit_record *rec, d
 	double	t;
 	t_vec	center;
 
-	double dot = vec_dot(ray.dir, cy->dir);
 	center = vec_plus2(cy->center, vec_multi(cy->dir, h)); // 원평면의 중심
-	t = vec_dot(vec_minus2(center, ray.orig), cy->dir) / dot;
+	t = vec_dot(vec_minus2(center, ray.orig), cy->dir) / vec_dot(ray.dir, cy->dir);
 
-	t_vec	at = ray_at(ray, t);
-	pc_len = vec_len(vec_minus2(center, at));
-	if (cy->radius < fabs(pc_len))
+	pc_len = vec_len(vec_minus2(center, ray_at(ray, t)));
+	if (cy->radius < fabs(pc_len) \
+		|| t < rec->t_min || rec->t_max < t)
 		return (FALSE);
-	if (t < rec->t_min || rec->t_max < t)
-		return (FALSE);
-	rec->t = t;
-	rec->p = at;
+	
 	if (0 < h)
 		rec->n = vec_unit(cy->dir);
 	else
 		rec->n = vec_multi(vec_unit(cy->dir), -1);
-	obj_set_face_n(ray, rec);
-	rec->color = cy->color;
+	rec_set(ray, rec, t, cy->color);
 	return (TRUE);
 }

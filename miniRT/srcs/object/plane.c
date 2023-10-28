@@ -6,11 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:12:58 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/27 08:11:03 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/28 16:31:39 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/miniRT.h"
+
+t_plane	*plane(char **strs);
+t_bool	plane_hit(t_plane *pl, t_ray ray, t_hit_record *rec);
 
 t_plane	*plane(char **strs)
 {
@@ -43,10 +46,7 @@ t_bool	plane_hit(t_plane *pl, t_ray ray, t_hit_record *rec)
 	t = vec_dot(vec_minus2(pl->center, ray.orig), pl->dir) / dot;
 	if (t < rec->t_min || rec->t_max < t)
 		return (FALSE);
-	rec->t = t;
-	rec->p = ray_at(ray, t);
 	rec->n = vec_unit(pl->dir);
-	obj_set_face_n(ray, rec);
-	rec->color = pl->color;
+	rec_set(ray, rec, t, pl->color);
 	return (TRUE);
 }

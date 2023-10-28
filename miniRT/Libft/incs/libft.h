@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 21:00:01 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/17 19:23:37 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/28 17:42:13 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,5 @@ void	ft_putnbr_fd(int n, int fd);
 
 char	*get_next_line(int fd);
 char	*delete_nod(t_gnl_list **head, t_gnl_list *nod);
-void	free_buff(char *tmp, char *buff);
 
 #endif
