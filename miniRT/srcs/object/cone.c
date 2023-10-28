@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:19:12 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/27 12:39:03 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/28 13:14:51 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,19 @@ static t_bool	cone_hit_side(t_cone *co, t_ray ray, t_hit_record *rec)
 	}
 
 	t_vec	at = ray_at(ray, t);
+	t_vec	hit = vec_minus2(at, co->center);
+
+	double	theta = vec_dot(co->dir, vec_unit(hit));
+
+	if (vec_len(hit) > co->h || theta < 0)
+		return (FALSE);
 
 	t_vec	hp = vec_minus2(at, h);
-	double	theta = vec_dot(vec_unit(hp), vec_unit(vec_minus2(co->center, h)));
-	t_vec	hq = vec_multi(hp, theta);
+	theta = vec_dot(vec_multi(co->dir, -1), vec_unit(hp));
+	double	pq_len = vec_len(hp) / theta;
 
-	if (vec_len(hq) > co->h || theta < 0)
-		return (FALSE);
+	double	hq_len = sqrt(pow(vec_len(hp), 2) + pow(pq_len, 2));
+	t_vec	hq = vec_plus2(h, vec_multi(vec_multi(co->dir, -1), hq_len));
 
 	rec->t = t;
 	rec->p = at;

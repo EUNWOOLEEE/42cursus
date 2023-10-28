@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 16:27:47 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/27 08:24:44 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/28 14:20:31 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,15 @@ typedef enum e_bool
 	FALSE,
 	TRUE
 }t_bool;
+
+typedef enum e_type
+{
+	SP,
+	PL,
+	CY,
+	CO,
+	LIGHT
+}t_type;
 
 typedef struct s_image
 {
@@ -58,15 +67,6 @@ typedef struct s_light
 	t_color	color;
 	double	ratio;
 }t_light;
-
-typedef enum e_type
-{
-	SP,
-	PL,
-	CY,
-	CO,
-	LIGHT
-}t_type;
 
 typedef struct s_object
 {

@@ -6,12 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:31:46 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/26 16:36:14 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/28 14:22:54 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/miniRT.h"
 
+void			cam(t_scene *scene, char **strs);
+void			cam_set(t_scene *scene);
 static double	cam_degrees_to_radians(int degrees);
 
 void	cam(t_scene *scene, char **strs)

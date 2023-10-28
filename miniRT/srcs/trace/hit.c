@@ -6,36 +6,27 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 17:47:56 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/26 18:22:12 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/28 13:43:50 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/miniRT.h"
 
-t_bool	hit(t_object *world, t_ray ray, t_hit_record *rec, t_bool light)
+t_bool	hit(t_object *world, t_ray ray, t_hit_record *rec)
 {
 	t_bool	hit_anything;
 
 	hit_anything = FALSE;
-	if(light) debug = 1;
 	while (world)
 	{
-		if (light == TRUE && hit_obj == world->num)
-		{
-			world = world->next;
-			continue ;
-		}
 		// if (light) printf("hit %d now %d\n", hit_obj, world->num);
 		if (hit_set_func(world, ray, rec))
 		{
 			hit_anything = TRUE;
 			rec->t_max = rec->t;
-			if (light == FALSE)
-				hit_obj = world->num;
 		}
 		world = world->next;
 	}
-	debug = 0;
 	return (hit_anything);
 }
 

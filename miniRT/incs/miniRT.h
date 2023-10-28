@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 22:12:15 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/27 12:37:57 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/28 13:44:09 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 # include "../Libft/incs/libft.h"
 
 int debug;
-int	hit_obj;
 
 t_scene	*scene_init(int argc, char *file_neme);
 void	scene_read(t_scene *scene);
@@ -107,7 +106,7 @@ t_point	ray_at(t_ray ray, double t);
 t_ray	ray_first(t_scene *scene, double u, double v);
 t_color	ray_color(t_scene *scene);
 
-t_bool	hit(t_object *world, t_ray ray, t_hit_record *rec, t_bool light);
+t_bool	hit(t_object *world, t_ray ray, t_hit_record *rec);
 t_bool	hit_set_func(t_object *obj, t_ray ray, t_hit_record *rec);
 
 

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 17:02:19 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/26 18:15:39 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/28 14:19:24 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@
 - The cylinder height\n\
 - R,G,B colors in range [0,255]"
 
-# define USAGE_CO "Usage: co  임시\
+# define USAGE_CO "Usage: co  -50,0,50  0,0,0  10  10  255,255,255\n\
 - Identifier co\n\
 - x,y,z coordinates of the center of the cone\n\
 - 3d normalized vector of axis of cone. In range [-1,1] for each x,y,z axis\n\
