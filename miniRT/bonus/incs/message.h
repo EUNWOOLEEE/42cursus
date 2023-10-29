@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 17:02:19 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/28 16:07:52 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/30 07:02:14 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # define MEMORY "Memory allocation failure"
 
 # define NOTALLOWED "Contain not allowed type"
+
+# define LACK "Lack of essentials"
 
 # define USAGE_ARG "Usage: ./miniRT file.rt"
 

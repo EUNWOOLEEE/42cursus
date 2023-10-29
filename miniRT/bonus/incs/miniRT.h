@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 22:12:15 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/29 15:16:31 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/30 07:02:44 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_bool	parse_coor(t_vec *coor, char **strs);
 t_bool	parse_double(double *d, char *str);
 
 t_bool	check_argument(t_scene *scene, int argc, char *file_name);
+t_bool	check_essential(t_scene *scene);
 
 t_bool	check_ratio(double ratio);
 t_bool	check_color(t_color color);

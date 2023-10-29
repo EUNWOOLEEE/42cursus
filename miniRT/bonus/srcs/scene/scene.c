@@ -47,4 +47,6 @@ void	scene_read(t_scene *scene)
 			print_error_exit(NOTALLOWED);
 		free_double_pointer(strs);
 	}
+	if (check_essential(scene) == FALSE)
+		print_error_exit(LACK);
 }
