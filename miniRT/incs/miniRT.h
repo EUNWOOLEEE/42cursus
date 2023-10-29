@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 22:12:15 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/28 18:58:21 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/29 15:16:31 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,10 +111,10 @@ t_plane		*plane(char **strs);
 t_bool		plane_hit(t_plane *pl, t_ray ray, t_hit_record *rec);
 
 t_cylinder	*cylinder(char **strs);
-int			cylinder_hit(t_cylinder *cy, t_ray ray, t_hit_record *rec);
+t_bool		cylinder_hit(t_cylinder *cy, t_ray ray, t_hit_record *rec);
 
 t_cone		*cone(char **strs);
-int			cone_hit(t_cone *cy, t_ray ray, t_hit_record *rec);
+t_bool		cone_hit(t_cone *co, t_ray ray, t_hit_record *rec);
 
 void	rec_init(t_hit_record *rec);
 void	rec_set(t_ray ray, t_hit_record *rec, double t, t_color color);

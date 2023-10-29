@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 14:30:56 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/28 20:16:32 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/29 21:12:08 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,11 @@ t_color	specular_get(t_scene *scene, t_light *light, t_vec light_dir)
 	t_vec	view_dir;
 	t_vec	reflect_dir;
 	double	spec;
+	double	shininess;
 
 	view_dir = vec_unit(vec_multi(scene->ray.dir, -1));
 	reflect_dir = reflect(light_dir, scene->rec.n);
-	double	shininess = 256; //값이 커질수록 하이라이팅 범위가 좁아짐, 더 반짝거리는 물체, 오브젝트 각각에 넣어주기
+	shininess = 128;
 	spec = vec_dot(view_dir, reflect_dir);
 	if (spec < 0)
 		spec = 0.0;

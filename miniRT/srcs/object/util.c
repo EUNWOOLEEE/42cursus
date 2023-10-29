@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 17:52:16 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/28 16:20:52 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/29 19:49:54 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	rec_set(t_ray ray, t_hit_record *rec, double t, t_color color)
 {
 	rec->t = t;
 	rec->p = ray_at(ray, t);
-	set_face_n(ray, rec);
 	rec->color = color;
+	set_face_n(ray, rec);
 }
 
 void	set_face_n(t_ray r, t_hit_record *rec)

@@ -6,12 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:16:17 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/28 19:36:49 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/29 15:58:25 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/miniRT.h"
 
+t_cylinder		*cylinder(char **strs);
+t_bool			cylinder_hit(t_cylinder *cy, t_ray ray, t_hit_record *rec);
 static t_bool	cylinder_hit_side(t_cylinder *cy, t_ray ray, t_hit_record *rec);
 static t_bool	get_side_n(t_cylinder *cy, t_ray ray, t_hit_record *rec, double t);
 static t_bool	cylinder_hit_plane(t_cylinder *cy, t_ray ray, t_hit_record *rec, double h);
@@ -41,14 +43,24 @@ t_cylinder	*cylinder(char **strs)
 	return (cy);
 }
 
-int		cylinder_hit(t_cylinder *cy, t_ray ray, t_hit_record *rec)
+t_bool		cylinder_hit(t_cylinder *cy, t_ray ray, t_hit_record *rec)
 {
-	int	res;
+	t_bool	hit;
 
-	res = cylinder_hit_plane(cy, ray, rec, cy->h / 2);
-	res += cylinder_hit_plane(cy, ray, rec, -(cy->h / 2));
-	res += cylinder_hit_side(cy, ray, rec);
-	return (res);
+	hit = FALSE;
+	if (cylinder_hit_plane(cy, ray, rec, cy->h / 2))
+	{
+		rec->t_max = rec->t;
+		hit = TRUE;
+	}
+	if (cylinder_hit_plane(cy, ray, rec, -(cy->h / 2)))
+	{
+		rec->t_max = rec->t;
+		hit = TRUE;
+	}
+	if (cylinder_hit_side(cy, ray, rec))
+		hit = TRUE;
+	return (hit);
 }
 
 static t_bool	cylinder_hit_side(t_cylinder *cy, t_ray ray, t_hit_record *rec)
