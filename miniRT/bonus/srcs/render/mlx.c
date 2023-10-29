@@ -6,14 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:30:27 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/28 17:13:49 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/30 08:13:40 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/miniRT.h"
 
-t_bool	mlx_set_ptr(t_scene *scene);
-void	mlx_set_loop(t_scene *scene);
+t_bool		mlx_set_ptr(t_scene *scene);
+void		mlx_set_loop(t_scene *scene);
 static int	key_press(int keycode, t_scene *scene);
 static int	red_cross_press(t_scene *scene);
 

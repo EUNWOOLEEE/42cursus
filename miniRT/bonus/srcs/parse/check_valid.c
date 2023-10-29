@@ -6,11 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 06:33:43 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/30 07:20:46 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/30 08:13:13 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/miniRT.h"
+
+t_bool	check_argument(t_scene *scene, int argc, char *file_name);
+t_bool	check_essential(t_scene *scene);
 
 t_bool	check_argument(t_scene *scene, int argc, char *file_name)
 {

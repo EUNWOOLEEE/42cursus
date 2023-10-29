@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:45:02 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/30 06:47:48 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/30 08:11:34 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ static t_color	get_point(t_scene *scene, t_light *light)
 	light_len = vec_len(light_dir);
 	light_dir = vec_unit(light_dir);
 	light_ray.orig = scene->rec.p;
-	// light_ray.orig = vec_multi(scene->rec.p, EPSILON);
 	light_ray.dir = vec_unit(vec_minus2(light->point, scene->rec.p));
 	if (shadow(scene->world, light_ray, light_len))
 		return (color(0, 0, 0));
