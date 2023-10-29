@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 21:45:52 by eunwolee          #+#    #+#              #
-#    Updated: 2023/10/30 07:26:57 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/10/30 08:31:37 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,7 @@ PURPLE = \033[38;2;228;165;255m
 NUM_TASK = 11
 SIZE = 0
 END = 1
-GAUGE = WORLD.....🌎
+GAUGE = WORLD.....🌏
 NUM_GAUGE = 11
 
 all:
