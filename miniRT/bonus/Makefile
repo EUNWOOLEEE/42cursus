@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 21:45:52 by eunwolee          #+#    #+#              #
-#    Updated: 2023/10/30 07:12:35 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/10/30 07:26:57 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,19 +71,14 @@ YELLOW = \033[38;2;255;231;155m
 PECOCK = \033[38;2;115;187;201m
 PURPLE = \033[38;2;228;165;255m
 
-PRE = ✧･ﾟ: *✧･ﾟ:*
-NEXT = *:･ﾟ✧*:･ﾟ✧
-
-NUM_TASK = 8
+NUM_TASK = 11
 SIZE = 0
 END = 1
-CHAR = ଘ(੭'꒳')੭━ 
-GAUGE = ▁▁▂▂▃▃▅▅▆▆▓▒░✩ 🌟
-NUM_GAUGE = 16
+GAUGE = WORLD.....🌎
+NUM_GAUGE = 11
 
 all:
-	@echo "$(PINK)$(PRE)  BUILD  $(NAME)  $(NEXT)$(RESET)"
-	@printf "$(YELLOW)$(CHAR)"
+	@printf "$(GREEN)BUILD $(PECOCK)"
 	@$(MAKE) $(NAME)
 
 $(NAME): $(L_NAME) $(OBJS)
@@ -123,19 +118,19 @@ ${OBJS_DIR}:
 	@mkdir ${OBJS_DIR}/util
 
 clean:
-	@echo "$(PECOCK)CLEANING OBJS... 🧹$(RESET)"
+	@echo "$(YELLOW)CLEANING OBJS... 🧹$(RESET)"
 	@$(MAKE) -C $(L_DIR) fclean
 	@$(MAKE) -C $(MLX_DIR) clean
 	@$(RM) $(OBJS_DIR)
 	@$(RM) $(L_NAME)
 
 fclean:
-	@echo "$(GREEN)CLEANING ALL... 🗑️$(RESET)"
+	@echo "$(PINK)CLEANING ALL... 🗑️$(RESET)"
 	@$(MAKE) clean
 	@$(RM) $(NAME) ./$(INCS_DIR_M)/$(MLX_NAME) ./$(INCS_DIR_B)/$(MLX_NAME)
 
 re:
-	@echo "$(PURPLE)$(PRE) RE-BUILD $(NAME) $(NEXT)$(RESET)"
+	@echo "$(PURPLE)RE-BUILD $(NAME)$(RESET)"
 	@$(MAKE) fclean
 	@$(MAKE) all
 

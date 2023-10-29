@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 14:30:56 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/30 06:48:45 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/30 07:20:30 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ static t_vec	reflect(t_vec v, t_vec n);
 
 void	specular(t_scene *scene, char **strs)
 {
-	if (cnt_strs(strs) != 2 || scene->light_com.specular_ratio == TRUE)
+	if (cnt_strs(strs) != 2 || scene->light_com.check_specular == TRUE)
 		print_error_exit(USAGE_SR);
 	if (parse_double(&scene->light_com.specular_ratio, strs[1]) == FALSE \
 		|| check_ratio(scene->light_com.specular_ratio) == FALSE)
 		print_error_exit(USAGE_SR);
-	scene->light_com.specular_ratio = TRUE;
+	scene->light_com.check_specular = TRUE;
 }
 
 t_color	specular_get(t_scene *scene, t_light *light, t_vec light_dir)
