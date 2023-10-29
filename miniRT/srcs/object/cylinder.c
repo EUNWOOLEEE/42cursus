@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:16:17 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/29 15:58:25 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/29 21:16:19 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ static t_bool	cylinder_hit_side(t_cylinder *cy, t_ray ray, t_hit_record *rec)
 	cl = vec_minus2(ray.orig, cy->center); // 원기둥의 중심 -> 카메라
 	vh = vec_dot(ray.dir, cy->dir);
 	wh = vec_dot(cl, cy->dir);
-	
 	d.a = vec_len_squared(ray.dir) - vh * vh;
 	d.half_b = vec_dot(ray.dir, cl) - vh * wh;
 	d.c = vec_len_squared(cl) - wh * wh - pow(cy->radius, 2);
@@ -96,10 +95,8 @@ static t_bool	get_side_n(t_cylinder *cy, t_ray ray, t_hit_record *rec, double t)
 	at = ray_at(ray, t);
 	cp = vec_minus2(at, cy->center);
 	hit_h = sqrt(vec_len_squared(cp) - pow(cy->radius, 2.0));
-
 	if (cy->h / 2 < hit_h)
 		return (FALSE);
-
 	if (vec_dot(cy->dir, vec_unit(cp)) >= 0)
 		cq = vec_plus2(cy->center, vec_multi(cy->dir, hit_h));
 	else
@@ -116,12 +113,10 @@ static t_bool	cylinder_hit_plane(t_cylinder *cy, t_ray ray, t_hit_record *rec, d
 
 	center = vec_plus2(cy->center, vec_multi(cy->dir, h)); // 원평면의 중심
 	t = vec_dot(vec_minus2(center, ray.orig), cy->dir) / vec_dot(ray.dir, cy->dir);
-
 	pc_len = vec_len(vec_minus2(center, ray_at(ray, t)));
 	if (cy->radius < fabs(pc_len) \
 		|| t < rec->t_min || rec->t_max < t)
 		return (FALSE);
-	
 	if (0 < h)
 		rec->n = vec_unit(cy->dir);
 	else

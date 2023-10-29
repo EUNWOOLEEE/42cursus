@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 19:49:41 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/28 16:52:22 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/29 21:17:18 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ static void	draw(t_scene *scene, int i, int j, double u, double v)
 	
 	scene->ray = ray_first(scene, u, v);
 	color = ray_color(scene);
-	
 	draw_mlx_pixel_put(scene, i, j, \
 		color_to_int(0, color.x * TIMES, color.y * TIMES, color.z * TIMES));
 }

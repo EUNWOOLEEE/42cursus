@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:45:02 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/29 20:39:45 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/29 21:15:25 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,15 @@ t_color	light_phong(t_scene *scene, t_object *lights)
 {
 	t_color		light_color;
 
-	light_color = color(0, 0, 0); // 광원이 하나도 없을 경우 빛의 양
+	light_color = color(0, 0, 0);
 	while (lights)
 	{
 		if (lights->type == LIGHT)
 			light_color = vec_plus2(light_color, get_point(scene, lights->obj));
 		lights = lights->next;
 	}
-		
 	light_color = vec_plus2(light_color, scene->ambient);
 	light_color = vec_multi2(light_color, scene->rec.color);
-
 	light_color.x = light_color.x >= 1 ? 1 : light_color.x;
 	light_color.y = light_color.y >= 1 ? 1 : light_color.y;
 	light_color.z = light_color.z >= 1 ? 1 : light_color.z;
@@ -73,14 +71,11 @@ static t_color	get_point(t_scene *scene, t_light *light)
 	light_ray.orig = scene->rec.p;
 	// light_ray.orig = vec_multi(scene->rec.p, EPSILON);
 	light_ray.dir = vec_unit(vec_minus2(light->point, scene->rec.p));
-	
 	if (shadow(scene->world, light_ray, light_len))
 		return (color(0, 0, 0));
-
 	theta = vec_dot(scene->rec.n, light_dir);
 	if (theta < 0.0)
 		theta = 0.0;
 	diffuse = vec_multi(light->color, theta);
-
 	return (vec_plus2(diffuse, specular_get(scene, light, light_dir)));
 }

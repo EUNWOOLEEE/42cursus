@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:19:12 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/29 20:18:56 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/29 21:16:22 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,21 +71,13 @@ static t_bool	cone_hit_side(t_cone *co, t_ray ray, t_hit_record *rec)
 	w = vec_minus2(ray.orig, co->top);
 	vh = vec_dot(ray.dir, co->dir);
 	wh = vec_dot(w, co->dir);
-
 	d.a = vec_len_squared(ray.dir) - m * pow(vh, 2) - pow(vh, 2);
 	d.half_b = vec_dot(ray.dir, w) - m * vh * wh - vh * wh;
 	d.c = vec_len_squared(w) - m * pow(wh, 2) - pow(wh, 2);
 	d.D = pow(d.half_b, 2) - d.a * d.c;
-	// if (d.D < 0 \
-	// 	|| check_t_range(rec, &d) == FALSE \
-	// 	|| check_draw_range(co, ray, d.t) == FALSE \
-	// 	|| get_side_n(co, ray, rec, d.t) == FALSE)
-	// 	return (FALSE);
-	if (d.D < 0)
-		return (FALSE);
-	if (check_t_range(rec, &d) == FALSE)
-		return (FALSE);
-	if (get_side_n(co, ray, rec, d.t) == FALSE)
+	if (d.D < 0 \
+		|| check_t_range(rec, &d) == FALSE \
+		|| get_side_n(co, ray, rec, d.t) == FALSE)
 		return (FALSE);
 	rec_set(ray, rec, d.t, co->color);
 	return (TRUE);
@@ -103,14 +95,11 @@ static t_bool	get_side_n(t_cone *co, t_ray ray, t_hit_record *rec, double t)
 	hp = vec_minus2(at, co->top);
 	theta = vec_dot(vec_multi(co->dir, -1), vec_unit(hp));
 	hq = vec_multi(hp, theta);
-	
 	if (vec_len(hq) > co->h || theta < 0)
 		return (FALSE);
-
 	hq_len = vec_len(hp) / theta;
 	hq = vec_plus2(co->top, vec_multi(vec_multi(co->dir, -1), hq_len));
 	rec->n = vec_unit(vec_minus2(at, hq));
-
 	return (TRUE);
 }
 

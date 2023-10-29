@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:05:06 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/29 20:36:22 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/29 21:16:36 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,10 @@ t_bool	sphere_hit(t_sphere *sp, t_ray ray, t_hit_record *rec)
 	d.a = vec_len_squared(ray.dir);
 	d.half_b = vec_dot(ray.dir, cl);
 	d.c = vec_len_squared(cl) - pow(sp->radius, 2);
-
 	d.D = d.half_b * d.half_b - d.a * d.c;
 	if (d.D < 0 \
 		|| check_t_range(rec, &d) == FALSE)
 		return (FALSE);
-
 	rec->n = vec_divide(vec_minus2(ray_at(ray, d.t), sp->center), sp->radius);
 	rec_set(ray, rec, d.t, sp->color);
 	return (TRUE);
