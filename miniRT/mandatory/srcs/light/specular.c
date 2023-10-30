@@ -6,14 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 14:30:56 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/30 13:15:20 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/30 14:31:38 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/miniRT.h"
 
 void			specular(t_scene *scene, char **strs);
-t_color			specular_get(t_scene *scene, t_light *light, t_vec light_dir);
+t_color			specular_get(t_scene *scene, t_vec light_dir);
 static t_vec	reflect(t_vec v, t_vec n);
 
 void	specular(t_scene *scene, char **strs)
@@ -26,7 +26,7 @@ void	specular(t_scene *scene, char **strs)
 	scene->light_com.check_specular = TRUE;
 }
 
-t_color	specular_get(t_scene *scene, t_light *light, t_vec light_dir)
+t_color	specular_get(t_scene *scene, t_vec light_dir)
 {
 	t_vec	view_dir;
 	t_vec	reflect_dir;
@@ -41,7 +41,7 @@ t_color	specular_get(t_scene *scene, t_light *light, t_vec light_dir)
 	if (spec < 0)
 		spec = 0.0;
 	spec = pow(spec, shininess);
-	color = vec_multi(light->color, scene->light_com.specular_ratio);
+	color = vec_multi(scene->light.color, scene->light_com.specular_ratio);
 	return (vec_multi(color, spec));
 }
 

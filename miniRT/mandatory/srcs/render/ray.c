@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 17:26:37 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/29 21:17:34 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/30 14:30:38 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ t_color	ray_color(t_scene *scene)
 {
 	rec_init(&scene->rec);
 	if (hit(scene->world, scene->ray, &scene->rec))
-		return (light_phong(scene, scene->light));
+		return (light_phong(scene));
 	return (color(0, 0, 0));
 }

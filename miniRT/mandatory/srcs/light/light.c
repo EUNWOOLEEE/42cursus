@@ -6,56 +6,46 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:45:02 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/30 13:12:58 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/30 15:21:31 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/miniRT.h"
 
-t_light			*light(char **strs);
-t_color			light_phong(t_scene *scene, t_object *lights);
-static t_color	get_point(t_scene *scene, t_light *light);
+void			light(t_scene *scene, char **strs);
+t_color			light_phong(t_scene *scene);
+static t_color	get_point(t_scene *scene);
 static t_color	check_max(t_color light_color);
 
-t_light	*light(char **strs)
+void	light(t_scene *scene, char **strs)
 {
-	t_light	*light;
 	double	ratio;
 
 	ratio = 0.0;
-	if (cnt_strs(strs) != 4)
+	if (cnt_strs(strs) != 4 || scene->light.check_light == TRUE)
 		print_error_exit(USAGE_L);
-	light = (t_light *)ft_calloc(1, sizeof(t_light));
-	if (!light)
-		print_error_exit(MEMORY);
-	if (parse_coor(&light->point, ft_split(strs[1], ',')) == FALSE \
+	if (parse_coor(&scene->light.point, ft_split(strs[1], ',')) == FALSE \
 		|| parse_double(&ratio, strs[2]) == FALSE \
-		|| parse_color(&light->color, ft_split(strs[3], ',')) == FALSE \
+		|| parse_color(&scene->light.color, ft_split(strs[3], ',')) == FALSE \
 		|| check_ratio(ratio) == FALSE
-		|| check_color(light->color) == FALSE)
+		|| check_color(scene->light.color) == FALSE)
 		print_error_exit(USAGE_L);
-	light->color = color_to_albedo(light->color);
-	light->color = vec_multi(light->color, ratio);
-	return (light);
+	scene->light.color = color_to_albedo(scene->light.color);
+	scene->light.color = vec_multi(scene->light.color, ratio);
+	scene->light.check_light = TRUE;
 }
 
-t_color	light_phong(t_scene *scene, t_object *lights)
+t_color	light_phong(t_scene *scene)
 {
 	t_color		light_color;
 
-	light_color = color(0, 0, 0);
-	while (lights)
-	{
-		if (lights->type == LIGHT)
-			light_color = vec_plus2(light_color, get_point(scene, lights->obj));
-		lights = lights->next;
-	}
+	light_color = get_point(scene);
 	light_color = vec_plus2(light_color, scene->light_com.ambient);
 	light_color = vec_multi2(light_color, scene->rec.color);
 	return (check_max(light_color));
 }
 
-static t_color	get_point(t_scene *scene, t_light *light)
+static t_color	get_point(t_scene *scene)
 {
 	t_color	diffuse;
 	t_vec	light_dir;
@@ -63,18 +53,18 @@ static t_color	get_point(t_scene *scene, t_light *light)
 	t_ray	light_ray;
 	double	theta;
 
-	light_dir = vec_minus2(light->point, scene->rec.p);
+	light_dir = vec_minus2(scene->light.point, scene->rec.p);
 	light_len = vec_len(light_dir);
 	light_dir = vec_unit(light_dir);
 	light_ray.orig = scene->rec.p;
-	light_ray.dir = vec_unit(vec_minus2(light->point, scene->rec.p));
+	light_ray.dir = vec_unit(vec_minus2(scene->light.point, scene->rec.p));
 	if (shadow(scene->world, light_ray, light_len))
 		return (color(0, 0, 0));
 	theta = vec_dot(scene->rec.n, light_dir);
 	if (theta < 0.0)
 		theta = 0.0;
-	diffuse = vec_multi(light->color, theta);
-	return (vec_plus2(diffuse, specular_get(scene, light, light_dir)));
+	diffuse = vec_multi(scene->light.color, theta);
+	return (vec_plus2(diffuse, specular_get(scene, light_dir)));
 }
 
 static t_color	check_max(t_color light_color)

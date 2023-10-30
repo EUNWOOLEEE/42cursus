@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 06:33:43 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/30 13:05:59 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/30 14:35:03 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ t_bool	check_essential(t_scene *scene)
 {
 	if (scene->cam.check_cam == FALSE \
 		|| scene->light_com.check_ambient == FALSE \
-		|| scene->light_com.check_specular == FALSE)
+		|| scene->light_com.check_specular == FALSE \
+		|| scene->light.check_light == FALSE)
 		return (FALSE);
 	return (TRUE);
 }

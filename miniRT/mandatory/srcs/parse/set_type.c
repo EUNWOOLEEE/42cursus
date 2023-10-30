@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 13:04:36 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/30 13:04:55 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/30 15:25:45 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	parse_func(t_scene *scene, char **strs)
 	else if (!ft_strncmp(strs[0], "C", 2))
 		cam(scene, strs);
 	else if (!ft_strncmp(strs[0], "L", 2))
-		ft_lstadd_back(&scene->light, object(light(strs), LIGHT));
+		light(scene, strs);
 	else if (!ft_strncmp(strs[0], "sp", 3))
 		ft_lstadd_back(&scene->world, object(sphere(strs), SP));
 	else if (!ft_strncmp(strs[0], "pl", 3))
@@ -55,10 +55,13 @@ t_bool	parse_color(t_color *rgb, char **strs)
 	while (strs[++i])
 	{
 		j = -1;
-		while (!ft_isdigit(strs[i][++j]) && strs[i][j] != '\n')
+		while (strs[i][++j])
 		{
-			free_double_pointer(strs);
-			return (FALSE);
+			if (!ft_isdigit(strs[i][j]) && strs[i][j] != '\n')
+			{
+				free_double_pointer(strs);
+				return (FALSE);
+			}
 		}
 	}
 	rgb->x = (long long)ft_atoi(strs[0]);

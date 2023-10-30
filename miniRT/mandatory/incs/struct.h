@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 16:27:47 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/30 13:29:12 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/30 14:34:11 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_light
 	t_point	point;
 	t_color	color;
 	double	ratio;
+	t_bool	check_light;
 }t_light;
 
 typedef struct s_light_com
@@ -104,7 +105,7 @@ typedef struct s_scene
 	t_camera		cam;
 	t_image			img;
 	t_object		*world;
-	t_object		*light;
+	t_light			light;
 	t_light_com		light_com;
 }t_scene;
 

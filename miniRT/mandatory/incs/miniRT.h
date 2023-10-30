@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 22:12:15 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/30 13:28:07 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/30 14:31:17 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,13 @@ int			color_to_int(int t, int r, int g, int b);
 t_color		color_to_albedo(t_color color);
 
 /* light */
-t_light		*light(char **strs);
-t_color		light_phong(t_scene *scene, t_object *lights);
+void		light(t_scene *scene, char **strs);
+t_color		light_phong(t_scene *scene);
 
 void		ambient(t_scene *scene, char **strs);
 
 void		specular(t_scene *scene, char **strs);
-t_color		specular_get(t_scene *scene, t_light *light, t_vec light_dir);
+t_color		specular_get(t_scene *scene, t_vec light_dir);
 
 t_bool		shadow(t_object *world, t_ray light_ray, double light_len);
 
