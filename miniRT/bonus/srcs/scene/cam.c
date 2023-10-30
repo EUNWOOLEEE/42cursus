@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:31:46 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/30 13:56:56 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/30 15:39:10 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	cam(t_scene *scene, char **strs)
 	if (parse_coor(&scene->cam.orig, ft_split(strs[1], ',')) == FALSE \
 		|| parse_coor(&scene->cam.dir, ft_split(strs[2], ',')) == FALSE \
 		|| check_vector(scene->cam.dir) == FALSE \
-		|| check_fov(scene->cam.fov) == FALSE)
+		|| scene->cam.fov < 0 || 180 < scene->cam.fov)
 		print_error_exit(USAGE_C);
 	scene->cam.check_cam = TRUE;
 }

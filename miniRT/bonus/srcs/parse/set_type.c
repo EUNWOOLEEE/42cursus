@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 13:04:36 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/30 13:04:55 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/30 15:38:41 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	parse_func(t_scene *scene, char **strs)
 t_bool	parse_color(t_color *rgb, char **strs)
 {
 	int	i;
-	int	j;
 
 	if (!strs)
 		return (FALSE);
@@ -54,8 +53,7 @@ t_bool	parse_color(t_color *rgb, char **strs)
 	i = -1;
 	while (strs[++i])
 	{
-		j = -1;
-		while (!ft_isdigit(strs[i][++j]) && strs[i][j] != '\n')
+		if (check_int_char(strs[i]) == FALSE)
 		{
 			free_double_pointer(strs);
 			return (FALSE);

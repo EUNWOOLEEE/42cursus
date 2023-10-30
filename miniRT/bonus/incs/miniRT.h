@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 22:12:15 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/30 13:28:07 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/30 15:37:45 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_bool		check_essential(t_scene *scene);
 t_bool		check_ratio(double ratio);
 t_bool		check_color(t_color color);
 t_bool		check_vector(t_vec vector);
-t_bool		check_fov(int FOV);
+t_bool		check_int_char(char *str);
 t_bool		check_double_char(char *str);
 
 /* scene */
