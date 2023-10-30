@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 14:30:56 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/30 08:11:57 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/30 13:15:20 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_color	specular_get(t_scene *scene, t_light *light, t_vec light_dir)
 	t_vec	reflect_dir;
 	double	spec;
 	double	shininess;
+	t_color	color;
 
 	view_dir = vec_unit(vec_multi(scene->ray.dir, -1));
 	reflect_dir = reflect(light_dir, scene->rec.n);
@@ -40,7 +41,8 @@ t_color	specular_get(t_scene *scene, t_light *light, t_vec light_dir)
 	if (spec < 0)
 		spec = 0.0;
 	spec = pow(spec, shininess);
-	return (vec_multi(vec_multi(light->color, scene->light_com.specular_ratio), spec));
+	color = vec_multi(light->color, scene->light_com.specular_ratio);
+	return (vec_multi(color, spec));
 }
 
 static t_vec	reflect(t_vec v, t_vec n)

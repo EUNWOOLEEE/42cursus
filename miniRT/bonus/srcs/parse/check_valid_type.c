@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:28:27 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/28 18:53:37 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/30 13:22:13 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_bool	check_ratio(double ratio);
 t_bool	check_color(t_color color);
 t_bool	check_vector(t_vec vector);
-t_bool	check_FOV(int FOV);
+t_bool	check_fov(int FOV);
 t_bool	check_double_char(char *str);
 
 t_bool	check_ratio(double ratio)
@@ -45,7 +45,7 @@ t_bool	check_vector(t_vec vector)
 	return (TRUE);
 }
 
-t_bool	check_FOV(int FOV)
+t_bool	check_fov(int FOV)
 {
 	if (FOV < 0 || 180 < FOV)
 		return (FALSE);

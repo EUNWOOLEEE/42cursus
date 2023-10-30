@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 17:47:56 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/28 16:25:49 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/30 13:01:35 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_bool	hit(t_object *world, t_ray ray, t_hit_record *rec)
 t_bool	hit_set_func(t_object *obj, t_ray ray, t_hit_record *rec)
 {
 	int	res;
-	
+
 	res = 0;
 	if (obj->type == SP)
 		res = sphere_hit((t_sphere *)obj->obj, ray, rec);

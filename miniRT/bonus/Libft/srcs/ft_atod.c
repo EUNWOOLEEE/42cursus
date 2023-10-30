@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 08:20:40 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/26 15:35:37 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/30 13:31:23 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static double	convert_below(const char *str)
 	int		idx;
 	double	res;
 	double	tmp;
-	
+
 	idx = 0;
 	res = 0;
 	if (*str == '.')

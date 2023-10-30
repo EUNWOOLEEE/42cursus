@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:30:27 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/30 08:13:40 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/30 13:00:52 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static int	red_cross_press(t_scene *scene);
 t_bool	mlx_set_ptr(t_scene *scene)
 {
 	scene->mlx_ptr = mlx_init();
-	scene->win_ptr = mlx_new_window(scene->mlx_ptr, scene->img.w, scene->img.h, "miniRT");
+	scene->win_ptr = mlx_new_window(scene->mlx_ptr, \
+						scene->img.w, scene->img.h, "miniRT");
 	if (!scene->mlx_ptr || !scene->win_ptr)
 		return (FALSE);
 	return (TRUE);

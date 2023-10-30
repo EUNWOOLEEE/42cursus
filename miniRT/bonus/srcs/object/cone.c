@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:19:12 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/29 21:16:22 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/30 13:25:08 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_cone	*cone(char **strs)
 		print_error_exit(USAGE_CO);
 	co = (t_cone *)ft_calloc(1, sizeof(t_cone));
 	if (!co)
-		print_error_exit(MEMORY);\
+		print_error_exit(MEMORY);
 	if (parse_coor(&(co->center), ft_split(strs[1], ',')) == FALSE \
 		|| parse_coor(&(co->dir), ft_split(strs[2], ',')) == FALSE \
 		|| parse_double(&co->diameter, strs[3]) == FALSE \
@@ -44,7 +44,7 @@ t_cone	*cone(char **strs)
 	return (co);
 }
 
-t_bool		cone_hit(t_cone *co, t_ray ray, t_hit_record *rec)
+t_bool	cone_hit(t_cone *co, t_ray ray, t_hit_record *rec)
 {
 	t_bool	hit;
 
@@ -62,10 +62,10 @@ t_bool		cone_hit(t_cone *co, t_ray ray, t_hit_record *rec)
 static t_bool	cone_hit_side(t_cone *co, t_ray ray, t_hit_record *rec)
 {
 	t_discriminant	d;
-	double	m;
-	t_vec	w;
-	double	vh;
-	double	wh;
+	double			m;
+	t_vec			w;
+	double			vh;
+	double			wh;
 
 	m = pow(co->radius, 2) / pow(co->h, 2);
 	w = vec_minus2(ray.orig, co->top);
@@ -74,8 +74,8 @@ static t_bool	cone_hit_side(t_cone *co, t_ray ray, t_hit_record *rec)
 	d.a = vec_len_squared(ray.dir) - m * pow(vh, 2) - pow(vh, 2);
 	d.half_b = vec_dot(ray.dir, w) - m * vh * wh - vh * wh;
 	d.c = vec_len_squared(w) - m * pow(wh, 2) - pow(wh, 2);
-	d.D = pow(d.half_b, 2) - d.a * d.c;
-	if (d.D < 0 \
+	d.d = pow(d.half_b, 2) - d.a * d.c;
+	if (d.d < 0 \
 		|| check_t_range(rec, &d) == FALSE \
 		|| get_side_n(co, ray, rec, d.t) == FALSE)
 		return (FALSE);
@@ -108,7 +108,8 @@ static t_bool	cone_hit_plane(t_cone *co, t_ray ray, t_hit_record *rec)
 	double	t;
 	double	pc_len;
 
-	t = vec_dot(vec_minus2(co->center, ray.orig), co->dir) / vec_dot(ray.dir, co->dir);
+	t = vec_dot(vec_minus2(co->center, ray.orig), co->dir) \
+				/ vec_dot(ray.dir, co->dir);
 	pc_len = vec_len(vec_minus2(co->center, ray_at(ray, t)));
 	if (co->radius < fabs(pc_len) \
 		|| t < rec->t_min || rec->t_max < t)

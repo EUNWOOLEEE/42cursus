@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scene.c                                             :+:      :+:    :+:   */
+/*   scene.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/24 22:21:10 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/18 16:30:43 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/10/30 12:58:38 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/10/30 12:58:56 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	scene_read(t_scene *scene)
 	{
 		buf = get_next_line(scene->fd);
 		if (!buf)
-			break;
+			break ;
 		strs = ft_split(buf, ' ');
 		if (!strs)
 			print_error_exit(MEMORY);

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 16:01:43 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/28 17:42:27 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/30 13:32:43 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,15 +89,13 @@ static char	*get_done_line(t_gnl_list *nod)
 	return (line);
 }
 
-static int	get_read_line(int fd, t_gnl_list *nod, char *tmp)
+static int	get_read_line(int fd, t_gnl_list *nod, char *tmp, int rd)
 {
-	int		rd;
 	char	*buff;
 
 	buff = (char *)ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (!buff)
 		return (-1);
-	rd = 1;
 	while (rd)
 	{
 		rd = read(fd, buff, BUFFER_SIZE);
@@ -130,7 +128,7 @@ char	*get_next_line(int fd)
 	nod = get_fd_nod(&head, fd);
 	if (!nod)
 		return (0);
-	if (get_read_line(fd, nod, 0) == -1 || !*(nod->buff))
+	if (get_read_line(fd, nod, NULL, 1) == -1 || !*(nod->buff))
 		return (delete_nod(&head, nod));
 	line = get_done_line(nod);
 	if (!line)

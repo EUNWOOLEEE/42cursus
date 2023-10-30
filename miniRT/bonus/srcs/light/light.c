@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:45:02 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/30 08:11:34 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/30 13:12:58 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_light			*light(char **strs);
 t_color			light_phong(t_scene *scene, t_object *lights);
 static t_color	get_point(t_scene *scene, t_light *light);
+static t_color	check_max(t_color light_color);
 
 t_light	*light(char **strs)
 {
@@ -51,10 +52,7 @@ t_color	light_phong(t_scene *scene, t_object *lights)
 	}
 	light_color = vec_plus2(light_color, scene->light_com.ambient);
 	light_color = vec_multi2(light_color, scene->rec.color);
-	light_color.x = light_color.x >= 1 ? 1 : light_color.x;
-	light_color.y = light_color.y >= 1 ? 1 : light_color.y;
-	light_color.z = light_color.z >= 1 ? 1 : light_color.z;
-	return(light_color);
+	return (check_max(light_color));
 }
 
 static t_color	get_point(t_scene *scene, t_light *light)
@@ -77,4 +75,15 @@ static t_color	get_point(t_scene *scene, t_light *light)
 		theta = 0.0;
 	diffuse = vec_multi(light->color, theta);
 	return (vec_plus2(diffuse, specular_get(scene, light, light_dir)));
+}
+
+static t_color	check_max(t_color light_color)
+{
+	if (light_color.x > 1)
+		light_color.x = 1;
+	if (light_color.y > 1)
+		light_color.y = 1;
+	if (light_color.z > 1)
+		light_color.z = 1;
+	return (light_color);
 }

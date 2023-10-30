@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/24 21:45:52 by eunwolee          #+#    #+#              #
-#    Updated: 2023/10/30 08:31:37 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/10/30 12:56:22 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ CFLAGS = -Wall -Wextra -Werror
 MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit -lz
 
 RM = rm -rf
-MAKE = make
+MAKE = make -s
 
 SRCS =	miniRT.c \
 		parse/check_valid.c \
@@ -79,7 +79,7 @@ NUM_GAUGE = 11
 
 all:
 	@printf "$(GREEN)BUILD $(PECOCK)"
-	@$(MAKE) $(NAME)
+	@make $(NAME)
 
 $(NAME): $(L_NAME) $(OBJS)
 	$(eval END = $(shell expr $(END) - 1))

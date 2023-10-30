@@ -6,14 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:33:05 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/29 17:45:39 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/30 13:28:37 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef OBJECT_H
 # define OBJECT_H
 
-#include "component.h"
+# include "component.h"
 
 typedef struct s_sphere
 {
@@ -31,7 +31,6 @@ typedef struct s_plane
 	t_color	color;
 }t_plane;
 
-
 typedef struct s_cylinder
 {
 	t_point	center;
@@ -41,7 +40,6 @@ typedef struct s_cylinder
 	double	h;
 	t_color	color;
 }t_cylinder;
-
 
 typedef struct s_cone
 {

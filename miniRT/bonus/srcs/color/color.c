@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 17:16:25 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/30 08:11:16 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/30 13:06:49 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_color	color(double R, double G, double B)
 	return (color);
 }
 
-int		color_to_int(int t, int r, int g, int b)
+int	color_to_int(int t, int r, int g, int b)
 {
 	return (t << 24 | r << 16 | g << 8 | b);
 }

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 06:33:43 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/30 08:13:13 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/30 13:05:59 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_bool	check_essential(t_scene *scene);
 t_bool	check_argument(t_scene *scene, int argc, char *file_name)
 {
 	int	extension;
-	
+
 	if (argc != 2)
 		print_error_exit(USAGE_ARG);
 	extension = ft_strlen(file_name) - 3;

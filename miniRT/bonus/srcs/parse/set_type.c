@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_type.c                                         :+:      :+:    :+:   */
+/*   set_type.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/25 16:17:56 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/16 14:48:22 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/10/30 13:04:36 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/10/30 13:04:55 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,19 @@ void	parse_func(t_scene *scene, char **strs)
 {
 	if (!ft_strncmp(strs[0], "A", 2))
 		ambient(scene, strs);
-	else if(!ft_strncmp(strs[0], "SR", 3))
+	else if (!ft_strncmp(strs[0], "SR", 3))
 		specular(scene, strs);
-	else if(!ft_strncmp(strs[0], "C", 2))
+	else if (!ft_strncmp(strs[0], "C", 2))
 		cam(scene, strs);
-	else if(!ft_strncmp(strs[0], "L", 2))
+	else if (!ft_strncmp(strs[0], "L", 2))
 		ft_lstadd_back(&scene->light, object(light(strs), LIGHT));
-	else if(!ft_strncmp(strs[0], "sp", 3))
+	else if (!ft_strncmp(strs[0], "sp", 3))
 		ft_lstadd_back(&scene->world, object(sphere(strs), SP));
-	else if(!ft_strncmp(strs[0], "pl", 3))
+	else if (!ft_strncmp(strs[0], "pl", 3))
 		ft_lstadd_back(&scene->world, object(plane(strs), PL));
-	else if(!ft_strncmp(strs[0], "cy", 3))
+	else if (!ft_strncmp(strs[0], "cy", 3))
 		ft_lstadd_back(&scene->world, object(cylinder(strs), CY));
-	else if(!ft_strncmp(strs[0], "co", 3))
+	else if (!ft_strncmp(strs[0], "co", 3))
 		ft_lstadd_back(&scene->world, object(cone(strs), CO));
 	else
 		print_error_exit(NOTALLOWED);

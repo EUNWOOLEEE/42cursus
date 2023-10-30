@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 16:27:47 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/30 06:46:23 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/30 13:29:12 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define STRUCT_H
 
 # define TIMES 255.999
-# define pi 3.1415926535897932385
+# define PI 3.1415926535897932385
 # define EPSILON 0.000001
 
 # include "component.h"
@@ -48,7 +48,7 @@ typedef struct s_image
 
 typedef struct s_camera
 {
-	int		FOV;
+	int		fov;
 	t_point	orig;
 	t_vec	dir;
 	double	viewport_w;
