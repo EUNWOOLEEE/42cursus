@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:45:02 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/31 15:45:22 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:51:15 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void			light(t_scene *scene, char **strs);
 t_color			light_phong(t_scene *scene);
-static t_color	get_point(t_scene *scene);
 static t_color	check_max(t_color light_color);
 
 void	light(t_scene *scene, char **strs)
@@ -37,17 +36,7 @@ void	light(t_scene *scene, char **strs)
 
 t_color	light_phong(t_scene *scene)
 {
-	t_color		light_color;
-
-	light_color = get_point(scene);
-	light_color = vec_plus2(light_color, scene->light.ambient);
-	light_color = vec_multi2(light_color, scene->rec.color);
-	return (check_max(light_color));
-}
-
-static t_color	get_point(t_scene *scene)
-{
-	t_color	diffuse;
+	t_color	light_color;
 	t_vec	light_dir;
 	double	light_len;
 	t_ray	light_ray;
@@ -59,12 +48,17 @@ static t_color	get_point(t_scene *scene)
 	light_ray.orig = scene->rec.p;
 	light_ray.dir = vec_unit(vec_minus2(scene->light.point, scene->rec.p));
 	if (shadow(scene->world, light_ray, light_len))
-		return (color(0, 0, 0));
-	theta = vec_dot(scene->rec.n, light_dir);
-	if (theta < 0.0)
-		theta = 0.0;
-	diffuse = vec_multi(scene->light.color, theta);
-	return (diffuse);
+		light_color = color(0, 0, 0);
+	else
+	{
+		theta = vec_dot(scene->rec.n, light_dir);
+		if (theta < 0.0)
+			theta = 0.0;
+		light_color = vec_multi(scene->light.color, theta);
+	}
+	light_color = vec_plus2(light_color, scene->light.ambient);
+	light_color = vec_multi2(light_color, scene->rec.color);
+	return (check_max(light_color));
 }
 
 static t_color	check_max(t_color light_color)
