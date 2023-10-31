@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:45:02 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/30 15:21:31 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:45:22 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_color	light_phong(t_scene *scene)
 	t_color		light_color;
 
 	light_color = get_point(scene);
-	light_color = vec_plus2(light_color, scene->light_com.ambient);
+	light_color = vec_plus2(light_color, scene->light.ambient);
 	light_color = vec_multi2(light_color, scene->rec.color);
 	return (check_max(light_color));
 }
@@ -64,7 +64,7 @@ static t_color	get_point(t_scene *scene)
 	if (theta < 0.0)
 		theta = 0.0;
 	diffuse = vec_multi(scene->light.color, theta);
-	return (vec_plus2(diffuse, specular_get(scene, light_dir)));
+	return (diffuse);
 }
 
 static t_color	check_max(t_color light_color)

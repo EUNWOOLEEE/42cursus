@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 13:04:36 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/30 15:36:37 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:43:58 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ void	parse_func(t_scene *scene, char **strs)
 {
 	if (!ft_strncmp(strs[0], "A", 2))
 		ambient(scene, strs);
-	else if (!ft_strncmp(strs[0], "SR", 3))
-		specular(scene, strs);
 	else if (!ft_strncmp(strs[0], "C", 2))
 		cam(scene, strs);
 	else if (!ft_strncmp(strs[0], "L", 2))

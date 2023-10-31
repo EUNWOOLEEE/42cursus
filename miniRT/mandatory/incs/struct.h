@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 16:27:47 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/30 14:34:11 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:44:14 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,9 @@ typedef struct s_light
 	t_color	color;
 	double	ratio;
 	t_bool	check_light;
-}t_light;
-
-typedef struct s_light_com
-{
 	t_color	ambient;
-	double	specular_ratio;
 	t_bool	check_ambient;
-	t_bool	check_specular;
-}t_light_com;
+}t_light;
 
 typedef struct s_object
 {
@@ -104,9 +98,8 @@ typedef struct s_scene
 	t_hit_record	rec;
 	t_camera		cam;
 	t_image			img;
-	t_object		*world;
 	t_light			light;
-	t_light_com		light_com;
+	t_object		*world;
 }t_scene;
 
 #endif
