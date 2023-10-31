@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:04:39 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/28 16:56:35 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/10/31 16:11:30 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	cnt_strs(char **strs)
 
 void	print_error_exit(char *str)
 {
-	printf("%s\n", str);
+	printf("Error %s\n", str);
 	exit(0);
 }
 
