@@ -6,39 +6,36 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 20:03:59 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/31 20:09:38 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/01 13:05:56 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/Fixed.hpp"
 
-const int Fixed::bit = 8;
-
 Fixed::Fixed(){
 	std::cout << "Default constructor called\n";
-	integerPart = 0;
-	fractionalPart = 0;
+	fixed_point = 0;
 }
 
 Fixed::Fixed(int n){
 	std::cout << "Int constructor called\n";
-	fix = n; //고정 소수점 값으로 변환
+	fixed_point = n; //고정 소수점 값으로 변환
 }
 
 Fixed::Fixed(float n){
 	std::cout << "Float constructor called\n";
-	fix = n; //고정 소수점 값으로 변환
+	fixed_point = n; //고정 소수점 값으로 변환
 }
 
 Fixed::Fixed(const Fixed& obj){
 	std::cout << "Copy constructor called\n";
-	fix = obj.getRawBits();
+	fixed_point = obj.getRawBits();
 }
 
 Fixed& Fixed::operator=(const Fixed& src){
 	std::cout << "Copy assignment operator called\n";
 	if (this != &src)
-		fix = src.getRawBits();
+		fixed_point = src.getRawBits();
 	return *this;
 }
 
@@ -48,11 +45,11 @@ Fixed::~Fixed(){
 
 int Fixed::getRawBits(void) const{
 	std::cout << "getRawBits member function called\n";
-	return fix;
+	return fixed_point;
 }
 
 void Fixed::setRawBits(int const raw){
-	fix = raw;
+	fixed_point = raw;
 }
 
 float Fixed::toFloat(void) const{

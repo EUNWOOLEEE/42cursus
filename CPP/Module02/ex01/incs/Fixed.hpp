@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 19:58:22 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/31 20:09:21 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/01 13:06:06 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,9 @@ public:
 	int toInt(void) const;
 
 private:
-	int					integerPart;
-	int					fractionalPart;
-	static const int	bit;
-
+	int					fixed_point;
+	static const int	bit = 8;
+	
 };
 
 #endif
