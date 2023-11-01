@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 20:03:59 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/01 13:05:56 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/01 16:44:30 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ Fixed::Fixed(){
 	fixed_point = 0;
 }
 
-Fixed::Fixed(int n){
+Fixed::Fixed(int N){
 	std::cout << "Int constructor called\n";
-	fixed_point = n; //고정 소수점 값으로 변환
+	fixed_point = N << 8;
 }
 
-Fixed::Fixed(float n){
+Fixed::Fixed(float N){
 	std::cout << "Float constructor called\n";
-	fixed_point = n; //고정 소수점 값으로 변환
+	fixed_point = N; //고정 소수점 값으로 변환
 }
 
 Fixed::Fixed(const Fixed& obj){
@@ -37,6 +37,10 @@ Fixed& Fixed::operator=(const Fixed& src){
 	if (this != &src)
 		fixed_point = src.getRawBits();
 	return *this;
+}
+
+Fixed& Fixed::operator<<(const Fixed& src){
+	//출력 스트림 객체로 전달된 부동 소수점 표현을 삽입
 }
 
 Fixed::~Fixed(){
@@ -57,5 +61,5 @@ float Fixed::toFloat(void) const{
 }
 
 int Fixed::toInt(void) const{
-	// fixed-point 값을 정수 값으로 변환하는 멤버 함수
+	return (fixed_point >> 8);
 }
