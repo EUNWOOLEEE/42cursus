@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 19:58:22 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/01 16:44:03 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/03 18:19:42 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ public:
 
 private:
 	int					fixed_point;
-	static const int	bit = 8;
+	static const int	bit;
 	
 };
 

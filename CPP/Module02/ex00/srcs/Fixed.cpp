@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 20:03:59 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/10/31 16:59:42 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/03 18:10:53 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ Fixed::Fixed(){
 
 Fixed::Fixed(const Fixed& obj){
 	std::cout << "Copy constructor called\n";
-	fix = obj.getRawBits();
+	*this = obj;
 }
 
 Fixed& Fixed::operator=(const Fixed& src){

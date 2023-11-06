@@ -6,11 +6,13 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 20:03:59 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/01 16:44:30 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/04 18:39:32 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/Fixed.hpp"
+
+const int Fixed::bit = 8;
 
 Fixed::Fixed(){
 	std::cout << "Default constructor called\n";
@@ -19,17 +21,18 @@ Fixed::Fixed(){
 
 Fixed::Fixed(int N){
 	std::cout << "Int constructor called\n";
-	fixed_point = N << 8;
+	fixed_point = N << bit;
 }
 
 Fixed::Fixed(float N){
 	std::cout << "Float constructor called\n";
 	fixed_point = N; //고정 소수점 값으로 변환
+	// fixed_point = static_cast<int>(roundf(value * (1 << bit))))
 }
 
 Fixed::Fixed(const Fixed& obj){
 	std::cout << "Copy constructor called\n";
-	fixed_point = obj.getRawBits();
+	*this = obj;
 }
 
 Fixed& Fixed::operator=(const Fixed& src){
@@ -61,5 +64,5 @@ float Fixed::toFloat(void) const{
 }
 
 int Fixed::toInt(void) const{
-	return (fixed_point >> 8);
+	return (fixed_point >> bit);
 }
