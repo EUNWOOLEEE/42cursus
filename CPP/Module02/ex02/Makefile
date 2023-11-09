@@ -6,11 +6,11 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 22:47:37 by eunwolee          #+#    #+#              #
-#    Updated: 2023/11/09 14:52:57 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/11/09 14:53:41 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = Fixed
+NAME = Calculator
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
@@ -38,12 +38,12 @@ PURPLE = \033[38;2;228;165;255m
 NUM_TASK = 2
 SIZE = 0
 END = 1
-CHAR = Fixing 
-GAUGE = Point.... 📌
-NUM_GAUGE = 16
+CHAR = ""
+GAUGE = Overloading....
+NUM_GAUGE = 15
 
 all:
-	@echo "$(PINK)BUILD $(NAME)$(RESET)"
+	@echo "$(PINK)BUILD $(NAME) 🧮$(RESET)"
 	@printf "$(YELLOW)$(CHAR)"
 	@$(MAKE) $(NAME)
 

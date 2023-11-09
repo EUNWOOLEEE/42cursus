@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 22:47:37 by eunwolee          #+#    #+#              #
-#    Updated: 2023/10/30 19:56:39 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/11/09 14:53:04 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ GAUGE = Point.... 📌
 NUM_GAUGE = 16
 
 all:
-	@echo "$(PINK)BUILD  $(NAME)$(RESET)"
+	@echo "$(PINK)BUILD $(NAME)$(RESET)"
 	@printf "$(YELLOW)$(CHAR)"
 	@$(MAKE) $(NAME)
 

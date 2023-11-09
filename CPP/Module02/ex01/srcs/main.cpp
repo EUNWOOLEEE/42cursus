@@ -1,4 +1,3 @@
-#include <iostream>
 #include "../incs/Fixed.hpp"
 
 int main( void ) {

@@ -6,11 +6,11 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 22:47:37 by eunwolee          #+#    #+#              #
-#    Updated: 2023/11/09 14:52:57 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/11/09 17:39:02 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = Fixed
+NAME = BSP
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
@@ -23,7 +23,8 @@ RM = rm -rf
 MAKE = make
 
 SRCS =	main.cpp \
-		Fixed.cpp
+		Fixed.cpp \
+		Point.cpp
 
 SRCS_WITH_PATH = $(addprefix $(SRCS_DIR)/, $(SRCS))
 OBJS = $(SRCS_WITH_PATH:$(SRCS_DIR)/%.cpp=$(OBJS_DIR)/%.o)
@@ -35,15 +36,15 @@ YELLOW = \033[38;2;255;231;155m
 PECOCK = \033[38;2;115;187;201m
 PURPLE = \033[38;2;228;165;255m
 
-NUM_TASK = 2
+NUM_TASK = 3
 SIZE = 0
 END = 1
-CHAR = Fixing 
-GAUGE = Point.... 📌
+CHAR = ""
+GAUGE = Searching dot...
 NUM_GAUGE = 16
 
 all:
-	@echo "$(PINK)BUILD $(NAME)$(RESET)"
+	@echo "$(PINK)BUILD $(NAME) 🔺$(RESET)"
 	@printf "$(YELLOW)$(CHAR)"
 	@$(MAKE) $(NAME)
 

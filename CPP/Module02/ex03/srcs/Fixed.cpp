@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 20:03:59 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/09 15:03:53 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/09 16:09:52 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,88 @@ Fixed& Fixed::operator =(const Fixed& src){
 	if (this != &src)
 		fixed_point = src.getRawBits();
 	return *this;
+}
+
+bool Fixed::operator >(const Fixed& arg){
+	return (fixed_point > arg.fixed_point);
+}
+
+bool Fixed::operator <(const Fixed& arg){
+	return (fixed_point < arg.fixed_point);
+}
+
+bool Fixed::operator >=(const Fixed& arg){
+	return (fixed_point >= arg.fixed_point);
+}
+
+bool Fixed::operator <=(const Fixed& arg){
+	return (fixed_point <= arg.fixed_point);
+}
+
+bool Fixed::operator ==(const Fixed& arg){
+	return (fixed_point == arg.fixed_point);
+}
+
+bool Fixed::operator !=(const Fixed& arg){
+	return (fixed_point != arg.fixed_point);
+}
+
+float Fixed::operator +(const Fixed& arg){
+	return (toFloat() + arg.toFloat());
+}
+
+float Fixed::operator -(const Fixed& arg){
+	return (toFloat() - arg.toFloat());
+}
+
+float Fixed::operator *(const Fixed& arg){
+	return (toFloat() * arg.toFloat());
+}
+
+float Fixed::operator /(const Fixed& arg){
+	if (arg.toFloat() == 0){
+		std::cout << "Divider is 0\n";
+		return 0;
+	}
+	return (toFloat() / arg.toFloat());
+}
+
+Fixed& Fixed::operator ++(){
+	fixed_point++;
+	return (*this);
+}
+
+Fixed& Fixed::operator --(){
+	fixed_point--;
+	return (*this);
+}
+
+const Fixed Fixed::operator ++(int){
+	Fixed temp = *this;
+	++(*this);
+	return temp;
+}
+
+const Fixed Fixed::operator --(int){
+	Fixed temp = *this;
+	--(*this);
+	return temp;
+}
+
+Fixed& Fixed::min(Fixed& arg1, Fixed& arg2){
+	return (arg1.fixed_point <= arg2.fixed_point ? arg1 : arg2);
+}
+
+const Fixed& Fixed::min(const Fixed& arg1, const Fixed& arg2){
+	return (arg1.fixed_point <= arg2.fixed_point ? arg1 : arg2);
+}
+
+Fixed& Fixed::max(Fixed& arg1, Fixed& arg2){
+	return (arg1.fixed_point >= arg2.fixed_point ? arg1 : arg2);
+}
+
+const Fixed& Fixed::max(const Fixed& arg1, const Fixed& arg2){
+	return (arg1.fixed_point >= arg2.fixed_point ? arg1 : arg2);
 }
 
 int Fixed::getRawBits(void) const{
