@@ -6,28 +6,27 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 20:03:59 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/04 18:39:32 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/09 14:03:26 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/Fixed.hpp"
 
-const int Fixed::bit = 8;
+const int Fixed::bits = 8;
 
 Fixed::Fixed(){
 	std::cout << "Default constructor called\n";
 	fixed_point = 0;
 }
 
-Fixed::Fixed(int N){
+Fixed::Fixed(const int N){
 	std::cout << "Int constructor called\n";
-	fixed_point = N << bit;
+	fixed_point = N << bits;
 }
 
-Fixed::Fixed(float N){
+Fixed::Fixed(const float N){
 	std::cout << "Float constructor called\n";
-	fixed_point = N; //고정 소수점 값으로 변환
-	// fixed_point = static_cast<int>(roundf(value * (1 << bit))))
+	fixed_point = roundf(N * (1 << bits));
 }
 
 Fixed::Fixed(const Fixed& obj){
@@ -40,10 +39,6 @@ Fixed& Fixed::operator=(const Fixed& src){
 	if (this != &src)
 		fixed_point = src.getRawBits();
 	return *this;
-}
-
-Fixed& Fixed::operator<<(const Fixed& src){
-	//출력 스트림 객체로 전달된 부동 소수점 표현을 삽입
 }
 
 Fixed::~Fixed(){
@@ -60,9 +55,14 @@ void Fixed::setRawBits(int const raw){
 }
 
 float Fixed::toFloat(void) const{
-	// fixed-point 값을 부동 소수점 값으로 변환하는 멤버 함수
+	return ((float)fixed_point / (1 << bits));
 }
 
 int Fixed::toInt(void) const{
-	return (fixed_point >> bit);
+	return (fixed_point >> bits);
+}
+
+//출력 스트림 객체로 전달된 부동 소수점 표현을 삽입
+std::ostream& operator<<(std::ostream &out, const Fixed& src){
+	return out << src.toFloat();
 }

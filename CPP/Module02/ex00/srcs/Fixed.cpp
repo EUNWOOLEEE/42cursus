@@ -6,13 +6,13 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 20:03:59 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/03 18:10:53 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/09 12:47:50 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/Fixed.hpp"
 
-const int Fixed::bit = 8;
+const int Fixed::bits = 8;
 
 Fixed::Fixed(){
 	std::cout << "Default constructor called\n";
