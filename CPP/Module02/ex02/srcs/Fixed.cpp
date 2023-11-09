@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 20:03:59 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/09 16:09:52 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/10 07:38:41 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,27 +45,27 @@ Fixed& Fixed::operator =(const Fixed& src){
 	return *this;
 }
 
-bool Fixed::operator >(const Fixed& arg){
+bool Fixed::operator >(const Fixed& arg) const {
 	return (fixed_point > arg.fixed_point);
 }
 
-bool Fixed::operator <(const Fixed& arg){
+bool Fixed::operator <(const Fixed& arg) const {
 	return (fixed_point < arg.fixed_point);
 }
 
-bool Fixed::operator >=(const Fixed& arg){
+bool Fixed::operator >=(const Fixed& arg) const {
 	return (fixed_point >= arg.fixed_point);
 }
 
-bool Fixed::operator <=(const Fixed& arg){
+bool Fixed::operator <=(const Fixed& arg) const {
 	return (fixed_point <= arg.fixed_point);
 }
 
-bool Fixed::operator ==(const Fixed& arg){
+bool Fixed::operator ==(const Fixed& arg) const {
 	return (fixed_point == arg.fixed_point);
 }
 
-bool Fixed::operator !=(const Fixed& arg){
+bool Fixed::operator !=(const Fixed& arg) const {
 	return (fixed_point != arg.fixed_point);
 }
 
@@ -82,8 +82,8 @@ float Fixed::operator *(const Fixed& arg){
 }
 
 float Fixed::operator /(const Fixed& arg){
-	if (arg.toFloat() == 0){
-		std::cout << "Divider is 0\n";
+	if (arg.toFloat() == 0.0){
+		std::cout << "Divider is 0" << std::endl;
 		return 0;
 	}
 	return (toFloat() / arg.toFloat());

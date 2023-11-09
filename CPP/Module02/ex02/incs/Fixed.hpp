@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 19:58:22 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/09 16:09:58 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/10 07:38:49 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ public:
 	~Fixed();
 
 	Fixed& operator =(const Fixed& src);
-	bool operator >(const Fixed& arg);
-	bool operator <(const Fixed& arg);
-	bool operator >=(const Fixed& arg);
-	bool operator <=(const Fixed& arg);
-	bool operator ==(const Fixed& arg);
-	bool operator !=(const Fixed& arg);
+	bool operator >(const Fixed& arg) const;
+	bool operator <(const Fixed& arg) const;
+	bool operator >=(const Fixed& arg) const;
+	bool operator <=(const Fixed& arg) const;
+	bool operator ==(const Fixed& arg) const;
+	bool operator !=(const Fixed& arg) const;
 
 	float operator +(const Fixed& arg);
 	float operator -(const Fixed& arg);
