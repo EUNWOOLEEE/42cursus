@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 16:44:42 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/09 18:21:10 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/14 16:45:16 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,49 +34,22 @@ float Point::get_x() const { return x; }
 
 float Point::get_y() const { return y; }
 
-float Point::get_len() const {
-	return (sqrt(pow(x, 2) + pow(y, 2)));
+Point minus(const Point &start, const Point &end){
+	Point p(end.get_x() - start.get_x(), end.get_y() - start.get_y());
+	return p;
 }
 
-Point Point::normalization() const {
-	float len = get_len();
-	return Point(len != 0.0 ? x / len : 0.0 , \
-				len != 0.0 ? y / len : 0.0);
-}
-
-
-float Point::dot(const Point &p1, const Point &p2){
-	return (p1.get_x() * p2.get_x() + p1.get_y() * p2.get_y());
+float cross(const Point &vertex, const Point &point){
+	return (vertex.get_x() * point.get_y() - vertex.get_y() * point.get_x());
 }
 
 bool bsp(Point const a, Point const b, Point const c, Point const point){
-
-	std::cout << a.get_x() << " " << a.get_y() << std::endl;
-	std::cout << b.get_x() << " " << b.get_y() << std::endl;
-	std::cout << c.get_x() << " " << c.get_y() << std::endl;
-	std::cout << std::endl;
+	float _a = cross(minus(a, b), minus(a, point));
+	float _b = cross(minus(b, c), minus(b, point));
+	float _c = cross(minus(c, a), minus(c, point));
 	
-	Point _a = a.normalization();
-	Point _b = b.normalization();
-	Point _c = c.normalization();
-	Point _p = point.normalization();
-
-	std::cout << _a.get_x() << " " << _a.get_y() << std::endl;
-	std::cout << _b.get_x() << " " << _b.get_y() << std::endl;
-	std::cout << _c.get_x() << " " << _c.get_y() << std::endl;
-	std::cout << std::endl;
-	
-	Point ab(_b, _a), bc(_c, _b), ca(_c, _a), ap(_a, _p);
-
-	float abc = Point::dot(ab, bc);
-	float bca = Point::dot(bc, ca);
-	float pab = Point::dot(ap, ab);
-
-	std::cout << "abc " << abc << std::endl;
-	std::cout << "bca " << bca << std::endl;
-	std::cout << "pab " << pab << std::endl;
-
-	if (180 - abc - bca < pab)
+	if ((_a < 0.0 && _b < 0.0 && _c < 0.0) \
+		|| (_a >= 0.0 && _b >= 0.0 && _c >= 0.0))
 		return true;
 	return false;
 }

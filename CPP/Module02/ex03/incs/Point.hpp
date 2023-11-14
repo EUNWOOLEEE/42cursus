@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 16:41:46 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/09 18:04:01 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/14 16:45:20 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,16 @@ public:
 
 	float get_x() const;
 	float get_y() const;
-	float get_len() const;
-	
-	Point normalization() const ;
-	static float dot(const Point &p1, const Point &p2);
 
+	
 private:
 	const float x;
 	const float y;
 
 };
 
+Point minus(const Point &start, const Point &end);
+float cross(const Point &vertex, const Point &point);
 bool bsp(Point const a, Point const b, Point const c, Point const point);
 
 #endif
