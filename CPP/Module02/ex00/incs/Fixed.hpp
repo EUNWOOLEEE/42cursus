@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 19:58:22 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/09 15:02:46 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/15 20:43:07 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@
 class Fixed{
 
 public:
-	Fixed();
+	Fixed(void);
 	Fixed(const Fixed& obj);
-	~Fixed();
+	~Fixed(void);
 
 	Fixed& operator =(const Fixed& src);
 
-	int getRawBits( void ) const;
-	void setRawBits( int const raw );
+	int getRawBits(void) const;
+	void setRawBits(int const raw);
 
 private:
 	int					fix;

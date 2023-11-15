@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 19:00:03 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/15 17:57:25 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/15 20:42:47 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 class ClapTrap{
 
 public:
-	ClapTrap();
+	ClapTrap(void);
 	ClapTrap(std::string _name);
 	ClapTrap(const ClapTrap& obj);
-	~ClapTrap();
+	~ClapTrap(void);
 
 	ClapTrap& operator =(const ClapTrap& src);
 

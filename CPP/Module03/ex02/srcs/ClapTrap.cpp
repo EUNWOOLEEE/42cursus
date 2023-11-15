@@ -6,22 +6,22 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 19:00:02 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/15 20:51:00 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/15 20:51:47 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/ClapTrap.hpp"
 
 ClapTrap::ClapTrap(){
-	std::cout << "ClapTrap default constructor called\n";
+	std::cout << "ClapTrap dDefault constructor called\n";
 }
 
 ClapTrap::ClapTrap(std::string _name){
 	std::cout << "ClapTrap init constructor called\n";
 	name = _name;
 	hp = 100;
-	ep = 50;
-	ad = 20;
+	ep = 100;
+	ad = 30;
 }
 
 ClapTrap::ClapTrap(const ClapTrap& obj){

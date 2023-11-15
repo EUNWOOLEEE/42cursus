@@ -1,27 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/15 18:14:19 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/15 20:42:41 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/11/14 19:00:06 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/11/15 20:58:01 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/ClapTrap.hpp"
+#include "../incs/FragTrap.hpp"
 
-class ScavTrap : public ClapTrap{
+int main(){
+	FragTrap a("a");
+	FragTrap b("b");
 
-public:
-	ScavTrap(void);
-	ScavTrap(std::string _name);
-	ScavTrap(const ScavTrap& obj);
-	~ScavTrap(void);
+	std::cout << "\n";
+	
+	for(int i = 3; i; i--){
+		a._attack(b);
+		std::cout << "\n";
+	}
+	
+	b.beRepaired(20);
+	std::cout << "\n";
+	
+	for(int i = 2; i; i--){
+		a._attack(b);
+		std::cout << "\n";
+	}
 
-	ScavTrap& operator =(const ScavTrap& src);
+	b.beRepaired(20);
+	std::cout << "\n";
 
-	void guardGate(void);
-
-};
+	return 0;
+}

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 18:14:20 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/15 21:07:17 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/15 20:52:31 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,10 @@ ScavTrap::~ScavTrap(){
 ScavTrap& ScavTrap::operator =(const ScavTrap& src){
 	std::cout << "ScavTrap copy assignment operator called\n";
 	if (this != &src){
-		name = src.name;
-		hp = src.hp;
-		ep = src.ep;
-		ad = src.ad
-		
-		// set_name(src.get_name());
-		// set_hp(src.get_hp());
-		// set_ep(src.get_ep());
-		// set_ad(src.get_ad());
+		set_name(src.get_name());
+		set_hp(src.get_hp());
+		set_ep(src.get_ep());
+		set_ad(src.get_ad());
 	}
 	return *this;
 }

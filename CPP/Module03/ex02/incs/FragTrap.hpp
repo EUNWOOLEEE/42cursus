@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
+/*   FragTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/15 18:14:19 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/15 20:42:41 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/11/15 20:40:37 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/11/15 20:44:06 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/ClapTrap.hpp"
 
-class ScavTrap : public ClapTrap{
+class FragTrap : public ClapTrap{
 
 public:
-	ScavTrap(void);
-	ScavTrap(std::string _name);
-	ScavTrap(const ScavTrap& obj);
-	~ScavTrap(void);
+	FragTrap();
+	FragTrap(std::string _name);
+	FragTrap(const FragTrap& obj);
+	~FragTrap();
 
-	ScavTrap& operator =(const ScavTrap& src);
+	FragTrap& operator =(const FragTrap& src);
 
-	void guardGate(void);
+	void highFivesGuys(void);
 
 };

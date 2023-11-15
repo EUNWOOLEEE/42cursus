@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 19:58:22 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/09 15:02:33 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/15 20:43:17 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@
 class Fixed{
 
 public:
-	Fixed();
+	Fixed(void);
 	Fixed(const int N);
 	Fixed(const float N);
 	Fixed(const Fixed& obj);
-	~Fixed();
+	~Fixed(void);
 
 	Fixed& operator =(const Fixed& src);
 
