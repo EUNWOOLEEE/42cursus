@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 19:00:06 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/15 18:11:54 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/11/15 18:14:19 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/11/15 18:54:58 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/ClapTrap.hpp"
 
-int main(){
-	ClapTrap a("a");
-	ClapTrap b("b");
+class ScavTrap : public ClapTrap{
 
-	std::cout << "\n";
-	
-	for(int i = 11; i; i--){
-		a._attack(b);
-		std::cout << "\n";
-	}
-	
-	b.beRepaired(5);
-	std::cout << "\n";
-	
-	return 0;
-}
+public:
+	ScavTrap();
+	ScavTrap(std::string _name);
+	ScavTrap(const ScavTrap& obj);
+	~ScavTrap();
+
+	ScavTrap& operator =(const ScavTrap& src);
+
+	void guardGate();
+
+};

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 19:00:02 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/15 18:11:24 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/15 19:13:07 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ ClapTrap::ClapTrap(){
 ClapTrap::ClapTrap(std::string _name){
 	std::cout << "Init constructor called\n";
 	name = _name;
-	hp = 10;
-	ep = 10;
-	ad = 0;
+	hp = 100;
+	ep = 50;
+	ad = 20;
 }
 
 ClapTrap::ClapTrap(const ClapTrap& obj){
@@ -76,8 +76,42 @@ void ClapTrap::_attack(ClapTrap& target){
 		std::cout << name << " has no hp!\n";
 	else if(!ep)
 		std::cout << name << " has no ep!\n";
+	else if(target.get_hp() < ad)
+		std::cout << target.get_name() << " is already dead!\n";
 	else{
 		attack(target.name);
 		target.takeDamage(ad);
 	}
+}
+
+void ClapTrap::set_name(const std::string _name){
+	name = _name;
+}
+
+void ClapTrap::set_hp(const int _hp){
+	hp = _hp;
+}
+
+void ClapTrap::set_ep(const int _ep){
+	ep = _ep;
+}
+
+void ClapTrap::set_ad(const int _ad){
+	ad = _ad;
+}
+
+std::string ClapTrap::get_name(void) const{
+	return name;
+}
+
+int ClapTrap::get_hp(void) const{
+	return hp;
+}
+
+int ClapTrap::get_ep(void) const{
+	return ep;
+}
+
+int ClapTrap::get_ad(void) const{
+	return ad;
 }
