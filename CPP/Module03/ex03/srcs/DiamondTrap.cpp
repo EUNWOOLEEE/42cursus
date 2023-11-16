@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 16:51:21 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/16 19:24:10 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/16 19:26:56 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ DiamondTrap::DiamondTrap(std::string _name) \
 	ad = 30;
 }
 
-DiamondTrap::DiamondTrap(const DiamondTrap& obj){
+DiamondTrap::DiamondTrap(const DiamondTrap& obj) \
+		: ClapTrap(obj.name + "_clap_name"), ScavTrap(obj.name), FragTrap(obj.name){
 	std::cout << "DiamondTrap copy constructor called\n";
 	*this = obj;
 }
