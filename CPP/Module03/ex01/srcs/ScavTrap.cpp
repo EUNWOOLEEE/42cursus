@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 18:14:20 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/15 21:07:17 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/16 17:31:43 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ ScavTrap::ScavTrap(){
 
 ScavTrap::ScavTrap(std::string _name) : ClapTrap(_name){
 	std::cout << "ScavTrap init constructor called\n";
+	hp = 100;
+	ep = 50;
+	ad = 20;
 }
 
 ScavTrap::ScavTrap(const ScavTrap& obj){
@@ -35,16 +38,30 @@ ScavTrap& ScavTrap::operator =(const ScavTrap& src){
 		name = src.name;
 		hp = src.hp;
 		ep = src.ep;
-		ad = src.ad
-		
-		// set_name(src.get_name());
-		// set_hp(src.get_hp());
-		// set_ep(src.get_ep());
-		// set_ad(src.get_ad());
+		ad = src.ad;
 	}
 	return *this;
 }
 
+void ScavTrap::attack(const std::string& target){
+	std::cout << "ScavTrap " << name << " attacks " << target << "\n";
+	ep--;
+	std::cout << name << "'s hp: " << hp << " ep: " << ep << "\n";
+}
+
+void ScavTrap::_attack(ScavTrap& target){
+	if(!hp)
+		std::cout << name << " has no hp!\n";
+	else if(!ep)
+		std::cout << name << " has no ep!\n";
+	else if(target.hp < ad)
+		std::cout << target.name << " is already dead!\n";
+	else{
+		attack(target.name);
+		target.takeDamage(ad);
+	}
+}
+
 void ScavTrap::guardGate(){
-	std::cout << get_name() << " in Gate Keeper mode\n";
+	std::cout << name << " in Gate Keeper mode\n";
 }

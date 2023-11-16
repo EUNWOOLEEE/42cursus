@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 22:47:37 by eunwolee          #+#    #+#              #
-#    Updated: 2023/11/14 20:16:26 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/11/16 16:50:40 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,9 +38,9 @@ PURPLE = \033[38;2;228;165;255m
 NUM_TASK = 2
 SIZE = 0
 END = 1
-CHAR = Open
-GAUGE = ClapTrap...
-NUM_GAUGE = 11
+CHAR = ""
+GAUGE = Aaaaand... OPEN!
+NUM_GAUGE = 16
 
 all:
 	@echo "$(PINK)BUILD $(NAME) 💰$(RESET)"

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 19:00:06 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/15 19:14:59 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/16 17:50:36 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,8 @@ int main(){
 	a._attack(b);
 	std::cout << "\n";
 	
+	a.guardGate();
+	std::cout << "\n";
+
 	return 0;
 }

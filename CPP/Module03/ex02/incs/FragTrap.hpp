@@ -6,11 +6,11 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:40:37 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/15 20:44:06 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/16 16:46:17 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/ClapTrap.hpp"
+#include "../incs/ScavTrap.hpp"
 
 class FragTrap : public ClapTrap{
 
@@ -21,6 +21,9 @@ public:
 	~FragTrap();
 
 	FragTrap& operator =(const FragTrap& src);
+
+	void attack(const std::string& target);
+	void _attack(FragTrap& target);
 
 	void highFivesGuys(void);
 

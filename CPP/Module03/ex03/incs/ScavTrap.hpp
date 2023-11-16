@@ -6,13 +6,13 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 18:14:19 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/16 16:41:23 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/16 17:16:50 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/ClapTrap.hpp"
 
-class ScavTrap : public ClapTrap{
+class ScavTrap : virtual public ClapTrap{
 
 public:
 	ScavTrap(void);
