@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 19:00:06 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/16 17:53:04 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/17 06:39:43 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@ int main(){
 
 	a.whoAmI();
 	b.whoAmI();
+	std::cout << "\n";
+
+	a.guardGate();
+	b.highFivesGuys();
 	std::cout << "\n";
 
 	return 0;
