@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:40:38 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/16 17:48:14 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/16 19:24:38 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ FragTrap::~FragTrap(){
 	std::cout << "FragTrap destructor called\n";
 }
 
-FragTrap& FragTrap::operator =(const FragTrap& src){	
+FragTrap& FragTrap::operator =(const FragTrap& src){
 	std::cout << "FragTrap copy assignment operator called\n";
 	if (this != &src){
 		name = src.name;

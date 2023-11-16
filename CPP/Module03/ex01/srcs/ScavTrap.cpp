@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 18:14:20 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/16 17:31:43 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/16 19:23:14 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ ScavTrap::ScavTrap(std::string _name) : ClapTrap(_name){
 	ad = 20;
 }
 
-ScavTrap::ScavTrap(const ScavTrap& obj){
+ScavTrap::ScavTrap(const ScavTrap& obj) : ClapTrap(obj.name){
 	std::cout << "ScavTrap copy constructor called\n";
 	*this = obj;
 }

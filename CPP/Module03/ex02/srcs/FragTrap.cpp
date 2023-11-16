@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:40:38 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/16 17:32:27 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/16 19:23:47 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ FragTrap::FragTrap(std::string _name) : ClapTrap(_name){
 	ad = 30;
 }
 
-FragTrap::FragTrap(const FragTrap& obj){	
+FragTrap::FragTrap(const FragTrap& obj) : ClapTrap(obj.name){
 	std::cout << "FragTrap copy constructor called\n";
 	*this = obj;
 }
