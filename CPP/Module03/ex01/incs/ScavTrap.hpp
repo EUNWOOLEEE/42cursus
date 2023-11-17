@@ -6,11 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 18:14:19 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/16 16:37:31 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/17 15:11:24 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/ClapTrap.hpp"
+#ifndef SCAVTRAP_HPP
+# define SCAVTRAP_HPP
+
+# include "../incs/ClapTrap.hpp"
 
 class ScavTrap : public ClapTrap{
 
@@ -28,3 +31,5 @@ public:
 	void guardGate(void);
 
 };
+
+#endif

@@ -6,11 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 19:00:03 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/16 17:38:34 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/17 18:52:03 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
+#ifndef CLAPTRAP_HPP
+# define CLAPTRAP_HPP
+
+# include <iostream>
 
 class ClapTrap{
 
@@ -26,10 +29,12 @@ public:
 	void takeDamage(unsigned int amount);
 	void beRepaired(unsigned int amount);
 
-// protected:
+protected:
 	std::string	name;
 	int			hp;
 	int			ep;
 	int			ad;
 
 };
+
+#endif

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 08:19:21 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/17 08:49:05 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/17 15:08:01 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ Animal& Animal::operator =(const Animal& obj){
 	std::cout << "Animal copy assignment operator called\n";
 	if(this != &obj) {}
 	return *this;
+}
+
+void Animal::makeSound(void) const {
+	std::cout << "None\n";
 }
 
 std::string Animal::getType(void) const{

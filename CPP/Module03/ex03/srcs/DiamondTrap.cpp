@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 16:51:21 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/16 19:26:56 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/17 18:32:20 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,8 @@ DiamondTrap::~DiamondTrap(){
 DiamondTrap& DiamondTrap::operator =(const DiamondTrap& src){
 	std::cout << "DiamondTrap copy assignment operator called\n";
 	if (this != &src){
+		ClapTrap::operator=(src);
 		name = src.name;
-		hp = src.hp;
-		ep = src.ep;
-		ad = src.ad;
 	}
 	return *this;
 }

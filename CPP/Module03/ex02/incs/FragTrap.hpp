@@ -6,11 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:40:37 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/16 16:46:17 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/17 15:12:09 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/ScavTrap.hpp"
+#ifndef FRAGTRAP_HPP
+# define FRAGTRAP_HPP
+
+# include "../incs/ScavTrap.hpp"
 
 class FragTrap : public ClapTrap{
 
@@ -28,3 +31,5 @@ public:
 	void highFivesGuys(void);
 
 };
+
+#endif

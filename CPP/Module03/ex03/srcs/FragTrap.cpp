@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:40:38 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/16 19:26:17 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/17 18:48:02 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ FragTrap& FragTrap::operator =(const FragTrap& src){
 
 void FragTrap::attack(const std::string& target){
 	std::cout << "FragTrap " << name << " attacks " << target << "\n";
-	ep--;
-	std::cout << name << "'s hp: " << hp << " ep: " << ep << "\n";
+	std::cout << name << "'s hp: " << hp << " ep: " << --ep << "\n";
 }
 
 void FragTrap::_attack(FragTrap& target){

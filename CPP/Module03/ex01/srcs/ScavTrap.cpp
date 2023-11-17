@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 18:14:20 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/16 19:23:14 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/17 18:46:51 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ ScavTrap& ScavTrap::operator =(const ScavTrap& src){
 
 void ScavTrap::attack(const std::string& target){
 	std::cout << "ScavTrap " << name << " attacks " << target << "\n";
-	ep--;
-	std::cout << name << "'s hp: " << hp << " ep: " << ep << "\n";
+	std::cout << name << "'s hp: " << hp << " ep: " << --ep << "\n";
 }
 
 void ScavTrap::_attack(ScavTrap& target){

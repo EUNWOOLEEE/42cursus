@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 19:00:02 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/15 20:51:21 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/17 18:46:33 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ ClapTrap& ClapTrap::operator =(const ClapTrap& src){
 
 void ClapTrap::attack(const std::string& target){
 	std::cout << "ClapTrap " << name << " attacks " << target << "\n";
-	ep--;
-	std::cout << name << "'s hp: " << hp << " ep: " << ep << "\n";
+	std::cout << name << "'s hp: " << hp << " ep: " << --ep << "\n";
 }
 
 void ClapTrap::takeDamage(unsigned int amount){

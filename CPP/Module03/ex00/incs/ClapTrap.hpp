@@ -6,11 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 19:00:03 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/16 16:19:33 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/17 15:10:04 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
+#ifndef CLAPTRAP_HPP
+# define CLAPTRAP_HPP
+
+# include <iostream>
 
 class ClapTrap{
 
@@ -34,3 +37,5 @@ private:
 	int			ad;
 
 };
+
+#endif
