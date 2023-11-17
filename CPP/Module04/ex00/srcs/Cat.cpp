@@ -1,37 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.cpp                                         :+:      :+:    :+:   */
+/*   Cat.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/17 08:19:21 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/17 08:49:05 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/11/17 08:28:33 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/11/17 08:47:33 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/Animal.hpp"
+#include "../incs/Cat.hpp"
 
-Animal::Animal(void){
-	std::cout << "Animal default constructor called\n";
-	type = "None";
+Cat::Cat(void){
+	std::cout << "Cat default constructor called\n";
+	type = "Cat";
 }
 
-Animal::Animal(const Animal& obj){
-	std::cout << "Animal copy constructor called\n";
+Cat::Cat(const Cat& obj){
+	std::cout << "Cat copy constructor called\n";
 	*this = obj;
 }
 
-Animal::~Animal(void){
-	std::cout << "Animal destructor called\n";
+Cat::~Cat(void){
+	std::cout << "Cat destructor called\n";
 }
 
-Animal& Animal::operator =(const Animal& obj){
-	std::cout << "Animal copy assignment operator called\n";
+Cat& Cat::operator =(const Cat& obj){
+	std::cout << "Cat copy assignment operator called\n";
 	if(this != &obj) {}
 	return *this;
 }
 
-std::string Animal::getType(void) const{
-	return type;
+void Cat::makeSound(void) const {
+	std::cout << "meow!🐱\n";
 }

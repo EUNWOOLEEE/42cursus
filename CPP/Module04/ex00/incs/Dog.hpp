@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Dog.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/17 08:28:40 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/17 08:34:52 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/11/17 08:27:55 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/11/17 08:46:50 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/Dog.hpp"
-#include "../incs/Cat.hpp"
+#include "../incs/Animal.hpp"
 
-int main() {
-	const Animal* meta = new Animal();
-	const Animal* j = new Dog();
-	const Animal* i = new Cat();
+class Dog : public Animal{
 
-	std::cout << j->getType() << " " << std::endl;
-	std::cout << i->getType() << " " << std::endl;
-	i->makeSound(); //will output the cat sound! j->makeSound();
-	meta->makeSound();
-	// ...
+public:
+	Dog(void);
+	Dog(const Dog& obj);
+	~Dog(void);
+	
+	Dog& operator =(const Dog& obj);
 
-	return 0;
-}
+	void makeSound(void) const override;
+
+protected:
+	std::string type;
+	
+};
