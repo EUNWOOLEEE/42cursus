@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 18:14:19 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/17 15:11:24 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/19 01:02:15 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ public:
 	ScavTrap& operator =(const ScavTrap& src);
 
 	void attack(const std::string& target);
-	void _attack(ScavTrap& target);
 
 	void guardGate(void);
 

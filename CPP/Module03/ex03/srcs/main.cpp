@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 19:00:06 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/17 06:39:43 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/19 01:16:34 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,29 +18,30 @@ int main(){
 
 	std::cout << "\n";
 	
-	for(int i = 3; i; i--){
-		a._attack(b);
-		std::cout << "\n";
-	}
-	
-	b.beRepaired(20);
+	a.attack("target1");
 	std::cout << "\n";
 	
-	for(int i = 2; i; i--){
-		a._attack(b);
-		std::cout << "\n";
-	}
-
-	b.beRepaired(20);
+	a.attack("target2");
 	std::cout << "\n";
 
-	a.whoAmI();
-	b.whoAmI();
+	a.takeDamage(50);
+	std::cout << "\n";
+	
+	a.beRepaired(30);
+	std::cout << "\n";
+
+	a.takeDamage(90);
+	std::cout << "\n";
+	
+	a.beRepaired(30);
 	std::cout << "\n";
 
 	a.guardGate();
-	b.highFivesGuys();
 	std::cout << "\n";
+	
+	a.highFivesGuys();
+	std::cout << "\n";
+	
 
 	return 0;
 }

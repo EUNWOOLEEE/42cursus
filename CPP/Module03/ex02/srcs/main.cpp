@@ -6,55 +6,36 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 19:00:06 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/16 17:51:33 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/19 01:06:29 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/FragTrap.hpp"
 
 int main(){
-	ScavTrap a("a");
-	ScavTrap b("b");
+	FragTrap a("a");
 
 	std::cout << "\n";
 	
-	for(int i = 3; i; i--){
-		a._attack(b);
-		std::cout << "\n";
-	}
-	
-	b.beRepaired(20);
+	a.attack("target1");
 	std::cout << "\n";
 	
-	for(int i = 2; i; i--){
-		a._attack(b);
-		std::cout << "\n";
-	}
-
-	b.beRepaired(20);
+	a.attack("target2");
 	std::cout << "\n";
 
-	FragTrap c("c");
-	FragTrap d("d");
+	a.takeDamage(50);
 	std::cout << "\n";
 	
-	for(int i = 3; i; i--){
-		c._attack(d);
-		std::cout << "\n";
-	}
-	
-	d.beRepaired(20);
-	std::cout << "\n";
-	
-	for(int i = 2; i; i--){
-		c._attack(d);
-		std::cout << "\n";
-	}
-
-	d.beRepaired(20);
+	a.beRepaired(30);
 	std::cout << "\n";
 
-	c.highFivesGuys();
+	a.takeDamage(90);
+	std::cout << "\n";
+	
+	a.beRepaired(30);
+	std::cout << "\n";
+
+	a.highFivesGuys();
 	std::cout << "\n";
 	
 	return 0;

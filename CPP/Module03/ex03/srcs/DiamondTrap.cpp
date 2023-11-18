@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 16:51:21 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/17 18:32:20 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/19 01:16:17 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,8 @@ DiamondTrap& DiamondTrap::operator =(const DiamondTrap& src){
 	return *this;
 }
 
-void DiamondTrap::_attack(DiamondTrap& target){
-	if(!hp)
-		std::cout << name << " has no hp!\n";
-	else if(!ep)
-		std::cout << name << " has no ep!\n";
-	else if(target.hp < ad)
-		std::cout << target.name << " is already dead!\n";
-	else{
-		ScavTrap::attack(target.name);
-		target.takeDamage(ad);
-	}
+void DiamondTrap::attack(const std::string& target){
+	ScavTrap::attack(target);
 }
 
 void DiamondTrap::whoAmI(){

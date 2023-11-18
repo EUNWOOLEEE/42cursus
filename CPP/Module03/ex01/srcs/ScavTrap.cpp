@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 18:14:20 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/17 18:46:51 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/19 01:10:14 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,21 +44,16 @@ ScavTrap& ScavTrap::operator =(const ScavTrap& src){
 }
 
 void ScavTrap::attack(const std::string& target){
-	std::cout << "ScavTrap " << name << " attacks " << target << "\n";
-	std::cout << name << "'s hp: " << hp << " ep: " << --ep << "\n";
-}
-
-void ScavTrap::_attack(ScavTrap& target){
 	if(!hp)
 		std::cout << name << " has no hp!\n";
 	else if(!ep)
 		std::cout << name << " has no ep!\n";
-	else if(target.hp < ad)
-		std::cout << target.name << " is already dead!\n";
 	else{
-		attack(target.name);
-		target.takeDamage(ad);
+		std::cout << "ScavTrap " << name << " attacks " << target \
+					<< ", causing " << ad << " points of damage!" << "\n";
+		ep--;
 	}
+	std::cout << name << "'s hp: " << hp << " ep: " << ep << "\n";
 }
 
 void ScavTrap::guardGate(){

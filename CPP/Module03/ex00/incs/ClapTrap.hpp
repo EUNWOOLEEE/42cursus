@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 19:00:03 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/17 15:10:04 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/19 00:51:05 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ public:
 	void attack(const std::string& target);
 	void takeDamage(unsigned int amount);
 	void beRepaired(unsigned int amount);
-	void _attack(ClapTrap& target);
 
 private:
 	std::string	name;

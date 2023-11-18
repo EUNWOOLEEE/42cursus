@@ -6,14 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 19:00:02 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/17 18:47:01 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/19 01:10:31 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/ClapTrap.hpp"
 
 ClapTrap::ClapTrap(){
-	std::cout << "ClapTrap dDefault constructor called\n";
+	std::cout << "ClapTrap default constructor called\n";
 }
 
 ClapTrap::ClapTrap(std::string _name){
@@ -45,14 +45,29 @@ ClapTrap& ClapTrap::operator =(const ClapTrap& src){
 }
 
 void ClapTrap::attack(const std::string& target){
-	std::cout << "ClapTrap " << name << " attacks " << target << "\n";
-	std::cout << name << "'s hp: " << hp << " ep: " << --ep << "\n";
+	if(!hp)
+		std::cout << name << " has no hp!\n";
+	else if(!ep)
+		std::cout << name << " has no ep!\n";
+	else{
+		std::cout << "ClapTrap " << name << " attacks " << target \
+					<< ", causing " << ad << " points of damage!" << "\n";
+		ep--;
+	}
+	std::cout << name << "'s hp: " << hp << " ep: " << ep << "\n";
 }
 
 void ClapTrap::takeDamage(unsigned int amount){
-	std::cout << "ClapTrap " << name \
-				<< " is attacked, lose of " << amount << " hp!\n";
-	hp -= amount;
+	if(!hp)
+		std::cout << name << " is already dead!\n";
+	else{
+		std::cout << "ClapTrap " << name \
+					<< " is attacked, lose of " << amount << " hp!\n";
+		if (hp < (int)amount)
+			hp = 0;
+		else
+			hp -= amount;
+	}
 	std::cout << name << "'s hp: " << hp << " ep: " << ep << "\n";
 }
 
@@ -69,3 +84,4 @@ void ClapTrap::beRepaired(unsigned int amount){
 	}
 	std::cout << name << "'s hp: " << hp << " ep: " << ep << "\n";
 }
+

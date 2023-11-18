@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:40:37 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/17 15:12:09 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/19 01:06:36 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ public:
 	FragTrap& operator =(const FragTrap& src);
 
 	void attack(const std::string& target);
-	void _attack(FragTrap& target);
 
 	void highFivesGuys(void);
 
