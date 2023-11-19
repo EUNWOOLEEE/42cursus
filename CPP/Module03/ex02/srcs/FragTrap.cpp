@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 20:40:38 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/19 01:10:40 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/19 15:49:08 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,8 @@ FragTrap::~FragTrap(){
 
 FragTrap& FragTrap::operator =(const FragTrap& src){	
 	std::cout << "FragTrap copy assignment operator called\n";
-	if (this != &src){
-		name = src.name;
-		hp = src.hp;
-		ep = src.ep;
-		ad = src.ad;
-	}
+	if (this != &src)
+		ClapTrap::operator=(src);
 	return *this;
 }
 
@@ -53,7 +49,7 @@ void FragTrap::attack(const std::string& target){
 					<< ", causing " << ad << " points of damage!" << "\n";
 		ep--;
 	}
-	std::cout << name << "'s hp: " << hp << " ep: " << --ep << "\n";
+	std::cout << name << "'s hp: " << hp << " ep: " << ep << "\n";
 }
 
 void FragTrap::highFivesGuys(void){	

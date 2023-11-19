@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 19:00:06 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/19 01:16:34 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/19 15:11:01 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 int main(){
 	DiamondTrap a("a");
 	DiamondTrap b("b");
+	DiamondTrap c;
+	c = a;
 
 	std::cout << "\n";
 	
@@ -42,6 +44,8 @@ int main(){
 	a.highFivesGuys();
 	std::cout << "\n";
 	
+	c.whoAmI();
+	std::cout << "\n";
 
 	return 0;
 }
