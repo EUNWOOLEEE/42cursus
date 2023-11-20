@@ -1,3 +1,5 @@
+
+
 int main() {
 	IMateriaSource* src = new MateriaSource();
 	src->learnMateria(new Ice());

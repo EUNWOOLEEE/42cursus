@@ -6,15 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 08:28:33 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/20 16:09:27 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/20 18:05:13 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/Cat.hpp"
 
-Cat::Cat(void){
+Cat::Cat(void) : Animal("Cat"){
 	std::cout << "Cat default constructor called\n";
-	type = "Cat";
 	brain = new Brain();
 }
 
@@ -42,10 +41,6 @@ void Cat::makeSound(void) const {
 	std::cout << "     ┏━ ♡ ━━━━ ♡ ━┓\n";
 	std::cout << "     ♡    meow!   ♡\n";
 	std::cout << "🐱.•O┗━ ♡ ━━━━ ♡ ━┛\n";
-}
-
-std::string Cat::getType(void) const{
-	return type;
 }
 
 Brain* Cat::getBrain(void){

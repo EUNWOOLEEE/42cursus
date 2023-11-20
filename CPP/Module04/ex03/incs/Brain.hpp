@@ -1,36 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.hpp                                            :+:      :+:    :+:   */
+/*   Brain.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/17 08:27:55 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/20 17:58:09 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/11/20 12:59:50 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/11/20 15:50:04 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DOG_HPP
-# define DOG_HPP
+#ifndef BRAIN_HPP
+# define BRAIN_HPP
 
-# include "../incs/Animal.hpp"
+# include <iostream>
 
-class Dog : public Animal{
+class Brain{
 
 public:
-	Dog(void);
-	Dog(const Dog& obj);
-	~Dog(void);
+	Brain(void);
+	Brain(const Brain& obj);
+	~Brain(void);
 	
-	Dog& operator =(const Dog& obj);
+	Brain& operator =(const Brain& obj);
 
-	void makeSound(void) const;
+	const std::string& getIdea(int idx);
+	void setIdea(int idx, const std::string &idea);
 
-	Brain* getBrain(void);
-	
 private:
-	Brain* brain;
-	
+	std::string ideas[100];
+
 };
 
 #endif

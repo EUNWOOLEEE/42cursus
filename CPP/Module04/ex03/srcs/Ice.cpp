@@ -1,36 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.hpp                                            :+:      :+:    :+:   */
+/*   Ice.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/17 08:27:55 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/20 17:58:09 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/11/20 17:20:22 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/11/20 18:15:15 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DOG_HPP
-# define DOG_HPP
+#include "../incs/Ice.hpp"
 
-# include "../incs/Animal.hpp"
+Ice::Ice(void) : AMateria("ice"){
+	std::cout << "Ice default constructor called\n";
+	type = "ice";
+}
 
-class Dog : public Animal{
+Ice::Ice(const Ice& obj){
+	std::cout << "Ice copy constructor called\n";
+}
 
-public:
-	Dog(void);
-	Dog(const Dog& obj);
-	~Dog(void);
-	
-	Dog& operator =(const Dog& obj);
+Ice::~Ice(void){
+	std::cout << "Ice destructor constructor called\n";
+}
 
-	void makeSound(void) const;
-
-	Brain* getBrain(void);
-	
-private:
-	Brain* brain;
-	
-};
-
-#endif
+Ice& Ice::operator =(const Ice& obj){
+	std::cout << "Ice copy assignment operator called\n";
+}

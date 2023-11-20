@@ -6,15 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 08:28:35 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/20 14:43:54 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/20 17:48:48 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/Dog.hpp"
 
-Dog::Dog(void){
+Dog::Dog(void) : Animal("Dog"){
 	std::cout << "Dog default constructor called\n";
-	type = "Dog";
 }
 
 Dog::Dog(const Dog& obj){
@@ -37,8 +36,4 @@ void Dog::makeSound(void) const {
 	std::cout << "     ┏━ ♡ ━━━━ ♡ ━┓\n";
 	std::cout << "     ♡ woof-woof! ♡\n";
 	std::cout << "🐶.•O┗━ ♡ ━━━━ ♡ ━┛\n";
-}
-
-std::string Dog::getType(void) const{
-	return type;
 }

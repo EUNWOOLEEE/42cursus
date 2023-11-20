@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 08:27:53 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/20 16:13:26 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/20 17:48:54 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,6 @@ public:
 	
 	std::string getType(void) const;
 
-protected:
-	std::string type;
-	
 };
 
 #endif

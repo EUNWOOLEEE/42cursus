@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 18:24:15 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/20 16:44:24 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/20 17:57:31 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,19 @@
 
 # include "../incs/Brain.hpp"
 
-virtual class Animal{
+class Animal{
 
 public:
 	Animal(void);
 	Animal(const Animal& obj);
+	Animal(const std::string _type);
 	virtual ~Animal(void);
 	
 	Animal& operator =(const Animal& obj);
 
-	virtual void makeSound(void) const;
-	virtual std::string getType(void) const;
+	virtual void makeSound(void) const = 0;
+	
+	std::string getType(void) const;
 
 protected:
 	std::string type;

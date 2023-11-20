@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 08:28:35 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/20 15:34:07 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/20 18:05:19 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,6 @@ void Dog::makeSound(void) const {
 	std::cout << "     ┏━ ♡ ━━━━ ♡ ━┓\n";
 	std::cout << "     ♡ woof-woof! ♡\n";
 	std::cout << "🐶.•O┗━ ♡ ━━━━ ♡ ━┛\n";
-}
-
-std::string Dog::getType(void) const{
-	return type;
 }
 
 Brain* Dog::getBrain(void){

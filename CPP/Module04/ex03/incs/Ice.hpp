@@ -1,36 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.hpp                                            :+:      :+:    :+:   */
+/*   Ice.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/17 08:27:55 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/20 17:58:09 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/11/20 17:17:09 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/11/20 18:15:38 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DOG_HPP
-# define DOG_HPP
+#ifndef ICE_HPP
+# define ICE_HPP
 
-# include "../incs/Animal.hpp"
+# include "../incs/AMateria.hpp"
 
-class Dog : public Animal{
+class Ice : public AMateria{
 
 public:
-	Dog(void);
-	Dog(const Dog& obj);
-	~Dog(void);
-	
-	Dog& operator =(const Dog& obj);
+	Ice(void);
+	Ice(const Ice& obj);
+	~Ice(void);
 
-	void makeSound(void) const;
+	Ice& operator =(const Ice& obj);
 
-	Brain* getBrain(void);
-	
-private:
-	Brain* brain;
-	
+	AMateria* clone() const;
+
 };
 
 #endif

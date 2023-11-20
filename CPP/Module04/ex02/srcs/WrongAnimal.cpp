@@ -6,13 +6,13 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 08:19:21 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/20 12:44:54 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/20 18:05:25 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/WrongAnimal.hpp"
 
-WrongAnimal::WrongAnimal(void){
+WrongAnimal::WrongAnimal(void) : type("WrongAnimal"){
 	std::cout << "WrongAnimal default constructor called\n";
 	type = "WrongAnimal";
 }
@@ -20,6 +20,10 @@ WrongAnimal::WrongAnimal(void){
 WrongAnimal::WrongAnimal(const WrongAnimal& obj){
 	std::cout << "WrongAnimal copy constructor called\n";
 	*this = obj;
+}
+
+WrongAnimal::WrongAnimal(const std::string _type) : type(_type){
+	std::cout << "WrongAnimal constructor called\n";
 }
 
 WrongAnimal::~WrongAnimal(void){

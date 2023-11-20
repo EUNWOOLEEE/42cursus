@@ -6,15 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 08:28:33 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/20 12:46:31 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/20 17:48:10 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/WrongCat.hpp"
 
-WrongCat::WrongCat(void){
+WrongCat::WrongCat(void) : WrongAnimal("WrongCat"){
 	std::cout << "WrongCat default constructor called\n";
-	type = "WrongCat";
 }
 
 WrongCat::WrongCat(const WrongCat& obj){
@@ -28,7 +27,8 @@ WrongCat::~WrongCat(void){
 
 WrongCat& WrongCat::operator =(const WrongCat& obj){
 	std::cout << "WrongCat copy assignment operator called\n";
-	if(this != &obj) {}
+	if(this != &obj)
+		type = obj.type;
 	return *this;
 }
 

@@ -6,20 +6,23 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 08:19:21 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/20 14:42:46 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/20 17:53:28 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/Animal.hpp"
 
-Animal::Animal(void){
+Animal::Animal(void) : type("Animal"){
 	std::cout << "Animal default constructor called\n";
-	type = "Animal";
 }
 
 Animal::Animal(const Animal& obj){
 	std::cout << "Animal copy constructor called\n";
 	*this = obj;
+}
+
+Animal::Animal(const std::string _type) : type(_type){
+	std::cout << "Animal constructor called\n";
 }
 
 Animal::~Animal(void){

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 08:27:55 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/20 16:13:34 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/20 17:48:57 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,6 @@ public:
 	void makeSound(void) const;
 	
 	std::string getType(void) const;
-
-protected:
-	std::string type;
 	
 };
 

@@ -1,35 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.hpp                                            :+:      :+:    :+:   */
+/*   Animal.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/17 08:27:55 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/20 17:58:09 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/11/16 18:24:15 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/11/20 18:08:24 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DOG_HPP
-# define DOG_HPP
+#ifndef ANIMAL_HPP
+# define ANIMAL_HPP
 
-# include "../incs/Animal.hpp"
+# include <iostream>
 
-class Dog : public Animal{
+# include "../incs/Brain.hpp"
+
+class Animal{
 
 public:
-	Dog(void);
-	Dog(const Dog& obj);
-	~Dog(void);
+	Animal(void);
+	Animal(const Animal& obj);
+	Animal(const std::string _type);
+	virtual ~Animal(void);
 	
-	Dog& operator =(const Dog& obj);
+	Animal& operator =(const Animal& obj);
 
-	void makeSound(void) const;
-
-	Brain* getBrain(void);
+	virtual void makeSound(void) const = 0;
 	
-private:
-	Brain* brain;
+	std::string getType(void) const;
+
+protected:
+	std::string type;
 	
 };
 

@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.hpp                                            :+:      :+:    :+:   */
+/*   Cat.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/17 08:27:55 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/20 17:58:09 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/11/17 08:27:53 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/11/20 18:08:27 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DOG_HPP
-# define DOG_HPP
+#ifndef CAT_HPP
+# define CAT_HPP
 
 # include "../incs/Animal.hpp"
 
-class Dog : public Animal{
+class Cat : public Animal{
 
 public:
-	Dog(void);
-	Dog(const Dog& obj);
-	~Dog(void);
+	Cat(void);
+	Cat(const Cat& obj);
+	~Cat(void);
 	
-	Dog& operator =(const Dog& obj);
+	Cat& operator =(const Cat& obj);
 
 	void makeSound(void) const;
-
-	Brain* getBrain(void);
 	
+	Brain* getBrain(void);
+
 private:
 	Brain* brain;
 	

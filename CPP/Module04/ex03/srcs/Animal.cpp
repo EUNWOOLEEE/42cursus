@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 08:19:21 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/20 17:47:12 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/20 18:08:53 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,7 @@ Animal& Animal::operator =(const Animal& obj){
 	return *this;
 }
 
-void Animal::makeSound(void) const {
-	std::cout << "None\n";
-}
+void Animal::makeSound(void) const {}
 
 std::string Animal::getType(void) const{
 	return type;

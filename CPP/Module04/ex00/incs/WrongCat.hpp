@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 08:27:53 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/20 12:51:27 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/20 17:52:43 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,6 @@ public:
 	WrongCat& operator =(const WrongCat& obj);
 
 	void makeSound(void) const;
-
-protected:
-	std::string type;
 	
 };
 

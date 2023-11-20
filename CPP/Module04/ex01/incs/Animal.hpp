@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 18:24:15 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/20 14:42:58 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/20 17:51:39 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,14 @@ class Animal{
 public:
 	Animal(void);
 	Animal(const Animal& obj);
+	Animal(const std::string _type);
 	virtual ~Animal(void);
 	
 	Animal& operator =(const Animal& obj);
 
 	virtual void makeSound(void) const;
-	virtual std::string getType(void) const;
+	
+	std::string getType(void) const;
 
 protected:
 	std::string type;
