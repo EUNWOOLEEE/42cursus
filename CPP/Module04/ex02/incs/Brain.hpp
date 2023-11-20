@@ -1,36 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Cat.hpp                                            :+:      :+:    :+:   */
+/*   Brain.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/17 08:27:53 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/20 16:13:26 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/11/20 12:59:50 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/11/20 15:50:04 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CAT_HPP
-# define CAT_HPP
+#ifndef BRAIN_HPP
+# define BRAIN_HPP
 
-# include "../incs/Animal.hpp"
+# include <iostream>
 
-class Cat : public Animal{
+class Brain{
 
 public:
-	Cat(void);
-	Cat(const Cat& obj);
-	~Cat(void);
+	Brain(void);
+	Brain(const Brain& obj);
+	~Brain(void);
 	
-	Cat& operator =(const Cat& obj);
+	Brain& operator =(const Brain& obj);
 
-	void makeSound(void) const;
-	
-	std::string getType(void) const;
+	const std::string& getIdea(int idx);
+	void setIdea(int idx, const std::string &idea);
 
-protected:
-	std::string type;
-	
+private:
+	std::string ideas[100];
+
 };
 
 #endif

@@ -6,11 +6,11 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 22:47:37 by eunwolee          #+#    #+#              #
-#    Updated: 2023/11/20 16:43:56 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/11/20 13:33:22 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = animal
+NAME = brain
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
@@ -26,6 +26,7 @@ SRCS =	main.cpp \
 		Animal.cpp \
 		Dog.cpp \
 		Cat.cpp \
+		Brain.cpp \
 		WrongAnimal.cpp \
 		WrongCat.cpp 
 
@@ -39,11 +40,11 @@ YELLOW = \033[38;2;255;231;155m
 PECOCK = \033[38;2;115;187;201m
 PURPLE = \033[38;2;228;165;255m
 
-NUM_TASK = 6
+NUM_TASK = 4
 SIZE = 0
 END = 1
 CHAR = ""
-GAUGE = 🎾...... 🐶=3 woof-woof!
+GAUGE = 🐹...... 🐱=3 meow!
 NUM_GAUGE = 22
 
 all:

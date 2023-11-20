@@ -1,44 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Cat.cpp                                            :+:      :+:    :+:   */
+/*   WrongCat.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 08:28:33 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/20 14:44:06 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/20 12:46:31 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/Cat.hpp"
+#include "../incs/WrongCat.hpp"
 
-Cat::Cat(void){
-	std::cout << "Cat default constructor called\n";
-	type = "Cat";
+WrongCat::WrongCat(void){
+	std::cout << "WrongCat default constructor called\n";
+	type = "WrongCat";
 }
 
-Cat::Cat(const Cat& obj){
-	std::cout << "Cat copy constructor called\n";
+WrongCat::WrongCat(const WrongCat& obj){
+	std::cout << "WrongCat copy constructor called\n";
 	*this = obj;
 }
 
-Cat::~Cat(void){
-	std::cout << "Cat destructor called\n";
+WrongCat::~WrongCat(void){
+	std::cout << "WrongCat destructor called\n";
 }
 
-Cat& Cat::operator =(const Cat& obj){
-	std::cout << "Cat copy assignment operator called\n";
-	if(this != &obj)
-		type = obj.type;
+WrongCat& WrongCat::operator =(const WrongCat& obj){
+	std::cout << "WrongCat copy assignment operator called\n";
+	if(this != &obj) {}
 	return *this;
 }
 
-void Cat::makeSound(void) const {
+void WrongCat::makeSound(void) const {
 	std::cout << "     ┏━ ♡ ━━━━ ♡ ━┓\n";
 	std::cout << "     ♡    meow!   ♡\n";
 	std::cout << "🐱.•O┗━ ♡ ━━━━ ♡ ━┛\n";
-}
-
-std::string Cat::getType(void) const{
-	return type;
 }
