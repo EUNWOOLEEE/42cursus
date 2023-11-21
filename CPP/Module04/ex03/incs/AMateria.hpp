@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 17:04:29 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/20 17:37:21 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/21 16:09:51 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ public:
 	AMateria(void);
 	AMateria(const AMateria& obj);
 	AMateria(std::string const & type);
-	~AMateria(void);
+	virtual ~AMateria(void);
 
 	AMateria& operator =(const AMateria& obj);
 
