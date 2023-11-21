@@ -29,7 +29,10 @@ Cure& Cure::operator =(const Cure& obj){
 	std::cout << "Cure copy assignment operator called\n";
 }
 
-//이거 수정하기
-AMateria* clone() const{
+AMateria* Cure::clone() const{
 	return new Cure();
+}
+
+void Cure::use(ICharacter& target){
+	std::cout << * "heals " << target.getName() << "’s wounds *\n";
 }

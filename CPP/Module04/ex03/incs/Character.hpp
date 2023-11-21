@@ -1,31 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Cure.hpp                                            :+:      :+:    :+:   */
+/*   Character.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/20 17:17:09 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/20 17:19:39 by eunwolee         ###   ########.fr       */
+/*   Created: 2023/11/20 21:01:22 by eunwolee          #+#    #+#             */
+/*   Updated: 2023/11/20 21:01:59 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CURE_HPP
-# define CURE_HPP
+#ifndef CHARACTER_HPP
+# define CHARACTER_HPP
 
-# include "../incs/ICharacter.hpp"
+class Character{
 
-class Cure : public AMateria{
-
-public:
-	Cure(void);
-	Cure(const Cure& obj);
-	~Cure(void);
-
-	Cure& operator =(const Cure& obj);
-
-	AMateria* clone() const;
-	void use(ICharacter& target);
 };
 
 #endif

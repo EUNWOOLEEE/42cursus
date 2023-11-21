@@ -6,11 +6,11 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 17:24:37 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/20 18:11:42 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/20 20:56:20 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/AMateria.hpp"
+#include "../incs/ICharacter.hpp"
 
 AMateria::AMateria(void){
 	std::cout << "AMateria default constructor called\n";
@@ -33,3 +33,5 @@ AMateria& AMateria::operator =(const AMateria& obj){
 }
 
 std::string const & AMateria::getType() const {} //Returns the materia type
+
+void AMateria::use(ICharacter& target) {}
