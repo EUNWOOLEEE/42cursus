@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 22:47:37 by eunwolee          #+#    #+#              #
-#    Updated: 2023/11/20 17:01:06 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/11/21 16:01:16 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ NUM_TASK = 4
 SIZE = 0
 END = 1
 CHAR = ""
-GAUGE = 🥕...... 🐰=3 hop hop!
+GAUGE = 🎋...... 🐼=3 yummy!
 NUM_GAUGE = 20
 
 all:
