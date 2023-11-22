@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 08:19:21 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/20 17:54:45 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/22 21:21:30 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ WrongAnimal::WrongAnimal(void) : type("WrongAnimal"){
 	type = "WrongAnimal";
 }
 
-WrongAnimal::WrongAnimal(const WrongAnimal& obj){
+WrongAnimal::WrongAnimal(const WrongAnimal& obj) : WrongAnimal(obj.getType()){
 	std::cout << "WrongAnimal copy constructor called\n";
 	*this = obj;
 }
