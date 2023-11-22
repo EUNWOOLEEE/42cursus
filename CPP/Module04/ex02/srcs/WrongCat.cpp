@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 08:28:33 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/22 21:21:38 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/22 21:24:52 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ WrongCat::WrongCat(void) : WrongAnimal("WrongCat"){
 	std::cout << "WrongCat default constructor called\n";
 }
 
-WrongCat::WrongCat(const WrongCat& obj) : WrongAnimal(obj.getType()){
+WrongCat::WrongCat(const WrongCat& obj) : WrongAnimal("WrongCat"){
 	std::cout << "WrongCat copy constructor called\n";
 	*this = obj;
 }

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 08:28:35 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/22 21:20:46 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/22 21:25:10 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ Dog::Dog(void) : Animal("Dog"){
 	brain = new Brain();
 }
 
-Dog::Dog(const Dog& obj) : Animal(obj.getType()){
+Dog::Dog(const Dog& obj) : Animal("Dog"){
 	std::cout << "Dog copy constructor called\n";
 	*this = obj;
 }
