@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 08:28:33 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/20 18:09:06 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/22 21:20:42 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ Cat::Cat(void) : Animal("Cat"){
 	brain = new Brain();
 }
 
-Cat::Cat(const Cat& obj){
+Cat::Cat(const Cat& obj) : Animal(obj.getType()){
 	std::cout << "Cat copy constructor called\n";
 	*this = obj;
 }
