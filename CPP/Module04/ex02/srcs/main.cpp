@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 08:28:40 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/20 18:07:45 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/22 21:29:30 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,7 @@ int main() {
 	std::cout << "--------Delete animals--------\n";
 	delete(dog);
 	delete(cat);
+
+	// system("leaks abstract");
 	return 0;
 }
