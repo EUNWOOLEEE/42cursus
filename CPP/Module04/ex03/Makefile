@@ -6,11 +6,11 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 22:47:37 by eunwolee          #+#    #+#              #
-#    Updated: 2023/11/21 16:01:16 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/11/22 18:36:58 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = abstract
+NAME = interface
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
@@ -28,7 +28,12 @@ SRCS =	main.cpp \
 		Cat.cpp \
 		Brain.cpp \
 		WrongAnimal.cpp \
-		WrongCat.cpp 
+		WrongCat.cpp \
+		AMateria.cpp \
+		Ice.cpp \
+		Cure.cpp \
+		Character.cpp \
+		MateriaSource.cpp
 
 SRCS_WITH_PATH = $(addprefix $(SRCS_DIR)/, $(SRCS))
 OBJS = $(SRCS_WITH_PATH:$(SRCS_DIR)/%.cpp=$(OBJS_DIR)/%.o)
@@ -40,12 +45,12 @@ YELLOW = \033[38;2;255;231;155m
 PECOCK = \033[38;2;115;187;201m
 PURPLE = \033[38;2;228;165;255m
 
-NUM_TASK = 4
+NUM_TASK = 12
 SIZE = 0
 END = 1
 CHAR = ""
 GAUGE = 🎋...... 🐼=3 yummy!
-NUM_GAUGE = 20
+NUM_GAUGE = 18
 
 all:
 	@echo "$(PINK)BUILD $(NAME)$(RESET)"

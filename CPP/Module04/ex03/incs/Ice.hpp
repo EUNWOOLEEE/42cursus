@@ -6,14 +6,14 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 17:17:09 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/20 20:57:17 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/22 18:11:23 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ICE_HPP
 # define ICE_HPP
 
-# include "../incs/ICharacter.hpp"
+# include "../incs/AMateria.hpp"
 
 class Ice : public AMateria{
 

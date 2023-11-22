@@ -13,7 +13,7 @@
 #ifndef CURE_HPP
 # define CURE_HPP
 
-# include "../incs/ICharacter.hpp"
+# include "../incs/AMateria.hpp"
 
 class Cure : public AMateria{
 
