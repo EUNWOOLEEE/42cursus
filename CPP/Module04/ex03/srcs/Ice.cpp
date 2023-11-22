@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 17:20:22 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/22 20:10:39 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/22 21:27:16 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ Ice::Ice(void) : AMateria("ice"){
 	std::cout << "Ice default constructor called\n";
 }
 
-Ice::Ice(const Ice& obj){
+Ice::Ice(const Ice& obj) : AMateria("ice"){
 	std::cout << "Ice copy constructor called\n";
 	*this = obj;
 }
