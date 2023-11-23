@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 18:00:52 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/22 21:02:11 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/23 14:46:41 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int main() {
 	std::cout << "\n";
 
 	// std::cout << "-----Attempt equip with overlaped materia type-----\n";
-	// std::cout << "\n";
 	// src->learnMateria(new Cure());
 	// std::cout << "\n";
 
@@ -110,8 +109,11 @@ int main() {
 
 
 	delete bob;
+	std::cout << "\n";
 	delete me;
+	std::cout << "\n";
 	delete src;
+	std::cout << "\n";
 	
 	// system("leaks interface");
 

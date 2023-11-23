@@ -6,7 +6,7 @@
 #    By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/06 22:47:37 by eunwolee          #+#    #+#              #
-#    Updated: 2023/11/22 18:36:58 by eunwolee         ###   ########.fr        #
+#    Updated: 2023/11/23 14:15:02 by eunwolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,12 +23,6 @@ RM = rm -rf
 MAKE = make
 
 SRCS =	main.cpp \
-		Animal.cpp \
-		Dog.cpp \
-		Cat.cpp \
-		Brain.cpp \
-		WrongAnimal.cpp \
-		WrongCat.cpp \
 		AMateria.cpp \
 		Ice.cpp \
 		Cure.cpp \
@@ -45,7 +39,7 @@ YELLOW = \033[38;2;255;231;155m
 PECOCK = \033[38;2;115;187;201m
 PURPLE = \033[38;2;228;165;255m
 
-NUM_TASK = 12
+NUM_TASK = 6
 SIZE = 0
 END = 1
 CHAR = ""

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 16:05:49 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/22 20:54:13 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/23 14:39:01 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,11 @@ Character& Character::operator =(const Character& obj){
 	std::cout << "Character copy assignment operator called\n";
 	if(this != &obj){
 		name = obj.name;
-		slotCnt = obj.slotCnt;
-		
-		for(int i = 0; slot[i] != NULL; i++) delete(slot[i]);
+
+		for(int i = 0; i < slotCnt; i++) delete(slot[i]);
 		delete[](slot);
+
+		slotCnt = obj.slotCnt;
 		
 		slot = new AMateria*[slotMax];
 		for(int i = 0; i < slotCnt; i++)

@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 20:53:00 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/22 21:15:59 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/23 14:44:55 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ public:
 	virtual ~ICharacter() {}
 
 	virtual std::string const &getName() const = 0;
-	// virtual const AMateria *getSlot(int idx) const = 0;
+	virtual const AMateria *getSlot(int idx) const = 0;
 	
 	virtual void equip(AMateria* m) = 0;
 	virtual void unequip(int idx) = 0;

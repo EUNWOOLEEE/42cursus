@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 21:01:22 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/22 20:05:12 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/23 14:28:50 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 class Character : public ICharacter{
 
 public:
-	Character(void);
 	Character(const Character& obj);
 	Character(std::string const & type);
 	~Character(void);
@@ -33,6 +32,8 @@ public:
 	void use(int idx, ICharacter& target);
 
 private:
+	Character(void);
+	
 	std::string			name;
 	AMateria			**slot;
 	int					slotCnt;

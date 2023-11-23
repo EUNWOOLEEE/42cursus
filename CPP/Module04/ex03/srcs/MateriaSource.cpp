@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 17:39:52 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/22 20:33:45 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/11/23 14:22:47 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ MateriaSource::~MateriaSource(){
 MateriaSource& MateriaSource::operator =(const MateriaSource& obj){
 	std::cout << "MateriaSource copy assignment operator called\n";
 	if(this != &obj){
-		slotCnt = obj.slotCnt;
-		
-		for(int i = 0; slot[i] != NULL; i++) delete(slot[i]);
+		for(int i = 0; i < slotCnt; i++) delete(slot[i]);
 		delete[](slot);
+		
+		slotCnt = obj.slotCnt;
 		
 		slot = new AMateria*[slotMax];
 		for(int i = 0; i < slotCnt; i++)
