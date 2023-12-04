@@ -6,6 +6,10 @@
 
 #define BUF_SIZE 1024
 
+#define FAKE_RESPONSE "HTTP/1.1 200 OK\\r\nContent-Length:5\r\n\r\n\
+\
+hello"
+
 using namespace std;
 
 int main(){
@@ -47,6 +51,8 @@ int main(){
 			}
 			
 			cout << message << endl;
+
+			send(client_socket, FAKE_RESPONSE, (int)strlen(FAKE_RESPONSE), 0);
 		}
 		if(!strcmp(message, "quit")){
 			close(server_socket);

@@ -4,6 +4,7 @@
 #include <iostream>
 #include <arpa/inet.h>
 #include <sstream>
+#include <vector>
 
 #define BUF_SIZE 1024
 
@@ -35,7 +36,7 @@ int main(){
 	int client_socket;
 	sockaddr_in server_addr;
 
-	char sAddr[15] = "10.19.241.9";
+	char sAddr[15] = "10.14.10.6";
 	int sPort = 4000;
 
 	client_socket = socket(AF_INET, SOCK_STREAM, 0);
@@ -51,7 +52,7 @@ int main(){
 		return 0;
 
 	char message[BUF_SIZE];
-	int recieve_size;
+	// int recieve_size;
 
 	while(1){
 		fgets(message, BUF_SIZE, stdin);
