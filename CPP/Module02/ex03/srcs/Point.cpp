@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 16:44:42 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/11/14 16:45:16 by eunwolee         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:49:19 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ bool bsp(Point const a, Point const b, Point const c, Point const point){
 	float _b = cross(minus(b, c), minus(b, point));
 	float _c = cross(minus(c, a), minus(c, point));
 	
-	if ((_a < 0.0 && _b < 0.0 && _c < 0.0) \
-		|| (_a >= 0.0 && _b >= 0.0 && _c >= 0.0))
+	if ((_a < 0.0 && _b < 0.0 && _c < 0.0))
 		return true;
 	return false;
 }

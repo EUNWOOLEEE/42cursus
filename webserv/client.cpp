@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <sstream>
+#include <vector>
 
 #define BUF_SIZE 1024
 
@@ -39,8 +40,13 @@ int
 	int			client_socket;
 	sockaddr_in server_addr;
 
+<<<<<<< HEAD
 	char sAddr[15] = "10.19.241.9";
 	int	 sPort = 4000;
+=======
+	char sAddr[15] = "10.14.10.6";
+	int sPort = 4000;
+>>>>>>> 0fa23e1ff95f9dde8af7ed61cc1791bddddf45ce
 
 	client_socket = socket(AF_INET, SOCK_STREAM, 0);
 	if (client_socket == -1)
@@ -56,7 +62,11 @@ int
 		return 0;
 
 	char message[BUF_SIZE];
+<<<<<<< HEAD
 	int	 recieve_size;
+=======
+	// int recieve_size;
+>>>>>>> 0fa23e1ff95f9dde8af7ed61cc1791bddddf45ce
 
 	while (1) {
 		fgets(message, BUF_SIZE, stdin);

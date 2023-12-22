@@ -6,6 +6,10 @@
 
 #define BUF_SIZE 1024
 
+#define FAKE_RESPONSE "HTTP/1.1 200 OK\\r\nContent-Length:5\r\n\r\n\
+\
+hello"
+
 using namespace std;
 
 int main() {
@@ -22,10 +26,27 @@ int main() {
   server_addr.sin_port = htons(4000);
   server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
+<<<<<<< HEAD
   if (bind(server_socket, (sockaddr *)&server_addr, sizeof(sockaddr_in)) == -1)
     return 0;
   if (listen(server_socket, 0) == -1)
     return 0;
+=======
+			if(!strcmp(message, "exit") || !strcmp(message, "quit")){
+				close(client_socket);
+				break;
+			}
+			
+			cout << message << endl;
+
+			send(client_socket, FAKE_RESPONSE, (int)strlen(FAKE_RESPONSE), 0);
+		}
+		if(!strcmp(message, "quit")){
+			close(server_socket);
+			break;
+		}
+	}
+>>>>>>> 0fa23e1ff95f9dde8af7ed61cc1791bddddf45ce
 
   char message[BUF_SIZE];
   int recieve_size;
