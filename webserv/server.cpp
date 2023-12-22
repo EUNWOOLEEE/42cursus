@@ -13,30 +13,41 @@ hello"
 using namespace std;
 
 int main() {
-  int server_socket, client_socket;
-  sockaddr_in server_addr, client_addr;
-  socklen_t client_addr_size;
+	int server_socket, client_socket;
+	sockaddr_in server_addr, client_addr;
+	socklen_t client_addr_size;
 
-  server_socket = socket(AF_INET, SOCK_STREAM, 0);
-  if (server_socket == -1)
-    return 0;
+	server_socket = socket(AF_INET, SOCK_STREAM, 0);
+	if (server_socket == -1)
+		return 0;
 
-  memset(&server_addr, 0, sizeof(sockaddr_in));
-  server_addr.sin_family = AF_INET;
-  server_addr.sin_port = htons(4000);
-  server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
+	memset(&server_addr, 0, sizeof(sockaddr_in));
+	server_addr.sin_family = AF_INET;
+	server_addr.sin_port = htons(4000);
+	server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
-<<<<<<< HEAD
-  if (bind(server_socket, (sockaddr *)&server_addr, sizeof(sockaddr_in)) == -1)
-    return 0;
-  if (listen(server_socket, 0) == -1)
-    return 0;
-=======
+	if(bind(server_socket, (sockaddr*)&server_addr, sizeof(sockaddr_in)) == -1)
+		return 0;
+	if(listen(server_socket, 0) == -1)
+		return 0;
+	char message[BUF_SIZE];
+	int recieve_size;
+	while(1){
+		client_addr_size = sizeof(sockaddr_in);
+		client_socket = accept(server_socket, (sockaddr*)&client_addr, &client_addr_size);
+		if(client_socket == -1)
+			return 0;
+		
+		while(1){
+			recieve_size = recv(client_socket, message, sizeof(message) - 1, 0);
+			if(recieve_size == -1)
+				return 0;
+			message[recieve_size] = '\0';
 			if(!strcmp(message, "exit") || !strcmp(message, "quit")){
 				close(client_socket);
 				break;
 			}
-			
+
 			cout << message << endl;
 
 			send(client_socket, FAKE_RESPONSE, (int)strlen(FAKE_RESPONSE), 0);
@@ -46,35 +57,5 @@ int main() {
 			break;
 		}
 	}
->>>>>>> 0fa23e1ff95f9dde8af7ed61cc1791bddddf45ce
-
-  char message[BUF_SIZE];
-  int recieve_size;
-  while (1) {
-    client_addr_size = sizeof(sockaddr_in);
-    client_socket =
-        accept(server_socket, (sockaddr *)&client_addr, &client_addr_size);
-    if (client_socket == -1)
-      return 0;
-
-    while (1) {
-      recieve_size = recv(client_socket, message, sizeof(message) - 1, 0);
-      if (recieve_size == -1)
-        return 0;
-      message[recieve_size] = '\0';
-
-      if (!strcmp(message, "exit") || !strcmp(message, "quit")) {
-        close(client_socket);
-        break;
-      }
-
-      cout << message << endl;
-    }
-    if (!strcmp(message, "quit")) {
-      close(server_socket);
-      break;
-    }
-  }
-
-  return 0;
+	return 0;
 }
