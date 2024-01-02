@@ -2,7 +2,6 @@
 # define SERVER_HPP
 
 # include <list>
-# include <iostream>
 # include "location.hpp"
 
 class Server {
@@ -13,13 +12,15 @@ class Server {
 
 		Server& operator =(const Server& src);
 
-		void				setPort(uint32_t _port);
-		void				setDomain(std::string _domain);
-		void				setErrorPage(std::string _error_page);
+		void						setPort(uint32_t _port);
+		void						setDomain(std::string _domain);
+		void						setErrorPage(std::string _error_page);
 
-		uint32_t			getPort(void) const;
-		const std::string&	getDomain(void) const;
-		const std::string&	getErrorPage(void) const;
+		uint32_t					getPort(void) const;
+		const std::string&			getDomain(void) const;
+		const std::string&			getErrorPage(void) const;
+		std::list<Location>&		getLocationList(void);
+		const std::list<Location>&	getLocationListConst(void) const;
 
 	private:
 		uint32_t			port;

@@ -1,19 +1,22 @@
 #include "server.hpp"
 
-Server::Server(void) \
-		: port(0), domain(), error_page(), location_list() {}
+Server::Server(void) : port(0) {}
 
 Server::Server(const Server& src) {
 	*this = src;
 }
 
+Server::~Server(void) {}
+
 Server& Server::operator =(const Server& src) {
 	if (this != &src) {
+		port = src.port;
+		domain = src.domain;
+		error_page = src.error_page;
+		location_list = src.location_list;
 	}
 	return (*this);
 }
-
-Server::~Server(void) {}
 
 void Server::setPort(uint32_t _port){
 	port = _port;
@@ -39,3 +42,10 @@ const std::string& Server::getErrorPage(void) const{
 	return error_page;
 }
 
+std::list<Location>& Server::getLocationList(void){
+	return location_list;
+}
+
+const std::list<Location>& Server::getLocationListConst(void) const{
+	return location_list;
+}

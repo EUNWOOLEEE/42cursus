@@ -2,12 +2,16 @@
 
 const int Conf::main_cmd_max = 3;
 const int Conf::srv_cmd_max = 3;
-const int Conf::loc_cmd_max = 10;
+const int Conf::loc_cmd_max = 1;
 
-static int parseMain(Cycle &cycle, const Cmd *cmd, int cmd_max, std::ifstream& file);
-static int parseServer(Cycle &cycle, const Cmd *cmd, int cmd_max, std::ifstream& file);
-static int checkConfLocation(std::string str[], int cur);
+static void parseMain(Cycle &cycle, Conf &conf, std::ifstream& file);
+static void parseServer(Cycle &cycle, Conf &conf, std::ifstream& file);
+static void parseLocation(Cycle& cycle, Conf &conf, std::ifstream& file, const std::string& block_path);
+static void callCmd(Cycle &cycle, Conf &conf, int location, \
+						std::string *tokens, int token_cnt);
 static int tokenizer(char *str, std::string *tokens);
+static int checkConfLocation(std::string str[]);
+static void checkGetlineError(std::ifstream& file);
 
 Conf::Conf(void) {
 	main_cmd = NULL;
@@ -15,25 +19,35 @@ Conf::Conf(void) {
 	loc_cmd = NULL;
 }
 
-Conf::Conf(std::string _file_name) {
-	if (setFile(_file_name) == -1)
-		throw Exception("Open configure file error!");
-		
-	if (setCmd() == -1)
-		throw Exception("Set configure command error!");
+Conf::Conf(std::string _name) {
+	setFile(_name);
+	setCmd();
 }
 
 Conf::Conf(const Conf& src) {
 	*this = src;
 }
 
+Conf::~Conf(void) {
+	if (file.is_open() == TRUE)
+		file.close();
+
+	if (main_cmd)
+		delete[](main_cmd);
+	if (srv_cmd)
+		delete[](srv_cmd);
+	if (loc_cmd)
+		delete[](loc_cmd);
+}
+
 Conf& Conf::operator =(const Conf& src) {
 	if (this != &src) {
 		file_name = src.file_name;
-		file.close();
+		if (file.is_open() == TRUE)
+			file.close();
 		file.open(file_name);
 		if (file.is_open() == FALSE)
-			throw Exception("File open error!");
+			setException(CONF_OPEN_FAIL);
 
 		if (main_cmd)
 			delete[](main_cmd);
@@ -45,7 +59,7 @@ Conf& Conf::operator =(const Conf& src) {
 			delete[](srv_cmd);
 		srv_cmd = new Cmd[srv_cmd_max]();
 		for (int i = 0; i < srv_cmd_max; i++)
-			srv_cmd[i] = src.srv_cmd[i];
+			srv_cmd[i] = src.srv_cmd[i]; 
 
 		if (loc_cmd)
 			delete[](loc_cmd);
@@ -56,14 +70,11 @@ Conf& Conf::operator =(const Conf& src) {
 	return (*this);
 }
 
-Conf::~Conf(void) {}
-
-int Conf::setFile(std::string _file_name) {
-	file_name = _file_name;
+void Conf::setFile(std::string _name) {
+	file_name = _name;
 	file.open(file_name);
 	if (file.is_open() == FALSE)
-		return -1; //error
-	return 0;
+		setException(CONF_OPEN_FAIL);
 }
 
 std::ifstream& Conf::getFile(void) {
@@ -74,7 +85,7 @@ const std::ifstream& Conf::getFileConst(void) const {
 	return file;
 }
 
-int Conf::setCmd(void) {
+void Conf::setCmd(void) {
 	main_cmd = new Cmd[main_cmd_max]();
 	srv_cmd = new Cmd[srv_cmd_max]();
 	loc_cmd = new Cmd[loc_cmd_max]();
@@ -84,9 +95,10 @@ int Conf::setCmd(void) {
 	main_cmd[2] = Cmd("client_max_body_size", CMD_TAKE1, mainClientMaxBodySize);
 
 	srv_cmd[0] = Cmd("listen", CMD_TAKE1, serverListen);
-	srv_cmd[1] = Cmd("listen", CMD_TAKE1, serverName);
-	srv_cmd[2] = Cmd("listen", CMD_TAKE1, serverErrorPage);
-	return 0;
+	srv_cmd[1] = Cmd("server_name", CMD_TAKE1, serverName);
+	srv_cmd[2] = Cmd("error_page", CMD_TAKE1, serverErrorPage);
+
+	loc_cmd[0] = Cmd("root", CMD_TAKE1, locationRoot);
 }
 
 const Cmd* Conf::getCmdListConst(int loc_type) const {
@@ -109,165 +121,138 @@ int Conf::getCmdMaxConst(int loc_type) const {
 	return -1;
 }
 
-int parseConf(Cycle &cycle, Conf &conf) {
-	static_cast<void>(cycle);
-
-	char			buf[1000];
-	std::string		tokens[10];
+void parseConf(Cycle &cycle, Conf &conf) {
+	char			buf[BUF_SIZE];
+	std::string		tokens[TOKEN_SIZE];
 	int				token_cnt;
 	std::ifstream&	file = conf.getFile();
-	int				cur_location = 0;
 
 	while (file.getline(buf, sizeof(buf))) {
-		std::cout << "buf: " << buf << "\n";
-
 		if (buf[0] == '\0')
 			continue;
 
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < TOKEN_SIZE; i++)
 			tokens[i] = '\0';
 
 		token_cnt = tokenizer(buf, tokens);
-		if (token_cnt == -1)
-			return -1; //error
+		if (token_cnt != 2 || tokens[1] != "{")
+			setException(CONF_INVALID_FORM);
 
-		if (tokens[0] == "main"	|| tokens[0] == "server") {
-			if (tokens[token_cnt - 1] != "{")
-				return -1; //error
-			cur_location = checkConfLocation(tokens, cur_location);
-			if (cur_location == -1)
-				return -1; //error
-		}
-
-		// for (int i = 0; tokens[i][0]; i++)
-		// 	std::cout << tokens[i] << "\n";
-
-		if (cur_location == CONF_MAIN) {
-			if (parseMain(cycle, conf.getCmdListConst(CONF_MAIN), \
-							conf.getCmdMaxConst(CONF_MAIN), file) == -1) {
-				return -1;
-			}
-		}
-		if (cur_location == CONF_SRV) {
-			if (parseServer(cycle, conf.getCmdListConst(CONF_SRV), \
-							conf.getCmdMaxConst(CONF_SRV), file) == -1) {
-				return -1;
-			}
-		}
-		cur_location = 0;
+		if (checkConfLocation(tokens) == CONF_MAIN)
+			parseMain(cycle, conf, file);
+		else // CONF_SRV
+			parseServer(cycle, conf, file);
 	}
-
-	if(file.eof() == FALSE)
-		return -1; // Buffer overflow
-
-	return 0;
+	checkGetlineError(file);
 }
 
-static int parseMain(Cycle &cycle, const Cmd *cmd, int cmd_max, std::ifstream& file) {
-	char			buf[1000];
-	std::string		tokens[10];
+static void parseMain(Cycle &cycle, Conf &conf, std::ifstream& file) {
+	char			buf[BUF_SIZE];
+	std::string		tokens[TOKEN_SIZE];
 	int				token_cnt;
-	handler_t		handler;
+	std::string		str_buf;
 
 	while (file.getline(buf, sizeof(buf))) {
-		if (buf[0] == '\0')
-			continue;
+		str_buf = static_cast<std::string>(buf);
 
-		if (static_cast<std::string>(buf) == "}")
+		if (str_buf.length() == 0)
+			continue;
+		if (str_buf == "}")
 			break;
 		
 		token_cnt = tokenizer(buf, tokens);
-		if (token_cnt == -1)
-			return -1; //error
-
 		tokens[0] = &tokens[0][1]; //tab으로 시작하니까
-
-		int idx;
-		for (idx = 0; idx < cmd_max; idx++) {
-			if (cmd[idx].getName() == tokens[0]) {
-				if (cmd[idx].getArgCnt() != token_cnt - 1) {
-					return -1;
-				}
-				handler = cmd[idx].getHandler();
-				if (handler(cycle, tokens) == -1) {
-					return -1; //error
-				}
-				break;
-			}
-		}
-		if (idx == cmd_max){
-			return -1; //directive is not matched
-		}
+		callCmd(cycle, conf, CONF_MAIN, tokens, token_cnt);
 	}
-	// std::cout << cycle.getWorkerProcesses() << "\n" \
-	// 			<< cycle.getWorkerConnections() << "\n" \
-	// 			<< cycle.getClientMaxBodySize() << "\n";
+	checkGetlineError(file);
 
 	if (cycle.getWorkerProcesses() == 0 || \
 		cycle.getWorkerConnections() == 0 || \
 		cycle.getClientMaxBodySize() == 0)
-		return -1; //missing directive
-	
-	return 0;
+		setException(CONF_LACK_DIRECTIVE);
 }
 
-static int parseServer(Cycle &cycle, const Cmd *cmd, int cmd_max, std::ifstream& file) {
-	char				buf[1000];
-	std::string			tokens[10];
+static void parseServer(Cycle &cycle, Conf &conf, std::ifstream& file) {
+	char				buf[BUF_SIZE];
+	std::string			tokens[TOKEN_SIZE];
 	int					token_cnt;
-	handler_t			handler;
-	Server				server;
+	std::string			str_buf;
+	std::list<Server>&	server_list = cycle.getServerList();
 
-	cycle.getServerList().push_back(server);
+	server_list.push_back(Server()); //복사해서 추가함
 
 	while (file.getline(buf, sizeof(buf))) {
-		std::cout << buf << "\n";
-		if (buf[0] == '\0')
-			continue;
-			
-		if (static_cast<std::string>(buf) == "}")
-			break;
-		
-		token_cnt = tokenizer(buf, tokens);
-		if (token_cnt == -1)
-			return -1; //error
+		str_buf = static_cast<std::string>(buf);
 
+		if (str_buf.length() == 0)
+			continue;
+		if (str_buf == "}")
+			break;
+
+		token_cnt = tokenizer(buf, tokens);
 		tokens[0] = &tokens[0][1]; //tab으로 시작하니까
 
-		int idx;
-		for (idx = 0; idx < cmd_max; idx++) {
-			if (cmd[idx].getName() == tokens[0]) {
-				if (cmd[idx].getArgCnt() != token_cnt - 1) {
-					return -1;
-				}
-				handler = cmd[idx].getHandler();
-				if (handler(cycle, tokens) == -1) {
-					return -1; //error
-				}
-				break;
-			}
+		if (tokens[0] == "location") {
+			if (token_cnt != 2 || tokens[1] != "{")
+				setException(CONF_INVALID_FORM);
+			parseLocation(cycle, conf, file, tokens[1]);
+			continue;
 		}
-		if (idx == cmd_max){
-			return -1; //directive is not matched
-		}
+		callCmd(cycle, conf, CONF_SRV, tokens, token_cnt);
 	}
-	std::cout << server.getPort() << "\n" \
-				<< server.getDomain() << "\n" \
-				<< server.getErrorPage() << "\n";
+	checkGetlineError(file);
 
-	if (server.getPort() == 0 || \
-		server.getDomain() == "" || \
-		server.getErrorPage() == "")
-		return -1; //missing directive
-	return 0;
+	if (server_list.back().getPort() == 0 || \
+		server_list.back().getDomain() == "" || \
+		server_list.back().getErrorPage() == "")
+		setException(CONF_LACK_DIRECTIVE);
 }
 
-static int checkConfLocation(std::string str[], int cur) {
-	if (cur == 0 && str[0] == "main")
-		return CONF_MAIN;
-	if (cur == 0 && str[0] == "server")
-		return CONF_SRV;
-	return -1;
+static void parseLocation(Cycle& cycle, Conf &conf, std::ifstream& file, const std::string& block_path) {
+	char					buf[BUF_SIZE];
+	std::string				tokens[TOKEN_SIZE];
+	int						token_cnt;
+	std::string				str_buf;
+	std::list<Location>&	location_list = cycle.getServerList().back().getLocationList();
+
+	location_list.push_back(Location(block_path)); //복사해서 추가함
+
+	while (file.getline(buf, sizeof(buf))) {
+		str_buf = static_cast<std::string>(buf);
+
+		if (str_buf.length() == 0)
+			continue;
+		if (str_buf == "\t}")
+			break;
+
+		token_cnt = tokenizer(buf, tokens);
+		tokens[0] = &tokens[0][2]; //tab 2개로 시작하니까
+		callCmd(cycle, conf, CONF_LOC, tokens, token_cnt);
+	}
+	checkGetlineError(file);
+
+	if (location_list.back().getStaticPath() == "")
+		setException(CONF_LACK_DIRECTIVE);
+}
+
+static void callCmd(Cycle &cycle, Conf &conf, int location, \
+						std::string *tokens, int token_cnt) {
+	handler_t	handler;
+	int 		idx;
+	const 		Cmd *cmd = conf.getCmdListConst(location);
+	int			cmd_max = conf.getCmdMaxConst(location);
+
+	for (idx = 0; idx < cmd_max; idx++) {
+		if (cmd[idx].getName() == tokens[0]) {
+			if (cmd[idx].getArgCnt() != token_cnt - 1)
+				setException(CONF_INVALID_ARG_CNT);
+			handler = cmd[idx].getHandler();
+			handler(cycle, tokens);
+			break;
+		}
+	}
+	if (idx == cmd_max)
+		setException(CONF_INVALID_DIRECTIVE);
 }
 
 static int tokenizer(char *str, std::string *tokens) {
@@ -275,10 +260,25 @@ static int tokenizer(char *str, std::string *tokens) {
 	std::string			token;
 	int					idx = 0;
 
-	while (getline(istr, token, ' ')) {
+	while (getline(istr, token, ' '))
 		if (token.empty() == FALSE) // 공백이 두 개 이상 이어질 때, 공백과 공백 사이에 빈 토큰이 생성됨
 			tokens[idx++] = token;
-	}
-	// getline 실패 시 에러 -1
+
+	if (istr.eof() == FALSE)
+		setException(CONF_TOKENIZE_FAIL);
 	return idx;
+}
+
+static int checkConfLocation(std::string str[]) {
+	if (str[0] == "main")
+		return CONF_MAIN;
+	if (str[0] == "server")
+		return CONF_SRV;
+	setException(CONF_INVALID_LOC);
+	return 0;
+}
+
+static void checkGetlineError(std::ifstream& file) {
+	if(file.fail() == FALSE || file.bad())
+		setException(CONF_READ_FAIL);
 }

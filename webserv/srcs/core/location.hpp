@@ -5,14 +5,22 @@
 
 class Location {
 	public:
-		Location(void);
+		Location(std::string _block_path);
 		Location(const Location& obj);
 		~Location(void);
 
 		Location& operator =(const Location& src);
 
+		void setStaticPath(std::string _block_path);
+
+		const std::string& getBlockPath(void) const;
+		const std::string& getStaticPath(void) const;
+
 	private:
-		std::string	server_name;
+		Location(void);
+
+		std::string	block_path;
+		std::string	static_path;
 		// CGI
 };
 

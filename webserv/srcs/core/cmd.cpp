@@ -9,6 +9,8 @@ Cmd::Cmd(const Cmd& src) {
 	*this = src;
 }
 
+Cmd::~Cmd(void) {}
+
 Cmd& Cmd::operator =(const Cmd& src) {
 	if (this != &src) {
 		name = src.name;
@@ -17,8 +19,6 @@ Cmd& Cmd::operator =(const Cmd& src) {
 	}
 	return (*this);
 }
-
-Cmd::~Cmd(void) {}
 
 const std::string& Cmd::getName(void) const {
 	return name;

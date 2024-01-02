@@ -1,5 +1,7 @@
 #include "core.hpp"
 
+int error_code;
+
 int main(int argc, char **argv, char **envp) {
 	(void)envp;
 
@@ -8,16 +10,17 @@ int main(int argc, char **argv, char **envp) {
 
 	// if (argc != 1 && argc != 2)
 	if (argc != 2) //default 설정 파일 세팅 안함
-		return 0; // error
+		return -1; // error
 
 	try{
 		conf = Conf(argv[1]);
+		parseConf(cycle, conf);
+		createWorker(cycle);
 	} catch(Exception& e){
-		std::cerr << e.what() << std::endl;
-		return 0; //error code
+		std::cerr << e.what() << std::endl; //에러 기록용 파일?? 표준 에러?
+		if (errno != 0)
+			std::cerr << ": " << strerror(errno) << std::endl;
+		return error_code;
 	}
-	if (parseConf(cycle, conf) == FALSE)
-		// return 0;
-
 	return 0;
 }

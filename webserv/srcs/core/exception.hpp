@@ -3,14 +3,38 @@
 
 # include <iostream>
 
-class Exception{
+enum error_code_type {
+	CONF_OPEN_FAIL = 1,
+	CONF_READ_FAIL,
+	CONF_DIRECTIVE_OVERLAP,
+	CONF_INVALID_ARG_CNT,
+	CONF_INVALID_VALUE,
+	CONF_INVALID_FORM,
+	CONF_INVALID_LOC,
+	CONF_INVALID_DIRECTIVE,
+	CONF_LACK_DIRECTIVE,
+	CONF_TOKENIZE_FAIL,
+	WORK_CREATE_KQ_FAIL,
+	WORK_CREATE_SOCKET_FAIL,
+	EVENT_BIND_FAIL,
+	EVENT_LISTEN_FAIL,
+	EVENT_ACCEPT_FAIL,
+	EVENT_RECV_FAIL,
+	EVENT_SEND_FAIL,
+};
+
+class Exception {
 
 	public:
-		Exception(const std::string& msg);
+		Exception(int error_code);
+		//orthodox??
 		const char* what() const;
 
 	private:
-		std::string msg_;
+		Exception(void);
+		std::string message;
 };
+
+void setException(int _error_code);
 
 #endif

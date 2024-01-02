@@ -3,12 +3,15 @@
 
 # include <fstream>
 # include <sstream>
-# include <iostream>
 # include "cmd.hpp"
 
-# define CONF_MAIN		0x00000100
-# define CONF_SRV		0x00000200
-# define CONF_LOC		0x00000400
+# define TOKEN_SIZE 5
+
+enum conf_location {
+	CONF_MAIN,
+	CONF_SRV,
+	CONF_LOC
+};
 
 class Conf {
 	public:
@@ -19,8 +22,8 @@ class Conf {
 
 		Conf&	operator =(const Conf& src);
 
-		int						setFile(std::string _file_name);
-		int						setCmd(void);
+		void					setFile(std::string _file_name);
+		void					setCmd(void);
 
 		std::ifstream&			getFile(void);
 		const std::ifstream&	getFileConst(void) const;
@@ -28,7 +31,6 @@ class Conf {
 		int						getCmdMaxConst(int loc_type) const;
 
 	private:
-
 		std::ifstream		file;
 		std::string			file_name;
 
@@ -40,13 +42,6 @@ class Conf {
 		static const int	loc_cmd_max;
 };
 
-int parseConf(Cycle &cycle, Conf &conf);
-
-int mainWorkerProcesses(Cycle& cycle, std::string tokens[]);
-int mainWorkerConnections(Cycle& cycle, std::string tokens[]);
-int mainClientMaxBodySize(Cycle& cycle, std::string tokens[]);
-int serverListen(Cycle& cycle, std::string tokens[]);
-int serverName(Cycle& cycle, std::string tokens[]);
-int serverErrorPage(Cycle& cycle, std::string tokens[]);
+void parseConf(Cycle &cycle, Conf &conf);
 
 #endif

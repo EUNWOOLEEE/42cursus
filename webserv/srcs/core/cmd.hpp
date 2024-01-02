@@ -1,7 +1,6 @@
 #ifndef CMD_HPP
 # define CMD_HPP
 
-# include <iostream>
 # include "cycle.hpp"
 
 enum cmd_args {
@@ -10,7 +9,7 @@ enum cmd_args {
 	CMD_TAKE2
 };
 
-typedef int (*handler_t)(Cycle&, std::string[]);
+typedef void (*handler_t)(Cycle&, std::string[]);
 
 class Cmd {
 	public:
@@ -30,5 +29,15 @@ class Cmd {
 		int			arg_cnt;
 		handler_t	handler;
 };
+
+void mainWorkerProcesses(Cycle& cycle, std::string tokens[]);
+void mainWorkerConnections(Cycle& cycle, std::string tokens[]);
+void mainClientMaxBodySize(Cycle& cycle, std::string tokens[]);
+
+void serverListen(Cycle& cycle, std::string tokens[]);
+void serverName(Cycle& cycle, std::string tokens[]);
+void serverErrorPage(Cycle& cycle, std::string tokens[]);
+
+void locationRoot(Cycle& cycle, std::string tokens[]);
 
 #endif
