@@ -46,7 +46,7 @@ void createWorker(Cycle &cycle) {
 				prepConnect(cycle, i);
 			} catch(Exception& e){
 				std::cerr << e.what() << std::endl; //에러 기록용 파일?? 표준 에러?
-				//부모에게 에러코드 전달?
+				//부모에게 에러코드 전달하고 부모에서 오류난 자식 pid랑 같이 출력하기?
 			}
 		}
 	}

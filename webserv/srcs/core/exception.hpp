@@ -4,7 +4,8 @@
 # include <iostream>
 
 enum error_code_type {
-	CONF_OPEN_FAIL = 1,
+	PROG_INVALID_ARG_CNT = 1,
+	CONF_OPEN_FAIL,
 	CONF_READ_FAIL,
 	CONF_DIRECTIVE_OVERLAP,
 	CONF_INVALID_ARG_CNT,
@@ -21,20 +22,26 @@ enum error_code_type {
 	EVENT_ACCEPT_FAIL,
 	EVENT_RECV_FAIL,
 	EVENT_SEND_FAIL,
+	EVENT_ERROR_FLAG,
 };
 
 class Exception {
-
 	public:
 		Exception(int error_code);
 		//orthodox??
 		const char* what() const;
 
+		void	 	setClientFd(uintptr_t _client_fd);
+		uintptr_t	getClientFd(void);
+
 	private:
 		Exception(void);
-		std::string message;
+		
+		std::string	message;
+		uintptr_t	client_fd;
 };
 
 void setException(int _error_code);
+void setEventException(int _error_code, uintptr_t client_fd);
 
 #endif

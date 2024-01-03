@@ -121,6 +121,15 @@ int Conf::getCmdMaxConst(int loc_type) const {
 	return -1;
 }
 
+void setConf(Cycle &cycle, Conf &conf, int argc, char *file_name) {
+	if (argc != 1 && argc != 2)
+		setException(PROG_INVALID_ARG_CNT);
+	if (argc == 1)
+		conf = Conf(DEFAULT_FILE);
+	else
+		conf = Conf(file_name);
+}
+
 void parseConf(Cycle &cycle, Conf &conf) {
 	char			buf[BUF_SIZE];
 	std::string		tokens[TOKEN_SIZE];

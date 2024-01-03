@@ -6,6 +6,7 @@
 # include "cmd.hpp"
 
 # define TOKEN_SIZE 5
+# define DEFAULT_FILE "default.conf"
 
 enum conf_location {
 	CONF_MAIN,
@@ -42,6 +43,7 @@ class Conf {
 		static const int	loc_cmd_max;
 };
 
+void setConf(Cycle &cycle, Conf &conf, int argc, char *file_name);
 void parseConf(Cycle &cycle, Conf &conf);
 
 #endif

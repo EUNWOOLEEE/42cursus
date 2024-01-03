@@ -10,7 +10,6 @@ static void recieveFromClient(int client_socket, std::map<int, std::string> &cli
 void prepConnect(Cycle &cycle, int id) {
 	Worker		worker(id);
 	sockaddr_in	server_addr;
-	// socklen_t	server_addr_size;
 	int			listen_socket = worker.getListenSocket();
 
 	std::memset(&server_addr, 0, sizeof(server_addr));
@@ -18,8 +17,7 @@ void prepConnect(Cycle &cycle, int id) {
 	server_addr.sin_port = htons(80);
 	server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
-	if (bind(listen_socket, reinterpret_cast<sockaddr *>(&server_addr), \
-				sizeof(sockaddr_in)) == -1)
+	if (bind(listen_socket, reinterpret_cast<sockaddr *>(&server_addr), sizeof(sockaddr_in)) == -1)
 		setException(EVENT_BIND_FAIL);
 	if (listen(listen_socket, LISTEN_QUEUE_SIZE) == -1)
 		setException(EVENT_LISTEN_FAIL);
@@ -32,11 +30,10 @@ static void startConnect(Cycle &cycle, Worker &worker) {
 	std::map<int, std::string>	clients;
 	std::vector<struct kevent>	change_list, event_list(EVENT_LIST_INIT_SIZE);
 
-	uint32_t					new_events;
-	struct kevent				*cur_event;
-
 	addEvent(change_list, listen_socket, EVFILT_READ, EV_ADD | EV_ENABLE, 0, 0, NULL);
 	
+	uint32_t		new_events;
+	struct kevent	*cur_event;
 	while (1) {
 		//timeout 설정해야 할 듯
 		new_events = kevent(worker.getEventQueue(), &change_list[0], change_list.size(), \
@@ -52,7 +49,7 @@ static void startConnect(Cycle &cycle, Worker &worker) {
 			cur_event = &event_list[i];
 
 			if (cur_event->flags == EV_ERROR) {
-				//error
+				setEventException(EVENT_ERROR_FLAG, cur_event->ident);
 			}
 			if (cur_event->filter == EVFILT_READ) {
 				if (cur_event->ident == listen_socket) {
@@ -69,7 +66,7 @@ static void startConnect(Cycle &cycle, Worker &worker) {
 				// response send
 				std::string	response;
 				if (send(cur_event->ident, response.c_str(), response.length(), 0) == -1)
-					setException(EVENT_SEND_FAIL);
+					setEventException(EVENT_SEND_FAIL, cur_event->ident);
 			}
 		}
 	}
@@ -107,5 +104,5 @@ static void recieveFromClient(int client_socket, std::map<int, std::string> &cli
 		clients[client_socket] += tmp;
 	}
 	if (recieve_size == -1 || errno != EAGAIN)
-		setException(EVENT_RECV_FAIL);
+		setEventException(EVENT_RECV_FAIL, client_socket);
 }
