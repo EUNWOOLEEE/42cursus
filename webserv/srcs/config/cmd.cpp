@@ -140,9 +140,9 @@ void locationAutoIndex(Cycle& cycle, std::string tokens[]) {
 		throw Exception(CONF_DUP_DIRCTV, tokens[0]);
 
 	if (tokens[1] == "on")
-		location.setAutoIndex(TRUE);
+		location.setAutoIndex(true);
 	else if (tokens[1] == "off")
-		location.setAutoIndex(FALSE);
+		location.setAutoIndex(false);
 	else
 		throw Exception(CONF_INVALID_DIRCTV_VALUE, tokens[1]);
 }

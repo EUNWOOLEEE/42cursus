@@ -77,8 +77,8 @@ void Event::prepConnect(std::list<Server>& server_list) {
         server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
 		// socket timeout 설정
-        // int     optval = 1;
-        // setsockopt(new_listen_socket, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval));
+        int     optval = 1;
+        setsockopt(new_listen_socket, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval));
 
         if (bind(new_listen_socket, reinterpret_cast<sockaddr*>(&server_addr), sizeof(sockaddr_in)) == -1)
             throw Exception(EVENT_FAIL_BIND);
@@ -110,19 +110,6 @@ void Event::acceptNewClient(int listen_socket) {
 	else {
 		eventException(EVENT_CONNECT_FULL, 0);
 	}
-}
-
-void Event::sendToClient(Client& client) {
-	std::string response_msg = client.get_response_instance().get_response_message();
-	int client_socket = client.get_client_soket();
-
-	if (send(client_socket, response_msg.c_str(), response_msg.length() + 1, 0) == -1) {
-		disconnectClient(client_socket);
-		eventException(EVENT_FAIL_SEND, client_socket);
-	}
-
-	if (response_msg.find("Connection: close") != std::string::npos)
-		disconnectClient(client_socket);
 }
 
 int Event::recieveFromClient(Client& client) {
@@ -170,6 +157,71 @@ int Event::recieveFromClient(Client& client) {
 		}
 	}
 	return true;
+}
+
+void Event::recieveFailed(Client& client, std::vector<Client*>& read_timeout_list){
+	for (unsigned long i = 0; i < read_timeout_list.size(); i++) {
+		if (read_timeout_list[i] == &client) {
+			read_timeout_list.erase(read_timeout_list.begin() + i);
+			break;
+		}
+	}
+}
+
+void Event::recieveDone(Cycle& cycle, Client& client, std::vector<Client*>& read_timeout_list, std::vector<Client*> cgi_timeout_list){
+	client.do_parse(cycle);
+	client.get_response_instance().set_body("");
+	for (unsigned long i = 0; i < read_timeout_list.size(); i++) {
+		if (read_timeout_list[i] == &client) {
+			read_timeout_list.erase(read_timeout_list.begin() + i);
+			break;
+		}
+	}
+	if (client.get_status_code() < MOVED_PERMANENTLY && client.get_expect() == false)
+	{
+		try
+		{
+			if (client.get_cgi() == true)
+			{
+				client.set_property_for_cgi(client.get_request_instance());
+
+				pid_t	cgi_pid = Cgi::execute_cgi(client.get_request_instance(),	\
+													client.get_cgi_instance());
+				if (cgi_pid != -1) {
+					addEvent(cgi_pid, EVFILT_PROC, EV_ADD | EV_ONESHOT, NOTE_EXIT, 0, client.get_client_soket_ptr());
+					client.set_cgi_fork_status (true);
+					client.get_timeout_instance().setSavedTime();
+					cgi_timeout_list.push_back(&client);
+				}
+				return ;
+			}
+			client.do_method_without_cgi(client.get_request_instance());
+		}
+		catch(int e)
+		{
+			client.set_status_code(e);
+		}
+	}
+	prepSend(client);
+}
+
+void Event::prepSend(Client& client) {
+	client.assemble_response();
+	client.get_request_instance().get_request_msg() = "";
+	addEvent(client.get_client_soket(), EVFILT_WRITE, EV_ADD | EV_ONESHOT, 0, 0, event_type_client);
+}
+
+void Event::sendToClient(Client& client) {
+	std::string response_msg = client.get_response_instance().get_response_message();
+	int client_socket = client.get_client_soket();
+
+	if (send(client_socket, response_msg.c_str(), response_msg.length() + 1, 0) == -1) {
+		disconnectClient(client_socket);
+		eventException(EVENT_FAIL_SEND, client_socket);
+	}
+
+	if (response_msg.find("Connection: close") != std::string::npos)
+		disconnectClient(client_socket);
 }
 
 void Event::reclaimProcess(Client& client) {
@@ -240,9 +292,9 @@ void startConnect(Cycle& cycle) {
 				char*		event_type = static_cast<char*>(cur_event->udata);
 				uintptr_t 	tmp_ident = cur_event->ident;
 
-				if (std::strcmp(event_type, "listen") == 0) {
+				if (std::strcmp(event_type, "listen") == 0)
 					event.acceptNewClient(cur_event->ident);
-				}
+
 				else if (std::strcmp(event_type, "client") == 0) {
 					Client&	event_client = server[tmp_ident];
 					event_client.get_request_instance().set_cycle(cycle);
@@ -253,69 +305,18 @@ void startConnect(Cycle& cycle) {
 					}
 
 					int	res = event.recieveFromClient(event_client);
-					if (res == -1) {
-						for (unsigned long i = 0; i < read_timeout_list.size(); i++) {
-							if (read_timeout_list[i] == &event_client) {
-								read_timeout_list.erase(read_timeout_list.begin() + i);
-								break;
-							}
-						}
-						continue;
-					}
-					else if (res == true) {
-						event_client.do_parse(cycle);
-						event_client.get_response_instance().set_body("");
-						for (unsigned long i = 0; i < read_timeout_list.size(); i++) {
-							if (read_timeout_list[i] == &server[tmp_ident]) {
-								read_timeout_list.erase(read_timeout_list.begin() + i);
-								break;
-							}
-						}
-						for (unsigned long i = 0; i < read_timeout_list.size(); i++) {
-							if (read_timeout_list[i] == &server[tmp_ident]) {
-								read_timeout_list.erase(read_timeout_list.begin() + i);
-								break;
-							}
-						}
-						if (event_client.get_status_code() < MOVED_PERMANENTLY && event_client.get_expect() == false)
-						{
-							try
-							{
-								if (event_client.get_cgi() == true)
-								{
-									event_client.set_property_for_cgi(event_client.get_request_instance());
-
-									pid_t	cgi_pid = Cgi::execute_cgi(event_client.get_request_instance(),	\
-																		event_client.get_cgi_instance());
-									if (cgi_pid != -1) {
-										event.addEvent(cgi_pid, EVFILT_PROC, EV_ADD | EV_ONESHOT, NOTE_EXIT, 0, event_client.get_client_soket_ptr());
-										event_client.set_cgi_fork_status (true);
-										event_client.get_timeout_instance().setSavedTime();
-										cgi_timeout_list.push_back(&event_client);
-									}
-
-									continue;
-								}
-								event_client.do_method_without_cgi(event_client.get_request_instance());
-
-							}
-							catch(int e)
-							{
-								event_client.set_status_code(e);
-							}
-						}
-					}
-					else
-						continue;
-					server[tmp_ident].assemble_response();
-					server[tmp_ident].get_request_instance().get_request_msg() = "";
-					event.addEvent(server[tmp_ident].get_client_soket(), EVFILT_WRITE, EV_ADD | EV_ONESHOT, 0, 0, event.getEventTypeClient());
+					if (res == -1)
+						event.recieveFailed(event_client, read_timeout_list);
+					else if (res == true)
+						event.recieveDone(cycle, event_client, read_timeout_list, cgi_timeout_list);
 				}
 			}
+
 			else if (cur_event->filter == EVFILT_WRITE) {
 				event.sendToClient(server[cur_event->ident]);
 				server[cur_event->ident].reset_data();
 			}
+
 			else if (cur_event->filter == EVFILT_PROC) {
 				uintptr_t	client_socket = *(static_cast<uintptr_t*>(cur_event->udata));
 				event.reclaimProcess(server[client_socket]);

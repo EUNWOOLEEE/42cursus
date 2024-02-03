@@ -54,7 +54,7 @@ Conf::~Conf(void) {}
 void Conf::setFile(std::string _name) {
 	file_name = _name;
 	file.open(file_name);
-	if (file.is_open() == FALSE)
+	if (file.is_open() == false)
 		throw Exception(CONF_FAIL_OPEN, file_name);
 }
 
@@ -214,7 +214,7 @@ static void parseLocation(Cycle& cycle, Conf& conf, std::ifstream& file,	\
 		location_list.back().setAllowedMethod(				\
 			METHOD_GET | METHOD_POST | METHOD_DELETE);
 	if (location_list.back().getAutoIndex() == -1)
-		location_list.back().setAutoIndex(FALSE);
+		location_list.back().setAutoIndex(false);
 }
 
 static void callCmd(Cycle& cycle, Conf& conf, int location, \
@@ -249,10 +249,10 @@ static int tokenizer(char* str, std::string* tokens) {
 	int					idx = 0;
 
 	while (getline(istr, token, ' '))
-		if (token.empty() == FALSE)
+		if (token.empty() == false)
 			tokens[idx++] = token;
 
-	if (istr.eof() == FALSE)
+	if (istr.eof() == false)
 		throw Exception(CONF_FAIL_TOKENIZE);
 	return idx;
 }
@@ -267,8 +267,8 @@ static int checkConfLocation(std::string str[]) {
 }
 
 static void checkGetlineError(std::ifstream& file) {
-	if (file.eof() != TRUE \
-		&& (file.fail() == TRUE || file.bad() == TRUE))
+	if (file.eof() != true \
+		&& (file.fail() == true || file.bad() == true))
 		throw Exception(CONF_FAIL_READ);
 }
 

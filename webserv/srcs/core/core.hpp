@@ -14,8 +14,6 @@
 # include "../utils/exception.hpp"
 # include "../utils/Status.hpp"
 
-# define FALSE 0
-# define TRUE 1
 # define BUF_SIZE 1024
 # define STR_NOT_FOUND std::string::npos
 
