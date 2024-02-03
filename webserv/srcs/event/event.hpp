@@ -23,7 +23,6 @@ class Event {
 		Event(int event_list_size, size_t _worker_connections);
 		~Event(void);
 
-
 		int						getEventQueue(void) const;
 		std::vector<uintptr_t>&	getListenSocketList(void);
 		int						getCurConnection(void) const;
@@ -44,7 +43,6 @@ class Event {
 		int						recieveFromClient(Client& client);
 		void					recieveFailed(Client& client, std::vector<Client*>& read_timeout_list);
 		void					recieveDone(Cycle& cycle, Client& client, std::vector<Client*>& read_timeout_list, std::vector<Client*> cgi_timeout_list);
-		void					recieveContinue();
 		void					prepSend(Client& client);
 		void					reclaimProcess(Client& client);
 		void					disconnectClient(int client_socket);

@@ -1,10 +1,10 @@
 #ifndef SERVER_HPP
 # define SERVER_HPP
 
-# include "location.hpp"
-
 # include <list>
 # include <iostream>
+
+# include "location.hpp"
 
 class Server {
 	public:
@@ -17,13 +17,13 @@ class Server {
 		void						setPort(size_t _port);
 		void						setDomain(std::string _domain);
 
-		size_t					getPort(void) const;
+		size_t						getPort(void) const;
 		const std::string&			getDomain(void) const;
 		std::list<Location>&		getLocationList(void);
 		const std::list<Location>&	getLocationListConst(void) const;
 
 	private:
-		size_t			port;
+		size_t				port;
 		std::string			domain;
 
 		std::list<Location> location_list;

@@ -1,8 +1,8 @@
 #ifndef LOCATION_HPP
 # define LOCATION_HPP
 
-# include <iostream>
 # include <vector>
+# include <iostream>
 
 # define METHOD_GET		0x00000001
 # define METHOD_POST	0x00000010

@@ -15,6 +15,5 @@
 # include "../utils/Status.hpp"
 
 # define BUF_SIZE 1024
-# define STR_NOT_FOUND std::string::npos
 
 #endif

@@ -13,9 +13,9 @@ class Timeout {
 
 		Timeout& operator =(const Timeout& src);
 
-		void		setSavedTime(void);
+		void	setSavedTime(void);
 
-		bool		checkTimeout(size_t timeout);
+		bool	checkDiffTimeout(size_t timeout);
 
 	private:
 		time_t	saved_time;

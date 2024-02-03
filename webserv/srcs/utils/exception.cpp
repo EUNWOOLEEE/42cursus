@@ -23,7 +23,7 @@ Exception& Exception::operator =(const Exception& src) {
 	return *this;
 }
 
-void	Exception::setMessage(int costom_error) {
+void Exception::setMessage(int costom_error) {
 	switch (costom_error) {
 	case PROG_INVALID_ARG_CNT:
 		message = "Program has 1 or 2 arguments";
