@@ -27,8 +27,8 @@ NUM_TASK = 2
 SIZE = 0
 END = 1
 CHAR = ""
-GAUGE = 🎾...... 🐶=3 woof-woof!
-NUM_GAUGE = 22
+GAUGE = I want to be a bureaucrat!💼
+NUM_GAUGE = 27
 
 all:
 	@echo "$(PINK)BUILD $(NAME)$(RESET)"
