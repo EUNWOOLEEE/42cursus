@@ -16,5 +16,9 @@
 |[pipex](https://github.com/EUNWOOLEEE/42cursus/tree/main/pipex)|2
 |[Exam Rank 03](https://github.com/EUNWOOLEEE/42cursus/tree/main/exam/exam03)|3
 |[Philosophers](https://github.com/EUNWOOLEEE/42cursus/tree/main/philosophers)|3
-|[minishell](https://github.com/EUNWOOLEEE/Minishell)|3
-
+|[minishell](https://github.com/EUNWOOLEEE/Minishell)|3|https://github.com/EUNWOOLEEE/Minishell
+|NetPractice|4
+|[CPP 00 - 04](https://github.com/EUNWOOLEEE/42cursus/tree/main/CPP)|4
+|[miniRT](https://github.com/EUNWOOLEEE/42cursus/tree/main/miniRT)|4
+|Exam Rank 04|4
+|[webserv](https://github.com/EUNWOOLEEE/42cursus/tree/main/webserv)|5|https://github.com/JeisaNewbie/Webserv
