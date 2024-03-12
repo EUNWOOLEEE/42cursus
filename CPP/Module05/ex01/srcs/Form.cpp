@@ -35,7 +35,7 @@ bool				Form::getIsSigned(void) const { return is_signed; }
 unsigned int		Form::getSignGrade(void) const { return sign_grade; }
 unsigned int		Form::getExecuteGrade(void) const { return execute_grade; }
 
-void Form::besigned(Bureaucrat& bureaucrat) {
+void Form::beSigned(Bureaucrat const& bureaucrat) {
 	if (bureaucrat.getGrade() <= sign_grade)
 		is_signed = true;
 	else

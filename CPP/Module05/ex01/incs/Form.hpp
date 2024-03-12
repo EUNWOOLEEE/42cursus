@@ -19,7 +19,7 @@ class Form {
 		unsigned int		getSignGrade(void) const;
 		unsigned int		getExecuteGrade(void) const;
 
-		void 				besigned(Bureaucrat& bureaucrat);
+		void 				beSigned(Bureaucrat const& bureaucrat);
 
 		class gradeTooHighException : public std::exception {
 			public:
