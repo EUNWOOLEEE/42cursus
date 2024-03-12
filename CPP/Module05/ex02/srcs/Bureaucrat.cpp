@@ -42,7 +42,7 @@ void Bureaucrat::decGrade(void) {
 
 void Bureaucrat::signForm(AForm& form) {
 	try {
-		form.besigned(*this);
+		form.beSigned(*this);
 	} catch (AForm::gradeTooLowException& e) {
 		std::cout << name << " couldn't sign " << form.getName() << " because " << e.what();
 		return ;
@@ -53,11 +53,12 @@ void Bureaucrat::signForm(AForm& form) {
 void Bureaucrat::executeForm(AForm const& form) {
 	try {
 		form.execute(*this);
+		std::cout << name << " executed " << form.getName() << "\n";
+	} catch (AForm::formIsNotSignedException& e) {
+		std::cout << name << " couldn't execute " << form.getName() << " because " << e.what();
 	} catch (AForm::gradeTooLowException& e) {
-		std::cout << name << " fail to execute " << form.getName() << "\n";
-		return ;
+		std::cout << name << " couldn't execute " << form.getName() << " because " << e.what();
 	}
-	std::cout << name << " executed " << form.getName() << "\n";
 }
 
 std::ostream& operator<<(std::ostream &out, const Bureaucrat& src) {

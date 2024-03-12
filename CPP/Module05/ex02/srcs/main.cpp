@@ -9,7 +9,7 @@ int main() {
 		Bureaucrat a("a", 137);
 		std::cout << a << "\n";
 
-		ShrubberyCreationForm shrub("shrub");
+		ShrubberyCreationForm shrub("shrub1");
 		std::cout << shrub << "\n";
 		a.signForm(shrub);
 		a.executeForm(shrub);
@@ -38,16 +38,24 @@ int main() {
 		// std::cout << president << "\n";
 
 
+		// std::cout << "----- Test: Try execute before sign and low grade------\n\n";
+		// Bureaucrat a("a", 10);
+		// std::cout << a << "\n";
+		// PresidentialPardonForm president("president");
+		// std::cout << president << "\n";
+		// a.executeForm(president);
+		// a.signForm(president);
+		// std::cout << president << "\n";
+		// a.executeForm(president);
+
+
 		// std::cout << "------------ Test: copy ------------\n";
-		// AForm e(c);
-		// AForm f("f", 1, 1);
-		// f = d;
-		// std::cout << e << "\n" << f << "\n";
-
-		// std::cout << "----- Test: invalid argument ------\n\n";
-		// AForm e("e", 0, 1);
-		// AForm f("f", 150, 151);
-
+		// ShrubberyCreationForm shrub1("shrub1");
+		// ShrubberyCreationForm shrub2("shrub2");
+		// ShrubberyCreationForm shrub3(shrub1);
+		// ShrubberyCreationForm shrub4("shrub4");
+		// shrub4 = shrub2;
+		// std::cout << shrub3 << "\n" << shrub4 << "\n";
 
 	} catch (const Bureaucrat::gradeTooHighException& e) {
 		std::cout << e.what();

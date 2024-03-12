@@ -36,7 +36,7 @@ unsigned int		AForm::getExecuteGrade(void) const { return execute_grade; }
 
 void				AForm::setIsSigned(bool _is_signed) { is_signed = _is_signed; }
 
-void AForm::besigned(Bureaucrat& bureaucrat) {
+void AForm::beSigned(Bureaucrat const& bureaucrat) {
 	if (bureaucrat.getGrade() <= sign_grade)
 		is_signed = true;
 	else

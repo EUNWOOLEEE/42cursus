@@ -25,12 +25,13 @@ ShrubberyCreationForm& ShrubberyCreationForm::operator =(const ShrubberyCreation
 }
 
 void ShrubberyCreationForm::execute(Bureaucrat const& executor) const {
-	if (getExecuteGrade() >= executor.getGrade()) {
-		std::ofstream file(getName() + "_shrubbery");
-		file << shrub_trees;
-	}
-	else
+	if (getIsSigned() == false)
+		throw formIsNotSignedException();
+	if (getExecuteGrade() < executor.getGrade())
 		throw gradeTooLowException();
+		
+	std::ofstream file(getName() + "_shrubbery");
+	file << shrub_trees;
 }
 
 std::ostream& operator<<(std::ostream &out, const ShrubberyCreationForm& src) {
