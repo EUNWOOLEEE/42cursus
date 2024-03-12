@@ -43,13 +43,3 @@ AForm* RobotomyRequestForm::makeInstance(const std::string& name) {
 	return new RobotomyRequestForm(name);
 }
 
-std::ostream& operator<<(std::ostream &out, const RobotomyRequestForm& src) {
-	out << src.getName() << ":\nsigned";
-	if (src.getIsSigned() == true)
-		out << "[ O ]\n";
-	else
-		out << "[ X ]\n";
-	out << "grade for sign[ " << src.getSignGrade() << " ]\n";
-	out << "grade for execute[ " << src.getExecuteGrade() << " ]\n";
-	return out;
-}

@@ -23,7 +23,7 @@
 
 class ShrubberyCreationForm : public AForm {
 	public :
-		ShrubberyCreationForm(std::string name);
+		ShrubberyCreationForm(const std::string& name);
 		ShrubberyCreationForm(const ShrubberyCreationForm& obj);
 		virtual ~ShrubberyCreationForm(void);
 
@@ -34,7 +34,5 @@ class ShrubberyCreationForm : public AForm {
 	private :
 		ShrubberyCreationForm(void);
 };
-
-std::ostream& operator<<(std::ostream& out, const ShrubberyCreationForm& src);
 
 #endif

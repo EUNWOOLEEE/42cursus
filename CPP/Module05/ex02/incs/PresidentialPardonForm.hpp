@@ -5,7 +5,7 @@
 
 class PresidentialPardonForm : public AForm {
 	public :
-		PresidentialPardonForm(std::string name);
+		PresidentialPardonForm(const std::string& name);
 		PresidentialPardonForm(const PresidentialPardonForm& obj);
 		virtual ~PresidentialPardonForm(void);
 
@@ -16,7 +16,5 @@ class PresidentialPardonForm : public AForm {
 	private :
 		PresidentialPardonForm(void);
 };
-
-std::ostream& operator<<(std::ostream& out, const PresidentialPardonForm& src);
 
 #endif

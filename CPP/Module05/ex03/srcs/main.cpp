@@ -8,49 +8,32 @@ int main() {
 
 		std::cout << "----- Test: Shrubbery------\n\n";
 		AForm* shrub = intern.makeForm("shrubbery creation", "shrub");
-		// std::cout << shrub << " " << *shrub << "\n";
+		std::cout << shrub << "\n" << *shrub << "\n";
+
+		a.signForm(*shrub);
+		std::cout << *shrub << "\n";
+		a.executeForm(*shrub);
+		delete shrub;
 
 
 		// std::cout << "----- Test: Robotomy------\n\n";
-		// Bureaucrat a("a", 45);
-		// std::cout << a << "\n";
+		// AForm* robo = intern.makeForm("robotomy requset", "robo");
+		// std::cout << robo << "\n" << *robo << "\n";
 
-		// RobotomyRequestForm robo("robo");
-		// std::cout << robo << "\n";
-		// a.signForm(robo);
-		// a.executeForm(robo);
-		// std::cout << robo << "\n";
+		// a.signForm(*robo);
+		// std::cout << *robo << "\n";
+		// a.executeForm(*robo);
+		// delete robo;
 
 
 		// std::cout << "----- Test: Pardon------\n\n";
-		// Bureaucrat a("a", 5);
-		// std::cout << a << "\n";
+		// AForm* president = intern.makeForm("presidential pardon", "president");
+		// std::cout << president << "\n" << *president << "\n";
 
-		// PresidentialPardonForm president("president");
-		// std::cout << president << "\n";
-		// a.signForm(president);
-		// a.executeForm(president);
-		// std::cout << president << "\n";
-
-
-		// std::cout << "----- Test: Try execute before sign and low grade------\n\n";
-		// Bureaucrat a("a", 10);
-		// std::cout << a << "\n";
-		// PresidentialPardonForm president("president");
-		// std::cout << president << "\n";
-		// a.executeForm(president);
-		// a.signForm(president);
-		// std::cout << president << "\n";
-		// a.executeForm(president);
-
-
-		// std::cout << "------------ Test: copy ------------\n";
-		// ShrubberyCreationForm shrub1("shrub1");
-		// ShrubberyCreationForm shrub2("shrub2");
-		// ShrubberyCreationForm shrub3(shrub1);
-		// ShrubberyCreationForm shrub4("shrub4");
-		// shrub4 = shrub2;
-		// std::cout << shrub3 << "\n" << shrub4 << "\n";
+		// a.signForm(*president);
+		// std::cout << *president << "\n";
+		// a.executeForm(*president);
+		// delete president;
 
 	} catch (const Bureaucrat::gradeTooHighException& e) {
 		std::cout << e.what();

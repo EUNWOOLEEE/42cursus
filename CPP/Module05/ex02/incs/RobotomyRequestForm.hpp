@@ -6,7 +6,7 @@
 
 class RobotomyRequestForm : public AForm {
 	public :
-		RobotomyRequestForm(std::string name);
+		RobotomyRequestForm(const std::string& name);
 		RobotomyRequestForm(const RobotomyRequestForm& obj);
 		virtual ~RobotomyRequestForm(void);
 
@@ -17,7 +17,5 @@ class RobotomyRequestForm : public AForm {
 	private :
 		RobotomyRequestForm(void);
 };
-
-std::ostream& operator<<(std::ostream& out, const RobotomyRequestForm& src);
 
 #endif

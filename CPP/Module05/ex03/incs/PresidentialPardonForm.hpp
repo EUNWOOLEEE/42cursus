@@ -18,6 +18,4 @@ class PresidentialPardonForm : public AForm {
 		PresidentialPardonForm(void);
 };
 
-std::ostream& operator<<(std::ostream& out, const PresidentialPardonForm& src);
-
 #endif

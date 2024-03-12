@@ -37,14 +37,3 @@ void ShrubberyCreationForm::execute(Bureaucrat const& executor) const {
 AForm* ShrubberyCreationForm::makeInstance(const std::string& name) {
 	return new ShrubberyCreationForm(name);
 }
-
-std::ostream& operator<<(std::ostream &out, const ShrubberyCreationForm& src) {
-	out << src.getName() << ":\nsigned";
-	if (src.getIsSigned() == true)
-		out << "[ O ]\n";
-	else
-		out << "[ X ]\n";
-	out << "grade for sign[ " << src.getSignGrade() << " ]\n";
-	out << "grade for execute[ " << src.getExecuteGrade() << " ]\n";
-	return out;
-}

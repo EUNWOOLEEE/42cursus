@@ -10,7 +10,7 @@ class AForm {
 	public:
 		AForm(std::string _name, int _sign_grade, int _excute_grade);
 		AForm(const AForm& obj);
-		~AForm(void);
+		virtual ~AForm(void);
 
 		AForm& operator =(const AForm& obj);
 
@@ -45,5 +45,7 @@ class AForm {
 		const unsigned int		sign_grade;
 		const unsigned int		execute_grade;
 };
+
+std::ostream& operator<<(std::ostream& out, const AForm& src);
 
 #endif

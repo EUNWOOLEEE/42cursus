@@ -1,6 +1,6 @@
 #include "../incs/PresidentialPardonForm.hpp"
 
-PresidentialPardonForm::PresidentialPardonForm(std::string name)	\
+PresidentialPardonForm::PresidentialPardonForm(const std::string& name)	\
 						: AForm(name, 25, 5) {
 	std::cout << "[OCCF] PresidentialPardonForm defalut constructor called\n";
 }
@@ -31,15 +31,4 @@ void PresidentialPardonForm::execute(Bureaucrat const& executor) const {
 		throw gradeTooLowException();
 		
 	std::cout << getName() << " is pardoned by Zaphod Beeblebrox\n";
-}
-
-std::ostream& operator<<(std::ostream &out, const PresidentialPardonForm& src) {
-	out << src.getName() << ":\nsigned";
-	if (src.getIsSigned() == true)
-		out << "[ O ]\n";
-	else
-		out << "[ X ]\n";
-	out << "grade for sign[ " << src.getSignGrade() << " ]\n";
-	out << "grade for execute[ " << src.getExecuteGrade() << " ]\n";
-	return out;
 }

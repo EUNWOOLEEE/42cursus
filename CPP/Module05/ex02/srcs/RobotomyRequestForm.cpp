@@ -1,6 +1,6 @@
 #include "../incs/RobotomyRequestForm.hpp"
 
-RobotomyRequestForm::RobotomyRequestForm(std::string name)	\
+RobotomyRequestForm::RobotomyRequestForm(const std::string& name)	\
 						: AForm(name, 72, 45) {
 	std::cout << "[OCCF] RobotomyRequestForm defalut constructor called\n";
 }
@@ -37,15 +37,4 @@ void RobotomyRequestForm::execute(Bureaucrat const& executor) const {
 		std::cout << "(whirring...) " << getName() << " is robotomized with 50% probability\n";
 	else
 		std::cout << "Fail to robotomize\n";
-}
-
-std::ostream& operator<<(std::ostream &out, const RobotomyRequestForm& src) {
-	out << src.getName() << ":\nsigned";
-	if (src.getIsSigned() == true)
-		out << "[ O ]\n";
-	else
-		out << "[ X ]\n";
-	out << "grade for sign[ " << src.getSignGrade() << " ]\n";
-	out << "grade for execute[ " << src.getExecuteGrade() << " ]\n";
-	return out;
 }

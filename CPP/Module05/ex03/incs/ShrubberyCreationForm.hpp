@@ -36,6 +36,4 @@ class ShrubberyCreationForm : public AForm {
 		ShrubberyCreationForm(void);
 };
 
-std::ostream& operator<<(std::ostream& out, const ShrubberyCreationForm& src);
-
 #endif

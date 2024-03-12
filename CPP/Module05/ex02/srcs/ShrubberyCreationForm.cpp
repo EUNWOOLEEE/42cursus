@@ -1,6 +1,6 @@
 #include "../incs/ShrubberyCreationForm.hpp"
 
-ShrubberyCreationForm::ShrubberyCreationForm(std::string name)	\
+ShrubberyCreationForm::ShrubberyCreationForm(const std::string& name)	\
 						: AForm(name, 145, 137) {
 	std::cout << "[OCCF] ShrubberyCreationForm defalut constructor called\n";
 }
@@ -32,15 +32,4 @@ void ShrubberyCreationForm::execute(Bureaucrat const& executor) const {
 		
 	std::ofstream file(getName() + "_shrubbery");
 	file << shrub_trees;
-}
-
-std::ostream& operator<<(std::ostream &out, const ShrubberyCreationForm& src) {
-	out << src.getName() << ":\nsigned";
-	if (src.getIsSigned() == true)
-		out << "[ O ]\n";
-	else
-		out << "[ X ]\n";
-	out << "grade for sign[ " << src.getSignGrade() << " ]\n";
-	out << "grade for execute[ " << src.getExecuteGrade() << " ]\n";
-	return out;
 }

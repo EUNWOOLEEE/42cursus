@@ -36,14 +36,3 @@ void PresidentialPardonForm::execute(Bureaucrat const& executor) const {
 AForm* PresidentialPardonForm::makeInstance(const std::string& name) {
 	return new PresidentialPardonForm(name);
 }
-
-std::ostream& operator<<(std::ostream &out, const PresidentialPardonForm& src) {
-	out << src.getName() << ":\nsigned";
-	if (src.getIsSigned() == true)
-		out << "[ O ]\n";
-	else
-		out << "[ X ]\n";
-	out << "grade for sign[ " << src.getSignGrade() << " ]\n";
-	out << "grade for execute[ " << src.getExecuteGrade() << " ]\n";
-	return out;
-}
