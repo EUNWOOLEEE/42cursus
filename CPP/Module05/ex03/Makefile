@@ -32,8 +32,8 @@ NUM_TASK = 7
 SIZE = 0
 END = 1
 CHAR = ""
-GAUGE = At least this beats coffee-making
-NUM_GAUGE = 33
+GAUGE = At least this beats coffee-making🍵
+NUM_GAUGE = 34
 
 all:
 	@echo "$(PINK)BUILD $(NAME)$(RESET)"

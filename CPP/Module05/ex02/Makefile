@@ -31,8 +31,8 @@ NUM_TASK = 6
 SIZE = 0
 END = 1
 CHAR = ""
-GAUGE = No, you need form 28B, not 28C..
-NUM_GAUGE = 32
+GAUGE = No, you need form 28B, not 28C..📑
+NUM_GAUGE = 33
 
 all:
 	@echo "$(PINK)BUILD $(NAME)$(RESET)"
