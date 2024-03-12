@@ -1,4 +1,4 @@
-NAME = bureaucrat
+NAME = forms
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
@@ -10,8 +10,12 @@ OBJS_DIR = objs
 RM = rm -rf
 MAKE = make
 
-SRCS =	main.cpp \
-		Bureaucrat.cpp
+SRCS =	main.cpp					\
+		Bureaucrat.cpp				\
+		AForm.cpp					\
+		ShrubberyCreationForm.cpp	\
+		RobotomyRequestForm.cpp		\
+		PresidentialPardonForm.cpp	\
 
 SRCS_WITH_PATH = $(addprefix $(SRCS_DIR)/, $(SRCS))
 OBJS = $(SRCS_WITH_PATH:$(SRCS_DIR)/%.cpp=$(OBJS_DIR)/%.o)
@@ -27,7 +31,7 @@ NUM_TASK = 2
 SIZE = 0
 END = 1
 CHAR = ""
-GAUGE = I want to be a bureaucrat!💼
+GAUGE = No, you need form 28B, not 28C..
 NUM_GAUGE = 27
 
 all:

@@ -14,7 +14,7 @@ Bureaucrat::Bureaucrat(const Bureaucrat& obj)	\
 	std::cout << "[OCCF] Bureaucrat copy constructor called\n";
 }
 
-Bureaucrat::~Bureaucrat(void) {
+Bureaucrat::~Bureaucrat() {
 	std::cout << "[OCCF] Bureaucrat destructor called\n";
 }
 
@@ -38,6 +38,26 @@ void Bureaucrat::decGrade(void) {
 	if (grade == 150)
 		throw gradeTooLowException();
 	grade++;
+}
+
+void Bureaucrat::signForm(AForm& form) {
+	try {
+		form.besigned(*this);
+	} catch (AForm::gradeTooLowException& e) {
+		std::cout << name << " couldn't sign " << form.getName() << " because " << e.what();
+		return ;
+	}
+	std::cout << name << " signed " << form.getName() << "\n";
+}
+
+void Bureaucrat::executeForm(AForm const& form) {
+	try {
+		form.execute(*this);
+	} catch (AForm::gradeTooLowException& e) {
+		std::cout << name << " fail to execute " << form.getName() << "\n";
+		return ;
+	}
+	std::cout << name << " executed " << form.getName() << "\n";
 }
 
 std::ostream& operator<<(std::ostream &out, const Bureaucrat& src) {
