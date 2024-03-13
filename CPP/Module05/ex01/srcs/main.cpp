@@ -10,6 +10,7 @@ int main() {
 		Form d("d", 150, 150);
 		std::cout << c << "\n" << d << "\n";
 
+
 		// std::cout << "----- Test: sign success and fail------\n\n";
 		// a.signForm(c);
 		// b.signForm(d);
@@ -23,11 +24,13 @@ int main() {
 		// b.signForm(d);
 		// std::cout << c << "\n" << d << "\n";
 
+
 		// std::cout << "------------ Test: copy ------------\n";
 		// Form e(c);
 		// Form f("f", 1, 1);
 		// f = d;
 		// std::cout << e << "\n" << f << "\n";
+
 
 		// std::cout << "----- Test: invalid argument ------\n\n";
 		// Form e("e", 0, 1);

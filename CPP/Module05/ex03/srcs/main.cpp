@@ -10,14 +10,14 @@ int main() {
 		Intern intern;
 		Bureaucrat a("a", 1);
 
-		std::cout << "----- Test: Shrubbery------\n\n";
-		AForm* shrub = intern.makeForm("shrubbery creation", "shrub");
-		std::cout << shrub << "\n" << *shrub << "\n";
+		// std::cout << "----- Test: Shrubbery------\n\n";
+		// AForm* shrub = intern.makeForm("shrubbery creation", "shrub");
+		// std::cout << shrub << "\n" << *shrub << "\n";
 
-		a.signForm(*shrub);
-		std::cout << *shrub << "\n";
-		a.executeForm(*shrub);
-		delete shrub;
+		// a.signForm(*shrub);
+		// std::cout << *shrub << "\n";
+		// a.executeForm(*shrub);
+		// delete shrub;
 
 
 		// std::cout << "----- Test: Robotomy------\n\n";
@@ -38,6 +38,7 @@ int main() {
 		// std::cout << *president << "\n";
 		// a.executeForm(*president);
 		// delete president;
+
 
 	} catch (const Bureaucrat::gradeTooHighException& e) {
 		std::cout << e.what();

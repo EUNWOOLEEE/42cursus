@@ -16,7 +16,7 @@ AForm* Intern::makeForm(const std::string name, const std::string target) {
 	for (int i = 0; i < 3; i++) {
 		if (name == form_type[i].first) {
 			AForm* tmp_form = form_type[i].second(target);
-			std::cout << "Intern creates " << name << "\n";
+			std::cout << "Intern creates " << target << "\n";
 			return tmp_form;
 		}
 	}
