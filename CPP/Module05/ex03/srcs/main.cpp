@@ -50,6 +50,7 @@ int main() {
 		std::cout << e.what();
 	}
 
+	std::cout << "\n\n";
 	asd();
 
 	return 0;

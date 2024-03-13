@@ -5,21 +5,21 @@
 
 int main() {
 	try {
-		// std::cout << "----- Test: Shrubbery------\n\n";
-		// Bureaucrat a("a", 137);
-		// std::cout << a << "\n";
+		std::cout << "----- Test: Shrubbery------\n\n";
+		Bureaucrat a("a", 137);
+		std::cout << a << "\n";
 
-		// ShrubberyCreationForm shrub("shrub");
-		// std::cout << shrub << "\n";
-		// a.signForm(shrub);
-		// a.executeForm(shrub);
-		// std::cout << shrub << "\n";
+		ShrubberyCreationForm shrub("shrub");
+		std::cout << shrub << "\n";
+		a.signForm(shrub);
+		a.executeForm(shrub);
+		std::cout << shrub << "\n";
 
-		// ShrubberyCreationForm shrub2("shrub2");
-		// std::cout << shrub2 << "\n";
-		// a.signForm(shrub2);
-		// a.executeForm(shrub2);
-		// std::cout << shrub2 << "\n";
+		ShrubberyCreationForm shrub2("shrub2");
+		std::cout << shrub2 << "\n";
+		a.signForm(shrub2);
+		a.executeForm(shrub2);
+		std::cout << shrub2 << "\n";
 
 
 		// std::cout << "----- Test: Robotomy------\n\n";

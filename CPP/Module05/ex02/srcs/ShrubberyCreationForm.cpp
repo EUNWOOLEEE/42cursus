@@ -29,7 +29,8 @@ void ShrubberyCreationForm::execute(Bureaucrat const& executor) const {
 		throw formIsNotSignedException();
 	if (getExecuteGrade() < executor.getGrade())
 		throw gradeTooLowException();
-		
-	std::ofstream file(getName() + "_shrubbery");
+	
+	std::string tmp = getName() + "_shrubbery";
+	std::ofstream file(tmp.c_str());
 	file << shrub_trees;
 }
