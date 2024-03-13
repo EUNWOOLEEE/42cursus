@@ -1,6 +1,10 @@
 #include "../incs/Bureaucrat.hpp"
 #include "../incs/Intern.hpp"
 
+void asd() {
+	system("leaks intern");
+}
+
 int main() {
 	try {
 		Intern intern;
@@ -44,6 +48,8 @@ int main() {
 	} catch (const AForm::gradeTooLowException& e) {
 		std::cout << e.what();
 	}
+
+	asd();
 
 	return 0;
 }
