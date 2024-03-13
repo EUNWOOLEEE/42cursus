@@ -2,6 +2,7 @@
 # define ROBOTOMYREQUESTFORM_HPP
 
 # include <ctime>
+# include <cstdlib>
 # include "AForm.hpp"
 
 class RobotomyRequestForm : public AForm {
