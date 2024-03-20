@@ -10,8 +10,13 @@ OBJS_DIR = objs
 RM = rm -rf
 MAKE = make
 
-SRCS =	main.cpp \
-		Bureaucrat.cpp
+SRCS =	main.cpp			\
+		ScalarConverter.cpp	\
+		fromChar.cpp		\
+		fromInt.cpp			\
+		fromFloat.cpp		\
+		fromDouble.cpp		\
+		fromPseudo.cpp
 
 SRCS_WITH_PATH = $(addprefix $(SRCS_DIR)/, $(SRCS))
 OBJS = $(SRCS_WITH_PATH:$(SRCS_DIR)/%.cpp=$(OBJS_DIR)/%.o)
@@ -23,7 +28,7 @@ YELLOW = \033[38;2;255;231;155m
 PECOCK = \033[38;2;115;187;201m
 PURPLE = \033[38;2;228;165;255m
 
-NUM_TASK = 2
+NUM_TASK = 7
 SIZE = 0
 END = 1
 CHAR = ""
