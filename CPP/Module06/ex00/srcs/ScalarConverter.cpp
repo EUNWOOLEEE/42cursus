@@ -11,6 +11,7 @@
 int checkType(const std::string& str);
 int checkDecimalDigits(const std::string& str);
 
+//sto? 사용하면 안되는듯
 void ScalarConverter::convert(std::string str) {
 	int type = checkType(str);
 
