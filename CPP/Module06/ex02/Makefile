@@ -1,4 +1,4 @@
-NAME = serializer
+NAME = identifier
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
@@ -10,9 +10,11 @@ OBJS_DIR = objs
 RM = rm -rf
 MAKE = make
 
-SRCS =	main.cpp			\
-		Serializer.cpp		\
-		Data.cpp
+SRCS =	main.cpp	\
+		Base.cpp	\
+		A.cpp		\
+		B.cpp		\
+		C.cpp
 
 SRCS_WITH_PATH = $(addprefix $(SRCS_DIR)/, $(SRCS))
 OBJS = $(SRCS_WITH_PATH:$(SRCS_DIR)/%.cpp=$(OBJS_DIR)/%.o)
@@ -24,11 +26,11 @@ YELLOW = \033[38;2;255;231;155m
 PECOCK = \033[38;2;115;187;201m
 PURPLE = \033[38;2;228;165;255m
 
-NUM_TASK = 3
+NUM_TASK = 5
 SIZE = 0
 END = 1
 CHAR = ""
-GAUGE = Make serializer...
+GAUGE = Make identifier...
 NUM_GAUGE = 18
 
 all:
