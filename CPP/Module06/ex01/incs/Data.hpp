@@ -11,6 +11,8 @@ class Data {
 
 		Data& operator =(const Data& obj);
 
+		std::string& getName(void);
+
 	private:
 		Data(void);
 

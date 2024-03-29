@@ -11,7 +11,7 @@
 int checkType(const std::string& str);
 int checkDecimalDigits(const std::string& str);
 
-//sto? 사용하면 안되는듯
+//변환 함수 확인하기
 void ScalarConverter::convert(std::string str) {
 	int type = checkType(str);
 
@@ -31,7 +31,7 @@ void ScalarConverter::convert(std::string str) {
 	}
 
 	else if (type == 2) {
-		int		i = stol(str);
+		int		i = strtol(str.c_str(), NULL, 10);
 
 		intToChar(i);
 		intToInt(i);
@@ -56,7 +56,7 @@ void ScalarConverter::convert(std::string str) {
 	}
 
 	else if (type == 4) {
-		double	d = stod(str);
+		double	d = strtod(str.c_str(), NULL);
 		int		digits = checkDecimalDigits(str);
 
 		doubleToChar(d);
@@ -80,9 +80,12 @@ int checkType(const std::string& str) {
 	// double max를 넘으면? 오버플로랑 변함이 의미 없을 때 처리하기
 	
 	try {
-		if (str == "-inff" || str == "-inf"		\
+		if (str == "inff" || str == "inf"		\
+			|| str == "-inff" || str == "-inf"	\
 			|| str == "+inff" || str == "+inf"	\
-			|| str == "nanf" || str == "nan")
+			|| str == "nanf" || str == "nan"	\
+			|| str == "-nanf" || str == "-nan"	\
+			|| str == "+nanf" || str == "+nan")
 			return 5;
 
 		stod(str);
@@ -92,6 +95,7 @@ int checkType(const std::string& str) {
 				return 3;
 			return 4;
 		}
+		// if 
 		return 2;
 
 	} catch (const std::exception& e) {

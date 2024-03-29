@@ -19,3 +19,7 @@ Data& Data::operator =(const Data& obj) {
 		name = obj.name;
 	return *this;
 }
+
+std::string& Data::getName(void) {
+	return name;
+}

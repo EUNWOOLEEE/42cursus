@@ -3,6 +3,7 @@
 
 # include <iostream>
 # include <stdexcept>
+# include <stdlib.h>
 
 class ScalarConverter {
 	public:
