@@ -1,4 +1,40 @@
+#include "../incs/ScalarConverter.hpp"
 #include <iostream>
+#include <float.h>
+
+static bool checkValid(const std::string& str);
+static void floatToChar(float f);
+static void floatToInt(float f);
+static void floatToFloat(float f);
+static void floatToDouble(float f);
+
+bool fromFloat(const std::string& str) {
+	if (checkValid(str) == false)
+		return false;
+
+	float	f = atof(str.c_str());
+	int		digits = checkDecimalDigits(str) - 1;
+
+	digits = digits == 0 ? 1 : digits;
+
+	floatToChar(f);
+	floatToInt(f);
+	std::cout.precision(digits);
+	std::cout << std::fixed;
+	floatToFloat(f);
+	floatToDouble(f);
+	std::cout << std::defaultfloat;
+	
+	return true;
+}
+
+bool checkValid(const std::string& str) {
+	double d = strtod(str.c_str(), NULL);
+	
+	if (d < FLT_MIN || FLT_MAX < d)
+		return false;
+	return true;
+}
 
 void floatToChar(float f) {
 	if ((0 <= f && f <= 31) || f == 127)

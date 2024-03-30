@@ -2,112 +2,75 @@
 
 /*
 	char: a, !, +, -a, +a, aa
-	int: 0, 32, 42, +42, -42, 127, 128
-	float: 0.2f, 32.3f, 42.4f, +42.5f, -42.6f, 127.7f, 128.0f
+	int: 0, 32, 42, +42, -42, 127, 128, 2147483647
+	float: 0.2f, 32.3f, 42.4f, +42.5f, -42.6f, 127.7f, 128.f .5f
 	double: remove suffix 'f'
-	pseudo: -inff, +inff, nanf, -inf, +inf, nan
+	pseudo: inff, -inff, +inff, nanf, -nanf, +nanf, 
+			inf, -inf, +inf, nan, -nan, +nan
 */
 
-int checkType(const std::string& str);
-int checkDecimalDigits(const std::string& str);
+void ScalarConverter::convert(const std::string str) {
+	int		type = checkType(str);
+	bool	(*fp[5])(const std::string&) = {	fromChar, 	\
+												fromInt,	\
+												fromFloat,	\
+												fromDouble,	\
+												fromPseudo};
 
-//변환 함수 확인하기
-void ScalarConverter::convert(std::string str) {
-	int type = checkType(str);
+	// std::cout << "check type: " << type << "\n";
 
-	if (type == -1)
+	if (type == -1 || fp[type](str) == false)
 		std::cout << "non-valid input\n";
-
-	else if (type == 1) {
-		char	c = *str.c_str();
-
-		charToChar(c);
-		charToInt(c);
-		std::cout.precision(1);
-		std::cout << std::fixed;
-		charToFloat(c);
-		charToDouble(c);
-		std::cout << std::defaultfloat;
-	}
-
-	else if (type == 2) {
-		int		i = strtol(str.c_str(), NULL, 10);
-
-		intToChar(i);
-		intToInt(i);
-		std::cout.precision(1);
-		std::cout << std::fixed;
-		intToFloat(i);
-		intToDouble(i);
-		std::cout << std::defaultfloat;
-	}
-
-	else if (type == 3) {
-		float	f = atof(str.c_str());
-		int		digits = checkDecimalDigits(str) - 1;
-
-		floatToChar(f);
-		floatToInt(f);
-		std::cout.precision(digits);
-		std::cout << std::fixed;
-		floatToFloat(f);
-		floatToDouble(f);
-		std::cout << std::defaultfloat;
-	}
-
-	else if (type == 4) {
-		double	d = strtod(str.c_str(), NULL);
-		int		digits = checkDecimalDigits(str);
-
-		doubleToChar(d);
-		doubleToInt(d);
-		std::cout.precision(digits);
-		std::cout << std::fixed;
-		doubleToFloat(d);
-		doubleToDouble(d);
-		std::cout << std::defaultfloat;
-	}
-
-	else if (type == 5) {
-		pseudoToChar();
-		pseudoToInt();
-		pseudoToFloat(str);
-		pseudoToDouble(str);
-	}
 }
 
 int checkType(const std::string& str) {
-	// double max를 넘으면? 오버플로랑 변함이 의미 없을 때 처리하기
-	
-	try {
-		if (str == "inff" || str == "inf"		\
-			|| str == "-inff" || str == "-inf"	\
-			|| str == "+inff" || str == "+inf"	\
-			|| str == "nanf" || str == "nan"	\
-			|| str == "-nanf" || str == "-nan"	\
-			|| str == "+nanf" || str == "+nan")
-			return 5;
+	if (str == "inff" || str == "inf"		\
+		|| str == "-inff" || str == "-inf"	\
+		|| str == "+inff" || str == "+inf"	\
+		|| str == "nanf" || str == "nan"	\
+		|| str == "-nanf" || str == "-nan"	\
+		|| str == "+nanf" || str == "+nan")
+		return 4;
 
-		stod(str);
+	bool sign, dot, f;
+	sign = dot = f = false;
 
-		if (str.find('.') != std::string::npos) {
-			if (str[str.length() - 1] == 'f')
-				return 3;
-			return 4;
+	for (unsigned int i = 0; i < str.length(); i++) {
+		if (str[i] == '-' || str[i] == '+') {
+			if (sign == true || i != 0)
+				return -1;
+			sign = true;
 		}
-		// if 
-		return 2;
-
-	} catch (const std::exception& e) {
-		if (str.length() == 1)
-			return 1;
+		else if (str[i] == '.') {
+			if (dot == true)
+				return -1;
+			dot = true;
+		}
+		else if (str[i] == 'f') {
+			if (i != str.length() - 1)
+				return -1;
+			f = true;
+		}
+		else if (str[i] < '0' || '9' < str[i]) {
+			if (str.length() != 1)
+				return -1;
+			return 0;
+		}
 	}
 	
-	return -1;
+	if (sign == true && str.length() == 1)
+		return 0;
+	if (f == true) {
+		if (dot == false)
+			return -1;
+		return 2;
+	}
+	if (dot == true)
+		return 3;
+	return 1;
 }
 
 int checkDecimalDigits(const std::string& str) {
 	size_t pos = str.find(".");
-
 	return str.length() - pos - 1;
 }

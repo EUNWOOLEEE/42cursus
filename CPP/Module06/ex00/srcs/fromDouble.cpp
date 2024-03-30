@@ -1,4 +1,27 @@
+#include "../incs/ScalarConverter.hpp"
 #include <iostream>
+
+static void doubleToChar(double d);
+static void doubleToInt(double d);
+static void doubleToFloat(double d);
+static void doubleToDouble(double d);
+
+bool fromDouble(const std::string& str) {
+	double	d = strtod(str.c_str(), NULL);
+	int		digits = checkDecimalDigits(str);
+
+	digits = digits == 0 ? 1 : digits;
+
+	doubleToChar(d);
+	doubleToInt(d);
+	std::cout.precision(digits);
+	std::cout << std::fixed;
+	doubleToFloat(d);
+	doubleToDouble(d);
+	std::cout << std::defaultfloat;
+
+	return true;
+}
 
 void doubleToChar(double d) {
 	if ((0 <= d && d <= 31) || d == 127)
