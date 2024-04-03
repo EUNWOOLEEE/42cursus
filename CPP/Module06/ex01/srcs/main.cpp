@@ -4,40 +4,39 @@
 #include "Data.hpp"
 #include "Serializer.hpp"
 
-void printAddress( void *ptr );
-void printAddressUint( uintptr_t ptr );
+void	printAddress( void *ptr );
+void	printAddressUint( uintptr_t ptr );
 
 int main( void )
 {
-	Data	*info = new Data("Snufkin");
+	Data	*origin = new Data("hello");
+	std::cout << "\n";
 
-	// std::cout << *info;
-	// std::cout << *Serializer::deserialize(Serializer::serializer(info)) << std::endl;
+	std::cout << "[ origin data ]\n";
+	std::cout << "    name: " << origin->getName() << "\n";
+	std::cout << "    addr: " << origin << "\n";
+	std::cout << "    raw bits: ";
+	printAddress(origin);
+	std::cout << "\n";
 
-	uintptr_t	serialized = Serializer::serializer(info);
+	std::cout << "---------------- Test: try serialize ----------------\n\n";
+	uintptr_t	serialized = Serializer::serialize(origin);
 	Data		*deserialized = Serializer::deserialize(serialized);
 
-	std::cout << "Original pointer\n";
-	std::cout << "\traw bits: ";
-	printAddress(info);
-	std::cout << "\taddress: ";
-	std::cout << info << '\n' << std::endl;
-
-	std::cout << "Serialized data\n";
-	std::cout << "\traw bits: ";
+	std::cout << "[ serialized data ]\n";
+	std::cout << "    addr: " << serialized << "\n";
+	std::cout << "    raw bits: ";
 	printAddressUint(serialized);
-	std::cout << "\tvalue: ";
-	std::cout << "0x" << std::hex << serialized << '\n' << std::endl;
+	std::cout << "\n";
 
-	std::cout << "Deserialized pointer\n";
-	std::cout << "\traw bits: ";
+	std::cout << "[ deserialized data ]\n";
+	std::cout << "    name: " << deserialized->getName() << "\n";
+	std::cout << "    addr: " << deserialized << "\n";
+	std::cout << "    raw bits: ";
 	printAddress(deserialized);
-	std::cout << "\taddress: ";
-	std::cout << deserialized << std::endl;
+	std::cout << "\n";
 
-	delete info;
-	
-	return 0;
+	delete(origin);
 }
 
 void printAddress( void *ptr )
@@ -68,30 +67,3 @@ void printAddressUint( uintptr_t ptr )
 	std::cout << std::endl;
 }
 
-// #include "../incs/Serializer.hpp"
-
-// int main() {
-// 	Data		*data = new Data("namee");
-// 	uintptr_t	int_tmp = Serializer::serializer(data);
-// 	Data		*data_tmp = Serializer::deserialize(int_tmp);
-
-// 	std::cout << data->getName() << "\n";
-
-// 	std::cout << data << "\n";
-// 	std::cout << int_tmp << "\n";
-// 	std::cout << data_tmp << "\n";
-
-// 	std::cout << data_tmp->getName() << "\n";
-
-// 	delete(data);
-
-// 	// char c = 'A';
-// 	// int i = static_cast<int>(c);
-// 	// std::cout << i << "\n";
-
-// 	int i = INT_MAX;
-// 	char c = static_cast<char>(i);
-// 	std::cout << c << "\n";
-
-// 	return 0;
-// }

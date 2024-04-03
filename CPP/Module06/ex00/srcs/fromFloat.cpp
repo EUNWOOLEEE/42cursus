@@ -2,16 +2,12 @@
 #include <iostream>
 #include <float.h>
 
-static bool checkValid(const std::string& str);
 static void floatToChar(float f);
 static void floatToInt(float f);
 static void floatToFloat(float f);
 static void floatToDouble(float f);
 
-bool fromFloat(const std::string& str) {
-	if (checkValid(str) == false)
-		return false;
-
+void fromFloat(const std::string& str) {
 	float	f = atof(str.c_str());
 	int		digits = checkDecimalDigits(str) - 1;
 
@@ -24,17 +20,15 @@ bool fromFloat(const std::string& str) {
 	floatToFloat(f);
 	floatToDouble(f);
 	std::cout << std::defaultfloat;
-	
-	return true;
 }
 
-bool checkValid(const std::string& str) {
-	double d = strtod(str.c_str(), NULL);
+// bool checkValid(const std::string& str) {
+// 	double d = strtod(str.c_str(), NULL);
 	
-	if (d < FLT_MIN || FLT_MAX < d)
-		return false;
-	return true;
-}
+// 	if (d < FLT_MIN || FLT_MAX < d)
+// 		return false;
+// 	return true;
+// }
 
 void floatToChar(float f) {
 	if ((0 <= f && f <= 31) || f == 127)
@@ -48,8 +42,12 @@ void floatToChar(float f) {
 }
 
 void floatToInt(float f) {
-	int i = static_cast<int>(f);
-	std::cout << "int: " << i << "\n";
+	if (f < INT_MIN || INT_MAX < f)
+		std::cout << "char: impossible\n";
+	else {
+		int i = static_cast<int>(f);
+		std::cout << "int: " << i << "\n";
+	}
 }
 
 void floatToFloat(float f) {

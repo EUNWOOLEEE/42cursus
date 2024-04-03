@@ -16,10 +16,10 @@ class ScalarConverter {
 int 	checkType(const std::string& str);
 int 	checkDecimalDigits(const std::string& str);
 
-bool	fromChar(const std::string& str);
-bool	fromInt(const std::string& str);
-bool	fromFloat(const std::string& str);
-bool	fromDouble(const std::string& str);
-bool	fromPseudo(const std::string& str);
+void	fromChar(const std::string& str);
+void	fromInt(const std::string& str);
+void	fromFloat(const std::string& str);
+void	fromDouble(const std::string& str);
+void	fromPseudo(const std::string& str);
 
 #endif

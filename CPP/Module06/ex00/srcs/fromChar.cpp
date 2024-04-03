@@ -1,15 +1,12 @@
 #include <iostream>
 
-static bool checkValid(const std::string& str);
 static void charToChar(char c);
 static void charToInt(char c);
 static void charToFloat(char c);
 static void charToDouble(char c);
 
-bool fromChar(const std::string& str) {
-	if (checkValid(str) == false)
-		return false;
-
+// 문자로 들어온 후 오버플로우 발생할 일 없음
+void fromChar(const std::string& str) {
 	char	c = *str.c_str();
 
 	charToChar(c);
@@ -19,16 +16,6 @@ bool fromChar(const std::string& str) {
 	charToFloat(c);
 	charToDouble(c);
 	std::cout << std::defaultfloat;
-	
-	return true;
-}
-
-bool checkValid(const std::string& str) {
-	int i = strtol(str.c_str(), NULL, 10);
-	
-	if (i < CHAR_MIN || CHAR_MAX < i)
-		return false;
-	return true;
 }
 
 void charToChar(char c) {

@@ -1,32 +1,28 @@
 #include <iostream>
 
-static bool checkValid(const std::string& str);
 static void intToChar(int i);
-static void intToInt(int i);
 static void intToFloat(int i);
 static void intToDouble(int i);
 
-bool fromInt(const std::string& str) {
-	if (checkValid(str) == false)
-		return false;
-
+// 오버플로우 발생할 수 있음
+void fromInt(const std::string& str) {
 	int	i = strtol(str.c_str(), NULL, 10);
 
 	intToChar(i);
+
+	long l = strtol(str.c_str(), NULL, 10);
+	if (l < INT_MIN || INT_MAX < l)
+	
 	intToInt(i);
+
 	std::cout.precision(1);
 	std::cout << std::fixed;
 	intToFloat(i);
 	intToDouble(i);
 	std::cout << std::defaultfloat;
-
-	return true;
 }
 
 bool checkValid(const std::string& str) {
-	long l = strtol(str.c_str(), NULL, 10);
-	
-	if (l < INT_MIN || INT_MAX < l)
 		return false;
 	return true;
 }

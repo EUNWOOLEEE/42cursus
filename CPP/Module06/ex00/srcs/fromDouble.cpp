@@ -1,12 +1,13 @@
 #include "../incs/ScalarConverter.hpp"
 #include <iostream>
+#include <float.h>
 
 static void doubleToChar(double d);
 static void doubleToInt(double d);
 static void doubleToFloat(double d);
 static void doubleToDouble(double d);
 
-bool fromDouble(const std::string& str) {
+void fromDouble(const std::string& str) {
 	double	d = strtod(str.c_str(), NULL);
 	int		digits = checkDecimalDigits(str);
 
@@ -19,8 +20,6 @@ bool fromDouble(const std::string& str) {
 	doubleToFloat(d);
 	doubleToDouble(d);
 	std::cout << std::defaultfloat;
-
-	return true;
 }
 
 void doubleToChar(double d) {
@@ -35,13 +34,21 @@ void doubleToChar(double d) {
 }
 
 void doubleToInt(double d) {
-	int i = static_cast<int>(d);
-	std::cout << "int: " << i << "\n";
+	if (d < INT_MIN || INT_MAX < d)
+		std::cout << "char: impossible\n";
+	else {
+		int i = static_cast<int>(d);
+		std::cout << "int: " << i << "\n";
+	}
 }
 
 void doubleToFloat(double d) {
-	float f = static_cast<float>(d);
-	std::cout << "float: " << f << "f" << "\n";
+	if (d < FLT_MIN || FLT_MAX < d)
+		std::cout << "char: impossible\n";
+	else {
+		float f = static_cast<float>(d);
+		std::cout << "float: " << f << "f" << "\n";
+	}
 }
 
 void doubleToDouble(double d) {

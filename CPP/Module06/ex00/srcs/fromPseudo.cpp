@@ -5,13 +5,11 @@ static void pseudoToInt(void);
 static void pseudoToFloat(const std::string& p);
 static void pseudoToDouble(const std::string& p);
 
-bool fromPseudo(const std::string& str) {
+void fromPseudo(const std::string& str) {
 	pseudoToChar();
 	pseudoToInt();
 	pseudoToFloat(str);
 	pseudoToDouble(str);
-	
-	return true;
 }
 
 void pseudoToChar(void) {
