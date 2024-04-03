@@ -7,7 +7,7 @@ static void doubleToInt(double d);
 static void doubleToFloat(double d);
 static void doubleToDouble(double d);
 
-void fromDouble(const std::string& str) {
+bool fromDouble(const std::string& str) {
 	double	d = strtod(str.c_str(), NULL);
 	int		digits = checkDecimalDigits(str);
 

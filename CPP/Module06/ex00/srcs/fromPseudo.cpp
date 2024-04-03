@@ -5,7 +5,7 @@ static void pseudoToInt(void);
 static void pseudoToFloat(const std::string& p);
 static void pseudoToDouble(const std::string& p);
 
-void fromPseudo(const std::string& str) {
+bool fromPseudo(const std::string& str) {
 	pseudoToChar();
 	pseudoToInt();
 	pseudoToFloat(str);

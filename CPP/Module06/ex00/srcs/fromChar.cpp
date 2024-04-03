@@ -1,3 +1,4 @@
+#include "../incs/ScalarConverter.hpp"
 #include <iostream>
 
 static void charToChar(char c);
@@ -6,7 +7,7 @@ static void charToFloat(char c);
 static void charToDouble(char c);
 
 // 문자로 들어온 후 오버플로우 발생할 일 없음
-void fromChar(const std::string& str) {
+bool fromChar(const std::string& str) {
 	char	c = *str.c_str();
 
 	charToChar(c);
@@ -16,6 +17,8 @@ void fromChar(const std::string& str) {
 	charToFloat(c);
 	charToDouble(c);
 	std::cout << std::defaultfloat;
+
+	return true;
 }
 
 void charToChar(char c) {

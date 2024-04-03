@@ -7,7 +7,7 @@ static void floatToInt(float f);
 static void floatToFloat(float f);
 static void floatToDouble(float f);
 
-void fromFloat(const std::string& str) {
+bool fromFloat(const std::string& str) {
 	float	f = atof(str.c_str());
 	int		digits = checkDecimalDigits(str) - 1;
 

@@ -1,11 +1,12 @@
+#include "../incs/ScalarConverter.hpp"
 #include <iostream>
 
+static bool checkValid(const std::string& str);
 static void intToChar(int i);
 static void intToFloat(int i);
 static void intToDouble(int i);
 
-// 오버플로우 발생할 수 있음
-void fromInt(const std::string& str) {
+bool fromInt(const std::string& str) {
 	int	i = strtol(str.c_str(), NULL, 10);
 
 	intToChar(i);

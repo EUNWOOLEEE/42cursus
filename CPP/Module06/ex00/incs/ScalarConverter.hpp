@@ -13,13 +13,26 @@ class ScalarConverter {
 		ScalarConverter(void);
 };
 
+// typedef struct value_s {
+// 	char	character;
+// 	int		integer;
+// 	float	decimal_float;
+// 	double	decimal_double;
+// } value_t;
+
 int 	checkType(const std::string& str);
 int 	checkDecimalDigits(const std::string& str);
 
-void	fromChar(const std::string& str);
-void	fromInt(const std::string& str);
-void	fromFloat(const std::string& str);
-void	fromDouble(const std::string& str);
-void	fromPseudo(const std::string& str);
+bool	fromChar(const std::string& str);
+bool	fromInt(const std::string& str);
+bool	fromFloat(const std::string& str);
+bool	fromDouble(const std::string& str);
+bool	fromPseudo(const std::string& str);
+
+// bool	fromChar(const std::string& str, value_t& values);
+// bool	fromInt(const std::string& str, value_t& values);
+// bool	fromFloat(const std::string& str, value_t& values);
+// bool	fromDouble(const std::string& str, value_t& values);
+// bool	fromPseudo(const std::string& str, value_t& values);
 
 #endif

@@ -11,16 +11,15 @@
 
 void ScalarConverter::convert(const std::string str) {
 	int		type = checkType(str);
-	void	(*fp[5])(const std::string&) = {	fromChar, 	\
+	// value_t	values;
+	bool	(*fp[5])(const std::string&) = {	fromChar, 	\
 												fromInt,	\
 												fromFloat,	\
 												fromDouble,	\
 												fromPseudo};
 
-	if (type == -1)
+	if (type == -1 || fp[type](str) == false)
 		std::cout << "Impossible\n";
-	else
-		fp[type](str);
 }
 
 int checkType(const std::string& str) {
