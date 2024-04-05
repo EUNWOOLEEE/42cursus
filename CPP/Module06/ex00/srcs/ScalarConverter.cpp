@@ -1,4 +1,8 @@
 #include "../incs/ScalarConverter.hpp"
+#include <errno.h>
+#include <cstring>
+#include <float.h>
+#include <cmath>
 
 /*
 	char: a, !, +, -a, +a, aa
@@ -9,67 +13,184 @@
 			inf, -inf, +inf, nan, -nan, +nan
 */
 
-void ScalarConverter::convert(const std::string str) {
-	int		type = checkType(str);
-	// value_t	values;
-	bool	(*fp[5])(const std::string&) = {	fromChar, 	\
-												fromInt,	\
-												fromFloat,	\
-												fromDouble,	\
-												fromPseudo};
+static int 	checkType(const std::string& str, double& value);
+static int	checkRange(int type, double value);
+static int	checkValid(int type, double value);
+static void setDecimalDigits(const std::string& str, int type);
+static void	fromChar(const std::string& str, double value);
+static void	fromInt(const std::string& str, double value);
+static void	fromFloat(const std::string& str, double value);
+static void	fromDouble(const std::string& str, double value);
+static void	fromPseudo(const std::string& str, double value);
 
-	if (type == -1 || fp[type](str) == false)
-		std::cout << "Impossible\n";
+void ScalarConverter::convert(const std::string str) {
+	double	value = 0;
+	int		type = checkType(str, value);
+	void	(*fp[5])(const std::string&, double) = {	fromChar, 	\
+														fromInt,	\
+														fromFloat,	\
+														fromDouble,	\
+														fromPseudo};
+
+	std::cout << "type: " << type << "\n";
+
+	if (type == INVALID)
+		std::cout << "Invalid input\n";
+	else {
+		setDecimalDigits(str, type);
+		fp[type](str, value);
+		std::cout << std::defaultfloat;
+	}
 }
 
-int checkType(const std::string& str) {
-	if (str == "inff" || str == "inf"		\
-		|| str == "-inff" || str == "-inf"	\
-		|| str == "+inff" || str == "+inf"	\
-		|| str == "nanf" || str == "nan"	\
-		|| str == "-nanf" || str == "-nan"	\
-		|| str == "+nanf" || str == "+nan")
+int checkType(const std::string& str, double& value) {
+
+	char*	remain = NULL;
+	value = strtod(str.c_str(), &remain);
+
+	std::cout << "remain: " << remain << "\nvalue: " << value << "\n";
+	
+	// if (str == "inff" || str == "inf"		\
+	// 	|| str == "-inff" || str == "-inf"	\
+	// 	|| str == "+inff" || str == "+inf"	\
+	// 	|| str == "nanf" || str == "nan"	\
+	// 	|| str == "-nanf" || str == "-nan"	\
+	// 	|| str == "+nanf" || str == "+nan")
+	if (std::isnan(value) || std::isinf(value))
 		return 4;
 
-	bool sign, dot, f;
-	sign = dot = f = false;
+	if (errno == ERANGE)
+		return INVALID;
 
-	for (unsigned int i = 0; i < str.length(); i++) {
-		if (str[i] == '-' || str[i] == '+') {
-			if (sign == true || i != 0)
-				return -1;
-			sign = true;
-		}
-		else if (str[i] == '.') {
-			if (dot == true)
-				return -1;
-			dot = true;
-		}
-		else if (str[i] == 'f') {
-			if (i != str.length() - 1)
-				return -1;
-			f = true;
-		}
-		else if (str[i] < '0' || '9' < str[i]) {
-			if (str.length() != 1)
-				return -1;
-			return 0;
-		}
+	if (*remain != '\0') {
+		if (std::strcmp(remain, str.c_str()) == 0 && str.length() == 1)
+			return CHARACTER;
+
+		if (std::strcmp(remain, "f") == 0 && str.find('.') != std::string::npos)
+			return checkRange(DECIMAL_FLOAT, value);
+
+		return INVALID;
 	}
-	
-	if (sign == true && str.length() == 1)
-		return 0;
-	if (f == true) {
-		if (dot == false)
-			return -1;
-		return 2;
-	}
-	if (dot == true)
-		return 3;
-	return 1;
+
+	if (str.find('.') == std::string::npos)
+		return checkRange(INTERGER, value);
+
+	return DECIMAL_DOUBLE;
 }
 
-int checkDecimalDigits(const std::string& str) {
-	size_t pos = str.find(".");
-	return str.length() - pos - 1;
+int checkRange(int type, double value) {
+	if (type  == CHARACTER) {
+		if (value < CHAR_MIN || CHAR_MAX < value)
+			return INVALID;
+	}
+	if (type == INTERGER) {
+		if (value < INT_MIN || INT_MAX < value)
+			return INVALID;
+	}
+	
+	else if (type == DECIMAL_FLOAT) {
+		if (value < -FLT_MAX || FLT_MAX < value)
+			return INVALID;
+	}
+
+	return type;
+}
+
+int checkValid(int type, double value) {
+	if (type == CHARACTER) {
+		if (checkRange(type, value) == INVALID)
+			std::cout << "char: impossible\n";
+		else if (value < 32 || value == 127)
+			std::cout << "char: non displayable\n";
+		else
+			return type;
+	}
+
+	else if (type == INTERGER) {
+		if (checkRange(type, value) == INVALID)
+			std::cout << "int: impossible\n";
+		else
+			return type;
+	}
+
+	else if (type == DECIMAL_FLOAT) {
+		if (checkRange(type, value) == INVALID)
+			std::cout << "float: impossible\n";
+		else
+			return type;
+	}
+
+	return INVALID;
+}
+
+void setDecimalDigits(const std::string& str, int type) {
+	if (type != DECIMAL_FLOAT && type != DECIMAL_DOUBLE) {
+		std::cout.precision(1);
+		std::cout << std::fixed;
+		return ;
+	}
+
+	size_t	pos = str.find(".");
+	int		res = str.length() - pos - 1;
+
+	if (type == DECIMAL_FLOAT)
+		res--;
+
+	res = res == 0 ? 1 : res;
+	
+	std::cout.precision(res);
+	std::cout << std::fixed;
+}
+
+void fromChar(const std::string& str, double value) {
+	static_cast<void>(value);
+
+	char	c = *str.c_str();
+
+	std::cout << "char: '" << c << "'\n";
+	std::cout << "int: " << static_cast<int>(c) << "\n";
+	std::cout << "float: " << static_cast<float>(c) << "f" << "\n";
+	std::cout << "double: " << static_cast<double>(c) << "\n";
+}
+
+void fromInt(const std::string& str, double value) {
+	int	i = strtol(str.c_str(), NULL, 10);
+
+	if (checkValid(CHARACTER, value) != INVALID)
+		std::cout << "char: '" << static_cast<char>(i) << "'\n";
+	std::cout << "int: " << i << "\n";
+	std::cout << "float: " << static_cast<float>(i) << "f" << "\n";
+	std::cout << "double: " << static_cast<double>(i) << "\n";
+}
+
+void fromFloat(const std::string& str, double value) {
+	float	f = atof(str.c_str());
+
+	if (checkValid(CHARACTER, value) != INVALID)
+		std::cout << "char: '" << static_cast<char>(f) << "'\n";
+	if (checkValid(INTERGER, value) != INVALID)
+		std::cout << "int: " << static_cast<int>(f) << "\n";
+	std::cout << "float: " << f << "f" << "\n";
+	std::cout << "double: " << static_cast<double>(f) << "\n";
+}
+
+void fromDouble(const std::string& str, double value) {
+	double	d = strtod(str.c_str(), NULL);
+
+	if (checkValid(CHARACTER, value) != INVALID)
+		std::cout << "char: '" << static_cast<char>(d) << "'\n";
+	if (checkValid(INTERGER, value) != INVALID)
+		std::cout << "int: " << static_cast<int>(d) << "\n";
+	if (checkValid(DECIMAL_FLOAT, value) != INVALID)
+		std::cout << "float: " << static_cast<float>(d) << "f" << "\n";
+	std::cout << "double: " << d << "\n";
+}
+
+void fromPseudo(const std::string& str, double value) {
+	static_cast<void>(str);
+	
+	std::cout << "char: impossible\n";
+	std::cout << "int: impossible\n";
+	std::cout << "float: " << value << "f\n";
+	std::cout << "double: " << value << "\n";
 }

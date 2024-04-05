@@ -5,6 +5,15 @@
 # include <stdexcept>
 # include <stdlib.h>
 
+typedef enum e_type {
+	INVALID = -1,
+	CHARACTER,
+	INTERGER,
+	DECIMAL_FLOAT,
+	DECIMAL_DOUBLE,
+	PSEUDO
+} t_type;
+
 class ScalarConverter {
 	public:
 		static void convert(const std::string str);
@@ -12,27 +21,5 @@ class ScalarConverter {
 	private:
 		ScalarConverter(void);
 };
-
-// typedef struct value_s {
-// 	char	character;
-// 	int		integer;
-// 	float	decimal_float;
-// 	double	decimal_double;
-// } value_t;
-
-int 	checkType(const std::string& str);
-int 	checkDecimalDigits(const std::string& str);
-
-bool	fromChar(const std::string& str);
-bool	fromInt(const std::string& str);
-bool	fromFloat(const std::string& str);
-bool	fromDouble(const std::string& str);
-bool	fromPseudo(const std::string& str);
-
-// bool	fromChar(const std::string& str, value_t& values);
-// bool	fromInt(const std::string& str, value_t& values);
-// bool	fromFloat(const std::string& str, value_t& values);
-// bool	fromDouble(const std::string& str, value_t& values);
-// bool	fromPseudo(const std::string& str, value_t& values);
 
 #endif

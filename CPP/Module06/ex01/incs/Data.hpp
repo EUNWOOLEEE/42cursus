@@ -5,18 +5,20 @@
 
 class Data {
 	public:
-		Data(std::string _name);
+		Data(std::string _str, int _n);
 		Data(const Data& obj);
 		~Data(void);
 
 		Data& operator =(const Data& obj);
 
-		std::string& getName(void);
+		std::string&	getStr(void);
+		int				getN(void);
 
 	private:
 		Data(void);
 
-		std::string	name;
+		std::string	str;
+		int			n;
 };
 
 #endif

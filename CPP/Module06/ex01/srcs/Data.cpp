@@ -1,6 +1,6 @@
 #include "../incs/Data.hpp"
 
-Data::Data(std::string _name) : name(_name) {
+Data::Data(std::string _str, int _n) : str(_str), n(_n) {
 	std::cout << "[OCCF] Data default constructor called\n";
 }
 
@@ -15,11 +15,12 @@ Data::~Data(void) {
 
 Data& Data::operator =(const Data& obj) {
 	std::cout << "[OCCF] Data copy assignment operator called\n";
-	if (this != &obj)
-		name = obj.name;
+	if (this != &obj) {
+		str = obj.str;
+		n = obj.n;
+	}
 	return *this;
 }
 
-std::string& Data::getName(void) {
-	return name;
-}
+std::string& Data::getStr(void) { return str; }
+int Data::getN(void) { return n; }
