@@ -51,12 +51,6 @@ int checkType(const std::string& str, double& value) {
 
 	std::cout << "remain: " << remain << "\nvalue: " << value << "\n";
 	
-	// if (str == "inff" || str == "inf"		\
-	// 	|| str == "-inff" || str == "-inf"	\
-	// 	|| str == "+inff" || str == "+inf"	\
-	// 	|| str == "nanf" || str == "nan"	\
-	// 	|| str == "-nanf" || str == "-nan"	\
-	// 	|| str == "+nanf" || str == "+nan")
 	if (std::isnan(value) || std::isinf(value))
 		return 4;
 
