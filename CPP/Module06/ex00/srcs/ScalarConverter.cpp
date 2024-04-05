@@ -95,7 +95,7 @@ int checkValid(int type, double value) {
 	if (type == CHARACTER) {
 		if (checkRange(type, value) == INVALID)
 			std::cout << "char: impossible\n";
-		else if (value < 32 || value == 127)
+		else if (std::isprint(value) == false)
 			std::cout << "char: non displayable\n";
 		else
 			return type;
