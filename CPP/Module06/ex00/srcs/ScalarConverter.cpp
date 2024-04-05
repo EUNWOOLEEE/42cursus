@@ -3,6 +3,7 @@
 #include <cstring>
 #include <float.h>
 #include <cmath>
+#include <climits>
 
 /*
 	char: a, !, +, -a, +a, aa
@@ -39,7 +40,7 @@ void ScalarConverter::convert(const std::string str) {
 	else {
 		setDecimalDigits(str, type);
 		fp[type](str, value);
-		std::cout << std::defaultfloat;
+		std::cout.unsetf(std::ios::fixed);
 	}
 }
 
