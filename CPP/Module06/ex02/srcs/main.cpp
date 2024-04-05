@@ -24,11 +24,18 @@ int main() {
 	delete c;
 	std::cout << "\n\n";
 
-	std::cout << "----------- Test: random -----------\n";
-	Base* base = generate();
-	identify(base);
-	identify(*base);
-	delete base;
+	// std::cout << "----------- Test: random -----------\n";
+	// Base* base = generate();
+	// identify(base);
+	// identify(*base);
+	// delete base;
 	
+	// std::cout << "----------- Test: Bad cast -----------\n";
+	// Base* base = new Base;
+	// identify(base);
+	// identify(*base);
+	// delete base;
+	// std::cout << "\n\n";
+
 	return 0;
 }
