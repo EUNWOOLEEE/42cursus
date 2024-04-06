@@ -3,7 +3,7 @@
 #include "../incs/C.hpp"
 #include <ctime>
 #include <cstdlib>
-#include <typeinfo>
+#include <stdexcept>
 
 Base::~Base(void) {}
 
