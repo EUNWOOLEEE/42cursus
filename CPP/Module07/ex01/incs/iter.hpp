@@ -4,19 +4,16 @@
 # include <iostream>
 
 template <typename T>
-void iter(T* arr, size_t len, void (*f)(T&)) {
-	for (int i = 0; i < len ; i++)
+void iter(const T* arr, size_t len, void (*f)(const T&)) {
+	if (arr == nullptr || f == nullptr)
+		return ;
+	for (size_t i = 0; i < len ; i++)
 		f(arr[i]);
 }
 
 template <typename T>
 void print(T& tmp) {
 	std::cout << tmp << " ";
-}
-
-template <typename T>
-void increase(T& tmp) {
-	tmp++;
 }
 
 #endif
