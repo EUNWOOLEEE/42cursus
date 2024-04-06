@@ -33,8 +33,6 @@ void ScalarConverter::convert(const std::string str) {
 														fromDouble,	\
 														fromPseudo};
 
-	std::cout << "type: " << type << "\n";
-
 	if (type == INVALID)
 		std::cout << "Invalid input\n";
 	else {
@@ -48,14 +46,12 @@ int checkType(const std::string& str, double& value) {
 
 	char*	remain = NULL;
 	value = strtod(str.c_str(), &remain);
-
-	std::cout << "remain: " << remain << "\nvalue: " << value << "\n";
 	
-	if (std::isnan(value) || std::isinf(value))
-		return 4;
-
 	if (errno == ERANGE)
 		return INVALID;
+
+	if (std::isnan(value) || std::isinf(value))
+		return PSEUDO;
 
 	if (*remain != '\0') {
 		if (std::strcmp(remain, str.c_str()) == 0 && str.length() == 1)
@@ -67,10 +63,10 @@ int checkType(const std::string& str, double& value) {
 		return INVALID;
 	}
 
-	if (str.find('.') == std::string::npos)
-		return checkRange(INTERGER, value);
+	if (str.find('.') != std::string::npos)
+		return DECIMAL_DOUBLE;
 
-	return DECIMAL_DOUBLE;
+	return checkRange(INTERGER, value);
 }
 
 int checkRange(int type, double value) {
