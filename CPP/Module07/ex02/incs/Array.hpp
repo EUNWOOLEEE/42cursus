@@ -13,8 +13,15 @@ class Array {
 		~Array(void);
 
 		Array& operator =(const Array& obj);
+		T& operator[] (unsigned int idx);
+		T& operator[] (unsigned int idx) const;
 
 		unsigned int	size(void) const;
+
+		class outOfRangeException : public std::exception {
+			public:
+				virtual const char* what() const throw() { return "Out of range"; }
+		};
 	
 	private:
 		T*		arr;
@@ -24,12 +31,12 @@ class Array {
 
 template <typename T>
 Array<T>::Array(void) : arr(NULL), len(0) {
-	std::cout << "[OCCF] Bureaucrat defalut constructor called\n";
+	std::cout << "[OCCF] Array defalut constructor called\n";
 }
 
 template <typename T>
 Array<T>::Array(unsigned int n) : arr(NULL), len(n) {
-	std::cout << "[OCCF] Bureaucrat constructor called\n";
+	std::cout << "[OCCF] Array constructor called\n";
 
 	if (len != 0)
 		arr = new T[len];
@@ -37,7 +44,7 @@ Array<T>::Array(unsigned int n) : arr(NULL), len(n) {
 
 template <typename T>
 Array<T>::Array(const Array& obj) : arr(NULL), len(obj.len)  {
-	std::cout << "[OCCF] Bureaucrat copy constructor called\n";
+	std::cout << "[OCCF] Array copy constructor called\n";
 
 	for (size_t i = 0; i < len; i++)
 		arr[i] = obj.arr[i];
@@ -51,7 +58,7 @@ Array<T>::~Array(void) {
 
 template <typename T>
 Array<T>& Array<T>::operator =(const Array& obj) {
-	std::cout << "[OCCF] Bureaucrat copy assignment operator called\n";
+	std::cout << "[OCCF] Array copy assignment operator called\n";
 
 	if (this != &obj) {
 		len = obj.len;
@@ -68,6 +75,22 @@ Array<T>& Array<T>::operator =(const Array& obj) {
 	}
 
 	return *this;
+}
+
+template <typename T>
+T& Array<T>::operator[] (unsigned int idx) {
+	// std::cout << "[OCCF] array index operator called\n";
+	if (idx >= len)
+		throw outOfRangeException();
+	return arr[idx];
+}
+
+template <typename T>
+T& Array<T>::operator[] (unsigned int idx) const {
+	// std::cout << "[OCCF] const array index operator called\n";
+	if (idx >= len)
+		throw outOfRangeException();
+	return arr[idx];
 }
 
 template <typename T>
