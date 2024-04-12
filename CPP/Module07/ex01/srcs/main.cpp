@@ -1,9 +1,14 @@
 #include "../incs/iter.hpp"
 
+template <typename T>
+void print(T& tmp) {
+	std::cout << tmp << " ";
+}
+
 int main() {
 	std::cout << "Test: integer array\n";
 	int	int_arr[5] = {1, 2, 3, 4, 5};
-	::iter(int_arr, 5, ::print);
+	::iter(arr_ptr, 5, ::print);
 	std::cout << "\n\n";
 
 

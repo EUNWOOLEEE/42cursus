@@ -12,7 +12,7 @@ class Array {
 		Array(const Array& obj);
 		~Array(void);
 
-		Array& operator =(const Array& obj);
+		Array& operator= (const Array& obj);
 		T& operator[] (unsigned int idx);
 		T& operator[] (unsigned int idx) const;
 
@@ -45,6 +45,8 @@ Array<T>::Array(unsigned int n) : arr(NULL), len(n) {
 template <typename T>
 Array<T>::Array(const Array& obj) : arr(NULL), len(obj.len)  {
 	std::cout << "[OCCF] Array copy constructor called\n";
+
+	arr = new T[len];
 
 	for (size_t i = 0; i < len; i++)
 		arr[i] = obj.arr[i];

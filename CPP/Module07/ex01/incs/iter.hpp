@@ -4,7 +4,7 @@
 # include <iostream>
 
 template <typename T>
-void iter(const T* arr, size_t len, void (*f)(const T&)) {
+void iter(T* arr, size_t len, void (*f)(T&)) {
 	if (arr == NULL || f == NULL)
 		return ;
 	for (size_t i = 0; i < len ; i++)
@@ -12,8 +12,11 @@ void iter(const T* arr, size_t len, void (*f)(const T&)) {
 }
 
 template <typename T>
-void print(T& tmp) {
-	std::cout << tmp << " ";
+void iter(const T* arr, size_t len, void (*f)(const T&)) {
+	if (arr == NULL || f == NULL)
+		return ;
+	for (size_t i = 0; i < len ; i++)
+		f(arr[i]);
 }
 
 #endif
