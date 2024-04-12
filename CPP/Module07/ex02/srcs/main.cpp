@@ -43,18 +43,18 @@ int main() {
 	// }
 
 
-	// std::cout << "Test: const array of double\n\n";
-	// const Array<double> double_arr(5);
+	// std::cout << "Test: const array of int\n\n";
+	// const Array<int> int_arr(5);
 
 	// int n = 1;
-	// for (unsigned int i = 0; i < double_arr.size(); i++)
-	// 	double_arr[i] = n++;
+	// for (unsigned int i = 0; i < int_arr.size(); i++)
+	// 	int_arr[i] = n++;
 
-	// std::cout << "double_arr size: " << double_arr.size() << "\n";
+	// std::cout << "int_arr size: " << int_arr.size() << "\n";
 	// try {
-	// 	for (unsigned int i = 0; i < double_arr.size(); i++)
-	// 		std::cout << double_arr[i] << "\n";
-	// } catch ( const Array<double>::outOfRangeException& e ) {
+	// 	for (unsigned int i = 0; i < int_arr.size(); i++)
+	// 		std::cout << int_arr[i] << "\n";
+	// } catch ( const Array<int>::outOfRangeException& e ) {
 	// 	std::cout << e.what() << "\n";
 	// }
 
