@@ -63,8 +63,10 @@ Array<T>& Array<T>::operator =(const Array& obj) {
 	if (this != &obj) {
 		len = obj.len;
 
-		if (arr != NULL)
+		if (arr != NULL) {
 			delete[] arr;
+			arr = NULL;
+		}
 		
 		if (len != 0){
 			arr = new T[len];
