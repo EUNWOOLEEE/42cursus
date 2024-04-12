@@ -57,7 +57,7 @@ Array<T>::~Array(void) {
 }
 
 template <typename T>
-Array<T>& Array<T>::operator =(const Array& obj) {
+Array<T>& Array<T>::operator= (const Array& obj) {
 	std::cout << "[OCCF] Array copy assignment operator called\n";
 
 	if (this != &obj) {
