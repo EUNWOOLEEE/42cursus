@@ -19,4 +19,14 @@ void iter(const T* arr, size_t len, void (*f)(const T&)) {
 		f(arr[i]);
 }
 
+template <typename T>
+void print(const T& tmp) {
+	std::cout << tmp << " ";
+}
+
+template <typename T>
+void changeValue(T& tmp) {
+	tmp++;
+}
+
 #endif
