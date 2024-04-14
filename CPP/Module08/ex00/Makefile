@@ -1,4 +1,4 @@
-NAME = template
+NAME = easyfind
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
@@ -26,8 +26,8 @@ NUM_TASK = 1
 SIZE = 0
 END = 1
 CHAR = ""
-GAUGE = Making functions...
-NUM_GAUGE = 19
+GAUGE = Finding...
+NUM_GAUGE = 10
 
 all:
 	@echo "$(PINK)BUILD $(NAME)$(RESET)"
