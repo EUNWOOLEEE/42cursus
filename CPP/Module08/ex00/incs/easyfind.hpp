@@ -7,12 +7,12 @@
 
 template <typename T>
 typename T::iterator easyfind(T& container, int target) {
-	typename T::iterator it;
+	typename T::iterator iter;
 
-	it = std::find(container.begin(), container.end(), target);
-	if (it == container.end())
+	iter = std::find(container.begin(), container.end(), target);
+	if (iter == container.end())
 		throw std::out_of_range("Target not found in container");
-	return it;
+	return iter;
 }
 
 #endif
