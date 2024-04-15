@@ -5,7 +5,9 @@
 # include <exception>
 # include <algorithm>
 # include <stack>
+# include <deque>
 
+		
 template <typename T>
 class MutantStack : public std::stack<T> {
 	public:
@@ -15,21 +17,19 @@ class MutantStack : public std::stack<T> {
 
 		MutantStack& operator= (const MutantStack& obj);
 
-		class iterator {
-			public:
-			private:
-		}
+		typedef std::stack<T>::container_type::iterator iterator;
 
 		void			push(const T& value);
 		void			pop(void);
 		const T&		top(void) const;
 		unsigned int	size(void) const;
-		// T*				begin(void);
-		// T*				end(void);
+		typename iterator		begin(void);
+		typename iterator		end(void);
 
 	private:
 		std::stack<T>	mstack;
 };
+
 
 template <typename T>
 MutantStack<T>::MutantStack(void) {
@@ -67,10 +67,10 @@ const T& MutantStack<T>::top(void) const { return mstack.top(); }
 template <typename T>
 unsigned int MutantStack<T>::size(void) const { return mstack.size(); }
 
-// template <typename T>
-// T* MutantStack<T>::begin(void) { mstack.top }
+template <typename T>
+typename MutantStack<T>::iterator MutantStack<T>::begin(void) { mstack.c.begin(); }
 
-// template <typename T>
-// T* MutantStack<T>::end(void) {}
+template <typename T>
+typename MutantStack<T>::iterator MutantStack<T>::end(void) { mstack.c.end(); }
 
 #endif
