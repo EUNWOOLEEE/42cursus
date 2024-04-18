@@ -10,16 +10,15 @@ int main()
 	mstack.push(5);
 	mstack.push(17);
 	
-	std::cout << mstack.top() << std::endl;
+	std::cout << "Top of stack: " << mstack.top() << std::endl;
 	
 	mstack.pop();
 	
-	std::cout << mstack.size() << std::endl;
+	std::cout << "Size of stack: " << mstack.size() << std::endl;
 	
 	mstack.push(3);
 	mstack.push(5);
 	mstack.push(737);
-	//[...]
 	mstack.push(0);
 	
 	MutantStack<int>::iterator it = mstack.begin();
@@ -38,20 +37,19 @@ int main()
 	std::cout << "\n\nTest: List\n\n";
 
 	std::list<int> list;
-	
+
 	list.push_back(5);
 	list.push_back(17);
 	
-	std::cout << list.back() << std::endl;
+	std::cout << "Back of list: " << list.back() << std::endl;
 	
 	list.pop_back();
 	
-	std::cout << list.size() << std::endl;
+	std::cout << "Size of list: " << list.size() << std::endl;
 	
 	list.push_back(3);
 	list.push_back(5);
 	list.push_back(737);
-	//[...]
 	list.push_back(0);
 	
 	std::list<int>::iterator lit = list.begin();
@@ -64,6 +62,6 @@ int main()
 		std::cout << *lit << std::endl;
 		++lit;
 	}
-	// std::stack<int> s(mstack);
+	std::list<int> l(list);
 	return 0;
 }

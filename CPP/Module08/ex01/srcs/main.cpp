@@ -49,8 +49,11 @@ int main()
 		// sp.fillNumbers(10000);
 		// std::cout << "arr size: " << sp.getMaxSize() << "\n";
 		// std::cout << "idx[0]: " << sp[0] << "\n";
-		// std::cout << "idx[4999]: " << sp[4999] << "\n";
-		// std::cout << "idx[9999]: " << sp[9999] << "\n";
+		// std::cout << "idx[5000]: " << sp[5000] << "\n";
+
+
+		// std::cout << "\n\nTest: out of range\n\n";
+		// std::cout << "idx[10000]: " << sp[10000] << "\n";
 
 
 		/*-----------------------------------------------*/
