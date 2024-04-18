@@ -1,33 +1,26 @@
-#ifndef MutantStack_H
-# define MutantStack_H
+#ifndef MUTANTSTACK_H
+# define MUTANTSTACK_H
 
 # include <iostream>
-# include <exception>
 # include <algorithm>
 # include <stack>
-# include <deque>
 
-		
 template <typename T>
 class MutantStack : public std::stack<T> {
 	public:
+		typedef typename std::stack<T>::container_type::iterator iterator;
+		typedef typename std::stack<T>::container_type::const_iterator const_iterator;
+
 		MutantStack(void);
 		~MutantStack(void);
 		MutantStack(const MutantStack& obj);
 
 		MutantStack& operator= (const MutantStack& obj);
 
-		typedef std::stack<T>::container_type::iterator iterator;
-
-		void			push(const T& value);
-		void			pop(void);
-		const T&		top(void) const;
-		unsigned int	size(void) const;
-		typename iterator		begin(void);
-		typename iterator		end(void);
-
-	private:
-		std::stack<T>	mstack;
+		iterator		begin(void);
+		const_iterator	begin(void) const;
+		iterator		end(void);
+		const_iterator	end(void) const;
 };
 
 
@@ -42,8 +35,11 @@ MutantStack<T>::~MutantStack(void) {
 }
 
 template <typename T>
-MutantStack<T>::MutantStack(const MutantStack& obj) : mstack(obj.mstack) {
+MutantStack<T>::MutantStack(const MutantStack& obj) {
 	std::cout << "[OCCF] MutantStack copy constructor called\n";
+
+	if (this != &obj)
+		this->c = obj.c;
 }
 
 template <typename T>
@@ -51,26 +47,20 @@ MutantStack<T>& MutantStack<T>::operator= (const MutantStack& obj) {
 	std::cout << "[OCCF] MutantStack copy assignment operator called\n";
 
 	if (this != &obj)
-		mstack = obj.mstack;
+		this->c = obj.c;
 	return *this;
 }
 
 template <typename T>
-void MutantStack<T>::push(const T& value) { mstack.push(value); }
+typename MutantStack<T>::iterator MutantStack<T>::begin(void) { return this->c.begin(); }
 
 template <typename T>
-void MutantStack<T>::pop(void) { mstack.pop(); }
+typename MutantStack<T>::const_iterator MutantStack<T>::begin(void) const { return this->c.begin(); }
 
 template <typename T>
-const T& MutantStack<T>::top(void) const { return mstack.top(); }
+typename MutantStack<T>::iterator MutantStack<T>::end(void) { return this->c.end(); }
 
 template <typename T>
-unsigned int MutantStack<T>::size(void) const { return mstack.size(); }
-
-template <typename T>
-typename MutantStack<T>::iterator MutantStack<T>::begin(void) { mstack.c.begin(); }
-
-template <typename T>
-typename MutantStack<T>::iterator MutantStack<T>::end(void) { mstack.c.end(); }
+typename MutantStack<T>::const_iterator MutantStack<T>::end(void) const { return this->c.end(); }
 
 #endif
