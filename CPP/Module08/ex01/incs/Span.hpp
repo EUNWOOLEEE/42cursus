@@ -20,9 +20,10 @@ class Span {
 		int		operator[] (unsigned int idx) const;
 
 		unsigned int	getMaxSize(void);
+		unsigned int	getCurSize(void);
 
 		void	addNumber(int n);
-		void	fillNumbers(unsigned int len);
+		void	fillNumbers(iter begin, iter end, size_t len);
 		int		shortestSpan(void);
 		int		longestSpan(void);
 		bool	checkOverlap(int n);

@@ -19,7 +19,6 @@ Span& Span::operator= (const Span& obj) {
 		arr = obj.arr;
 		max_size = obj.max_size;
 	}
-
 	return *this;
 }
 
@@ -36,6 +35,7 @@ int Span::operator[] (unsigned int idx) const {
 }
 
 unsigned int Span::getMaxSize(void) { return max_size; }
+unsigned int Span::getCurSize(void) { return arr.size(); }
 
 void Span::addNumber(int n) {
 	if (arr.size() == max_size)
@@ -45,15 +45,14 @@ void Span::addNumber(int n) {
 	arr.push_back(n);
 }
 
-void Span::fillNumbers(unsigned int len) {
-	if (len + arr.size() > max_size)
+void Span::fillNumbers(iter begin, iter end, size_t len) {
+	if (arr.size() + len > max_size)
 		throw std::out_of_range("Array capacity exceeded");
 
-	for (unsigned int i = 0; i < len; i++) {
-		if (checkOverlap(i) == true)
-			len++;
-		else
-			arr.push_back(i);
+	while (begin != end) {
+		if (checkOverlap(*begin) == false)
+			arr.push_back(*begin);
+		begin++;
 	}
 }
 
@@ -87,17 +86,17 @@ bool Span::checkOverlap(int n) {
 	iter it = arr.begin();
 	iter ite = arr.end();
 
-	while (it != ite) {
-		if (*it == n)
-			return true;
-		it++;
-	}
+	if (std::find(it, ite, n) != ite)
+		return true;
 	return false;
 }
 
 void Span::printNums(void) {
+	iter it = arr.begin();
+	iter ite = arr.end();
+
 	std::cout << "nums: ";
-	for (unsigned int i = 0; i < arr.size(); i++)
-		std::cout << arr[i] << " ";
+	while (it != ite)
+		std::cout << *it++ << " ";
 	std::cout << "\n";
 }
