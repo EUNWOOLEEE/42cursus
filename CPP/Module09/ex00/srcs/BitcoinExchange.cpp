@@ -50,8 +50,27 @@ bool BitcoinExchange::checkLineForm(const std::string& line) {
 		return false;
 }
 
+
 bool BitcoinExchange::checkDateForm(const std::string& date) {
 	std::array<std::string, 3>	tokens = split(date, '-');
+
+	// time_t rawtime;
+	// struct tm* timeinfo;
+
+	// time(&rawtime);
+	// timeinfo = localtime(&rawtime);
+	// timeinfo->tm_year = year - 1900;
+	// timeinfo->tm_mon = month - 1;
+	// timeinfo->tm_mday = day;
+	// timeinfo->tm_isdst = -1;
+	// mktime(timeinfo);
+
+	// if (year != timeinfo->tm_year + 1900 || month != timeinfo->tm_mon + 1 ||
+	// 	day != timeinfo->tm_mday) {
+	// 	return (false);
+	// } else {
+	// 	return (true);
+	// }
 
 	if (last_date < date								\
 		|| strtol(tokens[1].c_str(), NULL, 10) > 12		\
