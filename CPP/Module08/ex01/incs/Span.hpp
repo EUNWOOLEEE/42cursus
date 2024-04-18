@@ -4,10 +4,9 @@
 # include <iostream>
 # include <exception>
 # include <algorithm>
-# include <vector>
-# include <cmath>
+# include <set>
 
-typedef std::vector<int>::iterator iter;
+typedef std::set<int>::iterator iter;
 
 class Span {
 	public:
@@ -16,8 +15,6 @@ class Span {
 		Span(const Span& obj);
 
 		Span&	operator= (const Span& obj);
-		int		operator[] (unsigned int idx);
-		int		operator[] (unsigned int idx) const;
 
 		unsigned int	getMaxSize(void);
 		unsigned int	getCurSize(void);
@@ -32,8 +29,8 @@ class Span {
 	private:
 		Span(void);
 
-		std::vector<int>	arr;
-		unsigned int		max_size;
+		std::set<int>	nums;
+		unsigned int	max_size;
 };
 
 #endif

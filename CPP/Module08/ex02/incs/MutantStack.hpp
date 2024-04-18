@@ -37,8 +37,7 @@ template <typename T>
 MutantStack<T>::MutantStack(const MutantStack& obj) {
 	std::cout << "[OCCF] MutantStack copy constructor called\n";
 
-	if (this != &obj)
-		this->c = obj.c;
+	this->c = obj.c;
 }
 
 template <typename T>

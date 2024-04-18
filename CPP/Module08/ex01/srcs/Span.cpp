@@ -8,7 +8,7 @@ Span::~Span(void) {
 	std::cout << "[OCCF] Span destructor called\n";
 }
 
-Span::Span(const Span& obj) : arr(obj.arr), max_size(obj.max_size) {
+Span::Span(const Span& obj) : nums(obj.nums), max_size(obj.max_size) {
 	std::cout << "[OCCF] Span copy constructor called\n";
 }
 
@@ -16,53 +16,38 @@ Span& Span::operator= (const Span& obj) {
 	std::cout << "[OCCF] Span copy assignment operator called\n";
 
 	if (this != &obj) {
-		arr = obj.arr;
+		nums = obj.nums;
 		max_size = obj.max_size;
 	}
 	return *this;
 }
 
-int Span::operator[] (unsigned int idx) {
-	if (idx >= arr.size())
-		throw std::out_of_range("Out of range");
-	return arr[idx];
-}
-
-int Span::operator[] (unsigned int idx) const {
-	if (idx >= arr.size())
-		throw std::out_of_range("Out of range");
-	return arr[idx];
-}
-
 unsigned int Span::getMaxSize(void) { return max_size; }
-unsigned int Span::getCurSize(void) { return arr.size(); }
+unsigned int Span::getCurSize(void) { return nums.size(); }
 
 void Span::addNumber(int n) {
-	if (arr.size() == max_size)
-		throw std::out_of_range("Array capacity exceeded");
-	if (checkOverlap(n) == true)
+	if (nums.size() == max_size)
+		throw std::out_of_range("Set capacity exceeded");
+	if (nums.find(n) != nums.end())
 		throw std::invalid_argument("Element is overlaped");
-	arr.push_back(n);
+	nums.insert(n);
 }
 
 void Span::fillNumbers(iter begin, iter end, size_t len) {
-	if (arr.size() + len > max_size)
-		throw std::out_of_range("Array capacity exceeded");
+	if (nums.size() + len > max_size)
+		throw std::out_of_range("Set capacity exceeded");
 
-	while (begin != end) {
-		if (checkOverlap(*begin) == false)
-			arr.push_back(*begin);
-		begin++;
-	}
+	nums.insert(begin, end);
 }
 
 int Span::shortestSpan(void) {
-	if (arr.size() <= 1)
+	if (nums.size() <= 1)
 		throw std::out_of_range("Lack of element");
 
-	int min = abs(arr[0] - arr[1]);
-	for (unsigned int i = 1; i < arr.size() - 1; i++) {
-		int tmp = abs(arr[i] - arr[i + 1]);
+	size_t	min = longestSpan();
+
+	for (iter it = nums.begin(); std::next(it) != nums.end(); it++) {
+		size_t	tmp = *(std::next(it)) - *it;
 		min = min < tmp ? min : tmp;
 	}
 
@@ -70,33 +55,15 @@ int Span::shortestSpan(void) {
 }
 
 int Span::longestSpan(void) {
-	if (arr.size() <= 1)
+	if (nums.size() <= 1)
 		throw std::out_of_range("Lack of element");
 
-	int max = abs(arr[0] - arr[1]);
-	for (unsigned int i = 1; i < arr.size() - 1; i++) {
-		int tmp = abs(arr[i] - arr[i + 1]);
-		max = max > tmp ? max : tmp;
-	}
-
-	return max;
-}
-
-bool Span::checkOverlap(int n) {
-	iter it = arr.begin();
-	iter ite = arr.end();
-
-	if (std::find(it, ite, n) != ite)
-		return true;
-	return false;
+	return *(nums.rbegin()) - *(nums.begin());
 }
 
 void Span::printNums(void) {
-	iter it = arr.begin();
-	iter ite = arr.end();
-
 	std::cout << "nums: ";
-	while (it != ite)
-		std::cout << *it++ << " ";
+	for (iter it = nums.begin(); it != nums.end(); it = std::next(it))
+		std::cout << *it << " ";
 	std::cout << "\n";
 }
