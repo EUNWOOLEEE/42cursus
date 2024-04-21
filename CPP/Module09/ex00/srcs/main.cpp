@@ -2,13 +2,19 @@
 
 
 int	main(int argc, char **argv) {
-	if (argc != 2)
-		std::cerr << "Usage: ./btc input.txt\n";
+	if (argc != 2) {
+		std::cout << "Usage: ./btc input.txt\n";
+		return 0;
+	}
 
 	try {
 		BitcoinExchange btc(argv[1]);
-	} catch (const std::ios_base::failure& e) {
-		std::cerr << "Error: " << e.what() << "\n";
+
+		btc.readDatabase();
+		btc.readInputFile();
+		
+	} catch (const std::runtime_error& e) {
+		std::cout << "Error: " << e.what() << "\n";
 	}
 	
 	return 0;

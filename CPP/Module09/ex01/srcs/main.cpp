@@ -1,78 +1,29 @@
-#include "../incs/Span.hpp"
+#include "../incs/RPN.hpp"
 
-int main()
+int main(int argc, char** argv)
 {
+	if (argc != 2) {
+		std::cerr << "Usage: ./RPN \"Reverse polish notation expression\"\n";
+		return 0;
+	}
+
 	try {
-		std::cout << "Test: subject test case\n\n";
-		Span sp = Span(5);
-		
-		sp.addNumber(6);
-		sp.addNumber(3);
-		sp.addNumber(17);
-		sp.addNumber(9);
-		sp.addNumber(11);
+		RPN			rpn(argv[1]);
+		std::string	token;
 
-		std::cout << "arr size: " << sp.getMaxSize() << "\n";
-		sp.printNums();
+		while ((token = rpn.getNextToken()).size()) {
+			if (rpn.isOperator(token) == true)
+				rpn.calculate(token[0]);
+			else
+				rpn.pushToStack(token);
+		}
 
-		std::cout << "shortest: " << sp.shortestSpan() << std::endl;
-		std::cout << "longest: " << sp.longestSpan() << std::endl;
+		rpn.printResult();
 
-
-		/*-----------------------------------------------*/
-
-
-		// Span sp = Span(3);
-
-		// sp.addNumber(5);
-		// sp.addNumber(15);
-
-		// std::cout << "arr size: " << sp.getMaxSize() << "\n";
-		// sp.printNums();
-		
-
-		// std::cout << "Test: try add overlaped num\n\n";
-		// sp.addNumber(5);
-
-
-		// std::cout << "\n\nTest: try add exceeded num\n\n";
-		// sp.addNumber(25);
-		// sp.addNumber(35);
-
-
-		/*-----------------------------------------------*/
-
-
-		// std::cout << "Test: try fill 10000\n\n";
-		// Span sp(10000);
-
-		// sp.fillNumbers(10000);
-		// std::cout << "arr size: " << sp.getMaxSize() << "\n";
-		// std::cout << "idx[0]: " << sp[0] << "\n";
-		// std::cout << "idx[4999]: " << sp[4999] << "\n";
-		// std::cout << "idx[9999]: " << sp[9999] << "\n";
-
-
-		/*-----------------------------------------------*/
-
-
-		// std::cout << "Test: try fill after add\n\n";
-		// Span sp(10);
-
-		// sp.addNumber(5);
-		// sp.fillNumbers(9);
-		// std::cout << "arr size: " << sp.getMaxSize() << "\n";
-		// sp.printNums();
-
-
-		// std::cout << "Test: try fill over size\n\n";
-		// sp.fillNumbers(9);
-
-	
+	} catch (const std::runtime_error& e) {
+		std::cout << "Error: " << e.what() << "\n";
 	} catch (const std::invalid_argument& e) {
-		std::cout << e.what() << "\n";
-	} catch (const std::out_of_range& e) {
-		std::cout << e.what() << "\n";
+		std::cout << "Error: " << e.what() << "\n";
 	}
 
 	return 0;

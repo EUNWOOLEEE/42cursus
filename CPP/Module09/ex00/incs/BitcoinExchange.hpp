@@ -6,9 +6,10 @@
 # include <sstream>
 # include <exception>
 # include <string>
-# include <array>
+# include <deque>
 # include <map>
 # include <ctime>
+# include <cstdlib>
 
 class BitcoinExchange {
 	public:
@@ -16,12 +17,12 @@ class BitcoinExchange {
 		~BitcoinExchange(void);
 
 		void	readDatabase(void);
-		void	readFile(void);
-		bool	checkLineForm(const std::string& line);
+		void	readInputFile(void);
+		void	calInputValue(std::string& date, double value);
 		bool	checkDateForm(const std::string& date);
-		bool	checkValueRange(int value) const;
+		bool	isValidDate(const int year, const int month, const int day);
 
-		std::array<std::string, 3>	split(const std::string& str, const char delimiter);
+		std::deque<std::string> split(const std::string& str, const char delimiter);
 
 	private:
 		BitcoinExchange(void);
@@ -31,8 +32,8 @@ class BitcoinExchange {
 
 		std::ifstream					database_file;
 		std::ifstream					input_file;
-		std::map<std::string, double>	databese;
-		std::string						last_date;
+		std::map<std::string, double>	database;
+		std::string						oldest_date;
 };
 
 #endif

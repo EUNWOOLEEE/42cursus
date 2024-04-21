@@ -1,4 +1,4 @@
-NAME = span
+NAME = RPN
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
@@ -11,7 +11,7 @@ RM = rm -rf
 MAKE = make
 
 SRCS =	main.cpp	\
-		Span.cpp
+		RPN.cpp
 
 SRCS_WITH_PATH = $(addprefix $(SRCS_DIR)/, $(SRCS))
 OBJS = $(SRCS_WITH_PATH:$(SRCS_DIR)/%.cpp=$(OBJS_DIR)/%.o)
@@ -27,8 +27,8 @@ NUM_TASK = 2
 SIZE = 0
 END = 1
 CHAR = ""
-GAUGE = Adjusting span...
-NUM_GAUGE = 17
+GAUGE = Calculating...
+NUM_GAUGE = 14
 
 all:
 	@echo "$(PINK)BUILD $(NAME)$(RESET)"

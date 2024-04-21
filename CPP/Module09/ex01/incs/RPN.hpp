@@ -2,37 +2,31 @@
 # define RPN_H
 
 # include <iostream>
+# include <sstream>
 # include <exception>
 # include <algorithm>
-# include <vector>
-# include <cmath>
-
-typedef std::vector<int>::iterator iter;
+# include <stack>
 
 class RPN {
 	public:
-		RPN(unsigned int N);
+		RPN(char* _expression);
 		~RPN(void);
-		RPN(const RPN& obj);
 
-		RPN&	operator= (const RPN& obj);
-		int		operator[] (unsigned int idx);
-		int		operator[] (unsigned int idx) const;
-
-		unsigned int	getMaxSize(void);
-
-		void	addNumber(int n);
-		void	fillNumbers(unsigned int len);
-		int		shortestRPN(void);
-		int		longestRPN(void);
-		bool	checkOverlap(int n);
-		void	printNums(void);
+		std::string	getNextToken(void);
+		bool		isOperator(std::string& token);
+		void		pushToStack(std::string& token);
+		void		calculate(char operator_type);
+		void		printResult(void) const;
 
 	private:
 		RPN(void);
+		RPN(const RPN& obj);
 
-		std::vector<int>	arr;
-		unsigned int		max_size;
+		RPN& operator= (const RPN& obj);
+
+		const std::string	expression;
+		std::stringstream	ss;
+		std::stack<int>		nstack;
 };
 
 #endif

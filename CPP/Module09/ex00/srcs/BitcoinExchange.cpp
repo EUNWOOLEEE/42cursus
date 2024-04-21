@@ -1,12 +1,16 @@
 #include "../incs/BitcoinExchange.hpp"
 
-BitcoinExchange::BitcoinExchange(char* file_name) : input_file(file_name), database_file("data.csv") {
+BitcoinExchange::BitcoinExchange(char* file_name) : database_file("data.csv"), input_file(file_name) {
 	std::cout << "[OCCF] BitcoinExchange constructor called\n";
 
 	if (input_file.is_open() == false)
-		throw std::ios_base::failure("Failed to open input file");
+		throw std::runtime_error("could not open input file");
+	if (input_file.peek() == EOF)
+		throw std::runtime_error("input file is empty");
 	if (database_file.is_open() == false)
-		throw std::ios_base::failure("Failed to open database");
+		throw std::runtime_error("could not open database file");
+	if (database_file.peek() == EOF)
+		throw std::runtime_error("database file is empty");
 }
 
 BitcoinExchange::~BitcoinExchange(void) {
@@ -14,96 +18,143 @@ BitcoinExchange::~BitcoinExchange(void) {
 }
 
 void BitcoinExchange::readDatabase(void) {
-	std::string	line, date;
-	size_t		pos;
-	double		value;
+	std::deque<std::string>	tokens;
+	std::string				line, date, remain;
+	double					value;
+	char*					remain_c_str;
+
+	std::getline(database_file, line);
+	if (line != "date,exchange_rate")
+		throw std::runtime_error("invalid database file format");
 
 	while (std::getline(database_file, line)) {
-		pos = line.find(',');
-		date = line.substr(0, pos);
-		value = strtod(&line.c_str()[pos], NULL);
+		tokens = split(line, ',');
+
+		if (tokens.size() != 2)
+			throw std::runtime_error("invalid database file format");
+
+		date = tokens[0];
+		value = strtod(tokens[1].c_str(), &remain_c_str);
+		remain = std::string(remain_c_str);
 	
-		databese[date] = value;
+		if (checkDateForm(date) == false		\
+			|| (remain.size() && remain != "f")	\
+			|| value < 0)
+			throw std::runtime_error("invalid database file format");
+
+		database[date] = value;
 	}
-	last_date = date;
+
+	oldest_date = database.begin()->first;
+
 }
 
-void BitcoinExchange::readFile(void) {
-	std::string	line;
+void BitcoinExchange::readInputFile(void) {
+	std::deque<std::string>	tokens;
+	std::string				line, date, remain;
+	double					value;
+	char*					remain_c_str;
+	
+	std::getline(input_file, line);
+	if (line != "date | value")
+		throw std::runtime_error("Invalid input file format");
+
 	while (std::getline(input_file, line)) {
+		tokens = split(line, ' ');
+		
+		if (tokens.size() != 3) {
+			std::cout << "Error: bad input => " << tokens[0] << "\n";
+			continue;
+		}
+
+		date = tokens[0];
+		value = strtod(tokens[2].c_str(), &remain_c_str);
+		remain = std::string(remain_c_str);
+	
+		if (checkDateForm(date) == false	\
+			|| date < oldest_date)
+			std::cout << "Error: bad input => " << date << "\n";
+		if (tokens[1] != "|")
+			std::cout << "Error: bad input => " << tokens[1] << "\n";
+		if (remain.size() && remain != "f")
+			std::cout << "Error: bad input => " << tokens[2] << "\n";
+		else if (value < 0)
+			std::cout << "Error: not a positive number.\n";
+		else if (1000 < value)
+			std::cout << "Error: too large a number.\n";
+		else
+			calInputValue(date, value);
 	}
 }
 
-bool BitcoinExchange::checkLineForm(const std::string& line) {
-	std::array<std::string, 3>	tokens;
-	std::stringstream			ss(line);
-	std::string					token;
+void BitcoinExchange::calInputValue(std::string& date, double value) {
+	std::map<std::string, double>::iterator	it = database.begin();
+	std::map<std::string, double>::iterator	ite = database.end();
+	double									rate;
 
-	int i = 0;
-	while (std::getline(ss, token, ' ')) {
-		if (i > 2)
-			return false;
-		tokens[i++] = token;
+	if (database[date])
+		rate = database[date];
+	else {
+		while (it != ite && it->first < date)
+			it++;
+		rate = database[(--it)->first];
 	}
-
-	if (tokens[1] != "|" || i != 2)
-		return false;
+		
+	std::cout << date << " => " << value << " = " << value * rate << "\n";
 }
-
 
 bool BitcoinExchange::checkDateForm(const std::string& date) {
-	std::array<std::string, 3>	tokens = split(date, '-');
+	if (date.size() != 10)
+		return false;
 
-	// time_t rawtime;
-	// struct tm* timeinfo;
+	for (unsigned int i = 0; i < date.size(); i++)
+		if (isdigit(date[i]) == false && date[i] != '-')
+			return false;
 
-	// time(&rawtime);
-	// timeinfo = localtime(&rawtime);
-	// timeinfo->tm_year = year - 1900;
-	// timeinfo->tm_mon = month - 1;
-	// timeinfo->tm_mday = day;
-	// timeinfo->tm_isdst = -1;
-	// mktime(timeinfo);
+	std::deque<std::string>	tokens = split(date, '-');
 
-	// if (year != timeinfo->tm_year + 1900 || month != timeinfo->tm_mon + 1 ||
-	// 	day != timeinfo->tm_mday) {
-	// 	return (false);
-	// } else {
-	// 	return (true);
-	// }
-
-	if (last_date < date								\
-		|| strtol(tokens[1].c_str(), NULL, 10) > 12		\
-		|| strtol(tokens[2].c_str(), NULL, 10) > 31)
-		return false; //날짜 오류
+	if (tokens.size() != 3)
+		return false;
+	
+	if (isValidDate(atoi(tokens[0].c_str()),			\
+					atoi(tokens[1].c_str()),			\
+					atoi(tokens[2].c_str())) == false)
+		return false;
+	return true;
 }
 
-bool BitcoinExchange::checkValueRange(int value) const {
+bool BitcoinExchange::isValidDate(const int year, const int month, const int day) {
+	time_t		rawtime;
+	struct tm*	timeinfo;
 
-}
+	time(&rawtime);
+	timeinfo = localtime(&rawtime);
+	timeinfo->tm_year = year - 1900;
+	timeinfo->tm_mon = month - 1;
+	timeinfo->tm_mday = day;
+	timeinfo->tm_isdst = -1;
+	mktime(timeinfo);
 
-std::array<std::string, 3> BitcoinExchange::split(const std::string& str, const char delimiter) {
-	std::array<std::string, 3>	tokens;
-	std::stringstream			ss(str);
-	std::string					token;
+	// std::cout << "\n\nprint date\n";
+	// std::cout << "year: " << year << ", " << timeinfo->tm_year + 1900 << "\n";
+	// std::cout << "month: " << month << ", " << timeinfo->tm_mon + 1 << "\n";
+	// std::cout << "day: " << day << ", " << timeinfo->tm_mday << "\n\n";
 
-	int i = 0;
-	while (std::getline(ss, token, delimiter)) {
-		// if (i >= 2)
-		tokens[i++] = token;
+	if (year != timeinfo->tm_year + 1900	\
+		|| month != timeinfo->tm_mon + 1	\
+		|| day != timeinfo->tm_mday) {
+		return false;
 	}
+	else
+		return true;
+}
+
+std::deque<std::string> BitcoinExchange::split(const std::string& str, const char delimiter) {
+	std::deque<std::string>	tokens;
+	std::string				token;
+	std::stringstream		ss(str);
+
+	while (std::getline(ss, token, delimiter))
+		tokens.push_back(token);
 	return tokens;
 }
-
-// BitcoinExchange::BitcoinExchange(const BitcoinExchange& obj) {
-// 	std::cout << "[OCCF] BitcoinExchange copy constructor called\n";
-// }
-
-// BitcoinExchange& BitcoinExchange::operator= (const BitcoinExchange& obj) {
-// 	std::cout << "[OCCF] BitcoinExchange copy assignment operator called\n";
-
-// 	if (this != &obj) {
-// 	}
-
-// 	return *this;
-// }
