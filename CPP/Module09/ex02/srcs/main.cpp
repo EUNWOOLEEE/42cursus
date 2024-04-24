@@ -7,9 +7,9 @@ int main(int argc, char** argv)
 		return 0;
 	}
 
-	try {
-		PmergeMe pmm(argc - 1, &argv[1]);
-	}
+	PmergeMe pmm(argc - 1, &argv[1]);
+
+	pmm.sortVector();
 		
 	return 0;
 }

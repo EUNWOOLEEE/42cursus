@@ -10,7 +10,8 @@ OBJS_DIR = objs
 RM = rm -rf
 MAKE = make
 
-SRCS =	main.cpp
+SRCS =	main.cpp		\
+		PmergeMe.cpp
 
 SRCS_WITH_PATH = $(addprefix $(SRCS_DIR)/, $(SRCS))
 OBJS = $(SRCS_WITH_PATH:$(SRCS_DIR)/%.cpp=$(OBJS_DIR)/%.o)
@@ -26,8 +27,8 @@ NUM_TASK = 2
 SIZE = 0
 END = 1
 CHAR = ""
-GAUGE = Creating mutant...
-NUM_GAUGE = 18
+GAUGE = Merging...
+NUM_GAUGE = 10
 
 all:
 	@echo "$(PINK)BUILD $(NAME)$(RESET)"
