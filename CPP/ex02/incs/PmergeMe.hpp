@@ -3,6 +3,7 @@
 
 # include <iostream>
 # include <algorithm>
+# include <exception>
 # include <ctime>
 
 template<class container>
@@ -10,7 +11,7 @@ class PmergeMe {
 	public:
 		typedef	container< std::pair<int, int> >	pii;
 
-		PmergeMe(void);
+		PmergeMe(int _num_cnt, char** _nums);
 		~PmergeMe(void);
 
 		void	sort(int argc, char** argv);
@@ -22,6 +23,7 @@ class PmergeMe {
 		void	printBeforeNums(void) const;
 		void	printAfterNums(pii& main) const;
 
+		void	checkDigits(char* num_str) const;
 		void	calJacobsthal(void);
 		void	setStartTime(void);
 		void	printTime(std::string type);
@@ -34,12 +36,12 @@ class PmergeMe {
 
 		PmergeMe& operator= (const PmergeMe& obj);
 
+		clock_t				start;
 		size_t				num_cnt;
-		container			nums;
+		container<int>		nums;
 		std::pair<int, int>	last;
 		unsigned int		chain_size;
-		container			jacobsthal_nums;
-		clock_t				start;
+		container<int>		jacobsthal_nums;
 };
 
 #endif

@@ -1,56 +1,73 @@
 #include "../incs/PmergeMe.hpp"
 
-PmergeMe::PmergeMe(void) {
-	std::cout << "[OCCF] PmergeMe constructor called\n";
+template<class container>
+PmergeMe<container>::PmergeMe(int _num_cnt, char** _nums) {
 
-	for (size_t i = 0; i < num_cnt; i++)
+	std::cout << "[OCCF] PmergeMe constructor called\n";
+	
+	setStartTime();
+
+	num_cnt = _num_cnt;
+	nums = container(num_cnt);
+	last = std::make_pair(-1, 0);
+	chain_size(num_cnt / 2);
+
+	for (size_t i = 0; i < num_cnt; i++) {
+		checkDigits(_nums[i]);
 		nums[i] = atoi(_nums[i]);
+	}
+
+	jacobsthal_nums.push_back(0);
+	jacobsthal_nums.push_back(1);
 }
 
-PmergeMe::~PmergeMe(void) {
+template<class container>
+PmergeMe<container>::~PmergeMe(void) {
 	std::cout << "[OCCF] PmergeMe destructor called\n";
 }
 
-void PmergeMe::sortVector(int argc, char** argv) {
-	size_t				num_cnt = argc - 1;
-	std::vector<int> 	nums(num_cnt);
-	std::pair<int, int>	last = std::make_pair(-1, 0);
-	
-	jacobsthal_nums.push_back(0);
-	jacobsthal_nums.push_back(1);
+template<class container>
+void PmergeMe<container>::checkDigits(char* num_str) const {
+	for (int i = 0; num_str[i]; i++)
+		if (isdigit(num_str[i]) == false)
+			throw std::runtime_error("Input values must be positive number");
+}
 
-	setStartTime();
-	printBeforeNumsVector();
+template<class container>
+void PmergeMe<container>::sort(int argc, char** argv) {
 
-	vpi	tmp_pairs = initVector();
+	printBeforeNums();
+
+	pii	tmp_pairs = init();
 	std::sort(tmp_pairs.begin(), tmp_pairs.end());
 
-	// printVectorPairs("Step2: Sort by larger", "main, sub", tmp_pairs);
+	// printPairs("Step2: Sort by larger", "main, sub", tmp_pairs);
 
-	vpi	main(half_size);
-	vpi	sub(half_size);
+	pii	main(half_size);
+	pii	sub(half_size);
 
-	divideVector(main, sub, tmp_pairs);
+	divide(main, sub, tmp_pairs);
 	calJacobsthal();
 
 	// std::cout << "Step3: divide main and sub";
-	// printVectorPairs("", "main, index", main);
-	// printVectorPairs("", "sub, index", sub);
+	// printPairs("", "main, index", main);
+	// printPairs("", "sub, index", sub);
 
-	insertVector(main, sub);
+	insert(main, sub);
 
-	printAfterNumsVector(main);
-	printTime("vector");
+	printAfterNums(main);
+	printTime("");
 
-	// printVectorPairs("Step4: Sort", "main, index", main);
+	// printPairs("Step4: Sort", "main, index", main);
 }
 
-vpi PmergeMe::initVector(void) {
+template<class container>
+PmergeMe<container>::pii PmergeMe<container>::init(void) {
 	if (num_count % 2)
 		last.first = *(nums.rbegin());
 	
 	half_size = nums.size()/ 2;
-	vpi	tmp_pairs(half_size);
+	pii	tmp_pairs(half_size);
 
 	for (unsigned int i = 0, j = half_size; i < half_size; i++, j++) {
 		int	first = nums[i] > nums[j] ? nums[i] : nums[j];
@@ -61,14 +78,16 @@ vpi PmergeMe::initVector(void) {
 	return tmp_pairs;
 }
 
-void PmergeMe::divideVector(vpi& main, vpi& sub, vpi& tmp) {
+template<class container>
+void PmergeMe<container>::divide(pii& main, pii& sub, pii& tmp) {
 	for (unsigned int i = 0; i < half_size; i++) {
 		main[i] = std::make_pair(tmp[i].first, i);
 		sub[i] = std::make_pair(tmp[i].second, i);
 	}
 }
 
-void PmergeMe::insertVector(vpi& main, vpi& sub) {
+template<class container>
+void PmergeMe<container>::insert(pii& main, pii& sub) {
 	unsigned int	jacobsthal;
 	unsigned int	jacobsthal_idx = 3;
 	int				idx;
@@ -82,8 +101,8 @@ void PmergeMe::insertVector(vpi& main, vpi& sub) {
 		// std::cout << "jacobsthal: " << jacobsthal << "\n";
 		for (unsigned int i = jacobsthal; i > jacobsthal_nums[jacobsthal_idx - 1]; i--) {
 			// std::cout << "idx: " << i << "\n";
-			idx = searchSetIdxVector(main, sub[i - 1].second);
-			idx = binarySearchVector(main, idx, sub[i - 1].first);
+			idx = searchSetIdx(main, sub[i - 1].second);
+			idx = binarySearch(main, idx, sub[i - 1].first);
 			main.insert(main.begin() + idx, 1, sub[i - 1]);
 		}
 
@@ -91,19 +110,21 @@ void PmergeMe::insertVector(vpi& main, vpi& sub) {
 	}
 
 	if (last.first != -1) {
-		idx = binarySearchVector(main, main.size(), last.first);
+		idx = binarySearch(main, main.size(), last.first);
 		main.insert(main.begin() + idx, 1, last);
 	}
 }
 
-int PmergeMe::searchSetIdxVector(vpi& main, int idx) {
+template<class container>
+int PmergeMe<container>::searchSetIdx(pii& main, int idx) {
 	for (unsigned int i = idx; i < main.size(); i++)
 		if (idx == main[i].second)
 			return i;
 	return -1;
 }
 
-int PmergeMe::binarySearchVector(vpi& main, int idx, int values) {
+template<class container>
+int PmergeMe<container>::binarySearch(pii& main, int idx, int values) {
 	int	left = 0;
 	int	mid;
 	int	right = idx;
@@ -119,21 +140,24 @@ int PmergeMe::binarySearchVector(vpi& main, int idx, int values) {
 	return left;
 }
 
-void PmergeMe::printBeforeNumsVector(void) const {
+template<class container>
+void PmergeMe<container>::printBeforeNums(void) const {
 	std::cout << "Before:\t";
 	for (unsigned int i = 0; i < nums.size(); i++)
 		std::cout << nums[i] << " ";
 	std::cout << "\n";
 }
 
-void PmergeMe::printAfterNumsVector(vpi& main) const {
+template<class container>
+void PmergeMe<container>::printAfterNums(pii& main) const {
 	std::cout << "After:\t";
 	for (unsigned int i = 0; i < main.size(); i++)
 		std::cout << main[i].first << " ";
 	std::cout << "\n";
 }
 
-void PmergeMe::calJacobsthal(void) {
+template<class container>
+void PmergeMe<container>::calJacobsthal(void) {
 	int	i = 2;
 	while (true) {
 		jacobsthal_nums.push_back(jacobsthal_nums[i - 1] + 2 * jacobsthal_nums[i - 2]);
@@ -148,20 +172,23 @@ void PmergeMe::calJacobsthal(void) {
 	// std::cout << "\n\n";
 }
 
-void PmergeMe::setStartTime(void) {
+template<class container>
+void PmergeMe<container>::setStartTime(void) {
 	start = clock();
 	// 마이크로초 == 1/1,000,000
 	// clock 함수는 프로그램 실행 시작부터 함수 호출 시점까지 경과한 CPU 시간이고, 마이크로초 단위
 }
 
-void PmergeMe::printTime(std::string type) {
+template<class container>
+void PmergeMe<container>::printTime(std::string type) {
 	clock_t total = clock() - start;
 
 	std::cout << "Time to process a range of " << nums.size()	\
 				<< " elements with std::" << type << " : " << total << " us\n";
 }
 
-void PmergeMe::printVectorPairs(std::string str, std::string type, vpi pairs) {
+template<class container>
+void PmergeMe<container>::printPairs(std::string str, std::string type, pii pairs) {
 	std::cout << "\n" << str << "\n";
 	std::cout << type << "\n";
 	for (unsigned int i = 0; i < pairs.size(); i++)
