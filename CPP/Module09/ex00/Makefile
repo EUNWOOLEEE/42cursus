@@ -11,7 +11,8 @@ RM = rm -rf
 MAKE = make
 
 SRCS =	main.cpp			\
-		BitcoinExchange.cpp
+		BitcoinExchange.cpp	\
+		Mylist.cpp
 
 SRCS_WITH_PATH = $(addprefix $(SRCS_DIR)/, $(SRCS))
 OBJS = $(SRCS_WITH_PATH:$(SRCS_DIR)/%.cpp=$(OBJS_DIR)/%.o)

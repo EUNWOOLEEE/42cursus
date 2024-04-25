@@ -6,10 +6,12 @@
 # include <sstream>
 # include <exception>
 # include <string>
-# include <deque>
+# include <list>
 # include <map>
 # include <ctime>
 # include <cstdlib>
+
+# include "../incs/Mylist.hpp"
 
 class BitcoinExchange {
 	public:
@@ -22,7 +24,7 @@ class BitcoinExchange {
 		bool	checkDateForm(const std::string& date);
 		bool	isValidDate(const int year, const int month, const int day);
 
-		std::deque<std::string> split(const std::string& str, const char delimiter);
+		Mylist split(const std::string& str, const char delimiter);
 
 	private:
 		BitcoinExchange(void);

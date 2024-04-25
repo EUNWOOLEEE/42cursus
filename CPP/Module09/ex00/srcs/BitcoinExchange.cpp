@@ -18,10 +18,10 @@ BitcoinExchange::~BitcoinExchange(void) {
 }
 
 void BitcoinExchange::readDatabase(void) {
-	std::deque<std::string>	tokens;
-	std::string				line, date, remain;
-	double					value;
-	char*					remain_c_str;
+	Mylist			tokens;
+	std::string		line, date, remain;
+	double			value;
+	char*			remain_c_str;
 
 	std::getline(database_file, line);
 	if (line != "date,exchange_rate")
@@ -50,10 +50,10 @@ void BitcoinExchange::readDatabase(void) {
 }
 
 void BitcoinExchange::readInputFile(void) {
-	std::deque<std::string>	tokens;
-	std::string				line, date, remain;
-	double					value;
-	char*					remain_c_str;
+	Mylist			tokens;
+	std::string		line, date, remain;
+	double			value;
+	char*			remain_c_str;
 	
 	std::getline(input_file, line);
 	if (line != "date | value")
@@ -111,7 +111,7 @@ bool BitcoinExchange::checkDateForm(const std::string& date) {
 		if (isdigit(date[i]) == false && date[i] != '-')
 			return false;
 
-	std::deque<std::string>	tokens = split(date, '-');
+	Mylist	tokens = split(date, '-');
 
 	if (tokens.size() != 3)
 		return false;
@@ -149,10 +149,10 @@ bool BitcoinExchange::isValidDate(const int year, const int month, const int day
 		return true;
 }
 
-std::deque<std::string> BitcoinExchange::split(const std::string& str, const char delimiter) {
-	std::deque<std::string>	tokens;
-	std::string				token;
-	std::stringstream		ss(str);
+Mylist BitcoinExchange::split(const std::string& str, const char delimiter) {
+	Mylist				tokens;
+	std::string			token;
+	std::stringstream	ss(str);
 
 	while (std::getline(ss, token, delimiter))
 		tokens.push_back(token);

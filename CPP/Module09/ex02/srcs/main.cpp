@@ -7,9 +7,16 @@ int main(int argc, char** argv)
 		return 0;
 	}
 
-	PmergeMe pmm(argc - 1, &argv[1]);
-
-	pmm.sortVector();
+	try {
 		
+		PmergeMe< std::vector< std::pair<int, int> > > pmmv(argc, argv, "vector");
+		pmmv.sort();
+		PmergeMe< std::deque< std::pair<int, int> > > pmmd(argc, argv, "deque");
+		pmmd.sort();
+
+	} catch (const std::runtime_error& e) {
+		std::cout << "Error: " << e.what() << "\n";
+	}
+
 	return 0;
 }
