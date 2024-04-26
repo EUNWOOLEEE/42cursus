@@ -74,9 +74,9 @@ void BitcoinExchange::readInputFile(void) {
 		if (checkDateForm(date) == false	\
 			|| date < oldest_date)
 			std::cout << "Error: bad input => " << date << "\n";
-		if (tokens[1] != "|")
+		else if (tokens[1] != "|")
 			std::cout << "Error: bad input => " << tokens[1] << "\n";
-		if (remain.size() && remain != "f")
+		else if (remain.size() && remain != "f")
 			std::cout << "Error: bad input => " << tokens[2] << "\n";
 		else if (value < 0)
 			std::cout << "Error: not a positive number.\n";
