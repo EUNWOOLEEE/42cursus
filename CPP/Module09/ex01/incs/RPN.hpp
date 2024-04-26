@@ -12,11 +12,11 @@ class RPN {
 		RPN(char* _expression);
 		~RPN(void);
 
-		std::string	getNextToken(void);
-		bool		isOperator(std::string& token);
-		void		pushToStack(std::string& token);
-		void		calculate(char operator_type);
-		void		printResult(void) const;
+		void	run(void);
+		bool	isOperator(std::string& token);
+		void	pushToStack(std::string& token);
+		void	calculate(char operator_type);
+		void	printResult(void) const;
 
 	private:
 		RPN(void);

@@ -8,11 +8,16 @@ RPN::~RPN(void) {
 	std::cout << "[OCCF] RPN destructor called\n";
 }
 
-std::string RPN::getNextToken(void) {
+void RPN::run(void) {
 	std::string	token;
 
-	std::getline(ss, token, ' ');
-	return token;
+	while (ss >> token) {
+		if (isOperator(token) == false)
+			pushToStack(token);
+		else
+			calculate(token[0]);
+	}
+	printResult();
 }
 
 bool RPN::isOperator(std::string& token) {
@@ -28,19 +33,15 @@ void RPN::pushToStack(std::string& token) {
 	if (nstack.size() == 2	\
 		|| token.size() != 1	\
 		|| isdigit(token[0]) == false)
-		throw std::invalid_argument("Invalid expression");
+		throw std::invalid_argument("invalid expression");
 
 	int	n = atoi(token.c_str());
-
-	if (n < 0 || 9 < n)
-		throw std::invalid_argument("Nbers must be between 0 and 9");
-
 	nstack.push(n);
 }
 
 void RPN::calculate(char operator_type) {
 	if (nstack.size() != 2)
-		throw std::invalid_argument("Invalid expression");
+		throw std::invalid_argument("invalid expression");
 
 	int n1 = nstack.top();
 	nstack.pop();
@@ -53,7 +54,7 @@ void RPN::calculate(char operator_type) {
 		nstack.push(n2 - n1);
 	else if (operator_type == '/') {
 		if (n1 == 0 || n2 == 0)
-			throw std::runtime_error("Division by zero");
+			throw std::runtime_error("division by zero");
 		nstack.push(n2 / n1);
 	}
 	else if (operator_type == '*')
@@ -62,7 +63,7 @@ void RPN::calculate(char operator_type) {
 
 void RPN::printResult(void) const {
 	if (nstack.size() != 1)
-		throw std::invalid_argument("Invalid expression");
+		throw std::invalid_argument("invalid expression");
 	
 	std::cout << nstack.top() << "\n";
 }
