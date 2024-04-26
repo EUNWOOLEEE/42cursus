@@ -4,13 +4,13 @@ BitcoinExchange::BitcoinExchange(char* file_name) : database_file("data.csv"), i
 	std::cout << "[OCCF] BitcoinExchange constructor called\n";
 
 	if (input_file.is_open() == false)
-		throw std::runtime_error("could not open input file");
+		throw std::runtime_error("could not open input file.");
 	if (input_file.peek() == EOF)
-		throw std::runtime_error("input file is empty");
+		throw std::runtime_error("input file is empty.");
 	if (database_file.is_open() == false)
-		throw std::runtime_error("could not open database file");
+		throw std::runtime_error("could not open database file.");
 	if (database_file.peek() == EOF)
-		throw std::runtime_error("database file is empty");
+		throw std::runtime_error("database file is empty.");
 }
 
 BitcoinExchange::~BitcoinExchange(void) {
@@ -25,13 +25,13 @@ void BitcoinExchange::readDatabase(void) {
 
 	std::getline(database_file, line);
 	if (line != "date,exchange_rate")
-		throw std::runtime_error("invalid database file format");
+		throw std::runtime_error("invalid database file format.");
 
 	while (std::getline(database_file, line)) {
 		tokens = split(line, ',');
 
 		if (tokens.size() != 2)
-			throw std::runtime_error("invalid database file format");
+			throw std::runtime_error("invalid database file format.");
 
 		date = tokens[0];
 		value = strtod(tokens[1].c_str(), &remain_c_str);
@@ -40,7 +40,7 @@ void BitcoinExchange::readDatabase(void) {
 		if (checkDateForm(date) == false		\
 			|| (remain.size() && remain != "f")	\
 			|| value < 0)
-			throw std::runtime_error("invalid database file format");
+			throw std::runtime_error("invalid database file format.");
 
 		database[date] = value;
 	}
@@ -57,13 +57,13 @@ void BitcoinExchange::readInputFile(void) {
 	
 	std::getline(input_file, line);
 	if (line != "date | value")
-		throw std::runtime_error("Invalid input file format");
+		throw std::runtime_error("invalid input file format.");
 
 	while (std::getline(input_file, line)) {
 		tokens = split(line, ' ');
 		
 		if (tokens.size() != 3) {
-			std::cout << "Error: bad input => " << tokens[0] << "\n";
+			std::cout << "Error: bad input => " << line << "\n";
 			continue;
 		}
 
@@ -113,29 +113,26 @@ bool BitcoinExchange::checkDateForm(const std::string& date) {
 
 	Mylist	tokens = split(date, '-');
 
-	if (tokens.size() != 3)
-		return false;
-	
-	if (isValidDate(atoi(tokens[0].c_str()),			\
-					atoi(tokens[1].c_str()),			\
-					atoi(tokens[2].c_str())) == false)
+	if (tokens.size() != 3									\
+		|| isValidDate(atoi(tokens[0].c_str()),				\
+						atoi(tokens[1].c_str()),			\
+						atoi(tokens[2].c_str())) == false)
 		return false;
 	return true;
 }
 
 bool BitcoinExchange::isValidDate(const int year, const int month, const int day) {
-	time_t		rawtime;
-	struct tm*	timeinfo;
+	time_t		rawtime = time(NULL);
+	struct tm*	timeinfo = localtime(&rawtime);
 
-	time(&rawtime);
-	timeinfo = localtime(&rawtime);
 	timeinfo->tm_year = year - 1900;
 	timeinfo->tm_mon = month - 1;
 	timeinfo->tm_mday = day;
 	timeinfo->tm_isdst = -1;
+
 	mktime(timeinfo);
 
-	// std::cout << "\n\nprint date\n";
+	// std::cout << "\n\nPrint date\n";
 	// std::cout << "year: " << year << ", " << timeinfo->tm_year + 1900 << "\n";
 	// std::cout << "month: " << month << ", " << timeinfo->tm_mon + 1 << "\n";
 	// std::cout << "day: " << day << ", " << timeinfo->tm_mday << "\n\n";

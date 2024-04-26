@@ -1,12 +1,9 @@
 #ifndef BITCOINEXCHANGE_H
 # define BITCOINEXCHANGE_H
 
-# include <iostream>
 # include <fstream>
 # include <sstream>
-# include <exception>
 # include <string>
-# include <list>
 # include <map>
 # include <ctime>
 # include <cstdlib>
@@ -23,8 +20,7 @@ class BitcoinExchange {
 		void	calInputValue(std::string& date, double value);
 		bool	checkDateForm(const std::string& date);
 		bool	isValidDate(const int year, const int month, const int day);
-
-		Mylist split(const std::string& str, const char delimiter);
+		Mylist	split(const std::string& str, const char delimiter);
 
 	private:
 		BitcoinExchange(void);

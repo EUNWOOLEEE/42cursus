@@ -29,6 +29,7 @@ Mylist& Mylist::operator= (const Mylist& obj) {
 
 std::string& Mylist::operator[] (unsigned int idx) {
 	// std::cout << "[OCCF] array index operator called\n";
+
 	if (idx >= this->size())
 		throw std::out_of_range("out_of_range");
 		
@@ -40,6 +41,7 @@ std::string& Mylist::operator[] (unsigned int idx) {
 
 const std::string& Mylist::operator[] (unsigned int idx) const {
 	// std::cout << "[OCCF] const array index operator called\n";
+	
 	if (idx >= this->size())
 		throw std::out_of_range("out_of_range");
 		

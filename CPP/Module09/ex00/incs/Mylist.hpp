@@ -15,7 +15,6 @@ class Mylist : public std::list<std::string> {
 
 		std::string& operator[] (unsigned int idx);
 		const std::string& operator[] (unsigned int idx) const;
-
 };
 
 #endif
