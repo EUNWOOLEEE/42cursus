@@ -8,11 +8,10 @@ int main(int argc, char** argv)
 	}
 
 	try {
-		
-		PmergeMe< std::vector< std::pair<int, int> > > pmmv(argc, argv, "vector");
-		pmmv.sort();
-		PmergeMe< std::deque< std::pair<int, int> > > pmmd(argc, argv, "deque");
-		pmmd.sort();
+		PmergeMe< std::vector< pii > > pmmv(argc, argv, "vector");
+		pmmv.run();
+		PmergeMe< std::deque< pii > > pmmd(argc, argv, "deque");
+		pmmd.run();
 
 	} catch (const std::runtime_error& e) {
 		std::cout << "Error: " << e.what() << "\n";

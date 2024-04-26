@@ -8,8 +8,7 @@
 # include <vector>
 # include <deque>
 
-// vector< pair<int, int> >
-// deque< pair<int, int> >
+typedef std::pair<int, int> pii;
 
 template <typename T>
 class PmergeMe {
@@ -17,19 +16,19 @@ class PmergeMe {
 		PmergeMe(int argc, char** argv, std::string _type);
 		~PmergeMe(void);
 
-		void	sort(void);
+		void	run(void);
 		void	init(char** _nums);
 		void	divide(T& main, T& sub);
 		void	insert(T& main, T& sub);
 		int		searchSetIdx(T& main, int idx) const;
 		int		binarySearch(T& main, int idx, int values);
+		int		calJacobsthal(int n);
+
+		// utils
+		int		convertNum(char* num_str) const;
 		void	printBeforeNums(char** _nums) const;
 		void	printAfterNums(T& main) const;
-
-		int		convertNum(char* num_str) const;
-		void	setStartTime(void);
 		void	printTime(void);
-		int		calJacobsthal(int n);
 
 		void	printPairs(std::string str, std::string type, T pairs);
 
@@ -38,20 +37,19 @@ class PmergeMe {
 
 		PmergeMe& operator= (const PmergeMe& obj);
 
-		std::string			type;
-		T					nums;
-		size_t				num_cnt;
-		unsigned int		chain_size;
-		std::pair<int, int>	last;
-		clock_t				start;
+		std::string		type;
+		clock_t			start;
+		T				nums;
+		size_t			num_cnt;
+		unsigned int	chain_size;
+		pii				last;
 };
 
 template <typename T>
 PmergeMe<T>::PmergeMe(int argc, char** argv, std::string _type) : type(_type) {
 	std::cout << "[OCCF] PmergeMe constructor called\n";
 
-	setStartTime();
-
+	start = clock();
 	num_cnt = argc - 1;
 	chain_size = num_cnt / 2;
 	nums = T(chain_size);
@@ -69,7 +67,7 @@ PmergeMe<T>::~PmergeMe(void) {
 }
 
 template <typename T>
-void PmergeMe<T>::sort(void) {
+void PmergeMe<T>::run(void) {
 	std::sort(nums.begin(), nums.end());
 
 	T	main(chain_size);
@@ -116,29 +114,29 @@ void PmergeMe<T>::divide(T& main, T& sub) {
 
 template <typename T>
 void PmergeMe<T>::insert(T& main, T& sub) {
-	unsigned int	jacobsthal_cnt = 3;
-	unsigned int	pre_jacobsthal;
-	unsigned int	jacobsthal = 1;
+	unsigned int	j = 1;
+	unsigned int	pre_j;
+	unsigned int	j_cnt = 3;
 	int				idx;
 
 	main.insert(main.begin(), 1, sub[0]);
 
 	while (true) {
-		pre_jacobsthal = jacobsthal;
-		jacobsthal = calJacobsthal(jacobsthal_cnt);
-		if (jacobsthal > chain_size)
-			jacobsthal = chain_size;
+		pre_j = j;
+		j = calJacobsthal(j_cnt);
+		if (j > chain_size)
+			j = chain_size;
 
-		for (unsigned int i = jacobsthal; i > pre_jacobsthal; i--) {
+		for (unsigned int i = j; i > pre_j; i--) {
 			idx = searchSetIdx(main, sub[i - 1].second);
 			idx = binarySearch(main, idx, sub[i - 1].first);
 			main.insert(main.begin() + idx, 1, sub[i - 1]);
 		}
 
-		if (jacobsthal == chain_size)
+		if (j == chain_size)
 			break;
 
-		jacobsthal_cnt++;
+		j_cnt++;
 	}
 
 	if (last.first != -1) {
@@ -173,22 +171,6 @@ int PmergeMe<T>::binarySearch(T& main, int idx, int values) {
 }
 
 template <typename T>
-void PmergeMe<T>::printBeforeNums(char** nums) const {
-	std::cout << "\nBefore: ";
-	for (unsigned int i = 0; i < num_cnt; i++)
-		std::cout << nums[i] << " ";
-	std::cout << "\n";
-}
-
-template <typename T>
-void PmergeMe<T>::printAfterNums(T& main) const {
-	std::cout << "After: ";
-	for (unsigned int i = 0; i < main.size(); i++)
-		std::cout << main[i].first << " ";
-	std::cout << "\n";
-}
-
-template <typename T>
 int PmergeMe<T>::calJacobsthal(int n) {
 	int	first = 0, second = 1, third = 1;
 
@@ -207,6 +189,7 @@ int PmergeMe<T>::calJacobsthal(int n) {
 	return third;
 }
 
+// utils
 template <typename T>
 int	 PmergeMe<T>::convertNum(char* num_str) const {
 	for (int i = 0; num_str[i]; i++)
@@ -216,10 +199,19 @@ int	 PmergeMe<T>::convertNum(char* num_str) const {
 }
 
 template <typename T>
-void PmergeMe<T>::setStartTime(void) {
-	start = clock();
-	// 마이크로초 == 1/1,000,000
-	// clock 함수는 프로그램 실행 시작부터 함수 호출 시점까지 경과한 CPU 시간이고, 마이크로초 단위
+void PmergeMe<T>::printBeforeNums(char** nums) const {
+	std::cout << "\nBefore: ";
+	for (unsigned int i = 0; i < num_cnt; i++)
+		std::cout << nums[i] << " ";
+	std::cout << "\n";
+}
+
+template <typename T>
+void PmergeMe<T>::printAfterNums(T& main) const {
+	std::cout << "After: ";
+	for (unsigned int i = 0; i < main.size(); i++)
+		std::cout << main[i].first << " ";
+	std::cout << "\n";
 }
 
 template <typename T>
@@ -230,6 +222,7 @@ void PmergeMe<T>::printTime(void) {
 				<< " elements with std::" << type << " : " << total << " us\n\n";
 }
 
+// Test function
 template <typename T>
 void PmergeMe<T>::printPairs(std::string str, std::string type, T pairs) {
 	std::cout << "\n" << str << "\n";
