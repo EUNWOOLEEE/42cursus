@@ -30,8 +30,7 @@ bool RPN::isOperator(std::string& token) {
 }
 
 void RPN::pushToStack(std::string& token) {
-	if (nstack.size() == 2	\
-		|| token.size() != 1	\
+	if (token.size() != 1	\
 		|| isdigit(token[0]) == false)
 		throw std::invalid_argument("invalid expression");
 
@@ -40,7 +39,7 @@ void RPN::pushToStack(std::string& token) {
 }
 
 void RPN::calculate(char operator_type) {
-	if (nstack.size() != 2)
+	if (nstack.size() < 2)
 		throw std::invalid_argument("invalid expression");
 
 	int n1 = nstack.top();

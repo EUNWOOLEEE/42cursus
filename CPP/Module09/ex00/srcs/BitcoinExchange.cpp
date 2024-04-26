@@ -18,10 +18,10 @@ BitcoinExchange::~BitcoinExchange(void) {
 }
 
 void BitcoinExchange::readDatabase(void) {
-	Mylist			tokens;
-	std::string		line, date, remain;
-	double			value;
-	char*			remain_c_str;
+	Mylist		tokens;
+	std::string	line, date, remain;
+	double		value;
+	char*		remain_c_str;
 
 	std::getline(database_file, line);
 	if (line != "date,exchange_rate")
@@ -37,8 +37,9 @@ void BitcoinExchange::readDatabase(void) {
 		value = strtod(tokens[1].c_str(), &remain_c_str);
 		remain = std::string(remain_c_str);
 	
-		if (checkDateForm(date) == false		\
-			|| (remain.size() && remain != "f")	\
+		if (checkDateForm(date) == false					\
+			|| (remain != "f" && remain.size())				\
+			|| (remain == "f" && tokens[1].size() == 1)		\
 			|| value < 0)
 			throw std::runtime_error("invalid database file format.");
 
@@ -46,14 +47,13 @@ void BitcoinExchange::readDatabase(void) {
 	}
 
 	oldest_date = database.begin()->first;
-
 }
 
 void BitcoinExchange::readInputFile(void) {
-	Mylist			tokens;
-	std::string		line, date, remain;
-	double			value;
-	char*			remain_c_str;
+	Mylist		tokens;
+	std::string	line, date, remain;
+	double		value;
+	char*		remain_c_str;
 	
 	std::getline(input_file, line);
 	if (line != "date | value")
@@ -71,17 +71,22 @@ void BitcoinExchange::readInputFile(void) {
 		value = strtod(tokens[2].c_str(), &remain_c_str);
 		remain = std::string(remain_c_str);
 	
-		if (checkDateForm(date) == false	\
-			|| date < oldest_date)
+		if (checkDateForm(date) == false || date < oldest_date)
 			std::cout << "Error: bad input => " << date << "\n";
+
 		else if (tokens[1] != "|")
 			std::cout << "Error: bad input => " << tokens[1] << "\n";
-		else if (remain.size() && remain != "f")
+
+		else if ((remain != "f" && remain.size())						\
+				|| (remain == "f" && tokens[1].size() == 1))			\
 			std::cout << "Error: bad input => " << tokens[2] << "\n";
+
 		else if (value < 0)
 			std::cout << "Error: not a positive number.\n";
+
 		else if (1000 < value)
 			std::cout << "Error: too large a number.\n";
+
 		else
 			calInputValue(date, value);
 	}
