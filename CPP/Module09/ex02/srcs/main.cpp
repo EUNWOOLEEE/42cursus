@@ -8,8 +8,9 @@ int main(int argc, char** argv)
 	}
 
 	try {
-		PmergeMe pmmv;
-		pmmv.runVec(argc, argv);
+		PmergeMe pmm;
+		pmm.runVec(argc, argv);
+		pmm.runDeq(argc, argv);
 
 	} catch (const std::runtime_error& e) {
 		std::cout << "Error: " << e.what() << "\n";

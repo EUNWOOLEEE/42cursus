@@ -38,8 +38,8 @@ void BitcoinExchange::readDatabase(void) {
 		remain = std::string(remain_c_str);
 	
 		if (checkDateForm(date) == false					\
-			|| (remain != "f" && remain.size())				\
-			|| (remain == "f" && tokens[1].size() == 1)		\
+			|| (remain.size() && remain != "f")				\
+			|| (tokens[1].size() == 1 && remain == "f")		\
 			|| value < 0)
 			throw std::runtime_error("invalid database file format.");
 
@@ -77,8 +77,8 @@ void BitcoinExchange::readInputFile(void) {
 		else if (tokens[1] != "|")
 			std::cout << "Error: bad input => " << tokens[1] << "\n";
 
-		else if ((remain != "f" && remain.size())						\
-				|| (remain == "f" && tokens[1].size() == 1))			\
+		else if ((remain.size() && remain != "f")						\
+				|| (tokens[1].size() == 1 && remain == "f"))			\
 			std::cout << "Error: bad input => " << tokens[2] << "\n";
 
 		else if (value < 0)

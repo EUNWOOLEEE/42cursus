@@ -12,7 +12,8 @@ MAKE = make
 
 SRCS =	main.cpp		\
 		PmergeMe.cpp	\
-		FactorVec.cpp
+		FactorVec.cpp	\
+		FactorDeq.cpp
 
 SRCS_WITH_PATH = $(addprefix $(SRCS_DIR)/, $(SRCS))
 OBJS = $(SRCS_WITH_PATH:$(SRCS_DIR)/%.cpp=$(OBJS_DIR)/%.o)
