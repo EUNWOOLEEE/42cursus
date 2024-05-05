@@ -8,10 +8,8 @@ int main(int argc, char** argv)
 	}
 
 	try {
-		PmergeMe< std::vector< pii > > pmmv(argc, argv, "vector");
-		pmmv.run();
-		PmergeMe< std::deque< pii > > pmmd(argc, argv, "deque");
-		pmmd.run();
+		PmergeMe pmmv;
+		pmmv.runVec(argc - 1, &argv[1]);
 
 	} catch (const std::runtime_error& e) {
 		std::cout << "Error: " << e.what() << "\n";
