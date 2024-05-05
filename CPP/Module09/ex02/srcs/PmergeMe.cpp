@@ -1,6 +1,6 @@
 #include "../incs/PmergeMe.hpp"
 
-PmergeMe::PmergeMe(void) {
+PmergeMe::PmergeMe(void) : start(clock()) {
 	std::cout << "[OCCF] PmergeMe constructor called\n";
 }
 
@@ -8,21 +8,20 @@ PmergeMe::~PmergeMe(void) {
 	std::cout << "[OCCF] PmergeMe destructor called\n";
 }
 
-void PmergeMe::runVec(int num_cnt, char** _nums) {
-	clock_t	start = clock();
-
-	printBefore(num_cnt, _nums);
+void PmergeMe::runVec(int _num_cnt, char** _nums) {
+	num_cnt = _num_cnt - 1;
+	printBefore(&_nums[1]);
 
 	vec_fv	nums(num_cnt);
 
-	initVec(num_cnt, _nums, nums);
+	initVec(&_nums[1], nums);
 	sortVec(nums, num_cnt, 0);
 	
 	printAfterVec(nums);
-	printTime(start, num_cnt);
+	printTime();
 }
 
-void PmergeMe::initVec(int num_cnt, char** _nums, vec_fv& nums) {
+void PmergeMe::initVec(char** _nums, vec_fv& nums) {
 	for (int i = 0; i < num_cnt; i++)
 		nums[i] = FactorVec(convertNum(_nums[i]));
 }
@@ -125,7 +124,7 @@ void PmergeMe::printAfterVec(vec_fv& nums) const {
 }
 
 // common
-void PmergeMe::printBefore(int num_cnt, char** nums) const {
+void PmergeMe::printBefore(char** nums) const {
 	std::cout << "\nBefore: ";
 	for (int i = 0; i < num_cnt; i++)
 		std::cout << nums[i] << " ";
@@ -157,7 +156,7 @@ int PmergeMe::calJacobsthal(int n) {
 	return third;
 }
 
-void PmergeMe::printTime(clock_t start, int num_cnt) {
+void PmergeMe::printTime(void) {
 	clock_t total = clock() - start;
 
 	std::cout << "Time to process a range of " << num_cnt	\

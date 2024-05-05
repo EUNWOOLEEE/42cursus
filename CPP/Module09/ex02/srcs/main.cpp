@@ -9,7 +9,7 @@ int main(int argc, char** argv)
 
 	try {
 		PmergeMe pmmv;
-		pmmv.runVec(argc - 1, &argv[1]);
+		pmmv.runVec(argc, argv);
 
 	} catch (const std::runtime_error& e) {
 		std::cout << "Error: " << e.what() << "\n";
