@@ -23,6 +23,7 @@ class PmergeMe {
 		void	insertVec(vec_fv& main, vec_fv& sub, int chain_size, int depth);
 		void	insertLastVec(vec_fv& main, FactorVec& last, int size);
 		vec_i	getIndexesVec(vec_fv& main, int chain_size, int depth);
+		int		findPosVec(vec_fv& main, int target, unsigned int depth);
 		int		binarySearchVec(vec_fv& main, int pos, int target);
 		void	printAfterVec(vec_fv& nums) const;
 

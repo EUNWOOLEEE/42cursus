@@ -35,6 +35,7 @@ void PmergeMe::sortVec(vec_fv& nums, int size, int depth) {
 	vec_fv	sub(chain_size);
 
 	divideVec(nums, main, sub, chain_size);
+	
 	sortVec(main, chain_size, depth + 1);
 	insertVec(main, sub, chain_size, depth);
 	insertLastVec(main, nums[size - 1], size);
@@ -50,16 +51,15 @@ void PmergeMe::divideVec(vec_fv& nums, vec_fv& main, vec_fv& sub, int chain_size
 
 		if (main[i].num < sub[i].num)
 			std::swap(main[i], sub[i]);
+
 		main[i].idx.push_back(i);
 	}
 }
 
 void PmergeMe::insertVec(vec_fv& main, vec_fv& sub, int chain_size, int depth) {
-	int	j = 1;
-	int	pre_j;
-	int	j_cnt = 3;
-	int	pair_idx, pos;
-
+	int		j = 1;
+	int		j_cnt = 3;
+	int		pre_j, pair_idx, pos;
 	vec_i	indexes = getIndexesVec(main, chain_size, depth);
 
 	main.insert(main.begin(), 1, sub[indexes[0]]);
@@ -72,8 +72,8 @@ void PmergeMe::insertVec(vec_fv& main, vec_fv& sub, int chain_size, int depth) {
 
 		for (int i = j; i > pre_j; i--) {
 			pair_idx = indexes[i - 1];
-
-			pos = binarySearchVec(main, i - 1, sub[pair_idx].num);
+			pos = findPosVec(main, pair_idx, depth);
+			pos = binarySearchVec(main, pos, sub[pair_idx].num);
 			main.insert(main.begin() + pos, 1, sub[pair_idx]);
 		}
 
@@ -100,6 +100,15 @@ vec_i PmergeMe::getIndexesVec(vec_fv& main, int chain_size, int depth) {
 	return indexes;
 }
 
+int PmergeMe::findPosVec(vec_fv& main, int target, unsigned int depth) {
+	for (unsigned int i = 0; i < main.size(); i++) {
+		if (main[i].idx.size() >= depth + 1		\
+			&& main[i].idx[depth] == target)
+			return i;
+	}
+	return -1;
+}
+
 int PmergeMe::binarySearchVec(vec_fv& main, int pos, int target) {
 	int	left = 0;
 	int	mid;
@@ -113,6 +122,7 @@ int PmergeMe::binarySearchVec(vec_fv& main, int pos, int target) {
 		else
 			left = mid + 1;
 	}
+
 	return left;
 }
 
