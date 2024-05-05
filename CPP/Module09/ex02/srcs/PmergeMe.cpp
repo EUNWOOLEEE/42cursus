@@ -11,7 +11,7 @@ PmergeMe::~PmergeMe(void) {
 void PmergeMe::runVec(int num_cnt, char** _nums) {
 	clock_t	start = clock();
 
-	printBeforeVec(num_cnt, _nums);
+	printBefore(num_cnt, _nums);
 
 	vec_fv	nums(num_cnt);
 
@@ -38,11 +38,7 @@ void PmergeMe::sortVec(vec_fv& nums, int size, int depth) {
 	divideVec(nums, main, sub, chain_size);
 	sortVec(main, chain_size, depth + 1);
 	insertVec(main, sub, chain_size, depth);
-
-	if (size % 2) { // insert last value
-		int pos = binarySearchVec(main, main.size(), nums[size - 1].num);
-		main.insert(main.begin() + pos, 1, nums[size - 1]);
-	}
+	insertLastVec(main, nums[size - 1], size);
 
 	for (int i = 0; i < size; i++)
 		nums[i] = main[i];
@@ -89,6 +85,13 @@ void PmergeMe::insertVec(vec_fv& main, vec_fv& sub, int chain_size, int depth) {
 	}
 }
 
+void PmergeMe::insertLastVec(vec_fv& main, FactorVec& last, int size) {
+	if (size % 2) {
+		int pos = binarySearchVec(main, main.size() - 1, last.num);
+		main.insert(main.begin() + pos, 1, last);
+	}
+}
+
 vec_i PmergeMe::getIndexesVec(vec_fv& main, int chain_size, int depth) {
 	vec_i	indexes(chain_size);
 
@@ -114,13 +117,6 @@ int PmergeMe::binarySearchVec(vec_fv& main, int pos, int target) {
 	return left;
 }
 
-void PmergeMe::printBeforeVec(int num_cnt, char** nums) const {
-	std::cout << "\nBefore: ";
-	for (int i = 0; i < num_cnt; i++)
-		std::cout << nums[i] << " ";
-	std::cout << "\n";
-}
-
 void PmergeMe::printAfterVec(vec_fv& nums) const {
 	std::cout << "After: ";
 	for (unsigned int i = 0; i < nums.size(); i++)
@@ -128,8 +124,14 @@ void PmergeMe::printAfterVec(vec_fv& nums) const {
 	std::cout << "\n";
 }
 
-
 // common
+void PmergeMe::printBefore(int num_cnt, char** nums) const {
+	std::cout << "\nBefore: ";
+	for (int i = 0; i < num_cnt; i++)
+		std::cout << nums[i] << " ";
+	std::cout << "\n";
+}
+
 int PmergeMe::convertNum(char* num_str) const {
 	for (int i = 0; num_str[i]; i++)
 		if (isdigit(num_str[i]) == false)

@@ -21,14 +21,15 @@ class PmergeMe {
 		void	sortVec(vec_fv& nums, int size, int depth);
 		void	divideVec(vec_fv& nums, vec_fv& main, vec_fv& sub, int chain_size);
 		void	insertVec(vec_fv& main, vec_fv& sub, int chain_size, int depth);
+		void	insertLastVec(vec_fv& main, FactorVec& last, int size);
 		vec_i	getIndexesVec(vec_fv& main, int chain_size, int depth);
 		int		binarySearchVec(vec_fv& main, int pos, int target);
-		void	printBeforeVec(int num_cnt, char** nums) const;
 		void	printAfterVec(vec_fv& nums) const;
 
 		// common
-		int		calJacobsthal(int n);
+		void	printBefore(int num_cnt, char** nums) const;
 		int		convertNum(char* num_str) const;
+		int		calJacobsthal(int n);
 		void	printTime(clock_t start, int num_cnt);
 
 	private:
