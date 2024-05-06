@@ -14,11 +14,11 @@ typedef std::deque<FactorDeq>	deq_fd;
 
 class PmergeMe {
 	public:
-		PmergeMe(void);
+		PmergeMe(int _num_cnt);
 		~PmergeMe(void);
 
 		/* VECTOR */
-		void	runVec(int _num_cnt, char** _nums);
+		void	runVec(char** _nums);
 		void	initVec(char** _nums, vec_fv& nums) const;
 		void	sortVec(vec_fv& nums, int size, int depth) const;
 		void	divideVec(vec_fv& nums, vec_fv& main, vec_fv& sub, int chain_size) const;
@@ -28,9 +28,10 @@ class PmergeMe {
 		int		findPosVec(vec_fv& main, int target, unsigned int depth) const;
 		int		binarySearchVec(vec_fv& main, int pos, int target) const;
 		void	printAfterVec(vec_fv& nums) const;
+		void	checkSortedVec(vec_fv& nums) const;
 
 		/* DEQUE */
-		void	runDeq(int _num_cnt, char** _nums);
+		void	runDeq(char** _nums);
 		void	initDeq(char** _nums, deq_fd& nums) const;
 		void	sortDeq(deq_fd& nums, int size, int depth) const;
 		void	divideDeq(deq_fd& nums, deq_fd& main, deq_fd& sub, int chain_size) const;
@@ -40,6 +41,7 @@ class PmergeMe {
 		int		findPosDeq(deq_fd& main, int target, unsigned int depth) const;
 		int		binarySearchDeq(deq_fd& main, int pos, int target) const;
 		void	printAfterDeq(deq_fd& nums) const;
+		void	checkSortedDeq(deq_fd& nums) const;
 
 		/* COMMON */
 		void	printBefore(char** nums) const;

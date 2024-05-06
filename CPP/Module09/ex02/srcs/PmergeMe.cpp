@@ -1,6 +1,6 @@
 #include "../incs/PmergeMe.hpp"
 
-PmergeMe::PmergeMe(void) {
+PmergeMe::PmergeMe(int _num_cnt) : num_cnt(_num_cnt) {
 	std::cout << "[OCCF] PmergeMe constructor called\n";
 }
 
@@ -9,11 +9,8 @@ PmergeMe::~PmergeMe(void) {
 }
 
 /* VECTOR */
-void PmergeMe::runVec(int _num_cnt, char** _nums) {
+void PmergeMe::runVec(char** _nums) {
 	start = clock();
-	num_cnt = _num_cnt - 1;
-	printBefore(&_nums[1]);
-
 	vec_fv	nums(num_cnt);
 
 	initVec(&_nums[1], nums);
@@ -21,6 +18,7 @@ void PmergeMe::runVec(int _num_cnt, char** _nums) {
 
 	printAfterVec(nums);
 	printTime("vector");
+	checkSortedVec(nums);
 }
 
 void PmergeMe::initVec(char** _nums, vec_fv& nums) const {
@@ -128,17 +126,30 @@ int PmergeMe::binarySearchVec(vec_fv& main, int pos, int target) const {
 }
 
 void PmergeMe::printAfterVec(vec_fv& nums) const {
+	std::cout << "----------------- Vector -----------------\n";
 	std::cout << "After: ";
-	for (unsigned int i = 0; i < nums.size(); i++)
+	for (unsigned int i = 0; i < nums.size(); i++) {
+		if (i == 5) {
+			std::cout << "[...]";
+			break;
+		}
 		std::cout << nums[i].num << " ";
+	}
 	std::cout << "\n";
 }
 
-/* DEQUE */
-void PmergeMe::runDeq(int _num_cnt, char** _nums) {
-	num_cnt = _num_cnt - 1;
-	printBefore(&_nums[1]);
+void PmergeMe::checkSortedVec(vec_fv& nums) const {
+	for (int i = 1; i < num_cnt - 1; i++)
+		if (nums[i - 1].num > nums[i].num) {
+			std::cout << "Sorted: NO\n\n";
+			return ;
+		}
+	std::cout << "Sorted: OK\n\n";
+}
 
+/* DEQUE */
+void PmergeMe::runDeq(char** _nums) {
+	start = clock();
 	deq_fd	nums(num_cnt);
 
 	initDeq(&_nums[1], nums);
@@ -146,6 +157,7 @@ void PmergeMe::runDeq(int _num_cnt, char** _nums) {
 	
 	printAfterDeq(nums);
 	printTime("deque");
+	checkSortedDeq(nums);
 }
 
 void PmergeMe::initDeq(char** _nums, deq_fd& nums) const {
@@ -253,18 +265,38 @@ int PmergeMe::binarySearchDeq(deq_fd& main, int pos, int target) const {
 }
 
 void PmergeMe::printAfterDeq(deq_fd& nums) const {
+	std::cout << "----------------- Deque -----------------\n";
 	std::cout << "After: ";
-	for (unsigned int i = 0; i < nums.size(); i++)
+	for (unsigned int i = 0; i < nums.size(); i++) {
+		if (i == 5) {
+			std::cout << "[...]";
+			break;
+		}
 		std::cout << nums[i].num << " ";
+	}
 	std::cout << "\n";
+}
+
+void PmergeMe::checkSortedDeq(deq_fd& nums) const {
+	for (int i = 1; i < num_cnt - 1; i++)
+		if (nums[i - 1].num > nums[i].num) {
+			std::cout << "Sorted: NO\n\n";
+			return ;
+		}
+	std::cout << "Sorted: OK\n\n";
 }
 
 /* COMMON */
 void PmergeMe::printBefore(char** nums) const {
 	std::cout << "\nBefore: ";
-	for (int i = 0; i < num_cnt; i++)
+	for (int i = 0; i < num_cnt; i++) {
+		if (i == 5) {
+			std::cout << "[...]";
+			break;
+		}
 		std::cout << nums[i] << " ";
-	std::cout << "\n";
+	}
+	std::cout << "\n\n";
 }
 
 int PmergeMe::convertNum(char* num_str) const {
@@ -293,8 +325,7 @@ int PmergeMe::calJacobsthal(int n) const {
 }
 
 void PmergeMe::printTime(std::string type) const {
-	clock_t total = clock() - start;
-
 	std::cout << "Time to process a range of " << num_cnt	\
-				<< " elements with std::" << type << " : " << total << " ms\n\n";
+				<< " elements with std::" << type << " : "	\
+				<< clock() - start << " ms\n";
 }
