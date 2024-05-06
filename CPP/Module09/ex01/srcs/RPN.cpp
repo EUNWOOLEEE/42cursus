@@ -52,7 +52,7 @@ void RPN::calculate(char operator_type) {
 	else if (operator_type == '-')
 		nstack.push(n2 - n1);
 	else if (operator_type == '/') {
-		if (n1 == 0 || n2 == 0)
+		if (n1 == 0)
 			throw std::runtime_error("division by zero");
 		nstack.push(n2 / n1);
 	}

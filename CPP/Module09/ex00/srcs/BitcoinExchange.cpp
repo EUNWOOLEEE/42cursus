@@ -78,7 +78,7 @@ void BitcoinExchange::readInputFile(void) {
 			std::cout << "Error: bad input => " << tokens[1] << "\n";
 
 		else if ((remain.size() && remain != "f")						\
-				|| (tokens[1].size() == 1 && remain == "f"))			\
+				|| (tokens[2].size() == 1 && remain == "f"))			\
 			std::cout << "Error: bad input => " << tokens[2] << "\n";
 
 		else if (value < 0)

@@ -296,5 +296,5 @@ void PmergeMe::printTime(std::string type) const {
 	clock_t total = clock() - start;
 
 	std::cout << "Time to process a range of " << num_cnt	\
-				<< " elements with std::" << type << " : " << total << " us\n\n";
+				<< " elements with std::" << type << " : " << total << " ms\n\n";
 }
