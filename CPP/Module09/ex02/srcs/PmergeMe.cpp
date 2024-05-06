@@ -13,7 +13,7 @@ void PmergeMe::runVec(char** _nums) {
 	start = clock();
 	vec_fv	nums(num_cnt);
 
-	initVec(&_nums[1], nums);
+	initVec(_nums, nums);
 	sortVec(nums, num_cnt, 0);
 
 	printAfterVec(nums);
@@ -152,7 +152,7 @@ void PmergeMe::runDeq(char** _nums) {
 	start = clock();
 	deq_fd	nums(num_cnt);
 
-	initDeq(&_nums[1], nums);
+	initDeq(_nums, nums);
 	sortDeq(nums, num_cnt, 0);
 	
 	printAfterDeq(nums);
