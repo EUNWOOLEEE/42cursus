@@ -149,7 +149,7 @@ void	Request::parse_request_line()
 
 	state = start;
 
-	for (size_t pos = 0; it != ite; it++)
+	for (; it != ite; it++)
 	{
 		ch = *it;
 		switch (state)
@@ -161,7 +161,6 @@ void	Request::parse_request_line()
 
 			state = method;
 			method_start = it;
-			pos = it - method_start;
 			break;
 
 		case method:
@@ -170,7 +169,6 @@ void	Request::parse_request_line()
 			{
 				method_end = it;
 				state = spaces_before_uri;
-				pos = it + 1 - method_start;
 
 				switch (method_end - method_start)
 				{
