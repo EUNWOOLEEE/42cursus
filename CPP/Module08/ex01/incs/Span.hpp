@@ -23,7 +23,6 @@ class Span {
 		void	fillNumbers(iter begin, iter end, size_t len);
 		int		shortestSpan(void);
 		int		longestSpan(void);
-		bool	checkOverlap(int n);
 		void	printNums(void);
 
 	private:
