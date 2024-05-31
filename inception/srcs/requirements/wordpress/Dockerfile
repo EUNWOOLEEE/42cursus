@@ -8,7 +8,6 @@ RUN apt-get update -y &&				\
 						curl			\
 						mariadb-client	\
 						php-cli
-						# 기본적으로 php7.4로 설치됨
 
 COPY ./tools/init.sh /
 
