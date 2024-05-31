@@ -44,7 +44,7 @@ services:
     restart: always
     depends_on:
       - wordpress
-    ports: # 포드포워딩
+    ports:
       - 443:443
 
 

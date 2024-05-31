@@ -2,7 +2,7 @@
 
 service mariadb start
 
-sleep 2 # 데이터베이스 시작 대기
+sleep 2
 
 mysql -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD( '$MARIADB_ROOT_PASSWORD' );"
 mysql -e "CREATE DATABASE IF NOT EXISTS $MARIADB_NAME;"

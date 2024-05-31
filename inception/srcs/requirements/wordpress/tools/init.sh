@@ -1,9 +1,9 @@
 #!/bin/bash
 
-sleep 5 # 데이터베이스 생성 대기
+sleep 5
 
 mkdir -p /var/www/html
-cd /var/www/html # root에서 home으로 이동
+cd /var/www/html
 
 #wp
 wp core download --allow-root
@@ -13,6 +13,6 @@ wp user create $WP_USER_NAME $WP_USER_EMAIL --user_pass=$WP_USER_PASSWORD --role
 
 #php
 sed -i 's/listen = \/run\/php\/php7.4-fpm.sock/listen = 0.0.0.0:9000/g' /etc/php/7.4/fpm/pool.d/www.conf
-mkdir /run/php # php-fpm이 소켓 파일을 생성하는 디렉토리. 처음에 없을 수도 있음
+mkdir /run/php
 
 exec php-fpm7.4 -F
