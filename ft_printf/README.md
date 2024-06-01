@@ -6,12 +6,11 @@ The goal of this project is pretty straightforward. You will recode printf().
 You will mainly learn about using a variable number of arguments. How cool is that??  
 It is actually pretty cool :)
 
+## Install
+`gcc -Wall -Wextra -Werror main.c /path/libftprintf.a`
+
 ## Usage
 ```sh
-# Comfile
-gcc -Wall -Wextra -Werror main.c /path/libftprintf.a
-
-# Example
 int main()
 {
     int num = 42;
