@@ -1,5 +1,5 @@
 # Inception
-<img src="https://img.shields.io/badge/nginx-brightgreen" alt="NGINX"> <img src="https://img.shields.io/badge/MariaDB-blue" alt="MariaDB"> <img src="https://img.shields.io/badge/WordPress-blue" alt="WordPress">
+<img src="https://img.shields.io/badge/MariaDB-blue" alt="MariaDB"> <img src="https://img.shields.io/badge/WordPress-blue" alt="WordPress"> <img src="https://img.shields.io/badge/nginx-brightgreen" alt="NGINX">
 
 ## Summary
 This document is a System Administration related exercise.  
