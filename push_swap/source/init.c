@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 21:59:09 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/03/14 19:54:49 by eunwolee         ###   ########.fr       */
+/*   Updated: 2024/06/01 19:58:20 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int	init_stack(t_stack *a, t_stack *b, char **argv)
 static int	check_valid(char **argv)
 {
 	int	i;
-	int	j;
 	int	res;
 	int	cnt_num;
 	int	cnt_space;
@@ -50,7 +49,6 @@ static int	check_valid(char **argv)
 	{
 		cnt_num = 0;
 		cnt_space = 0;
-		j = 0;
 		if (check_cnt(argv[i], &cnt_num, &cnt_space, 0) == -1)
 			return (-1);
 		if (cnt_space && cnt_num - 1 != cnt_space)
