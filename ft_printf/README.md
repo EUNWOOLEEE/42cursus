@@ -8,8 +8,31 @@ It is actually pretty cool :)
 
 ## Usage
 ```sh
-make         # comfile mandatory functions
-make clean   # remove temporary files
-make fclean  # remove all files
-make re      # make fclean and make
+# Comfile
+gcc -Wall -Wextra -Werror main.c /path/libftprintf.a
+
+# Example
+int main()
+{
+    int num = 42;
+    char *str = "Hello, world!";
+    void *ptr = &num;
+
+    int size = ft_printf("Number: %d\n", num);
+    size += ft_printf("String: %s\n", str);
+    size += ft_printf("Pointer: %p\n", ptr);
+
+    printf("Total size: %d\n", size);
+
+    return 0;
+}
 ```
+
+## Format specifier
+`%c` : Single character  
+`%s` : String  
+`%p` : Pointer adress  
+`%d``%i` : Decimal number  
+`%x` : Number in hexadecimal using lowercase letters  
+`%X` : Number in hexadecimal using uppercase letters  
+`%%` : Print the percent symbol.
