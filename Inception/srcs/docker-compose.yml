@@ -1,0 +1,72 @@
+services:
+  mariadb:
+    container_name: mariadb
+    build:
+      context: ./requirements/mariadb
+      dockerfile: Dockerfile
+    image: mariadb
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      - inception
+    env_file:
+      - .env
+    restart: always
+  
+  wordpress:
+    container_name: wordpress
+    build:
+      context: ./requirements/wordpress
+      dockerfile: Dockerfile
+    image: wordpress
+    volumes:
+      - web:/var/www/html
+    networks:
+      - inception
+    env_file:
+      - .env
+    restart: always
+    depends_on:
+      - mariadb
+
+  nginx:
+    container_name: nginx
+    build:
+      context: ./requirements/nginx
+      dockerfile: Dockerfile
+    image: nginx
+    volumes:
+      - web:/var/www/html
+    networks:
+      - inception
+    env_file:
+      - .env
+    restart: always
+    depends_on:
+      - wordpress
+    ports:
+      - 443:443
+
+
+volumes:
+  db:
+    driver: local
+    driver_opts:
+      type: none
+      device: /Users/eunwoolee/vscode_workspace/42cursus/inception/srcs/data/db
+      # device: /home/eunwolee/data/db  #vm 안에 만들어야함
+      o: bind
+
+  web:
+    driver: local
+    driver_opts:
+      type: none
+      device: /Users/eunwoolee/vscode_workspace/42cursus/inception/srcs/data/web
+      # device: /home/eunwolee/data/web  #vm 안에 만들어야함
+      o: bind
+
+
+networks:
+  inception:
+    name: inception
+    driver: bridge
