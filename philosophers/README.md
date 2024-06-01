@@ -15,9 +15,9 @@ make re      # make fclean and make
 
 # in philo_bonus directory
 make         # comfile ./philo_bonus
-make clean   # remove temporary files
-make fclean  # remove all files
-make re      # make fclean and make
+make clean  
+make fclean  
+make re
 ```
 
 ## Usage
