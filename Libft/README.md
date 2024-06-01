@@ -5,7 +5,7 @@ Your very first own library
 This project is about coding a C library.  
 It will contain a lot of general purpose functions your programs will rely upon.
 
-## Usage
+## Install
 ```sh
 make         # comfile mandatory functions
 make bonus   # comfile with bonus functions
