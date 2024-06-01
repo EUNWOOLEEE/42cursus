@@ -7,7 +7,9 @@ You will mainly learn about using a variable number of arguments. How cool is th
 It is actually pretty cool :)
 
 ## Install
-`gcc -Wall -Wextra -Werror main.c /path/libftprintf.a`
+```sh
+gcc -Wall -Wextra -Werror main.c /path/libftprintf.a
+```
 
 ## Usage
 ```sh
