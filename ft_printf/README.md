@@ -36,4 +36,4 @@ int main()
 `%d``%i` : Decimal number  
 `%x` : Number in hexadecimal using lowercase letters  
 `%X` : Number in hexadecimal using uppercase letters  
-`%%` : Print the percent symbol.
+`%%` : Print the percent symbol
