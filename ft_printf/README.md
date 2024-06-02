@@ -32,7 +32,7 @@ int main()
 ## Format specifier
 `%c` : Single character  
 `%s` : String  
-`%p` : Pointer adress  
+`%p` : Pointer address  
 `%d``%i` : Decimal number  
 `%x` : Number in hexadecimal using lowercase letters  
 `%X` : Number in hexadecimal using uppercase letters  
