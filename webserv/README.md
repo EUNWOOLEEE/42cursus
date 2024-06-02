@@ -1,4 +1,5 @@
 # webserv
+<img src="https://img.shields.io/badge/nginx-brightgreen" alt="NGINX"> <img src="https://img.shields.io/badge/HTTP-blue" alt="HTTP">  
 This is when you finally understand why a URL starts with HTTP
 
 ## Summary
