@@ -18,7 +18,8 @@ make re      # make fclean and make
 
 ## Usage
 ```sh
-./webserv
+# When no configuration file is provided, the default configuration file will be used.
+./webserv [configuration file]
 ```
 
 ## Configuration file
