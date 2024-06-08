@@ -33,7 +33,7 @@ int main()
 `%c` : Single character  
 `%s` : String  
 `%p` : Pointer address  
-`%d``%i` : Decimal number  
+`%d %i` : Decimal number  
 `%x` : Number in hexadecimal using lowercase letters  
 `%X` : Number in hexadecimal using uppercase letters  
 `%%` : Print the percent symbol
