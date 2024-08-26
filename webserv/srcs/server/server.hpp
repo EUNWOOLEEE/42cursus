@@ -1,5 +1,5 @@
-#ifndef EVENT_HPP
-# define EVENT_HPP
+#ifndef SERVER_HPP
+# define SERVER_HPP
 
 # include <map>
 # include <vector>
@@ -18,10 +18,10 @@
 
 typedef struct kevent kevent_t;
 
-class Event {
+class Server {
 	public:
-		Event(int event_list_size, size_t _worker_connections);
-		~Event(void);
+		Server(int event_list_size, size_t _worker_connections);
+		~Server(void);
 
 		int						getEventQueue(void) const;
 		std::vector<uintptr_t>&	getListenSocketList(void);
@@ -50,12 +50,12 @@ class Event {
 		void					reclaimProcess(Client& client);
 		void					disconnectClient(int client_socket);
 
-		void					checkReadTimeout(Event& event);
+		void					checkReadTimeout(void);
 		void					checkCgiTimeout(void);
 
 	private:
-		Event(const Event& src);
-		Event& operator =(const Event& src);
+		Server(const Server& src);
+		Server& operator =(const Server& src);
 
 		int						event_queue;
 		std::vector<uintptr_t>	listen_socket_list;

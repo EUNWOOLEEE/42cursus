@@ -13,7 +13,7 @@
 #include "../method/Delete.hpp"
 #include "../utils/Utils.hpp"
 #include "../cgi/Cgi.hpp"
-# include "../event/timeout.hpp"
+# include "../server/timeout.hpp"
 
 enum Phase {
 	PARSING,

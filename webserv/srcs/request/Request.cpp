@@ -819,21 +819,6 @@ void	Request::check_is_cgi()
 
 		throw OK;
 	}
-
-	// if (origin_path.find(".php") != std::string::npos)
-	// {
-	// 	if (origin_path.find("/script.php") == std::string::npos)
-	// 		throw NOT_FOUND;
-
-	// 	if (method == "DELETE")
-	// 	{
-	// 		path = cycle->getMainRoot() + get_header_field("redirect_path") + get_query_value("deletedata");
-	// 		throw OK;
-	// 	}
-	// 	path = cycle->getMainRoot() + "/serve/script/script_php.cgi";
-	// 	this->set_cgi (true);
-	// 	throw OK;
-	// }
 }
 
 std::string Request::check_index(LocationBlock* location)
@@ -875,7 +860,7 @@ void	Request::matching_server()
 	matching_route(matched_server->getLocationBlocks());
 	if (this->default_error == true)
 		throw BAD_REQUEST;
-	if (check_allowed_method () == false)
+	if (check_allowed_method() == false)
 		throw METHOD_NOT_ALLOWED;
 
 	if (matched_location->getAutoIndex() == true)
@@ -915,7 +900,7 @@ void	Request::set_redirect(std::string sub_root, std::string file)
 	throw FOUND;
 }
 
-void	Request::matching_route(std::vector<LocationBlock> location_blocks)
+void	Request::matching_route(std::vector<LocationBlock> &location_blocks)
 {
 	std::map<size_t, LocationBlock*>	depth_map;
 	size_t								depth = 0;
@@ -945,8 +930,9 @@ void	Request::matching_route(std::vector<LocationBlock> location_blocks)
 		depth = 0;
 	}
 
-	if (depth_map.rbegin()->first != 0)
+	if (depth_map.rbegin()->first != 0) {
 		matched_location = depth_map.rbegin()->second;
+	}
 	else
 	{
 		matched_location = &location_blocks[0];

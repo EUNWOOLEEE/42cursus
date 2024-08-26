@@ -3,7 +3,7 @@
 
 # include <ctime>
 
-class Event;
+class Server;
 
 class Timeout {
 	public:

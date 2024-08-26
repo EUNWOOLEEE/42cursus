@@ -57,7 +57,7 @@ private:
 	void											check_header_is_valid();
 	void											matching_server();
 	void											matching_absolute_path();
-	void											matching_route(std::vector<LocationBlock> location_blocks);
+	void											matching_route(std::vector<LocationBlock> &location_blocks);
 	size_t											matching_sub_route(std::string route, std::string dest, size_t *depth);
 	void											check_body_limits();
 	void											check_host();
