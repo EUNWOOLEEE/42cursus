@@ -1,5 +1,5 @@
-#ifndef LOCATION_HPP
-# define LOCATION_HPP
+#ifndef LOCATIONBLOCK_HPP
+# define LOCATIONBLOCK_HPP
 
 # include <vector>
 # include <iostream>
@@ -8,13 +8,13 @@
 # define METHOD_POST	0x00000010
 # define METHOD_DELETE	0x00000100
 
-class Location {
+class LocationBlock {
 	public:
-		Location(std::string _location_path);
-		Location(const Location& obj);
-		~Location(void);
+		LocationBlock(std::string _location_path);
+		LocationBlock(const LocationBlock& obj);
+		~LocationBlock(void);
 
-		Location& operator =(const Location& src);
+		LocationBlock& operator =(const LocationBlock& src);
 
 		void 						setSubRoot(std::string _location_path);
 		void 						setAllowedMethod(int _allowed_method);

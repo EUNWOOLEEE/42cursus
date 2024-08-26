@@ -10,7 +10,7 @@ static int	tokenizer(char* str, std::string* tokens);
 static int	checkConfLocation(std::string str[]);
 static void	checkGetlineError(std::ifstream& file);
 static void checkServerDuplication(std::vector<ServerBlock>& server_blocks);
-static void checkLocationDuplication(std::list<Location>& location_list);
+static void checkLocationDuplication(std::vector<LocationBlock>& location_blocks);
 static void checkMaxDomainSize(Cycle& cycle);
 static int	setTakeArgCnt(int cnt);
 
@@ -178,20 +178,20 @@ static void parseServer(Cycle& cycle, Conf& conf, std::ifstream& file) {
 
 	if (server_blocks.back().getPort() == 0		\
 		|| server_blocks.back().getDomain() == ""	\
-		|| server_blocks.back().getLocationList().size() == 0)
+		|| server_blocks.back().getLocationBlocks().size() == 0)
 		throw Exception(CONF_LACK_DIRCTV, "Server block");
 }
 
 static void parseLocation(Cycle& cycle, Conf& conf, std::ifstream& file,	\
 							const std::string& location_path) {
-	char					buf[BUF_SIZE];
-	std::string				tokens[TOKEN_SIZE];
-	int						token_cnt;
-	std::string				str_buf;
-	std::list<Location>&	location_list = cycle.getServerBlocks().back().getLocationList();
+	char						buf[BUF_SIZE];
+	std::string					tokens[TOKEN_SIZE];
+	int							token_cnt;
+	std::string					str_buf;
+	std::vector<LocationBlock>&	location_blocks = cycle.getServerBlocks().back().getLocationBlocks();
 
-	checkLocationDuplication(location_list);
-	location_list.push_back(Location(location_path));
+	checkLocationDuplication(location_blocks);
+	location_blocks.push_back(LocationBlock(location_path));
 
 	while (file.getline(buf, sizeof(buf))) {
 		str_buf = static_cast<std::string>(buf);
@@ -207,14 +207,14 @@ static void parseLocation(Cycle& cycle, Conf& conf, std::ifstream& file,	\
 	}
 	checkGetlineError(file);
 
-	if (location_list.back().getSubRoot() == "")
+	if (location_blocks.back().getSubRoot() == "")
 		throw Exception(CONF_LACK_DIRCTV, "Location block");
 
-	if (location_list.back().getAllowedMethod() == 0)
-		location_list.back().setAllowedMethod(				\
+	if (location_blocks.back().getAllowedMethod() == 0)
+		location_blocks.back().setAllowedMethod(				\
 			METHOD_GET | METHOD_POST | METHOD_DELETE);
-	if (location_list.back().getAutoIndex() == -1)
-		location_list.back().setAutoIndex(false);
+	if (location_blocks.back().getAutoIndex() == -1)
+		location_blocks.back().setAutoIndex(false);
 }
 
 static void callCmd(Cycle& cycle, Conf& conf, int location, \
@@ -273,32 +273,23 @@ static void checkGetlineError(std::ifstream& file) {
 }
 
 static void checkServerDuplication(std::vector<ServerBlock>& server_blocks) {
-	ServerBlock	newBlock = server_blocks.back();
+	ServerBlock&	newBlock = server_blocks.back();
 
-	for (unsigned long i = 0; i < server_blocks.size() - 1; i++) {
+	if (server_blocks.size() == 0)
+		return ;
+	for (unsigned long i = 0; i < server_blocks.size() - 1; i++)
 		if (newBlock.getPort() == server_blocks[i].getPort() && newBlock.getDomain() == server_blocks[i].getDomain())
 			throw Exception(CONF_DUP_SRV_BLOCK, newBlock.getDomain() + ":" + to_string(newBlock.getPort()));
-	}
 }
 
-// static void checkServerDuplication(std::list<Server>& server_list) {
-// 	std::list<Server>::iterator			it = server_list.begin();
-// 	std::list<Server>::reverse_iterator	ite = server_list.rbegin();
+static void checkLocationDuplication(std::vector<LocationBlock>& location_blocks) {
+	LocationBlock&	newBlock = location_blocks.back();
 
-// 	for (; &(*it) != &(*ite); it++) {
-// 		if (ite->getPort() == it->getPort() && ite->getDomain() == it->getDomain())
-// 			throw Exception(CONF_DUP_SRV_BLOCK, it->getDomain() + ":" + to_string(it->getPort()));
-// 	}
-// }
-
-static void checkLocationDuplication(std::list<Location>& location_list) {
-	std::list<Location>::iterator			it = location_list.begin();
-	std::list<Location>::reverse_iterator	ite = location_list.rbegin();
-
-	for (; &(*it) != &(*ite); it++) {
-		if (ite->getLocationPath() == it->getLocationPath())
-			throw Exception(CONF_DUP_LOC_BLOCK, it->getLocationPath());
-	}
+	if (location_blocks.size() == 0)
+		return ;
+	for (unsigned long i = 0; i < location_blocks.size() - 1; i++)
+		if (newBlock.getLocationPath() == location_blocks[i].getLocationPath())
+			throw Exception(CONF_DUP_LOC_BLOCK, newBlock.getLocationPath());
 }
 
 static void checkMaxDomainSize(Cycle& cycle) {

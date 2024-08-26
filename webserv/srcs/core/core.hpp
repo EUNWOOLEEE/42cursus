@@ -5,7 +5,7 @@
 # include "../config/conf.hpp"
 # include "../config/cmd.hpp"
 # include "../block/serverBlock.hpp"
-# include "../block/location.hpp"
+# include "../block/locationBlock.hpp"
 # include "../event/event.hpp"
 # include "../event/timeout.hpp"
 # include "../client/Client.hpp"

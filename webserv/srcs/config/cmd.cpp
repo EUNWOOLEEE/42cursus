@@ -101,7 +101,7 @@ void serverName(Cycle& cycle, std::string tokens[]) {
 }
 
 void locationRoot(Cycle& cycle, std::string tokens[]) {
-	Location&	location = cycle.getServerBlocks().back().getLocationList().back();
+	LocationBlock&	location = cycle.getServerBlocks().back().getLocationBlocks().back();
 
 	if (location.getSubRoot().length() != VALID)
 		throw Exception(CONF_DUP_DIRCTV, tokens[0]);
@@ -113,7 +113,7 @@ void locationRoot(Cycle& cycle, std::string tokens[]) {
 }
 
 void locationAllowedMethod(Cycle& cycle, std::string tokens[]) {
-	Location&	location = cycle.getServerBlocks().back().getLocationList().back();
+	LocationBlock&	location = cycle.getServerBlocks().back().getLocationBlocks().back();
 
 	if (location.getAllowedMethod() != VALID)
 		throw Exception(CONF_DUP_DIRCTV, tokens[0]);
@@ -134,7 +134,7 @@ void locationAllowedMethod(Cycle& cycle, std::string tokens[]) {
 }
 
 void locationAutoIndex(Cycle& cycle, std::string tokens[]) {
-	Location&	location = cycle.getServerBlocks().back().getLocationList().back();
+	LocationBlock&	location = cycle.getServerBlocks().back().getLocationBlocks().back();
 
 	if (location.getAutoIndex() != -1)
 		throw Exception(CONF_DUP_DIRCTV, tokens[0]);
@@ -148,7 +148,7 @@ void locationAutoIndex(Cycle& cycle, std::string tokens[]) {
 }
 
 void locationIndex(Cycle& cycle, std::string tokens[]) {
-	Location&					location = cycle.getServerBlocks().back().getLocationList().back();
+	LocationBlock&				location = cycle.getServerBlocks().back().getLocationBlocks().back();
 	std::vector<std::string>&	index = location.getIndex();
 
 	if (location.getIndex().size() != VALID)

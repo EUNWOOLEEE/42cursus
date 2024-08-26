@@ -1,10 +1,10 @@
 #ifndef SERVERBLOCK_HPP
 # define SERVERBLOCK_HPP
 
-# include <list>
+# include <vector>
 # include <iostream>
 
-# include "location.hpp"
+# include "locationBlock.hpp"
 
 class ServerBlock {
 	public:
@@ -14,19 +14,19 @@ class ServerBlock {
 
 		ServerBlock& operator =(const ServerBlock& src);
 
-		void						setPort(size_t _port);
-		void						setDomain(std::string _domain);
+		void								setPort(size_t _port);
+		void								setDomain(std::string _domain);
 
-		size_t						getPort(void) const;
-		const std::string&			getDomain(void) const;
-		std::list<Location>&		getLocationList(void);
-		const std::list<Location>&	getLocationListConst(void) const;
+		size_t								getPort(void) const;
+		const std::string&					getDomain(void) const;
+		std::vector<LocationBlock>&			getLocationBlocks(void);
+		const std::vector<LocationBlock>&	getLocationBlocksConst(void) const;
 
 	private:
-		size_t				port;
-		std::string			domain;
+		size_t						port;
+		std::string					domain;
 
-		std::list<Location> location_list;
+		std::vector<LocationBlock>	location_blocks;
 };
 
 #endif

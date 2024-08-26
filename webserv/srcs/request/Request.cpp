@@ -793,8 +793,7 @@ void	Request::matching_absolute_path()
 void	Request::check_is_cgi()
 {
 	set_header_key_and_value("redirect_path", "/serve/redirect/");
-	std::list<Location>::iterator	it = matched_server->getLocationList().begin();
-	std::list<Location>::iterator	ite = matched_server->getLocationList().end();
+	std::vector<LocationBlock>	location_blocks = matched_server->getLocationBlocks();
 
 	if (origin_path.find(".cpp") != std::string::npos)
 	{
@@ -809,10 +808,10 @@ void	Request::check_is_cgi()
 			this->set_cgi (true);
 		}
 
-		for (; it != ite; it++)
+		for (unsigned long i = 0; i < location_blocks.size(); i++)
 		{
-			if (it->getLocationPath().find ("cpp") != std::string::npos)
-				matched_location = it;
+			if (location_blocks[i].getLocationPath().find ("cpp") != std::string::npos)
+				matched_location = &location_blocks[i];
 		}
 
 		if (check_allowed_method () == false)
@@ -837,17 +836,16 @@ void	Request::check_is_cgi()
 	// }
 }
 
-std::string Request::check_index(std::list<Location>::iterator it)
+std::string Request::check_index(LocationBlock* location)
 {
-	std::vector<std::string>::iterator	it_v = it->getIndex().begin();
-	std::vector<std::string>::iterator	ite_v = it->getIndex().end();
-	std::string							path_index;
+	std::vector<std::string>	index = location->getIndex();
+	std::string					path_index;
 
-	for (; it_v != ite_v; it_v++)
+	for (unsigned long i = 0; i < index.size(); i++)
 	{
-		path_index = cycle->getMainRoot() + it->getSubRoot() + "/" + *it_v;
+		path_index = cycle->getMainRoot() + location->getSubRoot() + "/" + index[i];
 		if (check_path_property(path_index) == _FILE)
-			return  "/" + *it_v;
+			return  "/" + index[i];
 	}
 
 	return "";
@@ -874,7 +872,7 @@ void	Request::matching_server()
 	}
 
 	check_is_cgi();
-	matching_route(matched_server->getLocationList().begin(), matched_server->getLocationList().end());
+	matching_route(matched_server->getLocationBlocks());
 	if (this->default_error == true)
 		throw BAD_REQUEST;
 	if (check_allowed_method () == false)
@@ -917,34 +915,33 @@ void	Request::set_redirect(std::string sub_root, std::string file)
 	throw FOUND;
 }
 
-void	Request::matching_route(std::list<Location>::iterator it, std::list<Location>::iterator ite)
+void	Request::matching_route(std::vector<LocationBlock> location_blocks)
 {
-	std::list<Location>::iterator					it_begin = it;
-	std::map<size_t, std::list<Location>::iterator>	depth_map;
-	size_t											depth = 0;
-	std::string										sub_r;
-	std::string										sub_d = path;
+	std::map<size_t, LocationBlock*>	depth_map;
+	size_t								depth = 0;
+	std::string							sub_r;
+	std::string							sub_d = path;
 
 	if (*(sub_d.rbegin()) == '/' && sub_d.size() == 1)
 	{
-		matched_location = it_begin;
+		matched_location = &location_blocks[0];
 		return ;
 	}
 
 	if (*(sub_d.rbegin()) == '/' && sub_d.size() > 1)
 		sub_d = sub_d.substr (0, sub_d.size() - 1);
 
-	for (; it != ite; it++)
+	for (unsigned long i = 0; i < location_blocks.size(); i++)
 	{
 		try {
-			sub_r = it->getLocationPath();
+			sub_r = location_blocks[i].getLocationPath();
 			matching_sub_route(sub_r, sub_d, &depth);
 		}
 		catch (size_t e){
-			matched_location = it;
+			matched_location = &location_blocks[i];
 			return ;
 		}
-		depth_map[depth] = it;
+		depth_map[depth] = &location_blocks[i];
 		depth = 0;
 	}
 
@@ -952,7 +949,7 @@ void	Request::matching_route(std::list<Location>::iterator it, std::list<Locatio
 		matched_location = depth_map.rbegin()->second;
 	else
 	{
-		matched_location = it_begin;
+		matched_location = &location_blocks[0];
 		this->default_error = true;
 	}
 }

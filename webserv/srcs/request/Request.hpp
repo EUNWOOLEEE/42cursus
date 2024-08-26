@@ -50,14 +50,14 @@ private:
 	bool											autoindex;
 	bool											index;
 	ServerBlock*									matched_server;
-	std::list<Location>::iterator					matched_location;
+	LocationBlock*									matched_location;
 	void											parse_query_string(std::string &query);
 	void											parse_query_key_and_value(std::string &query_element);
 	void											parse_header_key_and_value(std::string &header_element);
 	void											check_header_is_valid();
 	void											matching_server();
 	void											matching_absolute_path();
-	void											matching_route(std::list<Location>::iterator it, std::list<Location>::iterator ite);
+	void											matching_route(std::vector<LocationBlock> location_blocks);
 	size_t											matching_sub_route(std::string route, std::string dest, size_t *depth);
 	void											check_body_limits();
 	void											check_host();
@@ -67,7 +67,7 @@ private:
 	void											check_te();
 	void											check_expect();
 	void											check_is_cgi();
-	std::string										check_index(std::list<Location>::iterator it);
+	std::string										check_index(LocationBlock* location);
 	void											check_content_encoding();
 	bool											check_allowed_method();
 	void											check_uri_form();
