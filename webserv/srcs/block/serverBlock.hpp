@@ -1,18 +1,18 @@
-#ifndef SERVER_HPP
-# define SERVER_HPP
+#ifndef SERVERBLOCK_HPP
+# define SERVERBLOCK_HPP
 
 # include <list>
 # include <iostream>
 
 # include "location.hpp"
 
-class Server {
+class ServerBlock {
 	public:
-		Server(void);
-		Server(const Server& obj);
-		~Server(void);
+		ServerBlock(void);
+		ServerBlock(const ServerBlock& obj);
+		~ServerBlock(void);
 
-		Server& operator =(const Server& src);
+		ServerBlock& operator =(const ServerBlock& src);
 
 		void						setPort(size_t _port);
 		void						setDomain(std::string _domain);

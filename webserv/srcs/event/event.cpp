@@ -22,6 +22,9 @@ Event::~Event(void) {
 int						Event::getEventQueue(void) const { return event_queue; }
 std::vector<uintptr_t>&	Event::getListenSocketList(void) { return listen_socket_list; }
 int						Event::getCurConnection(void) const { return cur_connection; }
+Client&					Event::getClient(uintptr_t socket) { return clients[socket]; }
+std::vector<Client*>&	Event::getReadTimeoutList(void) { return read_timeout_list; }
+std::vector<Client*>&	Event::getCGITimeoutList(void) { return cgi_timeout_list; }
 kevent_t&				Event::getEventOfList(int idx) { return event_list[idx]; }
 char*					Event::getEventTypeListen(void) { return event_type_listen; }
 char*					Event::getEventTypeClient(void) { return event_type_client; }
@@ -54,16 +57,13 @@ bool Event::checkErrorFlag(kevent_t& kevent) {
 	return false;
 }
 
-void Event::prepConnect(std::list<Server>& server_list) {
-    sockaddr_in					server_addr;
-    std::list<Server>::iterator	it = server_list.begin();
-    std::list<Server>::iterator	ite = server_list.end();
-    int							new_listen_socket;
+void Event::prepConnect(std::vector<ServerBlock>& server_blocks) {
+    sockaddr_in	server_addr;
+    int			new_listen_socket;
 
-    for (; it != ite; it++) {
-        std::list<Server>::iterator tmp = server_list.begin();
-        for (; tmp != it; tmp++)
-            if (tmp->getPort() == it->getPort())
+	for (unsigned long i = 0; i < server_blocks.size(); i++) {
+		for (unsigned long j = 0; j < i; j++)
+            if (server_blocks[j].getPort() == server_blocks[i].getPort())
                 continue;
 
         new_listen_socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
@@ -73,7 +73,7 @@ void Event::prepConnect(std::list<Server>& server_list) {
 
         std::memset(&server_addr, 0, sizeof(server_addr));
         server_addr.sin_family = AF_INET;
-        server_addr.sin_port = htons(it->getPort());
+        server_addr.sin_port = htons(server_blocks[i].getPort());
         server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
 		// socket timeout 설정
@@ -156,7 +156,7 @@ int Event::recieveFromClient(Client& client) {
 	return true;
 }
 
-void Event::recieveFailed(Client& client, std::vector<Client*>& read_timeout_list){
+void Event::recieveFailed(Client& client){
 	for (unsigned long i = 0; i < read_timeout_list.size(); i++) {
 		if (read_timeout_list[i] == &client) {
 			read_timeout_list.erase(read_timeout_list.begin() + i);
@@ -165,7 +165,7 @@ void Event::recieveFailed(Client& client, std::vector<Client*>& read_timeout_lis
 	}
 }
 
-void Event::recieveDone(Cycle& cycle, Client& client, std::vector<Client*>& read_timeout_list, std::vector<Client*> cgi_timeout_list){
+void Event::recieveDone(Cycle& cycle, Client& client){
 	client.do_parse(cycle);
 	client.get_response_instance().set_body("");
 	for (unsigned long i = 0; i < read_timeout_list.size(); i++) {
@@ -229,7 +229,7 @@ void Event::disconnectClient(int client_socket) {
 		cur_connection--;
 }
 
-void Event::checkReadTimeout(Event& event, std::vector<Client*>& read_timeout_list) {
+void Event::checkReadTimeout(Event& event) {
 	for (unsigned long i = 0; i < read_timeout_list.size(); i++) {
 		if (read_timeout_list[i]->get_timeout_instance().checkDiffTimeout(READ_TIME_OUT) == true) {
 			read_timeout_list[i]->set_status_code(REQUEST_TIMEOUT);
@@ -241,7 +241,7 @@ void Event::checkReadTimeout(Event& event, std::vector<Client*>& read_timeout_li
 	}
 }
 
-void Event::checkCgiTimeout(std::vector<Client*>& cgi_timeout_list) {
+void Event::checkCgiTimeout() {
 	for (unsigned long i = 0; i < cgi_timeout_list.size(); i++) {
 		if (cgi_timeout_list[i]->get_cgi() == false) {
 			cgi_timeout_list.erase(cgi_timeout_list.begin() + i--);
@@ -257,19 +257,65 @@ void Event::checkCgiTimeout(std::vector<Client*>& cgi_timeout_list) {
 	}
 }
 
+char* getEventType(kevent_t* event) {
+	return static_cast<char*>(event->udata);
+}
+
+void eventReadServer(Event& event, uintptr_t listen_socket) {
+	event.acceptNewClient(listen_socket);
+}
+
+void eventReadClient(Cycle& cycle, Event& event, kevent_t* cur_event) {
+	Client&	client = event.getClient(cur_event->ident);
+
+	if (client.get_request_instance().get_request_msg() == "") {
+		client.get_request_instance().set_cycle(cycle);
+		client.init_client(cur_event->ident);
+		event.getReadTimeoutList().push_back(&client);
+	}
+
+	int	res = event.recieveFromClient(client);
+	if (res == -1)
+		event.recieveFailed(client);
+	else if (res == true)
+		event.recieveDone(cycle, client);
+}
+
+void eventRead(Cycle& cycle, Event& event, kevent_t* cur_event) {
+	char*	event_type = getEventType(cur_event);
+
+	if (std::strcmp(event_type, "listen") == 0)
+		eventReadServer(event, cur_event->ident);
+
+	else if (std::strcmp(event_type, "client") == 0)
+		eventReadClient(cycle, event, cur_event);
+}
+
+void eventWrite(Event& event, kevent_t* cur_event) {
+	Client& client = event.getClient(cur_event->ident);
+	event.sendToClient(client);
+	client.reset_data();
+}
+
+uintptr_t getClientSocket(kevent_t* event) {
+	return  *(static_cast<uintptr_t*>(event->udata));
+}
+
+void eventProc(Event& event, kevent_t* cur_event) {
+	Client& client = event.getClient(getClientSocket(cur_event));
+	event.reclaimProcess(client);
+}
+
 void startConnect(Cycle& cycle) {
     Event					event(cycle.getWorkerConnections() * 2, cycle.getWorkerConnections());
-    std::map<int, Client>	server;
 	uint32_t				new_events;
 	kevent_t*				cur_event;
-	std::vector<Client*>	read_timeout_list;
-	std::vector<Client*>	cgi_timeout_list;
 
-    event.prepConnect(cycle.getServerList());
+    event.prepConnect(cycle.getServerBlocks());
 
 	while (1) {
-		event.checkReadTimeout(event, read_timeout_list);
-		event.checkCgiTimeout(cgi_timeout_list);
+		event.checkReadTimeout(event);
+		event.checkCgiTimeout();
 
 		new_events = event.pollingEvent();
 
@@ -279,35 +325,12 @@ void startConnect(Cycle& cycle) {
 			if (event.checkErrorFlag(*cur_event) == true)
 				continue;
 
-			if (cur_event->filter == EVFILT_READ) {
-				char*		event_type = static_cast<char*>(cur_event->udata);
-				Client&	event_client = server[cur_event->ident];
-
-				if (std::strcmp(event_type, "listen") == 0)
-					event.acceptNewClient(cur_event->ident);
-
-				else if (std::strcmp(event_type, "client") == 0) {
-					if (event_client.get_request_instance().get_request_msg() == "") {
-						event_client.get_request_instance().set_cycle(cycle);
-						event_client.init_client(cur_event->ident);
-						read_timeout_list.push_back(&event_client);
-					}
-
-					int	res = event.recieveFromClient(event_client);
-					if (res == -1)
-						event.recieveFailed(event_client, read_timeout_list);
-					else if (res == true)
-						event.recieveDone(cycle, event_client, read_timeout_list, cgi_timeout_list);
-				}
-			}
-			else if (cur_event->filter == EVFILT_WRITE) {
-				event.sendToClient(server[cur_event->ident]);
-				server[cur_event->ident].reset_data();
-			}
-			else if (cur_event->filter == EVFILT_PROC) {
-				uintptr_t	client_socket = *(static_cast<uintptr_t*>(cur_event->udata));
-				event.reclaimProcess(server[client_socket]);
-			}
+			if (cur_event->filter == EVFILT_READ)
+				eventRead(cycle, event, cur_event);
+			else if (cur_event->filter == EVFILT_WRITE)
+				eventWrite(event, cur_event);
+			else if (cur_event->filter == EVFILT_PROC)
+				eventProc(event, cur_event);
 		}
 	}
 }

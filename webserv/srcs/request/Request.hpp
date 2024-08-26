@@ -30,7 +30,7 @@ private:
 	std::string										path;
 	std::string										file_name;
 	std::string										host_only;
-	size_t										port;
+	size_t											port;
 	std::string										query;
 	std::string										protocol_version;
 	std::string										method;
@@ -49,7 +49,7 @@ private:
 	bool											redirect;
 	bool											autoindex;
 	bool											index;
-	std::list<Server>::iterator						matched_server;
+	ServerBlock*									matched_server;
 	std::list<Location>::iterator					matched_location;
 	void											parse_query_string(std::string &query);
 	void											parse_query_key_and_value(std::string &query_element);

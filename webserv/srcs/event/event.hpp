@@ -26,6 +26,9 @@ class Event {
 		int						getEventQueue(void) const;
 		std::vector<uintptr_t>&	getListenSocketList(void);
 		int						getCurConnection(void) const;
+		Client&					getClient(uintptr_t socket);
+		std::vector<Client*>&	getReadTimeoutList(void);
+		std::vector<Client*>&	getCGITimeoutList(void);
 		kevent_t&				getEventOfList(int idx);
 		char*					getEventTypeListen(void);
 		char*					getEventTypeClient(void);
@@ -37,18 +40,18 @@ class Event {
 		size_t					pollingEvent();
 		bool					checkErrorFlag(kevent_t& kevent);
 
-		void					prepConnect(std::list<Server>& server_list);
+		void					prepConnect(std::vector<ServerBlock>& server_blocks);
 		void					acceptNewClient(int client_socket);
 		void					sendToClient(Client& client);
 		int						recieveFromClient(Client& client);
-		void					recieveFailed(Client& client, std::vector<Client*>& read_timeout_list);
-		void					recieveDone(Cycle& cycle, Client& client, std::vector<Client*>& read_timeout_list, std::vector<Client*> cgi_timeout_list);
+		void					recieveFailed(Client& client);
+		void					recieveDone(Cycle& cycle, Client& client);
 		void					prepSend(Client& client);
 		void					reclaimProcess(Client& client);
 		void					disconnectClient(int client_socket);
 
-		void					checkReadTimeout(Event& event, std::vector<Client*>& read_timeout_list);
-		void					checkCgiTimeout(std::vector<Client*>& cgi_timeout_list);
+		void					checkReadTimeout(Event& event);
+		void					checkCgiTimeout(void);
 
 	private:
 		Event(const Event& src);
@@ -61,6 +64,10 @@ class Event {
 
 	    std::vector<kevent_t>	event_list;
 		struct timespec			kevent_timeout;
+		
+	    std::map<uintptr_t, Client>	clients;
+		std::vector<Client*>	read_timeout_list;
+		std::vector<Client*>	cgi_timeout_list;
 
 		char					event_type_listen[8];
 		char					event_type_client[7];

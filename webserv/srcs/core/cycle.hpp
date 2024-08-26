@@ -1,9 +1,9 @@
 #ifndef CYCLE_HPP
 # define CYCLE_HPP
 
-# include "../block/server.hpp"
+# include "../block/serverBlock.hpp"
 
-# include <list>
+# include <vector>
 # include <iostream>
 
 # define WORKER_PROCESS_MAX 2
@@ -17,19 +17,19 @@ class Cycle {
 
 		Cycle& operator =(const Cycle& src);
 
-		void				setWorkerConnections(u_int32_t n);
-		void				setClientMaxBodySize(size_t n);
-		void				setUriLimitLength(size_t n);
-		void				setMainRoot(std::string _path);
-		void				setDefaultErrorRoot(std::string _path);
+		void						setWorkerConnections(u_int32_t n);
+		void						setClientMaxBodySize(size_t n);
+		void						setUriLimitLength(size_t n);
+		void						setMainRoot(std::string _path);
+		void						setDefaultErrorRoot(std::string _path);
 
-		const char**		getEnvp(void) const;
-		int					getWorkerConnections(void) const;
-		int					getClientMaxBodySize(void) const;
-		int					getUriLimitLength(void) const;
-		const std::string&	getMainRoot(void) const;
-		const std::string&	getDefaultErrorRoot(void) const;
-		std::list<Server>&	getServerList(void);
+		const char**				getEnvp(void) const;
+		int							getWorkerConnections(void) const;
+		int							getClientMaxBodySize(void) const;
+		int							getUriLimitLength(void) const;
+		const std::string&			getMainRoot(void) const;
+		const std::string&			getDefaultErrorRoot(void) const;
+		std::vector<ServerBlock>&	getServerBlocks(void);
 
 	private:
 		Cycle(void);
@@ -42,7 +42,7 @@ class Cycle {
 		std::string			main_root;
 		std::string			default_error_root;
 
-		std::list<Server>	server_list;
+		std::vector<ServerBlock>	server_blocks;
 };
 
 #endif

@@ -76,7 +76,7 @@ void mainDefaultErrorRoot(Cycle& cycle, std::string tokens[]) {
 
 // registered port 범위만 허용
 void serverListen(Cycle& cycle, std::string tokens[]) {
-	Server& server = cycle.getServerList().back();
+	ServerBlock& server = cycle.getServerBlocks().back();
 
 	if (server.getPort() != VALID)
 		throw Exception(CONF_DUP_DIRCTV, tokens[0]);
@@ -89,7 +89,7 @@ void serverListen(Cycle& cycle, std::string tokens[]) {
 }
 
 void serverName(Cycle& cycle, std::string tokens[]) {
-	Server& server = cycle.getServerList().back();
+	ServerBlock& server = cycle.getServerBlocks().back();
 
 	if (server.getDomain().length() != VALID)
 		throw Exception(CONF_DUP_DIRCTV, tokens[0]);
@@ -101,7 +101,7 @@ void serverName(Cycle& cycle, std::string tokens[]) {
 }
 
 void locationRoot(Cycle& cycle, std::string tokens[]) {
-	Location&	location = cycle.getServerList().back().getLocationList().back();
+	Location&	location = cycle.getServerBlocks().back().getLocationList().back();
 
 	if (location.getSubRoot().length() != VALID)
 		throw Exception(CONF_DUP_DIRCTV, tokens[0]);
@@ -113,7 +113,7 @@ void locationRoot(Cycle& cycle, std::string tokens[]) {
 }
 
 void locationAllowedMethod(Cycle& cycle, std::string tokens[]) {
-	Location&	location = cycle.getServerList().back().getLocationList().back();
+	Location&	location = cycle.getServerBlocks().back().getLocationList().back();
 
 	if (location.getAllowedMethod() != VALID)
 		throw Exception(CONF_DUP_DIRCTV, tokens[0]);
@@ -134,7 +134,7 @@ void locationAllowedMethod(Cycle& cycle, std::string tokens[]) {
 }
 
 void locationAutoIndex(Cycle& cycle, std::string tokens[]) {
-	Location&	location = cycle.getServerList().back().getLocationList().back();
+	Location&	location = cycle.getServerBlocks().back().getLocationList().back();
 
 	if (location.getAutoIndex() != -1)
 		throw Exception(CONF_DUP_DIRCTV, tokens[0]);
@@ -148,7 +148,7 @@ void locationAutoIndex(Cycle& cycle, std::string tokens[]) {
 }
 
 void locationIndex(Cycle& cycle, std::string tokens[]) {
-	Location&					location = cycle.getServerList().back().getLocationList().back();
+	Location&					location = cycle.getServerBlocks().back().getLocationList().back();
 	std::vector<std::string>&	index = location.getIndex();
 
 	if (location.getIndex().size() != VALID)

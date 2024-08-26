@@ -855,23 +855,21 @@ std::string Request::check_index(std::list<Location>::iterator it)
 
 void	Request::matching_server()
 {
-	std::list<Server>			&servers = cycle->getServerList();
-	std::list<Server>::iterator it = servers.begin();
-	std::list<Server>::iterator ite = servers.end();
+	std::vector<ServerBlock>	&servers = cycle->getServerBlocks();
 	std::string 				&host = this->host_only;
 
 	if (path != "/")
 		matching_absolute_path();
 
-	matched_server = cycle->getServerList().begin();
+	matched_server = &servers[0];
 
-	for (; it != ite; it++)
+	for (unsigned long i  = 0; i < servers.size(); i++)
 	{
-		if (port != it->getPort())
+		if (port != servers[i].getPort())
 			continue;
-		if (host != it->getDomain())
+		if (host != servers[i].getDomain())
 			continue;
-		matched_server = it;
+		matched_server = &servers[i];
 		break;
 	}
 

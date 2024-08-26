@@ -9,7 +9,7 @@ static void	callCmd(Cycle& cycle, Conf& conf, int location,					\
 static int	tokenizer(char* str, std::string* tokens);
 static int	checkConfLocation(std::string str[]);
 static void	checkGetlineError(std::ifstream& file);
-static void checkServerDuplication(std::list<Server>& server_list);
+static void checkServerDuplication(std::vector<ServerBlock>& server_blocks);
 static void checkLocationDuplication(std::list<Location>& location_list);
 static void checkMaxDomainSize(Cycle& cycle);
 static int	setTakeArgCnt(int cnt);
@@ -118,7 +118,7 @@ void parseConf(Cycle& cycle, Conf& conf) {
 		|| cycle.getClientMaxBodySize() == 0	\
 		|| cycle.getMainRoot() == ""			\
 		|| cycle.getDefaultErrorRoot() == ""	\
-		|| cycle.getServerList().size() == 0)
+		|| cycle.getServerBlocks().size() == 0)
 		throw Exception(CONF_LACK_DIRCTV, "Main block");
 
 	checkMaxDomainSize(cycle);
@@ -146,13 +146,13 @@ static void parseMain(Cycle& cycle, Conf& conf, std::ifstream& file) {
 }
 
 static void parseServer(Cycle& cycle, Conf& conf, std::ifstream& file) {
-	char				buf[BUF_SIZE];
-	std::string			tokens[TOKEN_SIZE];
-	int					token_cnt;
-	std::string			str_buf;
-	std::list<Server>&	server_list = cycle.getServerList();
+	char						buf[BUF_SIZE];
+	std::string					tokens[TOKEN_SIZE];
+	int							token_cnt;
+	std::string					str_buf;
+	std::vector<ServerBlock>&	server_blocks = cycle.getServerBlocks();
 
-	server_list.push_back(Server());
+	server_blocks.push_back(ServerBlock());
 
 	while (file.getline(buf, sizeof(buf))) {
 		str_buf = static_cast<std::string>(buf);
@@ -174,11 +174,11 @@ static void parseServer(Cycle& cycle, Conf& conf, std::ifstream& file) {
 		callCmd(cycle, conf, CONF_SRV, tokens, setTakeArgCnt(token_cnt));
 	}
 	checkGetlineError(file);
-	checkServerDuplication(server_list);
+	checkServerDuplication(server_blocks);
 
-	if (server_list.back().getPort() == 0		\
-		|| server_list.back().getDomain() == ""	\
-		|| server_list.back().getLocationList().size() == 0)
+	if (server_blocks.back().getPort() == 0		\
+		|| server_blocks.back().getDomain() == ""	\
+		|| server_blocks.back().getLocationList().size() == 0)
 		throw Exception(CONF_LACK_DIRCTV, "Server block");
 }
 
@@ -188,7 +188,7 @@ static void parseLocation(Cycle& cycle, Conf& conf, std::ifstream& file,	\
 	std::string				tokens[TOKEN_SIZE];
 	int						token_cnt;
 	std::string				str_buf;
-	std::list<Location>&	location_list = cycle.getServerList().back().getLocationList();
+	std::list<Location>&	location_list = cycle.getServerBlocks().back().getLocationList();
 
 	checkLocationDuplication(location_list);
 	location_list.push_back(Location(location_path));
@@ -272,15 +272,24 @@ static void checkGetlineError(std::ifstream& file) {
 		throw Exception(CONF_FAIL_READ);
 }
 
-static void checkServerDuplication(std::list<Server>& server_list) {
-	std::list<Server>::iterator			it = server_list.begin();
-	std::list<Server>::reverse_iterator	ite = server_list.rbegin();
+static void checkServerDuplication(std::vector<ServerBlock>& server_blocks) {
+	ServerBlock	newBlock = server_blocks.back();
 
-	for (; &(*it) != &(*ite); it++) {
-		if (ite->getPort() == it->getPort() && ite->getDomain() == it->getDomain())
-			throw Exception(CONF_DUP_SRV_BLOCK, it->getDomain() + ":" + to_string(it->getPort()));
+	for (unsigned long i = 0; i < server_blocks.size() - 1; i++) {
+		if (newBlock.getPort() == server_blocks[i].getPort() && newBlock.getDomain() == server_blocks[i].getDomain())
+			throw Exception(CONF_DUP_SRV_BLOCK, newBlock.getDomain() + ":" + to_string(newBlock.getPort()));
 	}
 }
+
+// static void checkServerDuplication(std::list<Server>& server_list) {
+// 	std::list<Server>::iterator			it = server_list.begin();
+// 	std::list<Server>::reverse_iterator	ite = server_list.rbegin();
+
+// 	for (; &(*it) != &(*ite); it++) {
+// 		if (ite->getPort() == it->getPort() && ite->getDomain() == it->getDomain())
+// 			throw Exception(CONF_DUP_SRV_BLOCK, it->getDomain() + ":" + to_string(it->getPort()));
+// 	}
+// }
 
 static void checkLocationDuplication(std::list<Location>& location_list) {
 	std::list<Location>::iterator			it = location_list.begin();
@@ -294,12 +303,10 @@ static void checkLocationDuplication(std::list<Location>& location_list) {
 
 static void checkMaxDomainSize(Cycle& cycle) {
 	size_t						tmp, max_len = 0;
-	std::list<Server>&			server_list = cycle.getServerList();
-	std::list<Server>::iterator	it = server_list.begin();
-	std::list<Server>::iterator	ite = server_list.end();
+	std::vector<ServerBlock>&	server_blocks = cycle.getServerBlocks();
 
-	for (; it != ite; it++) {
-		tmp = it->getDomain().length();
+	for (unsigned long i = 0; i < server_blocks.size(); i++) {
+		tmp = server_blocks[i].getDomain().length();
 		max_len = tmp > max_len ? tmp : max_len;
 	}
 	cycle.setUriLimitLength(max_len + 50);
