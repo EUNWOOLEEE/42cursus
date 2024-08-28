@@ -17,7 +17,6 @@ void	Client::reset_data()
 void	Client::init_client(uintptr_t client_soket)
 {
 	set_client_soket(client_soket);
-	get_timeout_instance().setSavedTime();
 }
 
 void	Client::do_parse(Cycle &cycle)
@@ -143,7 +142,6 @@ Phase		Client::get_current_phase() {return this->phase;}
 Request& 	Client::get_request_instance () {return this->request;}
 Response&	Client::get_response_instance () {return this->response;}
 Cgi&		Client::get_cgi_instance() {return this->cgi;}
-Timeout&	Client::get_timeout_instance() {return this->timeout;}
 int			Client::get_status_code() {return get_request_instance().get_status_code();}
 bool		Client::get_cgi() {return this->get_request_instance().get_cgi();}
 bool		Client::get_cgi_fork_status () {return get_cgi_instance().get_cgi_fork_status();}

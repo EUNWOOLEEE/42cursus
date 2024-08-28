@@ -13,7 +13,6 @@
 #include "../method/Delete.hpp"
 #include "../utils/Utils.hpp"
 #include "../cgi/Cgi.hpp"
-# include "../server/timeout.hpp"
 
 enum Phase {
 	PARSING,
@@ -28,7 +27,6 @@ class Client {
 		Request		request;
 		Response	response;
 		Cgi			cgi;
-		Timeout		timeout;
 		uintptr_t	client_soket;
 		bool		read_fail;
 	public:
@@ -47,7 +45,6 @@ class Client {
 		Request		&get_request_instance ();
 		Response	&get_response_instance ();
 		Cgi			&get_cgi_instance();
-		Timeout		&get_timeout_instance();
 		Phase		get_current_phase();
 		int			get_status_code();
 		bool		get_cgi();
