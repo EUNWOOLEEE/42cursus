@@ -1,6 +1,8 @@
 #include "../core/core.hpp"
 
-Event::Event(int event_list_size) {
+Event::Event(int event_list_size) : event_type_listen("listen"),				\
+									event_type_client("client"),				\
+									event_type_cgi("cgi") {
 	event_queue = kqueue();
 	if (event_queue == -1)
 		throw Exception(EVENT_FAIL_CREATE_KQ);
@@ -15,6 +17,9 @@ Event::~Event(void) {
 
 int			Event::getEventQueue(void) const { return event_queue; }
 kevent_t&	Event::getEventOfList(int idx) { return event_list[idx]; }
+char*		Event::getEventTypeListen(void) { return event_type_listen; }
+char*		Event::getEventTypeClient(void) { return event_type_client; }
+char*		Event::getEventTypeCgi(void) { return event_type_cgi; }
 char*		Event::getEventType(kevent_t* event) const { return static_cast<char*>(event->udata); }
 uintptr_t	Event::getClientSocket(kevent_t* event) const { return  *(static_cast<uintptr_t*>(event->udata)); }
 
@@ -26,7 +31,7 @@ void Event::addEvent(uintptr_t ident, int16_t filter, uint16_t flags,	\
 	kevent(event_queue, &temp, 1, NULL, 0, NULL);
 }
 
-size_t Event::pollingEvent() {
+size_t Event::pollingEvent(void) {
 	int	new_events = kevent(event_queue, NULL, 0, &event_list[0], event_list.size(), &kevent_timeout);
 
 	if (new_events == -1)
@@ -61,7 +66,7 @@ void Event::eventReadClient(Cycle& cycle, Server& server, kevent_t* cur_event) {
 	else if (res == true)
 		server.recieveDone(cycle, client);
 	else if (res == false)
-		addEvent(cur_event->ident, EVFILT_TIMER, EV_ADD | EV_ONESHOT, NOTE_SECONDS, READ_TIME_OUT, server.getEventTypeClient());
+		addEvent(cur_event->ident, EVFILT_TIMER, EV_ADD | EV_ONESHOT, NOTE_SECONDS, READ_TIME_OUT, getEventTypeClient());
 }
 
 void Event::eventWrite(Server& server, kevent_t* cur_event) {
@@ -73,7 +78,7 @@ void Event::eventWrite(Server& server, kevent_t* cur_event) {
 void Event::eventProc(Server& server, kevent_t* cur_event) {
 	Client& client = server.getClient(getClientSocket(cur_event));
 	server.reclaimProcess(client);
-	addEvent(client.get_cgi_instance().get_pid(), EVFILT_TIMER, EV_DELETE, 0, 0, server.getEventTypeCgi());
+	addEvent(client.get_cgi_instance().get_pid(), EVFILT_TIMER, EV_DELETE, 0, 0, getEventTypeCgi());
 }
 
 void Event::eventTimer(Server& server, kevent_t* cur_event) {

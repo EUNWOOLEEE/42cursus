@@ -19,6 +19,9 @@ class Event {
 
 		int						getEventQueue(void) const;
 		kevent_t&				getEventOfList(int idx);
+		char*					getEventTypeListen(void);
+		char*					getEventTypeClient(void);
+		char*					getEventTypeCgi(void);
 		char*					getEventType(kevent_t* event) const;
 		uintptr_t				getClientSocket(kevent_t* event) const;
 
@@ -43,6 +46,10 @@ class Event {
 	    std::vector<kevent_t>	event_list;
 
 		struct timespec			kevent_timeout;
+
+		char					event_type_listen[8];
+		char					event_type_client[7];
+		char					event_type_cgi[4];
 };
 
 

@@ -2,10 +2,7 @@
 
 Server::Server(Event& _event, size_t _worker_connections) : event(_event),				\
 															worker_connections(_worker_connections),	\
-															cur_connection(0),							\
-															event_type_listen("listen"),				\
-															event_type_client("client"),				\
-															event_type_cgi("cgi") {
+															cur_connection(0) {
 }
 
 Server::~Server(void) {
@@ -16,38 +13,20 @@ Server::~Server(void) {
 std::vector<uintptr_t>&	Server::getListenSocketList(void) { return listen_socket_list; }
 int						Server::getCurConnection(void) const { return cur_connection; }
 Client&					Server::getClient(uintptr_t socket) { return clients[socket]; }
-char*					Server::getEventTypeListen(void) { return event_type_listen; }
-char*					Server::getEventTypeClient(void) { return event_type_client; }
-char*					Server::getEventTypeCgi(void) { return event_type_cgi; }
 
 void Server::prepConnect(std::vector<ServerBlock>& server_blocks) {
     sockaddr_in	server_addr;
     int			listen_socket;
 
 	for (unsigned long i = 0; i < server_blocks.size(); i++) {
-		for (unsigned long j = 0; j < i; j++)
-            if (server_blocks[j].getPort() == server_blocks[i].getPort())
-                continue;
+		if (checkOverlapedPort(server_blocks, server_blocks[i].getPort(), i) == true)
+			continue;
 
-        listen_socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-        if (listen_socket == -1)
-            throw Exception(EVENT_FAIL_CREATE_SOCKET);
-        listen_socket_list.push_back(listen_socket);
-
-        std::memset(&server_addr, 0, sizeof(server_addr));
-        server_addr.sin_family = AF_INET;
-        server_addr.sin_port = htons(server_blocks[i].getPort());
-        server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
-
+		listen_socket = getNewListenSocket(listen_socket_list);
+		initServerAddr(server_addr, server_blocks[i].getPort());
 		// setReuseAddress(listen_socket);
-
-        if (bind(listen_socket, reinterpret_cast<sockaddr*>(&server_addr), sizeof(sockaddr_in)) == -1)
-            throw Exception(EVENT_FAIL_BIND);
-        if (listen(listen_socket, LISTEN_QUEUE_SIZE) == -1)
-            throw Exception(EVENT_FAIL_LISTEN);
-        if (fcntl(listen_socket, F_SETFL, O_NONBLOCK) == -1)
-            throw Exception(EVENT_FAIL_FCNTL);
-        event.addEvent(listen_socket, EVFILT_READ, EV_ADD, 0, 0, &event_type_listen);
+		setNewListenSocket(server_addr, listen_socket);
+        event.addEvent(listen_socket, EVFILT_READ, EV_ADD, 0, 0, event.getEventTypeListen());
     }
 }
 
@@ -55,28 +34,21 @@ void Server::acceptNewClient(int listen_socket) {
 	size_t	client_socket;
 
 	if (cur_connection < worker_connections) {
-		if ((client_socket = accept(listen_socket, NULL, NULL)) == -1) {
-			eventException(EVENT_FAIL_ACCEPT, 0);
+		if ((client_socket = getNewClientSocket(listen_socket)) == -1 ||
+			setNewClientSocket(client_socket) == false)
 			return ;
-		}
 
-		if (fcntl(client_socket, F_SETFL, O_NONBLOCK) == -1) {
-			close(client_socket);
-			eventException(EVENT_FAIL_FCNTL, 0);
-			return ;
-		}
-		event.addEvent(client_socket, EVFILT_READ, EV_ADD, 0, 0, &event_type_client);
+		event.addEvent(client_socket, EVFILT_READ, EV_ADD, 0, 0, event.getEventTypeClient());
 		cur_connection++;
 	}
-	else {
+	else
 		eventException(EVENT_CONNECT_FULL, 0);
-	}
 }
 
 void Server::prepSend(Client& client) {
 	client.assemble_response();
 	client.get_request_instance().get_request_msg() = "";
-	event.addEvent(client.get_client_soket(), EVFILT_WRITE, EV_ADD | EV_ONESHOT, 0, 0, event_type_client);
+	event.addEvent(client.get_client_soket(), EVFILT_WRITE, EV_ADD | EV_ONESHOT, 0, 0, event.getEventTypeClient());
 }
 
 void Server::sendToClient(Client& client) {
@@ -130,7 +102,7 @@ int Server::recieveFromClient(Client& client) {
 }
 
 void Server::recieveFailed(Client& client) {
-	event.addEvent(client.get_client_soket(), EVFILT_TIMER, EV_DELETE, 0, 0, getEventTypeClient());
+	event.addEvent(client.get_client_soket(), EVFILT_TIMER, EV_DELETE, 0, 0, event.getEventTypeClient());
 	prepDisconnect(client);
 }
 
@@ -138,7 +110,7 @@ void Server::recieveDone(Cycle& cycle, Client& client){
 	client.do_parse(cycle);
 	client.get_response_instance().set_body("");
 
-	event.addEvent(client.get_client_soket(), EVFILT_TIMER, EV_DELETE, 0, 0, getEventTypeClient());
+	event.addEvent(client.get_client_soket(), EVFILT_TIMER, EV_DELETE, 0, 0, event.getEventTypeClient());
 
 	if (client.get_status_code() < MOVED_PERMANENTLY && client.get_expect() == false) {
 		try {
@@ -149,7 +121,7 @@ void Server::recieveDone(Cycle& cycle, Client& client){
 													client.get_cgi_instance());
 				if (cgi_pid != -1) {
 					event.addEvent(cgi_pid, EVFILT_PROC, EV_ADD | EV_ONESHOT, NOTE_EXIT, 0, client.get_client_soket_ptr());
-					event.addEvent(client.get_client_soket(), EVFILT_TIMER, EV_ADD | EV_ONESHOT, NOTE_SECONDS, CGI_TIME_OUT, getEventTypeCgi());
+					event.addEvent(client.get_client_soket(), EVFILT_TIMER, EV_ADD | EV_ONESHOT, NOTE_SECONDS, CGI_TIME_OUT, event.getEventTypeCgi());
 					client.set_cgi_fork_status (true);
 				}
 				return ;
@@ -166,14 +138,14 @@ void Server::reclaimProcess(Client& client) {
 	client.parse_cgi_response(client.get_cgi_instance());
 	client.assemble_response();
 	client.get_request_instance().get_request_msg() = "";
-	event.addEvent(client.get_client_soket(), EVFILT_WRITE, EV_ADD | EV_ONESHOT, 0, 0, &event_type_client);
+	event.addEvent(client.get_client_soket(), EVFILT_WRITE, EV_ADD | EV_ONESHOT, 0, 0, event.getEventTypeClient());
 }
 
 void Server::prepDisconnect(Client& client) {
 	client.set_status_code(REQUEST_TIMEOUT);
 	client.set_read_fail(true);
 	client.assemble_response();
-	event.addEvent(client.get_client_soket(), EVFILT_WRITE, EV_ADD | EV_ONESHOT, 0, 0, getEventTypeClient());
+	event.addEvent(client.get_client_soket(), EVFILT_WRITE, EV_ADD | EV_ONESHOT, 0, 0, event.getEventTypeClient());
 }
 
 void Server::disconnectClient(int client_socket) {
@@ -216,7 +188,60 @@ void startConnect(Cycle& cycle) {
 	}
 }
 
+bool checkOverlapedPort(std::vector<ServerBlock>& server_blocks, size_t port, int range) {
+	for (int i = 0; i < range; i++)
+		if (server_blocks[i].getPort() == port)
+			return true;
+	return false;
+}
+
+int getNewListenSocket(std::vector<uintptr_t>& listen_socket_list) {
+    int	listen_socket;
+
+	listen_socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+	if (listen_socket == -1)
+		throw Exception(EVENT_FAIL_CREATE_SOCKET);
+	listen_socket_list.push_back(listen_socket);
+	
+	return listen_socket;
+}
+
+void initServerAddr(sockaddr_in& server_addr, size_t port) {
+	std::memset(&server_addr, 0, sizeof(server_addr));
+	server_addr.sin_family = AF_INET;
+	server_addr.sin_port = htons(port);
+	server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
+}
+
 void setReuseAddress(int listen_socket) {
 	int	optval = 1;
 	setsockopt(listen_socket, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval));
+}
+
+void setNewListenSocket(sockaddr_in& server_addr, int listen_socket) {
+	if (bind(listen_socket, reinterpret_cast<sockaddr*>(&server_addr), sizeof(sockaddr_in)) == -1)
+		throw Exception(EVENT_FAIL_BIND);
+	if (listen(listen_socket, LISTEN_QUEUE_SIZE) == -1)
+		throw Exception(EVENT_FAIL_LISTEN);
+	if (fcntl(listen_socket, F_SETFL, O_NONBLOCK) == -1)
+		throw Exception(EVENT_FAIL_FCNTL);
+}
+
+int getNewClientSocket(int listen_socket) {
+	size_t	client_socket;
+
+	if ((client_socket = accept(listen_socket, NULL, NULL)) == -1) {
+		eventException(EVENT_FAIL_ACCEPT, 0);
+		return -1;
+	}
+	return client_socket;
+}
+
+bool setNewClientSocket(size_t client_socket) {
+	if (fcntl(client_socket, F_SETFL, O_NONBLOCK) == -1) {
+		close(client_socket);
+		eventException(EVENT_FAIL_FCNTL, 0);
+		return false;
+	}
+	return true;
 }

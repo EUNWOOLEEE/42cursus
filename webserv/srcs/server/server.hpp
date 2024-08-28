@@ -25,9 +25,6 @@ class Server {
 		std::vector<uintptr_t>&	getListenSocketList(void);
 		int						getCurConnection(void) const;
 		Client&					getClient(uintptr_t socket);
-		char*					getEventTypeListen(void);
-		char*					getEventTypeClient(void);
-		char*					getEventTypeCgi(void);
 
 		void					prepConnect(std::vector<ServerBlock>& server_blocks);
 		void					acceptNewClient(int client_socket);
@@ -52,13 +49,15 @@ class Server {
 		size_t						cur_connection;
 		
 	    std::map<uintptr_t, Client>	clients;
-
-		char						event_type_listen[8];
-		char						event_type_client[7];
-		char						event_type_cgi[4];
 };
 
 void	startConnect(Cycle& cycle);
+bool	checkOverlapedPort(std::vector<ServerBlock>& server_blocks, size_t port, int range);
+int		getNewListenSocket(std::vector<uintptr_t>& listen_socket_list);
+void	initServerAddr(sockaddr_in& server_addr, size_t port);
 void	setReuseAddress(int listen_socket);
+void	setNewListenSocket(sockaddr_in& server_addr, int listen_socket);
+int		getNewClientSocket(int listen_socket);
+bool	setNewClientSocket(size_t client_socket);
 
 #endif
