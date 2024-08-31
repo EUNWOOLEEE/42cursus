@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 15:25:45 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/04 20:59:44 by eunwolee         ###   ########.fr       */
+/*   Updated: 2024/08/31 14:47:36 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ static void	cover(t_game *game)
 	i = 0;
 	while (i < 3)
 	{
-		draw_img(game, game->map_img[0], 0, i * 32);
+		draw_img(game, game->map_img[0], 0, i * SPRITE_SIZE);
 		draw_img(game, game->map_img[1],
-			0 + game->dis.tree_row, i * 32 + game->dis.tree_col);
+			0 + game->dis.tree_row, i * SPRITE_SIZE + game->dis.tree_col);
 		i++;
 	}
 }

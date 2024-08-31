@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 14:23:20 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/04 20:53:37 by eunwolee         ###   ########.fr       */
+/*   Updated: 2024/08/31 14:46:06 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,15 @@
 # include "../Libft/includes/libft.h"
 # include <fcntl.h>
 # include <time.h>
+
+# define SPRITE_SIZE 32
+# define SLEEP_USEC 80000
+# define MOVE_UP 0
+# define MOVE_LEFT 1
+# define MOVE_DOWN 2
+# define MOVE_RIGHT 3
+# define DIR_LEFT 0
+# define DIR_RIGHT 1
 
 typedef struct s_map
 {

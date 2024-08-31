@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 16:04:16 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/04 21:02:18 by eunwolee         ###   ########.fr       */
+/*   Updated: 2024/08/31 14:49:26 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ int	move_ready(t_game *game, int keycode)
 
 	coor.row = game->next.row;
 	coor.col = game->next.col;
-	if (keycode == 0)
+	if (keycode == MOVE_UP)
 		coor.row--;
-	else if (keycode == 1)
+	else if (keycode == MOVE_LEFT)
 		coor.col--;
-	else if (keycode == 2)
+	else if (keycode == MOVE_DOWN)
 		coor.row++;
-	else if (keycode == 3)
+	else if (keycode == MOVE_RIGHT)
 		coor.col++;
 	if (!check_next_pos(game, coor.row, coor.col))
 		move(game, keycode);
@@ -41,26 +41,26 @@ int	move_ready(t_game *game, int keycode)
 
 static int	move(t_game *game, int direction)
 {
-	int		cnt;
-	int		move;
+	int		cur_frame;
+	int		max_frame;
 	double	row;
 	double	col;
 	int		(*func)(t_game *, int, double *, double *);
 
-	cnt = 0;
-	move = 8;
+	cur_frame = 0;
+	max_frame = 8;
 	if ((game->flag.fruit || game->flag.goal)
-		&& (direction == 1 || direction == 3))
-		move = 11;
-	row = game->cur.row * 32;
-	col = game->cur.col * 32;
+		&& (direction == MOVE_LEFT || direction == MOVE_RIGHT))
+		max_frame = 11;
+	row = game->cur.row * SPRITE_SIZE;
+	col = game->cur.col * SPRITE_SIZE;
 	func = get_func(game, direction);
 	game->flag.fruit = 0;
-	while (cnt < move)
+	while (cur_frame < max_frame)
 	{
-		func(game, cnt, &row, &col);
+		func(game, cur_frame, &row, &col);
 		mlx_sync(2, game->win);
-		cnt++;
+		cur_frame++;
 	}
 	game->move_cnt++;
 	print_move(game);
@@ -70,17 +70,17 @@ static int	move(t_game *game, int direction)
 static int	(*get_func(t_game *game, int direction))
 				(t_game *game, int jump, double *row, double *col)
 {
-	if (direction == 0)
+	if (direction == MOVE_UP)
 		return (walk_up);
-	else if ((game->flag.fruit || game->flag.goal) && direction == 1)
+	else if ((game->flag.fruit || game->flag.goal) && direction == MOVE_LEFT)
 		return (jump_left);
-	else if (!game->flag.fruit && direction == 1)
+	else if (!game->flag.fruit && direction == MOVE_LEFT)
 		return (walk_left);
-	else if (direction == 2)
+	else if (direction == MOVE_DOWN)
 		return (walk_down);
-	else if ((game->flag.fruit || game->flag.goal) && direction == 3)
+	else if ((game->flag.fruit || game->flag.goal) && direction == MOVE_RIGHT)
 		return (jump_right);
-	else if (!game->flag.fruit && direction == 3)
+	else if (!game->flag.fruit && direction == MOVE_RIGHT)
 		return (walk_right);
 	return (0);
 }

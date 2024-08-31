@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 12:35:02 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/04 19:55:55 by eunwolee         ###   ########.fr       */
+/*   Updated: 2024/08/31 14:42:37 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,18 @@ int	red_cross_press(t_game *game)
 static int	is_move_code(t_game *game, int keycode)
 {
 	if ((keycode == 13 || keycode == 126))
-		return (0);
+		return (MOVE_UP);
 	else if (keycode == 0 || keycode == 123)
 	{
-		game->cur_dir = 0;
-		return (1);
+		game->cur_dir = DIR_LEFT;
+		return (MOVE_LEFT);
 	}
 	else if (keycode == 1 || keycode == 125)
-		return (2);
+		return (MOVE_DOWN);
 	else if (keycode == 2 || keycode == 124)
 	{
-		game->cur_dir = 1;
-		return (3);
+		game->cur_dir = DIR_RIGHT;
+		return (MOVE_RIGHT);
 	}
 	return (-1);
 }

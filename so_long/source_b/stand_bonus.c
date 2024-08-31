@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 16:20:20 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/04 18:37:31 by eunwolee         ###   ########.fr       */
+/*   Updated: 2024/08/31 14:47:28 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,16 @@ static void	set_flag(t_game *game)
 
 static void	draw_motion(t_game *game)
 {
-	draw_img(game, game->map_img[0], game->cur.row * 32, game->cur.col * 32);
+	draw_img(game, game->map_img[0], game->cur.row * SPRITE_SIZE, game->cur.col * SPRITE_SIZE);
 	if (game->flag.rest)
 		draw_img(game, game->rest[game->cur_dir][game->frame / 8],
-			game->cur.row * 32, game->cur.col * 32);
+			game->cur.row * SPRITE_SIZE, game->cur.col * SPRITE_SIZE);
 	else if (game->flag.stand)
 		draw_img(game, game->stand[game->cur_dir][game->frame / 8],
-			game->cur.row * 32, game->cur.col * 32);
+			game->cur.row * SPRITE_SIZE, game->cur.col * SPRITE_SIZE);
 	else if (game->flag.sleep)
 		draw_img(game, game->sleep[game->cur_dir][game->frame / 8],
-			game->cur.row * 32, game->cur.col * 32);
+			game->cur.row * SPRITE_SIZE, game->cur.col * SPRITE_SIZE);
 }
 
 static int	check_reset_point(t_game *game)

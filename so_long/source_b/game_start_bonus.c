@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 21:22:14 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/04 18:37:00 by eunwolee         ###   ########.fr       */
+/*   Updated: 2024/08/31 14:46:44 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	create_mlx(int fd)
 	if (!game->mlx)
 		error_exit(0);
 	game->win = mlx_new_window
-		(game->mlx, game->map.width * 32, game->map.height * 32, "so_long");
+		(game->mlx, game->map.width * SPRITE_SIZE, game->map.height * SPRITE_SIZE, "so_long");
 	if (!game->win)
 		error_exit(0);
 	init_img(game);
@@ -61,7 +61,7 @@ static void	set_value(t_game *game)
 	game->next.row = game->cur.row;
 	game->next.col = game->cur.col;
 	if (game->map.start[1] < game->map.width / 2)
-		game->cur_dir = 1;
+		game->cur_dir = DIR_RIGHT;
 	else
-		game->cur_dir = 0;
+		game->cur_dir = DIR_LEFT;
 }

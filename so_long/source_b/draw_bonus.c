@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 12:30:56 by eunwolee          #+#    #+#             */
-/*   Updated: 2023/04/04 18:45:35 by eunwolee         ###   ########.fr       */
+/*   Updated: 2024/08/31 14:46:35 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ static int	get_element(t_game *game, char c, t_coor coor, int fruit_num)
 	double	row;
 	double	col;
 
-	row = coor.row * 32;
-	col = coor.col * 32;
+	row = coor.row * SPRITE_SIZE;
+	col = coor.col * SPRITE_SIZE;
 	draw_img(game, game->map_img[0], row, col);
 	set_position(game, c, &row, &col);
 	if (c == '1')
