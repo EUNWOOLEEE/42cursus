@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 16:04:16 by eunwolee          #+#    #+#             */
-/*   Updated: 2024/08/31 14:49:26 by eunwolee         ###   ########.fr       */
+/*   Updated: 2024/08/31 14:59:15 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	move(t_game *game, int direction)
 	row = game->cur.row * SPRITE_SIZE;
 	col = game->cur.col * SPRITE_SIZE;
 	func = get_func(game, direction);
-	game->flag.fruit = 0;
+	game->flag.fruit = FALSE;
 	while (cur_frame < max_frame)
 	{
 		func(game, cur_frame, &row, &col);
@@ -103,7 +103,7 @@ static int	check_next_pos(t_game *game, int row, int col)
 	if (game->map.map[row][col] == 'C')
 	{
 		game->map.map[row][col] = '0';
-		game->flag.fruit = 1;
+		game->flag.fruit = TRUE;
 		game->map.col_num--;
 	}
 	game->next.row = row;

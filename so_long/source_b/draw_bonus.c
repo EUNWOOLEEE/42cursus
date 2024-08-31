@@ -6,7 +6,7 @@
 /*   By: eunwolee <eunwolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 12:30:56 by eunwolee          #+#    #+#             */
-/*   Updated: 2024/08/31 14:46:35 by eunwolee         ###   ########.fr       */
+/*   Updated: 2024/08/31 14:58:43 by eunwolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,13 @@ static int	get_element(t_game *game, char c, t_coor coor, int fruit_num)
 
 static void	set_distance(t_game *game)
 {
-	game->dis.tree_row = 32 * 0.065;
-	game->dis.tree_col = 32 * 0.06;
-	game->dis.fruit_row = 32 * 0.25;
-	game->dis.fruit_col = 32 * 0.22;
-	game->dis.hole_row = 32 * 0.33;
-	game->dis.hole_col = 32 * 0.05;
-	game->dis.exit = 32 * 0.17;
+	game->dis.tree_row = SPRITE_SIZE * 0.065;
+	game->dis.tree_col = SPRITE_SIZE * 0.06;
+	game->dis.fruit_row = SPRITE_SIZE * 0.25;
+	game->dis.fruit_col = SPRITE_SIZE * 0.22;
+	game->dis.hole_row = SPRITE_SIZE * 0.33;
+	game->dis.hole_col = SPRITE_SIZE * 0.05;
+	game->dis.exit = SPRITE_SIZE * 0.17;
 }
 
 static void	set_position(t_game *game, char c, double *row, double *col)
