@@ -1,0 +1,17 @@
+.tournament-a {
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.tournament-a:hover {
+	color: black;
+}
+
+.ai-btn {
+	top: 65%;
+}
+
+.ai-btn:hover {
+	color: black;
+}
