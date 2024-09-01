@@ -24,3 +24,4 @@
 |[webserv](https://github.com/EUNWOOLEEE/42cursus/tree/main/webserv)|5|https://github.com/JeisaNewbie/Webserv
 |[CPP 05 - 09](https://github.com/EUNWOOLEEE/42cursus/tree/main/CPP)|5
 |[Inception](https://github.com/EUNWOOLEEE/42cursus/tree/main/Inception)|5
+|[ft_transcendence](https://github.com/EUNWOOLEEE/42cursus/tree/main/ft_transcendence)|6
