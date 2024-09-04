@@ -1,5 +1,5 @@
 # 42cursus
-- Cadet at 42seoul 🇰🇷
+- Member of 42seoul 🇰🇷
 - Started at Nov 7, 2022
 
 [![eunwolee's 42 stats](https://badge.mediaplus.ma/darkblue/eunwolee?1337Badge=off&UM6P=off)](https://github.com/oakoudad/badge42)
