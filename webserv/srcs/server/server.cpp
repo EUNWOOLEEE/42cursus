@@ -24,7 +24,7 @@ void Server::prepConnect(std::vector<ServerBlock>& server_blocks) {
 
 		listen_socket = getNewListenSocket(listen_socket_list);
 		initServerAddr(server_addr, server_blocks[i].getPort());
-		// setReuseAddress(listen_socket);
+		setReuseAddress(listen_socket);
 		setNewListenSocket(server_addr, listen_socket);
         event.addEvent(listen_socket, EVFILT_READ, EV_ADD, 0, 0, event.getEventTypeListen());
     }
@@ -33,15 +33,25 @@ void Server::prepConnect(std::vector<ServerBlock>& server_blocks) {
 void Server::acceptNewClient(int listen_socket) {
 	size_t	client_socket;
 
-	if (cur_connection < worker_connections) {
-		if ((client_socket = getNewClientSocket(listen_socket)) == -1 ||
-			setNewClientSocket(client_socket) == false)
-			return ;
+	while (cur_connection < worker_connections) {
+		// if ((client_socket = getNewClientSocket(listen_socket)) == -1 ||
+		// 	setNewClientSocket(client_socket) == false)
+		// 	return ;
+
+		if ((client_socket = accept(listen_socket, NULL, NULL)) == -1) {
+			if (errno == EAGAIN || errno == EWOULDBLOCK)
+                break;
+            eventException(EVENT_FAIL_ACCEPT, 0);
+            break;
+		}
+
+		if (setNewClientSocket(client_socket) == false)
+			continue;
 
 		event.addEvent(client_socket, EVFILT_READ, EV_ADD, 0, 0, event.getEventTypeClient());
 		cur_connection++;
 	}
-	else
+	if (cur_connection >= worker_connections)
 		eventException(EVENT_CONNECT_FULL, 0);
 }
 
@@ -55,7 +65,7 @@ void Server::sendToClient(Client& client) {
 	std::string response_msg = client.get_response_instance().get_response_message();
 	int client_socket = client.get_client_soket();
 
-	if (send(client_socket, response_msg.c_str(), response_msg.length() + 1, 0) == -1) {
+	if (send(client_socket, response_msg.c_str(), response_msg.length(), 0) == -1) {
 		disconnectClient(client_socket);
 		eventException(EVENT_FAIL_SEND, client_socket);
 	}
@@ -227,15 +237,15 @@ void setNewListenSocket(sockaddr_in& server_addr, int listen_socket) {
 		throw Exception(EVENT_FAIL_FCNTL);
 }
 
-int getNewClientSocket(int listen_socket) {
-	size_t	client_socket;
+// int getNewClientSocket(int listen_socket) {
+// 	size_t	client_socket;
 
-	if ((client_socket = accept(listen_socket, NULL, NULL)) == -1) {
-		eventException(EVENT_FAIL_ACCEPT, 0);
-		return -1;
-	}
-	return client_socket;
-}
+// 	if ((client_socket = accept(listen_socket, NULL, NULL)) == -1) {
+// 		eventException(EVENT_FAIL_ACCEPT, 0);
+// 		return -1;
+// 	}
+// 	return client_socket;
+// }
 
 bool setNewClientSocket(size_t client_socket) {
 	if (fcntl(client_socket, F_SETFL, O_NONBLOCK) == -1) {
