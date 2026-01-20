@@ -101,4 +101,6 @@ void Event::eventTimerCgi(Server& server, kevent_t* cur_event) {
 
 	addEvent(client.get_cgi_instance().get_pid(), EVFILT_PROC, EV_DELETE, 0, 0, client.get_client_soket_ptr());
 	kill(client.get_cgi_instance().get_pid(), SIGTERM);
+	client.set_status_code(GATEWAY_TIMEOUT);
+	server.prepSend(client);
 }
