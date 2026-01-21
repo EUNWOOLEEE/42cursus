@@ -29,6 +29,8 @@ class Client {
 		Cgi			cgi;
 		uintptr_t	client_soket;
 		bool		read_fail;
+		std::string	out_buf;
+		size_t		out_off;
 	public:
 		Phase phase;
 		Client();
@@ -55,12 +57,14 @@ class Client {
 		void		set_read_fail(bool flag);
 		uintptr_t	get_client_soket();
 		uintptr_t*	get_client_soket_ptr();
+		size_t		get_out_off();
 		void		set_phase (Phase state);
 		void		set_status_code(int status_code);
 		void		set_cgi (bool flag);
 		void		set_client_soket(uintptr_t client_soket);
 		void		set_cgi_fork_status (bool status);
 		void		set_port(size_t port);
+		void		set_out_off(size_t out_off);
 
 		size_t		body_length;
 };

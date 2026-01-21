@@ -57,6 +57,7 @@ void Server::acceptNewClient(int listen_socket) {
 
 void Server::prepSend(Client& client) {
 	client.assemble_response();
+	client.set_out_off(0);
 	client.get_request_instance().get_request_msg() = "";
 	event.addEvent(client.get_client_soket(), EVFILT_WRITE, EV_ADD | EV_ONESHOT, 0, 0, event.getEventTypeClient());
 }
@@ -64,14 +65,49 @@ void Server::prepSend(Client& client) {
 void Server::sendToClient(Client& client) {
 	std::string response_msg = client.get_response_instance().get_response_message();
 	int client_socket = client.get_client_soket();
+	size_t off = client.get_out_off();
 
-	if (send(client_socket, response_msg.c_str(), response_msg.length(), 0) == -1) {
-		disconnectClient(client_socket);
-		eventException(EVENT_FAIL_SEND, client_socket);
+	if (off >= response_msg.size()) {
+		// 다 보낸 상태
+		if (response_msg.find("Connection: close") != std::string::npos)
+			disconnectClient(client_socket);
+		else
+			event.addEvent(client_socket, EVFILT_READ, EV_ADD, 0, 0, event.getEventTypeClient());
+		return;
 	}
 
-	if (response_msg.find("Connection: close") != std::string::npos)
-		disconnectClient(client_socket);
+	ssize_t n = send(client_socket, response_msg.c_str() + off, response_msg.length() - off, 0);
+	if (n > 0) {
+		off += static_cast<size_t>(n);
+		if (off < response_msg.size()) {
+			// 아직 남은 상태
+			event.addEvent(client_socket, EVFILT_WRITE, EV_ADD | EV_ONESHOT, 0, 0, event.getEventTypeClient());
+			return;
+		}
+
+		// 전송 완료
+		if (response_msg.find("Connection: close") != std::string::npos)
+			disconnectClient(client_socket);
+		else
+			event.addEvent(client_socket, EVFILT_READ, EV_ADD, 0, 0, event.getEventTypeClient());
+		return;
+	}
+
+	// 다음번에 전송
+	if (errno == EAGAIN || errno == EWOULDBLOCK) {
+		event.addEvent(client_socket, EVFILT_WRITE, EV_ADD | EV_ONESHOT, 0, 0, event.getEventTypeClient());
+		return;
+	}
+
+	// 에러
+	disconnectClient(client_socket);
+	eventException(EVENT_FAIL_SEND, client_socket);
+
+	// if (send(client_socket, response_msg.c_str(), response_msg.length(), 0) == -1) {
+	// 	disconnectClient(client_socket);
+	// 	eventException(EVENT_FAIL_SEND, client_socket);
+	// }
+
 }
 
 int Server::recieveFromClient(Client& client) {
